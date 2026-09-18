@@ -1,0 +1,98 @@
+CallMineAI | AI Voice Calling SaaS With Lead Qualification and Sales Automation
+Version 1.0.1
+
+================================================================================
+ITEM LICENSE
+================================================================================
+
+This item is distributed exclusively through Envato Market (CodeCanyon) and is
+covered by the Envato Market Licenses. Your purchase grants you one of the
+following, according to the license you bought:
+
+  Regular License
+    Use the item in a single end product that end users are NOT charged for.
+    The end product may be used by you or one client. You may not use the item
+    in an end product where end users pay a fee to access it.
+
+  Extended License
+    Use the item in a single end product that end users MAY be charged for.
+    Required if you operate CallMineAI as a paid SaaS, sell subscriptions, or
+    otherwise charge your end users for access.
+
+BOTH LICENSES INCLUDE THE SAME SOFTWARE
+    The Regular and Extended Licenses ship the identical download: the complete,
+    un-encrypted source code and the identical feature set. No module, file or
+    capability is withheld from either one, and nothing is unlocked by upgrading.
+    The licenses differ only in how you may use the end product you build, as
+    described above.
+
+Because CallMineAI is a subscription/SaaS application intended to bill your own
+customers, the Extended License is normally the applicable one. Please confirm
+your intended use against the current terms.
+
+One license is required per end product (per installation/deployment).
+The item may not be redistributed, resold, sublicensed or made available as a
+stock item, template or source-code download, either on its own or bundled.
+
+Full, authoritative license terms:
+
+  Regular License   https://codecanyon.net/licenses/standard
+  Extended License  https://codecanyon.net/licenses/standard
+  License FAQ       https://help.market.envato.com/hc/en-us/categories/200723188
+
+The text published at those URLs prevails over this summary.
+
+================================================================================
+COPYRIGHT
+================================================================================
+
+Copyright (c) 2025 SpaGreen. All rights reserved.
+
+The application source code in the CallMineAI-NextJS folder, the bundled
+documentation, and all original design assets are the property of the author and
+are licensed, not sold, under the Envato Market License above.
+
+================================================================================
+THIRD-PARTY COMPONENTS
+================================================================================
+
+CallMineAI is built on open-source components, each retaining its own license.
+See THIRD-PARTY-LICENSES.txt in this folder for the complete list.
+
+No third-party binaries, fonts, icons, photographs or illustrations are bundled
+inside the distributed source package. Node.js dependencies are installed by the
+buyer with `npm install` and web fonts are loaded from Google Fonts at runtime.
+
+================================================================================
+NO WARRANTY
+================================================================================
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR ITS USE.
+
+================================================================================
+THIRD-PARTY SERVICES
+================================================================================
+
+CallMineAI integrates with external providers. You are responsible for holding
+your own accounts with them and for complying with their terms, pricing and
+acceptable-use policies. No provider account, credit or API key is included with
+this item.
+
+  Twilio                https://www.twilio.com/legal/tos
+  Plivo                 https://www.plivo.com/legal/terms/
+  ElevenLabs            https://elevenlabs.io/terms
+  OpenAI                https://openai.com/policies/terms-of-use
+  Meta WhatsApp Cloud   https://www.whatsapp.com/legal/business-terms
+  Stripe                https://stripe.com/legal/ssa
+  PayPal                https://www.paypal.com/legalhub/useragreement-full
+  Paddle                https://www.paddle.com/legal/terms
+  Firebase              https://firebase.google.com/terms
+
+Outbound automated calling is regulated in most jurisdictions (for example the
+TCPA in the United States and GDPR/ePrivacy in the EU). You are solely
+responsible for obtaining consent, honouring do-not-call lists, and disclosing
+AI-generated voices where the law requires it.

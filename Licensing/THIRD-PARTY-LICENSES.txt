@@ -1,0 +1,119 @@
+CallMineAI 1.0.1 — Third-Party Components and Licenses
+================================================================================
+
+Nothing in this list is redistributed inside the package. Node.js dependencies
+are fetched by the buyer with `npm install`; web fonts are loaded from Google
+Fonts at runtime. Each component remains under its own license, reproduced by
+its own project.
+
+--------------------------------------------------------------------------------
+1. RUNTIME DEPENDENCIES  (package.json → dependencies)
+--------------------------------------------------------------------------------
+
+  Package                  Version    License      Project
+  ------------------------ ---------- ------------ ------------------------------
+  @dnd-kit/core            ^6.3.1     MIT          https://github.com/clauderic/dnd-kit
+  @dnd-kit/sortable        ^10.0.0    MIT          https://github.com/clauderic/dnd-kit
+  @dnd-kit/utilities       ^3.2.2     MIT          https://github.com/clauderic/dnd-kit
+  @headlessui/react        ^2.2.10    MIT          https://github.com/tailwindlabs/headlessui
+  @prisma/client           ^6.3.0     Apache-2.0   https://www.prisma.io
+  @xyflow/react            ^12.11.1   MIT          https://reactflow.dev
+  axios                    ^1.19.0    MIT          https://axios-http.com
+  bcryptjs                 ^2.4.3     MIT          https://github.com/dcodeIO/bcrypt.js
+  csv-parse                ^5.6.0     MIT          https://csv.js.org/parse
+  firebase                 ^12.15.0   Apache-2.0   https://firebase.google.com/
+  i18next                  ^25.8.13   MIT          https://www.i18next.com
+  jose                     ^5.9.6     MIT          https://github.com/panva/jose
+  lucide-react             ^0.575.0   ISC          https://lucide.dev
+  next                     ^15.1.6    MIT          https://nextjs.org
+  nodemailer               ^9.0.5     MIT-0        https://nodemailer.com/
+  react                    ^19.0.0    MIT          https://react.dev/
+  react-dom                ^19.0.0    MIT          https://react.dev/
+  react-i18next            ^16.5.4    MIT          https://github.com/i18next/react-i18next
+  recharts                 ^3.8.1     MIT          https://github.com/recharts/recharts
+  zod                      ^3.24.1    MIT          https://zod.dev
+
+--------------------------------------------------------------------------------
+2. BUILD DEPENDENCIES  (package.json → devDependencies)
+--------------------------------------------------------------------------------
+
+  @tailwindcss/forms       ^0.5.10    MIT          https://github.com/tailwindlabs/tailwindcss-forms
+  autoprefixer             ^10.4.20   MIT          https://github.com/postcss/autoprefixer
+  postcss                  ^8.5.26    MIT          https://postcss.org/
+  prisma                   ^6.3.0     Apache-2.0   https://www.prisma.io
+  tailwindcss              ^3.4.17    MIT          https://tailwindcss.com
+
+--------------------------------------------------------------------------------
+3. TRANSITIVE DEPENDENCIES
+--------------------------------------------------------------------------------
+
+The dependency tree resolves to 410 packages. License distribution:
+
+    266  MIT
+     90  Apache-2.0
+     33  ISC
+     14  BSD-3-Clause
+      2  BSD-2-Clause
+      1  MIT-0
+      1  0BSD
+      1  MIT AND ISC
+      1  CC-BY-4.0            caniuse-lite (browser-support data, via autoprefixer)
+      1  LGPL-3.0-or-later    @img/sharp-libvips-<platform> (prebuilt libvips binary
+                              pulled in by Next.js image optimisation; dynamically
+                              linked, unmodified, not redistributed here)
+
+No GPL, AGPL, SSPL or other strong-copyleft component is used. To regenerate this
+breakdown on your own install:
+
+    npx license-checker --summary
+
+--------------------------------------------------------------------------------
+4. FONTS
+--------------------------------------------------------------------------------
+
+Loaded at runtime from Google Fonts (fonts.googleapis.com). No font file is
+bundled or redistributed.
+
+  Inter            SIL Open Font License 1.1   https://fonts.google.com/specimen/Inter
+  Space Grotesk    SIL Open Font License 1.1   https://fonts.google.com/specimen/Space+Grotesk
+  JetBrains Mono   SIL Open Font License 1.1   https://fonts.google.com/specimen/JetBrains+Mono
+
+  OFL 1.1 text: https://scripts.sil.org/OFL
+
+To self-host the fonts instead, replace the <link> tags in
+`src/app/layout.jsx` with local @font-face rules and place the files in
+`public/`.
+
+--------------------------------------------------------------------------------
+5. ICONS
+--------------------------------------------------------------------------------
+
+  Lucide           ISC License                 https://lucide.dev
+                   Delivered as the `lucide-react` npm package; no SVG files are
+                   redistributed in this package.
+
+--------------------------------------------------------------------------------
+6. ORIGINAL ASSETS
+--------------------------------------------------------------------------------
+
+The CallMineAI logo, favicon, colour system, UI layouts and all screenshots in
+the bundled documentation are original works by the author and are covered by the
+item license in LICENSE.txt. They are not licensed for use outside this item.
+
+--------------------------------------------------------------------------------
+7. LICENSE TEXTS
+--------------------------------------------------------------------------------
+
+  MIT           https://opensource.org/license/mit
+  MIT-0         https://opensource.org/license/mit-0
+  Apache-2.0    https://www.apache.org/licenses/LICENSE-2.0
+  ISC           https://opensource.org/license/isc-license-txt
+  BSD-2-Clause  https://opensource.org/license/bsd-2-clause
+  BSD-3-Clause  https://opensource.org/license/bsd-3-clause
+  0BSD          https://opensource.org/license/0bsd
+  LGPL-3.0      https://www.gnu.org/licenses/lgpl-3.0.html
+  CC-BY-4.0     https://creativecommons.org/licenses/by/4.0/
+  OFL-1.1       https://scripts.sil.org/OFL
+
+After running `npm install`, the verbatim license text of every dependency is
+available under `node_modules/<package>/LICENSE`.
