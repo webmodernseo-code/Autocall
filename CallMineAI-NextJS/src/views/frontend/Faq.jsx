@@ -1,64 +1,73 @@
 'use client';
 
 import { route } from '@/lib/route';
-import { useState } from 'react';
 import { Link } from '@/lib/page-router';
-import { Plus, ArrowRight, Mail } from 'lucide-react';
+import { ArrowRight, Mail, HelpCircle, ShieldCheck } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
-import { Eyebrow } from '@/components/marketing/ui';
-import { FAQ_GROUPS, FAQ_FLAT } from '@/components/marketing/faqData';
-
-function Item({ q, a }) {
-    const [open, setOpen] = useState(false);
-    return (
-        <div className="border-b border-neutral-200 last:border-0 dark:border-white/10">
-            <button onClick={() => setOpen((v) => !v)} className="flex w-full items-center justify-between gap-4 py-4 text-left" aria-expanded={open}>
-                <span className="font-medium text-neutral-900 dark:text-white">{q}</span>
-                <span className={`shrink-0 rounded-md border border-neutral-200 p-1 text-neutral-500 transition dark:border-white/10 dark:text-neutral-400 ${open ? 'rotate-45 text-brand-500 dark:text-brand-300' : ''}`}><Plus className="h-3.5 w-3.5" /></span>
-            </button>
-            {open && <p className="pb-5 pr-8 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">{a}</p>}
-        </div>
-    );
-}
+import FaqAccordion from '@/components/marketing/FaqAccordion';
+import { FAQ_FLAT } from '@/components/marketing/faqData';
 
 export default function Faq() {
     const schema = {
-        '@context': 'https://schema.org', '@type': 'FAQPage',
-        mainEntity: FAQ_FLAT.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: FAQ_FLAT.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a }
+        })),
     };
 
     return (
-        <MarketingLayout title="FAQ — CallMindAI" description="Réponses directes à vos questions sur l'installation, les licences, les intégrations, la sécurité et l'usage de la plateforme d'appels IA." schema={schema}>
-            <section className="relative overflow-hidden pt-32 pb-12 sm:pt-40">
-                <div className="grid-field grid-mask pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
-                <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-80 w-[44rem] -translate-x-1/2 rounded-full bg-brand-500/25 blur-[120px] dark:bg-brand-600/15" aria-hidden="true" />
-                <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-                    <Eyebrow className="justify-center">Foire aux questions</Eyebrow>
-                    <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-5xl">Toutes vos questions, répondues.</h1>
-                    <p className="mt-4 text-neutral-600 dark:text-neutral-400">Tout ce que vous devez savoir sur l'installation, les licences, la téléphonie, la sécurité et le support technique. Une autre question ? <a href="mailto:contact@callmindai.com" className="font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400 dark:hover:text-brand-300">Écrivez-nous</a>.</p>
-                </div>
-            </section>
+        <MarketingLayout
+            title="Centre d'Aide & FAQ — CallMindAI"
+            description="Réponses directes à toutes vos questions sur la téléphonie par IA, les intégrations CRM, la sécurité et la tarification."
+            schema={schema}
+        >
+            <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                    {/* Header */}
+                    <div className="text-center space-y-4">
+                        <span className="text-xs font-semibold px-3 py-1 rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20 uppercase tracking-wider">
+                            Centre d'Aide & Documentation
+                        </span>
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                            Questions fréquemment posées
+                        </h1>
+                        <p className="text-sm md:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                            Toutes les réponses pour bien démarrer, configurer vos premiers agents vocaux et intégrer votre téléphonie à vos outils quotidiens.
+                        </p>
+                    </div>
 
-            <section className="pb-20">
-                <div className="mx-auto max-w-3xl space-y-12 px-4 sm:px-6 lg:px-8">
-                    {FAQ_GROUPS.map((g) => (
-                        <div key={g.group}>
-                            <h2 className="font-mono text-[11px] uppercase tracking-widest text-signal-600 dark:text-signal-400">{g.group}</h2>
-                            <div className="mt-3 rounded-2xl border border-neutral-200 bg-white px-5 shadow-soft dark:border-white/10 dark:bg-ink-900/50 dark:shadow-none">
-                                {g.items.map((f) => <Item key={f.q} q={f.q} a={f.a} />)}
-                            </div>
+                    {/* Full Interactive Category FAQ Accordion */}
+                    <div className="pt-4">
+                        <FaqAccordion showCategories={true} />
+                    </div>
+
+                    {/* Support Card */}
+                    <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 p-8 text-center space-y-4">
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                            Vous n'avez pas trouvé la réponse à votre question ?
+                        </h3>
+                        <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 max-w-lg mx-auto">
+                            Notre équipe d'ingénieurs télécoms et de spécialistes support vous répond sous 2 heures ouvrées.
+                        </p>
+                        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                            <a
+                                href="mailto:contact@callmindai.com"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 font-semibold text-xs transition-colors shadow-2xs"
+                            >
+                                <Mail className="w-4 h-4" />
+                                <span>Écrire au support technique</span>
+                            </a>
+                            <Link
+                                href={route('register')}
+                                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 font-semibold text-xs transition-colors"
+                            >
+                                <span>Tester gratuitement</span>
+                                <ArrowRight className="w-4 h-4" />
+                            </Link>
                         </div>
-                    ))}
-                </div>
-            </section>
-
-            <section className="px-4 pb-24 sm:px-6 lg:px-8">
-                <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-brand-700 via-brand-800 to-ink-950 px-8 py-12 text-center">
-                    <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Vous avez encore une question ?</h2>
-                    <p className="mx-auto mt-3 max-w-lg text-brand-100/90">Notre équipe se tient à votre entière disposition pour vous accompagner dans votre projet.</p>
-                    <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-                        <a href="mailto:contact@callmindai.com" className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-brand-800 transition hover:bg-brand-50"><Mail className="h-4 w-4" /> Contacter le support</a>
-                        <Link href={route('register')} className="inline-flex items-center gap-2 rounded-xl border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Démarrer maintenant <ArrowRight className="h-4 w-4" /></Link>
                     </div>
                 </div>
             </section>

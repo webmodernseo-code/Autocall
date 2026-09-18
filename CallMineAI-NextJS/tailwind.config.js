@@ -12,27 +12,41 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                display: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans],
-                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                display: ['"Plus Jakarta Sans"', 'Inter', ...defaultTheme.fontFamily.sans],
+                sans: ['"Plus Jakarta Sans"', 'Inter', ...defaultTheme.fontFamily.sans],
                 mono: ['"JetBrains Mono"', ...defaultTheme.fontFamily.mono],
             },
-            // Brand & neutrals — CallMineAI: iris (brand) + electric "signal" + ink shell
+            // Brand & neutrals — CallMindAI: Cobalt Telecom + Crisp Slate + Signal Emerald
             colors: {
-                white: '#F7F7FB',
-                black: '#0c0c1c',
-                // Iris / violet — primary, AI intelligence
+                white: '#FFFFFF',
+                black: '#0F172A',
+                // Cobalt Telecom — primary, confidence, enterprise reliability
+                cobalt: {
+                    50: '#eff6ff',
+                    100: '#dbeafe',
+                    200: '#bfdbfe',
+                    300: '#93c5fd',
+                    400: '#60a5fa',
+                    500: '#3b82f6',
+                    600: '#2563eb',
+                    700: '#1d4ed8',
+                    800: '#1e40af',
+                    900: '#1e3a8a',
+                    950: '#172554',
+                },
+                // Brand alias keeping backward compatibility
                 brand: {
-                    50: '#f1eefe',
-                    100: '#e4ddfd',
-                    200: '#cabbfb',
-                    300: '#a890f7',
-                    400: '#8a67f2',
-                    500: '#6d3fea',
-                    600: '#5a28d6',
-                    700: '#4a1fb0',
-                    800: '#3c1c8c',
-                    900: '#321a71',
-                    950: '#1f0f4a',
+                    50: '#f0f7ff',
+                    100: '#e0effe',
+                    200: '#bae0fd',
+                    300: '#7cc7fb',
+                    400: '#38a9f8',
+                    500: '#0ea5e9',
+                    600: '#0284c7',
+                    700: '#036aa1',
+                    800: '#075985',
+                    900: '#0c4a6e',
+                    950: '#082f49',
                 },
                 // Electric teal — "live call / connected", pulses
                 signal: {
