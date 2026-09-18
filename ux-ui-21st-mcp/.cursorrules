@@ -1,0 +1,7 @@
+# Cursor IDE Rules — UX.UI-21ST-MCP
+
+- Follow ultra-premium design standards: Apple/Stripe-level aesthetics, clean neutral backgrounds (`bg-white`, `bg-gray-50/50`, `bg-zinc-900/50`), subtle 1px borders, smooth micro-interactions.
+- No informal emojis in production UI; use pure SVG vector icons (`lucide-react`).
+- Search design tokens: run `python scripts/search.py "<query>" --domain style|color|typography`.
+- Fetch 21st components using the configured 21st MCP server (`search`, `get_component`).
+- Mobile-first layouts with flexible vertical stacking (`flex-col md:flex-row`).

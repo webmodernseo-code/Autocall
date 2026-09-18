@@ -1,0 +1,13 @@
+{
+  "name": "ux-ui-21st-mcp",
+  "version": "1.0.0",
+  "description": "Unified Frontend Powerpack combining UI/UX Pro Max design intelligence and 21st.dev MCP component ecosystem for Claude Code.",
+  "author": {
+    "name": "webmodernseo"
+  },
+  "homepage": "https://github.com/webmodernseo-code/UX.UI-21ST-MCP",
+  "repository": "https://github.com/webmodernseo-code/UX.UI-21ST-MCP",
+  "license": "MIT",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}

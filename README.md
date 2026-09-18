@@ -230,6 +230,11 @@ CallMindAI/
 │   │   ├── locales/          # Multilingual Translations (FR, EN, AR, etc.)
 │   │   └── views/            # Client, Admin & Marketing Views
 │   └── package.json
+├── ux-ui-21st-mcp/           # Frontend Powerpack & UI/UX Intelligence Engine
+│   ├── skills/               # UI/UX Pro Max, 21st UI & Anti-Slop Skills
+│   ├── src/ui-ux-pro-max/    # 240+ Design Styles, Palettes, Typography & Charts DB
+│   └── scripts/search.mjs    # Instant Design Intelligence Search Engine
+├── .agents/                  # Native Agent Workspace Skills & Rules for Antigravity & Codex
 ├── Documentation/            # Offline HTML Documentation (Open index.html in browser)
 ├── Licensing/                # Commercial & Open-Source Licenses
 ├── README.md                 # Project Overview & Setup (FR / EN)

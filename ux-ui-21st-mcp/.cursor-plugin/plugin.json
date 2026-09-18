@@ -1,0 +1,20 @@
+{
+  "name": "ux-ui-21st-mcp",
+  "version": "1.0.0",
+  "description": "Unified Frontend Powerpack combining UI/UX Pro Max design intelligence and 21st.dev MCP component ecosystem for Cursor & AI agents.",
+  "author": {
+    "name": "webmodernseo"
+  },
+  "homepage": "https://github.com/webmodernseo-code/UX.UI-21ST-MCP",
+  "repository": "https://github.com/webmodernseo-code/UX.UI-21ST-MCP",
+  "license": "MIT",
+  "keywords": ["ui-ux", "design-system", "21st-dev", "magic-mcp", "react", "tailwind", "shadcn", "cursor"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "UX/UI Pro Max + 21st MCP",
+    "shortDescription": "240+ UI styles, font pairings & 10,000+ React/Tailwind components",
+    "category": "Development",
+    "brandColor": "#0066FF"
+  }
+}

@@ -1,0 +1,12 @@
+---
+description: 21st.dev MCP component search, fetch, and UI generation rules
+globs: ["**/*.{tsx,jsx,ts,js}"]
+alwaysApply: true
+---
+
+# 21st.dev Component Marketplace & MCP
+
+When building UI sections:
+1. Always check for ready-made components using the `21st` MCP server tools: `search` and `get_component`.
+2. Adapt returned code to match the local design system, tailwind tokens, and `cn()` utility.
+3. Replace all mock/placeholder assets with functional SVGs and crisp vector icons.

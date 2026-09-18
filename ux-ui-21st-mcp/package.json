@@ -1,0 +1,49 @@
+{
+  "name": "ux-ui-21st-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Unified Frontend Powerpack combining UI/UX Pro Max Design Intelligence (240+ styles, palettes, fonts) and 21st.dev MCP Component Marketplace (+10,000 React/Tailwind components) for Antigravity, Codex, Cursor, and Claude Code.",
+  "homepage": "https://github.com/webmodernseo-code/UX.UI-21ST-MCP",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webmodernseo-code/UX.UI-21ST-MCP.git"
+  },
+  "main": "scripts/search.mjs",
+  "bin": {
+    "uxui-search": "scripts/search.mjs"
+  },
+  "scripts": {
+    "search": "node scripts/search.mjs",
+    "search:style": "node scripts/search.mjs --domain style",
+    "search:color": "node scripts/search.mjs --domain color",
+    "search:typography": "node scripts/search.mjs --domain typography",
+    "search:ux": "node scripts/search.mjs --domain ux",
+    "search:chart": "node scripts/search.mjs --domain chart",
+    "build": "tsc || exit 0",
+    "test": "node scripts/search.mjs 'fintech dashboard' --domain style"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ui-ux",
+    "design-system",
+    "21st-dev",
+    "magic-mcp",
+    "react",
+    "tailwind",
+    "shadcn",
+    "antigravity",
+    "codex",
+    "claude-code",
+    "cursor"
+  ],
+  "author": "webmodernseo",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

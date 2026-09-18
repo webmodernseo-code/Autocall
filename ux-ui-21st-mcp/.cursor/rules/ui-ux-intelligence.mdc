@@ -1,0 +1,12 @@
+---
+description: Searchable UI/UX design intelligence and style engine
+globs: ["**/*.{tsx,jsx,ts,js,html,css}"]
+alwaysApply: true
+---
+
+# UI/UX Pro Max Intelligence
+
+Before generating or styling frontend interfaces:
+1. Search styles, fonts, and palettes: `python scripts/search.py "<query>" --domain style|color|typography`
+2. Apply strict anti-slop rules: clean Apple/Stripe-level aesthetics, no harsh saturated backgrounds, no informal emojis, pure SVG icons.
+3. Keep layout mobile-first with no text collision.
