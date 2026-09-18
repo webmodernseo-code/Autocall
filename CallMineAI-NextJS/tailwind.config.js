@@ -12,8 +12,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                display: ['"Plus Jakarta Sans"', 'Inter', ...defaultTheme.fontFamily.sans],
-                sans: ['"Plus Jakarta Sans"', 'Inter', ...defaultTheme.fontFamily.sans],
+                display: ['Calistoga', 'Georgia', ...defaultTheme.fontFamily.serif],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
                 mono: ['"JetBrains Mono"', ...defaultTheme.fontFamily.mono],
             },
             // Brand & neutrals — CallMindAI: Cobalt Telecom + Crisp Slate + Signal Emerald

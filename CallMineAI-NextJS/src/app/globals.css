@@ -43,6 +43,17 @@ select:not([multiple]):not([size]) {
 }
 body {
     @apply bg-white dark:bg-neutral-900 text-black dark:text-neutral-100;
+    text-rendering: optimizeLegibility;
+}
+
+::selection {
+    background: rgb(191 219 254 / 0.8);
+    color: #172554;
+}
+
+:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
 }
 
 /* Neutralize browser autofill background so it doesn't paint a box over
