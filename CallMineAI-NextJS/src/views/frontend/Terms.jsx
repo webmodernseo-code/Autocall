@@ -3,64 +3,52 @@
 import LegalDoc from '@/components/marketing/LegalDoc';
 
 const SECTIONS = [
-    { h: 'Acceptance of terms', body: [
-        'By accessing or using the platform (“the Service”), you agree to be bound by these Terms & Conditions. If you are using the Service on behalf of an organization, you represent that you have authority to bind that organization. If you do not agree, do not use the Service.',
+    { h: 'Acceptation des conditions', body: [
+        'En accédant à la plateforme (« le Service ») ou en l\'utilisant, vous acceptez d\'être lié par les présentes Conditions Générales. Si vous utilisez le Service pour le compte d\'une entreprise ou organisation, vous déclarez disposer de l\'autorité nécessaire pour engager celle-ci. Si vous n\'acceptez pas ces conditions, vous ne devez pas utiliser le Service.',
     ] },
-    { h: 'License and permitted use', body: [
-        'The software is provided under the license you purchased from the marketplace or vendor. Subject to that license, you are granted a right to install, run and customize the Service for your permitted number of projects or end products.',
-        'Unless expressly permitted by your license, you may not resell, redistribute, or sublicense the source code itself, or remove copyright and attribution notices. Always refer to your specific purchase license for the authoritative terms.',
+    { h: 'Licence et usage autorisé', body: [
+        'Le logiciel est concédé selon les termes de la licence acquise. Sous réserve de cette licence, il vous est accordé le droit d\'installer, exécuter, adapter et personnaliser le Service pour vos projets et produits finaux autorisés.',
+        'Sauf autorisation expresse, vous ne pouvez pas revendre, redistribuer ou sous-licencier le code source brut tel quel, ni retirer les mentions de propriété intellectuelle.',
     ] },
-    { h: 'Accounts and responsibilities', body: [
-        'You are responsible for maintaining the confidentiality of account credentials and for all activity under your account. You must provide accurate information, keep your deployment secure and up to date, and ensure your use complies with all applicable laws.',
+    { h: 'Comptes et responsabilités', body: [
+        'Vous êtes responsable du maintien de la confidentialité de vos identifiants de compte et de toutes les activités effectuées depuis celui-ci. Vous vous engagez à fournir des informations exactes, à maintenir votre environnement sécurisé et à respecter la législation en vigueur.',
     ] },
-    { h: 'Acceptable use', body: [
-        'You agree not to use the Service to:',
+    { h: 'Politique d\'utilisation acceptable', body: [
+        'Vous vous engagez expressément à ne pas utiliser le Service pour :',
         { list: [
-            'Place calls or send messages in violation of telemarketing, consent, or do-not-call laws (e.g. TCPA, GDPR/ePrivacy and local equivalents).',
-            'Harass, defraud, or deceive call recipients, or impersonate others unlawfully.',
-            'Transmit unlawful, infringing, or malicious content.',
-            'Attempt to breach security, disrupt the Service, or access data without authorization.',
+            'Émettre des appels ou envoyer des messages en violation des lois relatives au démarchage téléphonique et au consentement (ex. RGPD, ePrivacy, listes d\'opposition Bloctel/TCPA et équivalents locaux).',
+            'Harceler, tromper, escroquer des destinataires ou usurper une identité de manière illicite.',
+            'Diffuser des contenus illégaux, diffamatoires ou malveillants.',
+            'Tenter de compromettre la sécurité, saturer l\'infrastructure ou accéder à des données non autorisées.',
         ] },
-        'You are solely responsible for obtaining any consents required to contact individuals and for the content of your agents’ conversations.',
+        'Vous demeurez seul responsable du recueil des consentements préalables requis pour joindre vos contacts ainsi que du contenu des conversations menées par vos agents IA.',
     ] },
-    { h: 'Intellectual property', body: [
-        'The Service, including its source code, design and documentation, is protected by intellectual-property laws and remains the property of its authors except for the rights expressly granted by your license. Your own data, branding and content remain yours.',
+    { h: 'Propriété intellectuelle', body: [
+        'Le Service, comprenant son code source, son design et sa documentation, est protégé par les lois sur la propriété intellectuelle. Vos données d\'entreprise, marques, logos et contenus vous appartiennent exclusivement.',
     ] },
-    { h: 'Third-party services', body: [
-        'The Service integrates with third-party providers (telephony, voice, AI, payments and CRMs) that you connect using your own accounts. Your use of those services is subject to their terms, and you are responsible for any fees they charge and for compliance with their policies.',
+    { h: 'Services tiers et clés API', body: [
+        'Le Service s\'interface avec des fournisseurs tiers (téléphonie, voix, intelligence artificielle, paiements et CRM) que vous connectez à l\'aide de vos propres comptes. Votre utilisation de ces services est régie par leurs conditions respectives, et les frais de consommation facturés par ces prestataires relèvent de votre responsabilité.',
     ] },
-    { h: 'Payment and billing', body: [
-        'Where billing features are used, charges, credits and subscriptions are processed through the payment gateway(s) the operator configures. Fees are non-refundable except as required by law or as stated by the operator. Telephony and AI usage costs billed by third-party providers are separate and your responsibility.',
+    { h: 'Paiements et facturation', body: [
+        'Lorsque les fonctions de facturation sont activées, les transactions, recharges de crédits et abonnements sont traités par les passerelles de paiement configurées. Les coûts de téléphonie et d\'IA facturés par des tiers sont distincts.',
     ] },
-    { h: 'Disclaimers', body: [
-        'The Service is provided “as is” and “as available” without warranties of any kind, whether express or implied, including merchantability, fitness for a particular purpose and non-infringement. AI-generated conversations and lead scores may be imperfect; you are responsible for reviewing outcomes and for compliance.',
-    ] },
-    { h: 'Limitation of liability', body: [
-        'To the maximum extent permitted by law, the authors and vendors shall not be liable for any indirect, incidental, special, consequential or punitive damages, or for lost profits, data or goodwill, arising from your use of the Service. Total liability shall not exceed the amount you paid for the license.',
-    ] },
-    { h: 'Termination', body: [
-        'Your rights under these Terms end automatically if you breach them. The operator may suspend or terminate access for violations. Upon termination, you must stop using the Service; provisions that by their nature should survive (e.g. intellectual property, disclaimers, limitation of liability) will remain in effect.',
-    ] },
-    { h: 'Support and updates', body: [
-        'Support and updates are provided according to the marketplace or vendor policy applicable to your purchase. Updates may add, change or remove functionality. You are responsible for testing updates before deploying them to production.',
-    ] },
-    { h: 'Governing law', body: [
-        'These Terms are governed by the laws of the jurisdiction chosen by the operator or vendor, without regard to conflict-of-law principles. You should replace this clause with the governing law appropriate to your business before production use.',
+    { h: 'Limitation de responsabilité & Garanties', body: [
+        'Le Service est fourni « en l\'état ». Les conversations générées par l\'intelligence artificielle et les scores de qualification sont fournis à titre d\'assistance automatisée ; il vous appartient de superviser l\'exactitude et la conformité des échanges.',
     ] },
     { h: 'Contact', body: [
-        'Questions about these Terms can be sent to hello@callmineai.com, or to the operator of the specific deployment you are using.',
+        'Pour toute question concernant les présentes conditions, vous pouvez contacter notre équipe à l\'adresse contact@callmindai.com.',
     ] },
 ];
 
 export default function Terms() {
     return (
         <LegalDoc
-            eyebrow="Legal"
-            title="Terms & Conditions"
+            eyebrow="Cadre Légal"
+            title="Conditions Générales d'Utilisation"
             updated="2026"
-            metaTitle="Terms & Conditions — CallMineAI"
-            description="The terms governing use of the AI voice-calling platform: license, acceptable use, intellectual property, liability, termination and governing law."
-            intro="Please read these terms carefully. They govern your access to and use of the platform and its source code."
+            metaTitle="Conditions Générales — CallMindAI"
+            description="Conditions régissant l'utilisation de la plateforme d'appels IA : licence, règles d'usage, propriété intellectuelle, responsabilité et conformité."
+            intro="Veuillez lire attentivement les présentes conditions régissant l'accès et l'utilisation de la plateforme."
             sections={SECTIONS}
         />
     );

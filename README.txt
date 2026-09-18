@@ -1,132 +1,72 @@
 ================================================================================
-  CallMineAI | AI Voice Calling SaaS With Lead Qualification and Sales Automation
+  CallMindAI | AI Voice Calling SaaS With Lead Qualification & Sales Automation
+  Plateforme SaaS d'Appels Vocaux IA & Qualification de Leads
   Version 1.0.1
 ================================================================================
 
-Thank you for purchasing CallMineAI.
-
-
-WHAT IS IN THIS PACKAGE
+--------------------------------------------------------------------------------
+🇫🇷 GUIDE EN FRANÇAIS
 --------------------------------------------------------------------------------
 
-  CallMineAI-NextJS/     The application source code. This is what you deploy.
-  Documentation/         Full documentation. Open index.html in any browser.
-                         Works offline — no internet connection required.
-  Licensing/             Item license and third-party open-source licenses.
+CONTENU DU PACKAGE :
+  CallMineAI-NextJS/    Code source de l'application Next.js (prêt à déployer).
+  Documentation/        Documentation complète consultable hors-ligne (index.html).
+  Licensing/            Licences logicielles et licences tierces.
+  README.md             Documentation bilingue complète avec instructions détaillées.
+
+PRÉREQUIS SERVEUR :
+  - Node.js 20 LTS ou supérieur, npm 10+, MySQL 8 ou MariaDB 10.4+.
+  - Serveur autorisant les processus d'arrière-plan persistants (VPS, Dédié, Docker).
+  - Un worker d'appels (npm run worker) gère le dialer en continu via PM2 ou systemd.
+
+INSTALLATION RAPIDE :
+  1. cd CallMineAI-NextJS
+  2. npm install
+  3. cp .env.example .env
+     (Renseignez DATABASE_URL, AUTH_SECRET et APP_KEY dans votre fichier .env)
+  4. npm run key:generate
+  5. npx prisma db push
+  6. npm run db:seed
+  7. npm run dev        (ou npm run build && npm start)
+
+  Dans un second terminal, démarrez le composeur d'appels :
+  8. npm run worker
+
+COMPTES DE DÉMONSTRATION (Mot de passe initial : 12345678) :
+  - Espace Client :      http://localhost:3000/app    (client@spagreen.net)
+  - Console Super-Admin: http://localhost:3000/admin  (admin@spagreen.net)
 
 
-START HERE
+--------------------------------------------------------------------------------
+🇬🇧 ENGLISH GUIDE
 --------------------------------------------------------------------------------
 
-  1. Open  Documentation/index.html  in your browser.
-  2. Read  "Installation"  then  "Configuration".
-  3. Deploy from the  CallMineAI-NextJS/  folder.
+PACKAGE CONTENTS:
+  CallMineAI-NextJS/    Next.js application source code (ready to deploy).
+  Documentation/        Complete offline documentation (open index.html in browser).
+  Licensing/            Item license and third-party open-source licenses.
+  README.md             Comprehensive bilingual documentation and architecture guide.
 
+SERVER REQUIREMENTS:
+  - Node.js 20 LTS or newer, npm 10+, MySQL 8 / MariaDB 10.4+.
+  - Host allowing long-running background processes (VPS, Dedicated Server, Docker).
+  - The dialer runs in a background worker (npm run worker) kept alive by PM2 or systemd.
 
-SERVER REQUIREMENTS
---------------------------------------------------------------------------------
+QUICK INSTALLATION:
+  1. cd CallMineAI-NextJS
+  2. npm install
+  3. cp .env.example .env
+     (Edit .env with your DATABASE_URL, AUTH_SECRET, and APP_KEY)
+  4. npm run key:generate
+  5. npx prisma db push
+  6. npm run db:seed
+  7. npm run dev        (or npm run build && npm start)
 
-  Node.js 20 LTS or newer, npm 10+, MySQL 8 / MariaDB 10.4+.
+  In a second terminal, start the dialer worker:
+  8. npm run worker
 
-  IMPORTANT — your host must allow LONG-RUNNING BACKGROUND PROCESSES.
-  The dialer runs in a background worker that has to stay alive (npm run
-  worker), kept running by PM2, systemd or Supervisor.
-
-    Works:      a VPS, a dedicated server, or any container host where you can
-                keep a process running.
-    Does not:   shared hosting that kills background processes, and pure
-                serverless hosting with no always-on process.
-
-  You may host the web tier serverlessly only if the worker runs somewhere
-  else, or an external per-minute cron calls the /api/cron/* endpoints.
-  Without one of those, campaigns queue calls and nothing ever dials.
-
-  A public HTTPS URL is required for the telephony webhooks.
-  1 GB RAM minimum; 2 GB+ once campaigns run concurrently.
-
-
-QUICK INSTALL
---------------------------------------------------------------------------------
-
-    cd CallMineAI-NextJS
-    npm install
-    cp .env.example .env
-
-    # Edit .env — at minimum:
-    #   DATABASE_URL   mysql://user:pass@host:3306/dbname
-    #   AUTH_SECRET    a random string of at least 32 characters
-    #   APP_URL        the public URL of your installation
-
-    npm run key:generate      # REQUIRED — writes APP_KEY into .env.
-                              # Without it no provider credential can be saved.
-                              # (db:seed also does this if you skip it.)
-
-    npx prisma db push        # create the schema
-    npm run db:seed           # reference data + admin/demo accounts
-
-    npm run build
-    npm start                 # http://localhost:3000
-
-  In a second terminal, start the dialer (required for calling):
-
-    npm run worker
-
-  Default logins are created by the seed step with the password 12345678.
-  The addresses come from ADMIN_SEED_EMAIL and CLIENT_SEED_EMAIL in .env.
-
-    Admin back-office   /admin
-    Customer panel      /app
-
-  CHANGE BOTH PASSWORDS IMMEDIATELY AFTER THE FIRST LOGIN.
-
-
-THIRD-PARTY ACCOUNTS
---------------------------------------------------------------------------------
-
-  The calling features need your own accounts with Twilio (or a SIP trunk),
-  ElevenLabs and OpenAI. Payment gateways (Stripe / PayPal / Paddle) are
-  optional and are configured from the admin panel. No provider account, API
-  key or calling credit is included with this item.
-
-
-LICENSE
---------------------------------------------------------------------------------
-
-  The Regular License and the Extended License include this same download: the
-  complete, un-encrypted source code and the identical feature set. No module,
-  file or capability is withheld from either one. They differ only in how you
-  may use the end product you build — Regular for an end product that is free
-  to its end users, Extended for one you charge them for. See
-  Licensing/LICENSE.txt.
-
-
-SUPPORT
---------------------------------------------------------------------------------
-
-  Item support covers installation help, bug fixes and questions about the
-  documented features, per the Envato item support policy. When reporting an
-  issue, please include your purchase code, the page or endpoint involved, and
-  any server log output.
-
-
-CHANGELOG
---------------------------------------------------------------------------------
-
-  1.0.1  Security and documentation release.
-         - Team permissions now fail closed: a member with no assigned role
-           holds no permissions instead of full access. Both screens that
-           create a customer user always attach a role (Viewer by default).
-         - Every customer-side write endpoint is now covered by team RBAC.
-         - APP_KEY is required and generated on install (npm run key:generate);
-           the in-call agent's callback tokens are never signed with an empty
-           key, and provider credentials save correctly on a fresh install.
-         - Google sign-in is fully implemented: ID tokens are verified
-           server-side against Google's published signing keys.
-         - SMTP now validates TLS certificates by default.
-         - All dependency advisories cleared (npm audit: 0 vulnerabilities).
-         - New documentation: Branding & styling, Email templates; expanded
-           server requirements and licensing sections.
-
-  1.0.0  Initial release.
+DEFAULT LOGINS (Default password: 12345678):
+  - Customer Panel:     http://localhost:3000/app    (client@spagreen.net)
+  - Admin Back-Office:  http://localhost:3000/admin  (admin@spagreen.net)
 
 ================================================================================

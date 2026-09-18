@@ -3,45 +3,45 @@
 // Shared FAQ content — powers the home preview, the FAQ page, and FAQPage schema.
 export const FAQ_GROUPS = [
     {
-        group: 'Product & usage',
+        group: 'Produit & Fonctionnalités',
         items: [
-            { q: 'What is this product?', a: 'A complete AI voice-calling platform. You build AI agents that place outbound phone calls, hold natural conversations, qualify leads Hot / Warm / Cold, and push the results to your CRM — all managed from a customer dashboard, with a full super-admin panel on top for running it as a SaaS.' },
-            { q: 'Who is it for?', a: 'Outbound sales and SDR teams, agencies that want to resell AI calling to clients, recruiters, real-estate teams, survey and research firms, and any business that qualifies leads over the phone. Because it is multi-tenant, it also fits founders launching their own AI-calling SaaS.' },
-            { q: 'Do I need to know how the AI works to use it?', a: 'No. You pick a voice, set the agent’s goal and personality, drop in a knowledge base, and launch a campaign. The agent handles the conversation. Everything is configured through the dashboard — no code required for day-to-day use.' },
-            { q: 'What languages are supported?', a: 'The platform ships with 29 interface languages and supports multilingual calling with region-specific accents, so agents can detect and speak in the caller’s language.' },
+            { q: 'Qu\'est-ce que CallMindAI ?', a: 'Une plateforme complète d\'appels vocaux par Intelligence Artificielle. Vous configurez des agents vocaux IA capables de passer des appels sortants, mener des conversations naturelles, qualifier les prospects (Chaud / Tiède / Froid) et transmettre les résultats à votre CRM — le tout géré depuis un tableau de bord client moderne, avec une console Super-Admin pour exploiter la solution en SaaS.' },
+            { q: 'À qui s\'adresse cette plateforme ?', a: 'Aux équipes commerciales et SDR, aux agences souhaitant revendre des services d\'appels IA à leurs clients en marque blanche, aux recruteurs, aux professionnels de l\'immobilier, aux instituts de sondage, ainsi qu\'à toute entreprise qui qualifie des contacts par téléphone.' },
+            { q: 'Dois-je avoir des compétences techniques en IA pour l\'utiliser ?', a: 'Non, aucune compétence technique n\'est requise au quotidien. Vous choisissez une voix, définissez l\'objectif et la personnalité de l\'agent, fournissez votre base de connaissances et lancez votre campagne. L\'agent IA gère la conversation téléphonique de façon fluide et naturelle.' },
+            { q: 'Quelles sont les langues prises en charge ?', a: 'La plateforme intègre 29 langues d\'interface et prend en charge les appels multilingues avec reconnaissance et prononciation des accents régionaux pour dialoguer naturellement avec chaque interlocuteur.' },
         ],
     },
     {
-        group: 'Installation & requirements',
+        group: 'Installation & Prérequis',
         items: [
-            { q: 'What do I need to run it?', a: 'Node.js 20 LTS or newer, npm 10+, and MySQL 8 / MariaDB 10.4+. Because the dialer runs as a background worker that must stay alive, you need a host that allows long-running processes — a VPS, a dedicated server or a container host. Shared hosting that kills background processes will not run the calling engine.' },
-            { q: 'How long does installation take?', a: 'A typical install is a few minutes: npm install, configure your .env, push the database schema, seed it, run the production build, then start the app and its background worker. Full setup steps are included in the documentation.' },
-            { q: 'Is it self-hosted?', a: 'Yes. You own and host the entire application and its data. There is no forced third-party runtime — you connect your own telephony, voice and AI provider keys.' },
+            { q: 'Quels sont les prérequis pour héberger la solution ?', a: 'Node.js 20 LTS ou supérieur, npm 10+, et une base de données MySQL 8 ou MariaDB 10.4+. Comme le composeur d\'appels s\'exécute en tâche de fond persistante (worker), vous avez besoin d\'un hébergement autorisant les processus continus (VPS, serveur dédié ou conteneur Docker).' },
+            { q: 'Combien de temps prend l\'installation ?', a: 'L\'installation standard s\'effectue en quelques minutes : exécutez npm install, renseignez votre fichier .env, appliquez le schéma de base de données avec Prisma, injectez les données initiales (seed), puis démarrez l\'application et son worker.' },
+            { q: 'La solution est-elle 100% auto-hébergée ?', a: 'Oui. Vous possédez et hébergez l\'intégralité du code et de vos données sur votre propre infrastructure. Aucun abonnement tiers obligatoire n\'est imposé : vous connectez directement vos propres comptes de téléphonie et d\'IA.' },
         ],
     },
     {
-        group: 'Integrations & AI',
+        group: 'Intégrations & Moteurs IA',
         items: [
-            { q: 'Which calling and AI providers are supported?', a: 'Telephony via Twilio and Plivo (bring your own account), voice via ElevenLabs and OpenAI, and LLMs via OpenAI. Providers are selected per agent as an “engine” (e.g. ElevenLabs + Twilio, OpenAI + Plivo) and managed centrally by the admin.' },
-            { q: 'Can I connect my CRM?', a: 'Yes. Qualified leads and call data can be pushed to Salesforce, HubSpot, Pipedrive or any endpoint via webhooks, plus a REST API with API keys for custom integrations.' },
-            { q: 'Does it include automation?', a: 'Yes — a visual flow builder lets you branch on call outcomes (e.g. if Hot → send SMS, book a callback, or escalate to a human), plus SMS/WhatsApp/email messaging, forms, appointments, and a Google Sheets sync.' },
+            { q: 'Quels fournisseurs de téléphonie et d\'IA sont compatibles ?', a: 'La téléphonie via Twilio et Plivo (ou vos propres trunks SIP), la synthèse vocale ultra-réaliste via ElevenLabs et OpenAI, et les modèles de langage via OpenAI (GPT-4o, GPT-4o-mini). Chaque agent peut utiliser le moteur de votre choix.' },
+            { q: 'Puis-je synchroniser la plateforme avec mon CRM ?', a: 'Oui. Les leads qualifiés et les données d\'appels peuvent être envoyés instantanément vers HubSpot, Salesforce, Pipedrive ou n\'importe quel outil via webhooks ou l\'API REST documentée.' },
+            { q: 'La plateforme inclut-elle des automatisations de scénarios ?', a: 'Oui — un constructeur visuel de flux (Flows) vous permet de définir des actions selon l\'issue de l\'appel (ex: si le lead est Chaud → envoyer un SMS/WhatsApp, planifier un rendez-vous ou transférer vers un commercial), avec support des formulaires et de Google Sheets.' },
         ],
     },
     {
-        group: 'Licensing, updates & support',
+        group: 'Licence, Mises à jour & Support',
         items: [
-            { q: 'How does licensing work?', a: 'It is sold as a one-time purchase per the marketplace license. You get the full source code to self-host and customize. Review the specific license terms on the purchase page for permitted use and any per-project rules.' },
-            { q: 'Do I get updates?', a: 'Yes. Ongoing updates ship with new features, fixes and provider improvements. Because you have the source, you can also extend and adapt it yourself.' },
-            { q: 'Is support included?', a: 'Yes — buyer support for installation questions and bug fixes is included per the marketplace support policy. Documentation covers setup, configuration and common tasks.' },
-            { q: 'Can I customize or white-label it?', a: 'Fully. Branding (name, logo, colors), languages, currencies and email templates are configurable from the admin panel, and the clean, modular codebase makes deeper customization straightforward.' },
+            { q: 'Comment fonctionne la licence logicielle ?', a: 'Vous bénéficiez de l\'accès complet au code source non chiffré pour l\'héberger, l\'adapter et le personnaliser selon vos besoins commerciaux.' },
+            { q: 'Ai-je accès aux futures mises à jour ?', a: 'Oui. Le projet bénéficie d\'évolutions régulières intégrant de nouvelles fonctionnalités, des optimisations de performances et la compatibilité avec les nouveaux modèles d\'IA.' },
+            { q: 'Un support technique est-il assuré ?', a: 'Oui — une assistance est fournie pour vous aider lors de l\'installation et répondre à vos questions techniques. Une documentation détaillée est incluse.' },
+            { q: 'Puis-je personnaliser la marque (Marque Blanche) ?', a: 'Totalement. Le nom, le logo, les couleurs, les langues, les devises et les modèles d\'e-mails sont configurables directement depuis le panneau d\'administration.' },
         ],
     },
     {
-        group: 'Security & billing',
+        group: 'Sécurité & Modèle de Facturation',
         items: [
-            { q: 'How is my data handled?', a: 'All tenant data is isolated per account (multi-tenant scoping on every model), provider credentials are stored encrypted, and role-based access control governs who can see what. You host it, so your data never leaves your infrastructure.' },
-            { q: 'Does it handle payments and subscriptions?', a: 'Yes. It includes credit-based billing, subscription plans, multiple payment gateways, invoices, and a full super-admin view of customers, subscriptions and payments.' },
-            { q: 'Is it production-ready?', a: 'The application is code-complete with a passing automated test suite. To place real calls you add your own provider credentials and run a queue worker; before production, apply standard hardening (production env, HTTPS, backups).' },
+            { q: 'Comment la sécurité des données est-elle assurée ?', a: 'Chaque compte client bénéficie d\'une isolation stricte de ses données (multi-tenant), les clés d\'API sont chiffrées au repos et un système de permissions par rôles (RBAC) protège les accès sensibles.' },
+            { q: 'Comment fonctionne la facturation des clients ?', a: 'Le système comprend une facturation à la consommation de crédits d\'appels, des forfaits d\'abonnement récurrents, plusieurs passerelles de paiement (Stripe, PayPal, Paddle) et l\'émission de factures.' },
+            { q: 'La solution est-elle prête pour la production ?', a: 'Oui. L\'application dispose d\'une architecture robuste prête à être déployée avec votre configuration de production, un certificat SSL HTTPS et vos clés API de téléphonie.' },
         ],
     },
 ];
