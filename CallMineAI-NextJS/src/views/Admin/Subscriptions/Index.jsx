@@ -6,7 +6,7 @@ import { Button, Card, Pagination } from '@/components/ui';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import { Head, Link, router } from '@/lib/page-router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 export default function AdminSubscriptionsIndex({ subscriptions, filters = {}, stats = [] }) {
     const { t } = useTranslation();
@@ -38,8 +38,8 @@ export default function AdminSubscriptionsIndex({ subscriptions, filters = {}, s
                         className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 px-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                         defaultValue={filters.status}
                     >
-                        <option value="">All statuses</option>
-                        <option value="active">Active</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_admin_subscriptions_index_d7d2f1ac19f1" /></option>
+                        <option value="active"><Trans i18nKey="hardcoded.views_admin_subscriptions_index_12014baec0b4" /></option>
                         <option value="trialing">Trialing</option>
                         <option value="canceled">Canceled</option>
                         <option value="past_due">Past due</option>
@@ -50,7 +50,7 @@ export default function AdminSubscriptionsIndex({ subscriptions, filters = {}, s
                         className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 px-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                         defaultValue={filters.gateway}
                     >
-                        <option value="">All gateways</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_admin_subscriptions_index_1bce07f7ebb2" /></option>
                         <option value="stripe">Stripe</option>
                         <option value="paypal">PayPal</option>
                         <option value="paddle">Paddle</option>
@@ -62,13 +62,13 @@ export default function AdminSubscriptionsIndex({ subscriptions, filters = {}, s
                         <table className="min-w-full text-sm">
                             <thead>
                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
-                                    <th className="pb-2 pr-4 font-medium">User</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_subscriptions_index_87dec8f7096b" /></th>
                                     <th className="pb-2 pr-4 font-medium">Plan</th>
-                                    <th className="pb-2 pr-4 font-medium">Status</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_subscriptions_index_9ac8042c243d" /></th>
                                     <th className="pb-2 pr-4 font-medium">Gateway</th>
                                     <th className="pb-2 pr-4 font-medium">Starts</th>
                                     <th className="pb-2 pr-4 font-medium">Renews</th>
-                                    <th className="pb-2 pr-4 font-medium">Created</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_subscriptions_index_9a0bc7f349e6" /></th>
                                 </tr>
                             </thead>
                             <tbody>

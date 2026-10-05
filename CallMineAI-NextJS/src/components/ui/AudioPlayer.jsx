@@ -1,5 +1,7 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Play, Pause, Volume2, VolumeX, Download, Loader2 } from 'lucide-react';
 
@@ -211,7 +213,7 @@ export default function AudioPlayer({ src, filename = 'recording.mp3', showDownl
                     <a
                         href={src}
                         download={filename}
-                        aria-label="Download recording"
+                        aria-label={translationI18n.t('hardcoded.components_ui_audioplayer_b7cd491de1ea')}
                         className="shrink-0 rounded-soft p-1 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-800 dark:text-neutral-400 dark:hover:bg-ink-700 dark:hover:text-neutral-200"
                     >
                         <Download className="h-4 w-4" />

@@ -1,0 +1,85 @@
+name: Deploy production
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Verified Git commit SHA already deployed to staging"
+        required: true
+        type: string
+
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  deploy:
+    name: Deploy approved image
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: production
+      url: ${{ vars.APP_URL }}
+
+    steps:
+      - name: Checkout matching release commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.image_tag }}
+
+      - name: Validate immutable tag and image name
+        id: names
+        shell: bash
+        run: |
+          [[ "${{ inputs.image_tag }}" =~ ^[0-9a-f]{40}$ ]] || { echo "image_tag must be a full commit SHA" >&2; exit 2; }
+          repository="${GITHUB_REPOSITORY,,}"
+          echo "image=ghcr.io/${repository}/app" >> "$GITHUB_OUTPUT"
+
+      - name: Configure SSH trust
+        shell: bash
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/deploy_key ~/.ssh/known_hosts
+
+      - name: Upload deployment definition
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          PORT: ${{ secrets.DEPLOY_PORT }}
+          APP_DIR: ${{ secrets.DEPLOY_PATH }}
+        shell: bash
+        run: |
+          [[ "$HOST" =~ ^[A-Za-z0-9.-]+$ ]] || { echo "Invalid DEPLOY_HOST" >&2; exit 2; }
+          [[ "$USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]] || { echo "Invalid DEPLOY_USER" >&2; exit 2; }
+          [[ "${PORT:-22}" =~ ^[0-9]{1,5}$ ]] || { echo "Invalid DEPLOY_PORT" >&2; exit 2; }
+          [[ "$APP_DIR" =~ ^/[A-Za-z0-9._/-]+$ ]] || { echo "Invalid DEPLOY_PATH" >&2; exit 2; }
+          ssh -i ~/.ssh/deploy_key -p "${PORT:-22}" "$USER@$HOST" "mkdir -p '$APP_DIR'"
+          scp -i ~/.ssh/deploy_key -P "${PORT:-22}" \
+            CallMineAI-NextJS/compose.deploy.yaml "$USER@$HOST:$APP_DIR/compose.deploy.yaml"
+          scp -i ~/.ssh/deploy_key -P "${PORT:-22}" \
+            CallMineAI-NextJS/scripts/deploy.sh "$USER@$HOST:$APP_DIR/deploy.sh"
+
+      - name: Authenticate server and deploy
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          PORT: ${{ secrets.DEPLOY_PORT }}
+          APP_DIR: ${{ secrets.DEPLOY_PATH }}
+          IMAGE: ${{ steps.names.outputs.image }}
+          IMAGE_TAG: ${{ inputs.image_tag }}
+          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          printf '%s' "$REGISTRY_TOKEN" | ssh -i ~/.ssh/deploy_key -p "${PORT:-22}" "$USER@$HOST" \
+            "docker login ghcr.io --username '${{ github.actor }}' --password-stdin"
+          ssh -i ~/.ssh/deploy_key -p "${PORT:-22}" "$USER@$HOST" \
+            "chmod 700 '$APP_DIR/deploy.sh' && '$APP_DIR/deploy.sh' '$APP_DIR' '$IMAGE' '$IMAGE_TAG'"

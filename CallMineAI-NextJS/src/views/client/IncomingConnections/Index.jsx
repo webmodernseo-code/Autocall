@@ -1,10 +1,12 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import { Network, Plus, Trash2, X } from 'lucide-react';
@@ -46,12 +48,12 @@ function AddModal({ numbers, agents, onClose }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <form onSubmit={submit} className="w-full max-w-md rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl space-y-3" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center justify-between">
-                    <h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">New route</h3>
+                    <h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_incomingconnections_index_11b02a482688" /></h3>
                     <button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button>
                 </div>
 
                 <div>
-                    <input className={inputCls} placeholder="Route name" value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
+                    <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_incomingconnections_index_1197e9ff114d')} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
                     {form.errors.name && <p className="mt-1 text-xs text-danger">{form.errors.name}</p>}
                 </div>
 
@@ -67,8 +69,8 @@ function AddModal({ numbers, agents, onClose }) {
                     <label className="mb-1 block text-xs font-medium text-neutral-500">Action</label>
                     <select className={inputCls} value={form.data.action} onChange={(e) => form.setData('action', e.target.value)}>
                         <option value="connect_agent">Connect agent</option>
-                        <option value="voicemail">Voicemail</option>
-                        <option value="forward">Forward</option>
+                        <option value="voicemail"><Trans i18nKey="hardcoded.views_client_incomingconnections_index_b70a5b9081ac" /></option>
+                        <option value="forward"><Trans i18nKey="hardcoded.views_client_incomingconnections_index_08ef6b727fcf" /></option>
                     </select>
                 </div>
 
@@ -76,7 +78,7 @@ function AddModal({ numbers, agents, onClose }) {
                     <div>
                         <label className="mb-1 block text-xs font-medium text-neutral-500">Agent</label>
                         <select className={inputCls} value={form.data.agent_id} onChange={(e) => form.setData('agent_id', e.target.value)}>
-                            <option value="">Select agent</option>
+                            <option value=""><Trans i18nKey="hardcoded.views_client_incomingconnections_index_21e50b67cd09" /></option>
                             {agents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
                         </select>
                     </div>
@@ -96,13 +98,13 @@ function AddModal({ numbers, agents, onClose }) {
                     </div>
                     <label className="flex items-center gap-2 pt-5 text-sm text-neutral-700 dark:text-neutral-300">
                         <input type="checkbox" checked={form.data.enabled} onChange={(e) => form.setData('enabled', e.target.checked)} />
-                        Enabled
+                        <Trans i18nKey="hardcoded.views_client_incomingconnections_index_9c79c0c0adc9" />
                     </label>
                 </div>
 
                 <div className="flex justify-end gap-2 pt-1">
-                    <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800">Cancel</button>
-                    <button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Create</button>
+                    <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_incomingconnections_index_beea29ed6d84" /></button>
+                    <button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_client_incomingconnections_index_5639720204bc" /></button>
                 </div>
             </form>
         </div>
@@ -142,7 +144,7 @@ export default function IncomingConnectionsIndex({ routes = [], stats = [], numb
                         <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Incoming Connections</h1>
                         <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Route inbound callers to AI agents, voicemail, or forwarding.</p>
                     </div>
-                    <button onClick={() => setShowModal(true)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> New route</button>
+                    <button onClick={() => setShowModal(true)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_incomingconnections_index_11b02a482688" /></button>
                 </div>
 
                 <PageOverview feature="incoming-connections" />
@@ -176,7 +178,7 @@ export default function IncomingConnectionsIndex({ routes = [], stats = [], numb
                             </tbody>
                         </table>
                     ) : (
-                        <div className="px-6 py-16 text-center"><Network className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500">No routing rules yet. Create one to connect inbound callers to an AI agent.</p></div>
+                        <div className="px-6 py-16 text-center"><Network className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500"><Trans i18nKey="hardcoded.views_client_incomingconnections_index_2330d80696a1" /></p></div>
                     )}
                 </div>
             </div>

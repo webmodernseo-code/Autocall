@@ -1,0 +1,50 @@
+name: callmindai
+
+x-app-common: &app-common
+  image: ${GHCR_IMAGE:?GHCR_IMAGE is required}:${IMAGE_TAG:?IMAGE_TAG is required}
+  env_file:
+    - .env
+  init: true
+  restart: unless-stopped
+  cap_drop: [ALL]
+  security_opt:
+    - no-new-privileges:true
+  read_only: true
+  tmpfs:
+    - /tmp:mode=1777
+    - /app/.next/cache:uid=1001,gid=1001,mode=0755
+  networks: [application]
+
+services:
+  web:
+    <<: *app-common
+    ports:
+      - "127.0.0.1:${APP_PORT:-3000}:3000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      start_period: 20s
+      retries: 5
+
+  worker:
+    <<: *app-common
+    command: ["node", "scripts/worker.mjs"]
+    depends_on:
+      web:
+        condition: service_healthy
+    healthcheck:
+      disable: true
+
+  migrate:
+    image: ${GHCR_IMAGE:?GHCR_IMAGE is required}-migration:${IMAGE_TAG:?IMAGE_TAG is required}
+    env_file:
+      - .env
+    restart: "no"
+    profiles: [tools]
+    networks: [application]
+
+networks:
+  application:
+    driver: bridge
+

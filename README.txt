@@ -8,6 +8,13 @@
 🇫🇷 GUIDE EN FRANÇAIS
 --------------------------------------------------------------------------------
 
+FONCTIONNALITÉS MAJEURES :
+  - Conversations autonomes et fluides en temps réel (OpenAI & ElevenLabs).
+  - Appels Sortants (campagnes de masse, dialer asynchrone, gestion des relances).
+  - Appels Entrants 24/7 (routage intelligent, transfert d'appel humain, boîte vocale IA).
+  - Débriefing post-appel : résumé exécutif IA, transcription mot à mot, scoring (Hot/Warm/Cold).
+  - Constructeur de flux (Flows) pour automatiser SMS, WhatsApp, emails et webhooks CRM.
+
 CONTENU DU PACKAGE :
   CallMineAI-NextJS/    Code source de l'application Next.js (prêt à déployer).
   Documentation/        Documentation complète consultable hors-ligne (index.html).
@@ -32,14 +39,21 @@ INSTALLATION RAPIDE :
   Dans un second terminal, démarrez le composeur d'appels :
   8. npm run worker
 
-COMPTES DE DÉMONSTRATION (Mot de passe initial : 12345678) :
-  - Espace Client :      http://localhost:3000/app    (client@spagreen.net)
-  - Console Super-Admin: http://localhost:3000/admin  (admin@spagreen.net)
+COMPTES LOCAUX :
+  Définir ADMIN_SEED_* et, seulement en mode démo local, CLIENT_SEED_*.
+  Aucun identifiant public ou de secours n'est intégré au SaaS.
 
 
 --------------------------------------------------------------------------------
 🇬🇧 ENGLISH GUIDE
 --------------------------------------------------------------------------------
+
+KEY CAPABILITIES:
+  - 100% autonomous bidirectional voice conversations in real time (OpenAI & ElevenLabs).
+  - Outbound Campaigns (bulk calling dialer, pacing regulation, smart auto-retries).
+  - Inbound Calls 24/7 (AI receptionist, human call forwarding, AI-transcribed voicemail).
+  - Post-call AI debriefing: executive summaries, full transcripts, and lead scoring (Hot/Warm/Cold).
+  - Visual Flow Builder to automate follow-up SMS, WhatsApp, emails, and CRM webhooks.
 
 PACKAGE CONTENTS:
   CallMineAI-NextJS/    Next.js application source code (ready to deploy).
@@ -65,8 +79,8 @@ QUICK INSTALLATION:
   In a second terminal, start the dialer worker:
   8. npm run worker
 
-DEFAULT LOGINS (Default password: 12345678):
-  - Customer Panel:     http://localhost:3000/app    (client@spagreen.net)
-  - Admin Back-Office:  http://localhost:3000/admin  (admin@spagreen.net)
+LOCAL ACCOUNTS:
+  Set ADMIN_SEED_* and, for local demo mode only, CLIENT_SEED_*.
+  No public or fallback credentials are built into the SaaS.
 
 ================================================================================

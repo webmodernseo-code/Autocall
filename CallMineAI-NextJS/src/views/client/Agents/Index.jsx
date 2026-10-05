@@ -1,12 +1,14 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, Link, router } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import AgentTabs from '@/components/AgentTabs';
 import { Bot, Plus, Pencil, Trash2, AudioLines, Search } from 'lucide-react';
 import { useMoney } from '@/lib/money';
@@ -32,9 +34,9 @@ export default function AgentsIndex({ agents, stats = [], filters = {}, engines 
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">AI Agents</h1>
-                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Configure the voice agents that run your calling campaigns.</p>
+                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_agents_index_a05e22ce7273" /></p>
                     </div>
-                    <Link href={route('client.agents.create')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> New agent</Link>
+                    <Link href={route('client.agents.create')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_agents_index_035692c4f774" /></Link>
                 </div>
 
                 <AgentTabs active="agents" />
@@ -44,10 +46,10 @@ export default function AgentsIndex({ agents, stats = [], filters = {}, engines 
                 <div className="flex flex-wrap items-center gap-2">
                     <form onSubmit={apply} className="relative max-w-xs flex-1">
                         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search agents…" className="w-full rounded-soft border border-neutral-200 bg-white py-2 pl-9 pr-3 text-sm dark:border-ink-700 dark:bg-ink-900" />
+                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_agents_index_be434b530b19')} className="w-full rounded-soft border border-neutral-200 bg-white py-2 pl-9 pr-3 text-sm dark:border-ink-700 dark:bg-ink-900" />
                     </form>
                     <select value={filters.engine || ''} onChange={(e) => setEngine(e.target.value)} className="rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-900">
-                        <option value="">All engines</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_client_agents_index_cffb8cf1f0e4" /></option>
                         {engines.map((e) => <option key={e.value} value={e.value}>{e.label}</option>)}
                     </select>
                 </div>
@@ -56,7 +58,7 @@ export default function AgentsIndex({ agents, stats = [], filters = {}, engines 
                     <div className="rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-16 text-center">
                         <Bot className="mx-auto mb-3 h-12 w-12 text-neutral-300" />
                         <p className="text-neutral-500">No agents yet.</p>
-                        <Link href={route('client.agents.create')} className="mt-3 inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> Create your first agent</Link>
+                        <Link href={route('client.agents.create')} className="mt-3 inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_agents_index_79bc76c99d24" /></Link>
                     </div>
                 ) : (
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -84,8 +86,8 @@ export default function AgentsIndex({ agents, stats = [], filters = {}, engines 
                                     <span className="ml-auto font-mono text-neutral-600 dark:text-neutral-300">{money(a.cost_per_minute_cents, 'USD', { decimals: 3 })}/min</span>
                                 </div>
                                 <div className="mt-4 flex gap-2 border-t border-neutral-100 dark:border-ink-800 pt-3">
-                                    <Link href={route('client.agents.edit', a.id)} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Pencil className="h-3.5 w-3.5" /> Edit</Link>
-                                    <button onClick={() => remove(a)} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs text-danger hover:bg-danger/10"><Trash2 className="h-3.5 w-3.5" /> Delete</button>
+                                    <Link href={route('client.agents.edit', a.id)} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Pencil className="h-3.5 w-3.5" /> <Trans i18nKey="hardcoded.views_client_agents_index_55a4e1ee7f38" /></Link>
+                                    <button onClick={() => remove(a)} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs text-danger hover:bg-danger/10"><Trash2 className="h-3.5 w-3.5" /> <Trans i18nKey="hardcoded.views_client_agents_index_e7e104be9855" /></button>
                                 </div>
                             </div>
                         ))}

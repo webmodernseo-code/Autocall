@@ -7,6 +7,7 @@ import { writeSession } from '@/lib/auth/session';
 import { sendTemplateMail } from '@/lib/services/mail';
 import { verificationUrl } from '@/lib/auth/verification';
 import config from '@/lib/config';
+import { detectRegionalPreferences } from '@/lib/regional-preferences.mjs';
 
 /**
  * POST /register.
@@ -15,6 +16,7 @@ import config from '@/lib/config';
  */
 export const POST = handler(async (request) => {
     const body = await readBody(request);
+    const detected = detectRegionalPreferences(request.headers);
 
     const data = await validate(
         body,
@@ -33,6 +35,8 @@ export const POST = handler(async (request) => {
             password: await hashPassword(data.password),
             role: 'client',
             status: 'active',
+            locale: detected.locale,
+            display_currency: detected.currency,
             created_at: new Date(),
             updated_at: new Date(),
         },
@@ -53,6 +57,7 @@ export const POST = handler(async (request) => {
         client_id: null,
         current_tenant_id: null,
         locale: user.locale ?? null,
+        display_currency: user.display_currency ?? detected.currency,
         theme: 'light',
     });
 

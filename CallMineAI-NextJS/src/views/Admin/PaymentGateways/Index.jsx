@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import AdminLayout from '@/layouts/AdminLayout';
@@ -40,16 +44,16 @@ export default function AdminPaymentGatewaysIndex({ gateways = [], stats = [], f
     };
 
     return (
-        <AdminLayout title="Payment Gateways">
-            <Head title="Payment Gateways · Admin" />
+        <AdminLayout title={translationI18n.t('hardcoded.views_admin_paymentgateways_index_5b290a5132ff')}>
+            <Head title={translationI18n.t('hardcoded.views_admin_paymentgateways_index_0a7d2f563bbe')} />
             <div className="space-y-6">
                 <div className="flex flex-wrap items-center justify-between gap-4">
-                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">Payment Gateways</h2>
+                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100"><Trans i18nKey="hardcoded.views_admin_paymentgateways_index_5b290a5132ff" /></h2>
                     <a
                         href={route('admin.payments.index')}
                         className="text-sm font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
                     >
-                        View payments →
+                        <Trans i18nKey="hardcoded.views_admin_paymentgateways_index_290fef565619" />
                     </a>
                 </div>
                 <PageOverview feature="admin-payment-gateways" />
@@ -60,8 +64,7 @@ export default function AdminPaymentGatewaysIndex({ gateways = [], stats = [], f
                     </div>
                 )}
                 <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                    Configure payment gateways from the database. When configured here, these settings override .env. Both test and live
-                    credentials are stored securely.
+                    <Trans i18nKey="hardcoded.views_admin_paymentgateways_index_3e51ce09de59" />
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {gateways.map((g) => (
@@ -80,7 +83,7 @@ export default function AdminPaymentGatewaysIndex({ gateways = [], stats = [], f
                                     </span>
                                 </div>
                                 <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-                                    {g.enabled ? 'Enabled' : 'Disabled'} · {g.test_mode ? 'Test mode' : 'Live mode'} ·{' '}
+                                    {g.enabled ? translationI18n.t('hardcoded.views_admin_paymentgateways_index_69bad694075c') : translationI18n.t('hardcoded.views_admin_paymentgateways_index_f726cb3b77ce')} · {g.test_mode ? translationI18n.t('hardcoded.views_admin_paymentgateways_index_fc9a4bc4cd18') : 'Live mode'} ·{' '}
                                     {g.recurring ? 'Recurring' : 'One-time'}
                                 </p>
                                 <Button
@@ -90,7 +93,7 @@ export default function AdminPaymentGatewaysIndex({ gateways = [], stats = [], f
                                     className="mt-4"
                                     onClick={() => openEdit(g.gateway)}
                                 >
-                                    Edit gateway
+                                    <Trans i18nKey="hardcoded.views_admin_paymentgateways_index_674395573511" />
                                 </Button>
                             </Card.Body>
                         </Card>

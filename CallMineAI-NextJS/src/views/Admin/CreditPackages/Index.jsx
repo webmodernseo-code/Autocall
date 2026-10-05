@@ -1,12 +1,14 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router, useForm } from '@/lib/page-router';
 import AdminLayout from '@/layouts/AdminLayout';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { Coins, Plus, Pencil, Trash2, Check, Star } from 'lucide-react';
 import { useMoney } from '@/lib/money';
 
@@ -29,7 +31,7 @@ function PackageModal({ open, initial, onClose }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <div className="w-full max-w-md rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl" onClick={(e) => e.stopPropagation()}>
                 <h3 className="mb-4 font-display text-lg font-semibold text-neutral-900 dark:text-white">
-                    {editing ? 'Edit credit package' : 'New credit package'}
+                    {editing ? translationI18n.t('hardcoded.views_admin_creditpackages_index_95042dad5192') : translationI18n.t('hardcoded.views_admin_creditpackages_index_dd6caf0e5408')}
                 </h3>
                 <form onSubmit={submit} className="space-y-3">
                     <Field label="Name" error={errors.name}>
@@ -56,12 +58,12 @@ function PackageModal({ open, initial, onClose }) {
                             <input type="checkbox" checked={data.is_popular} onChange={(e) => setData('is_popular', e.target.checked)} /> Popular
                         </label>
                         <label className="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
-                            <input type="checkbox" checked={data.is_active} onChange={(e) => setData('is_active', e.target.checked)} /> Active
+                            <input type="checkbox" checked={data.is_active} onChange={(e) => setData('is_active', e.target.checked)} /> <Trans i18nKey="hardcoded.views_admin_creditpackages_index_bb178ea66ef2" />
                         </label>
                     </div>
                     <div className="flex justify-end gap-2 pt-2">
-                        <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-ink-800">Cancel</button>
-                        <button type="submit" disabled={processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">{editing ? 'Save' : 'Create'}</button>
+                        <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_admin_creditpackages_index_28b0064e5caf" /></button>
+                        <button type="submit" disabled={processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">{editing ? translationI18n.t('hardcoded.views_admin_creditpackages_index_339cf579147a') : translationI18n.t('hardcoded.views_admin_creditpackages_index_1af8abae19e3')}</button>
                     </div>
                 </form>
             </div>
@@ -101,7 +103,7 @@ export default function CreditPackagesIndex({ packages = [], pendingPurchases = 
                         <h2 className="font-display text-xl font-semibold text-neutral-900 dark:text-white">{t('admin.credit_packages') || 'Credit packages'}</h2>
                     </div>
                     <button onClick={() => setModal({ open: true, initial: null })} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500">
-                        <Plus className="h-4 w-4" /> New package
+                        <Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_admin_creditpackages_index_8ff3d4a715b5" />
                     </button>
                 </div>
 
@@ -121,11 +123,11 @@ export default function CreditPackagesIndex({ packages = [], pendingPurchases = 
                                     <p className="mt-1 font-mono text-2xl font-bold tabular-nums text-neutral-900 dark:text-white">{pkg.credits.toLocaleString()}</p>
                                     <p className="text-xs text-neutral-500">credits · {money(pkg.price_cents, pkg.currency_code)}</p>
                                 </div>
-                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${pkg.is_active ? 'bg-signal-100 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300' : 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{pkg.is_active ? 'Active' : 'Inactive'}</span>
+                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${pkg.is_active ? 'bg-signal-100 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300' : 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{pkg.is_active ? translationI18n.t('hardcoded.views_admin_creditpackages_index_bb178ea66ef2') : translationI18n.t('hardcoded.views_admin_creditpackages_index_217d0fffe74d')}</span>
                             </div>
                             <div className="mt-4 flex gap-2">
-                                <button onClick={() => setModal({ open: true, initial: pkg })} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Pencil className="h-3.5 w-3.5" /> Edit</button>
-                                <button onClick={() => remove(pkg)} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs text-danger hover:bg-danger/10"><Trash2 className="h-3.5 w-3.5" /> Delete</button>
+                                <button onClick={() => setModal({ open: true, initial: pkg })} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Pencil className="h-3.5 w-3.5" /> <Trans i18nKey="hardcoded.views_admin_creditpackages_index_1bd35721ecc2" /></button>
+                                <button onClick={() => remove(pkg)} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs text-danger hover:bg-danger/10"><Trash2 className="h-3.5 w-3.5" /> <Trans i18nKey="hardcoded.views_admin_creditpackages_index_dfb7c8e9abaf" /></button>
                             </div>
                         </div>
                     ))}

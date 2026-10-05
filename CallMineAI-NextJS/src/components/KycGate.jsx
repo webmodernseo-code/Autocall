@@ -1,5 +1,7 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { usePage, Link } from '@/lib/page-router';
 import { ShieldAlert, Clock, ArrowRight } from 'lucide-react';
@@ -24,11 +26,11 @@ export default function KycGate({ action = 'use this feature' }) {
                     {pending ? 'Verification in review' : `Verify your business to ${action}`}
                 </p>
                 <p className="text-sm text-amber-700/90 dark:text-amber-300/80">
-                    {pending ? 'We’ll notify you once your documents are approved.' : `Upload your business documents to unlock the ability to ${action}.`}
+                    {pending ? translationI18n.t('hardcoded.components_kycgate_1e1e3d1ae117') : `Upload your business documents to unlock the ability to ${action}.`}
                 </p>
             </div>
             <Link href={route('client.kyc.index')} className="inline-flex shrink-0 items-center gap-1.5 rounded-soft bg-amber-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-amber-600">
-                {pending ? 'View status' : 'Verify now'} <ArrowRight className="h-4 w-4" />
+                {pending ? translationI18n.t('hardcoded.components_kycgate_dbb6e8774b36') : 'Verify now'} <ArrowRight className="h-4 w-4" />
             </Link>
         </div>
     );

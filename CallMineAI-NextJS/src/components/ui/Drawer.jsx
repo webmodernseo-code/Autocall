@@ -1,5 +1,7 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { Transition } from '@headlessui/react';
 
 /**
@@ -55,7 +57,7 @@ export default function Drawer({
                                         type="button"
                                         onClick={onClose}
                                         className="rounded-soft p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 dark:hover:bg-neutral-800 dark:hover:text-neutral-300 transition duration-150"
-                                        aria-label="Close"
+                                        aria-label={translationI18n.t('hardcoded.components_ui_drawer_7700293caeec')}
                                     >
                                         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

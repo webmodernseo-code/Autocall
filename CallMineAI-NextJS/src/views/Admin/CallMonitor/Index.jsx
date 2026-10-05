@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useEffect, useState } from 'react';
 import { Head, router } from '@/lib/page-router';
@@ -33,16 +37,16 @@ export default function CallMonitorIndex({ calls, filters = {}, clients = [], st
     }, [auto]);
 
     return (
-        <AdminLayout title="Call Monitoring">
-            <Head title="Call Monitoring" />
+        <AdminLayout title={translationI18n.t('hardcoded.views_admin_callmonitor_index_774116be6c01')}>
+            <Head title={translationI18n.t('hardcoded.views_admin_callmonitor_index_774116be6c01')} />
             <div className="space-y-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                        <h2 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Call Monitoring</h2>
-                        <p className="text-sm text-neutral-500 dark:text-neutral-400">Live and recent calls across every customer.</p>
+                        <h2 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_admin_callmonitor_index_774116be6c01" /></h2>
+                        <p className="text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_callmonitor_index_e184d7b77a8b" /></p>
                     </div>
                     <button onClick={() => setAuto((v) => !v)} className={`inline-flex items-center gap-2 rounded-soft border px-3 py-2 text-sm font-medium transition ${auto ? 'border-signal-300 bg-signal-50 text-signal-700 dark:border-signal-500/30 dark:bg-signal-500/10 dark:text-signal-300' : 'border-neutral-200 text-neutral-600 dark:border-ink-700 dark:text-neutral-300'}`}>
-                        {auto ? <><RadioTower className="h-4 w-4 animate-pulse" /> Live · auto-refresh</> : <><Play className="h-4 w-4" /> Paused</>}
+                        {auto ? <><RadioTower className="h-4 w-4 animate-pulse" /> <Trans i18nKey="hardcoded.views_admin_callmonitor_index_aa9abaa79e31" /></> : <><Play className="h-4 w-4" /> Paused</>}
                     </button>
                 </div>
 
@@ -51,11 +55,11 @@ export default function CallMonitorIndex({ calls, filters = {}, clients = [], st
 
                 <div className="flex flex-wrap gap-2">
                     <select value={filters.status || ''} onChange={(e) => set({ status: e.target.value })} className="rounded-soft border border-neutral-200 bg-white px-3 pr-8 py-2 text-sm dark:border-ink-700 dark:bg-ink-900">
-                        <option value="">All statuses</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_admin_callmonitor_index_fb7cc5150e74" /></option>
                         {statuses.map((s) => <option key={s} value={s}>{s.replace('_', ' ')}</option>)}
                     </select>
                     <select value={filters.client || ''} onChange={(e) => set({ client: e.target.value })} className="rounded-soft border border-neutral-200 bg-white px-3 pr-8 py-2 text-sm dark:border-ink-700 dark:bg-ink-900">
-                        <option value="">All customers</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_admin_callmonitor_index_20454d11f2a8" /></option>
                         {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
                     </select>
                 </div>
@@ -86,7 +90,7 @@ export default function CallMonitorIndex({ calls, filters = {}, clients = [], st
                             </tbody>
                         </table>
                     ) : (
-                        <div className="px-6 py-16 text-center"><PhoneCall className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500">No calls to monitor.</p></div>
+                        <div className="px-6 py-16 text-center"><PhoneCall className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500"><Trans i18nKey="hardcoded.views_admin_callmonitor_index_e3374d5b4f98" /></p></div>
                     )}
                 </div>
 

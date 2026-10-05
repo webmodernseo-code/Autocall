@@ -3,7 +3,7 @@
 import { route } from '@/lib/route';
 import { Head, router, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import PageOverview from '@/components/PageOverview';
 import SetupGuide from '@/components/SetupGuide';
 import StatCards from '@/components/StatCards';
@@ -77,7 +77,7 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
                             <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Google Sheets</h1>
                             <StatusBadge connected={config.connected} />
                         </div>
-                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Automatically export form submissions and appointments to a Google spreadsheet.</p>
+                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_googlesheets_index_3c53de9c8e7f" /></p>
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
                         </div>
                         <h2 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">Connect Google Sheets</h2>
                         <p className="mx-auto mt-2 max-w-md text-sm text-neutral-500 dark:text-neutral-400">
-                            Link a Google account to sync your data into a spreadsheet in real time. We&apos;ll create a dedicated sheet and keep it up to date as new form submissions and appointments arrive.
+                            <Trans i18nKey="hardcoded.views_client_googlesheets_index_2e74c8fc5728" />
                         </p>
                         <button
                             onClick={connect}
@@ -118,7 +118,7 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
                                             rel="noreferrer"
                                             className="inline-flex items-center gap-1.5 text-sm text-brand-600 hover:text-brand-500 dark:text-brand-400"
                                         >
-                                            <Table className="h-4 w-4" /> Open spreadsheet <ExternalLink className="h-3.5 w-3.5" />
+                                            <Table className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_googlesheets_index_532e8340d298" /> <ExternalLink className="h-3.5 w-3.5" />
                                         </a>
                                     )}
                                     {config.last_synced_human && (
@@ -135,8 +135,8 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
                         </div>
 
                         <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft">
-                            <h3 className="font-display text-base font-semibold text-neutral-900 dark:text-white">Sync settings</h3>
-                            <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Choose which records are pushed to your spreadsheet.</p>
+                            <h3 className="font-display text-base font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_googlesheets_index_addda0e0022f" /></h3>
+                            <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_googlesheets_index_838f87f08daf" /></p>
                             <div className="mt-4 space-y-3">
                                 <Toggle
                                     label="Sync form submissions"

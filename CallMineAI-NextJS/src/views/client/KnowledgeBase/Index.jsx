@@ -4,7 +4,7 @@ import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import FileInput from '@/components/FileInput';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
@@ -41,13 +41,13 @@ export default function KnowledgeBaseIndex({ items, storage = {}, stats = [] }) 
                 <div className="lg:col-span-2 space-y-4">
                     <div>
                         <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Knowledge Base</h1>
-                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Give your agents context to ground their answers during calls.</p>
+                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_knowledgebase_index_f01bf4f092fd" /></p>
                     </div>
 
                     {items.data.length === 0 ? (
                         <div className="rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-12 text-center">
                             <BookOpen className="mx-auto mb-3 h-12 w-12 text-neutral-300" />
-                            <p className="text-neutral-500">No knowledge yet. Add a URL, file or text →</p>
+                            <p className="text-neutral-500"><Trans i18nKey="hardcoded.views_client_knowledgebase_index_7186eed30634" /></p>
                         </div>
                     ) : (
                         <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
@@ -78,7 +78,7 @@ export default function KnowledgeBaseIndex({ items, storage = {}, stats = [] }) 
                     </div>
 
                     <form onSubmit={submit} className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4 shadow-soft space-y-3">
-                        <p className="font-display font-semibold text-neutral-900 dark:text-white">Add knowledge</p>
+                        <p className="font-display font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_knowledgebase_index_4a6a2c594944" /></p>
                         <div className="flex gap-1.5">
                             {['text', 'url', 'file'].map((tp) => {
                                 const Icon = TYPE_ICON[tp];
@@ -91,7 +91,7 @@ export default function KnowledgeBaseIndex({ items, storage = {}, stats = [] }) 
                         {type === 'text' && <textarea rows="5" className={inputCls} placeholder="Paste text content…" value={form.data.content} onChange={(e) => form.setData('content', e.target.value)} />}
                         {type === 'file' && <FileInput value={form.data.file} onChange={(f) => form.setData('file', f)} accept=".pdf,.doc,.docx,.txt" hint="PDF, DOC or TXT" />}
                         {(form.errors.source_url || form.errors.content || form.errors.file) && <p className="text-xs text-danger">{form.errors.source_url || form.errors.content || form.errors.file}</p>}
-                        <button type="submit" disabled={form.processing} className="inline-flex w-full items-center justify-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Plus className="h-4 w-4" /> Add to knowledge base</button>
+                        <button type="submit" disabled={form.processing} className="inline-flex w-full items-center justify-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_knowledgebase_index_942b3fe97745" /></button>
                     </form>
                 </div>
             </div>

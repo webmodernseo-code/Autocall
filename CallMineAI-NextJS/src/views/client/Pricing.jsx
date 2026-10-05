@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import ClientLayout from '@/layouts/ClientLayout';
 import { Button, Card } from '@/components/ui';
@@ -44,7 +46,7 @@ export default function Pricing({ plans = [], gateways = [], flash = {} }) {
                     <div>
                         <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">Plans</h2>
                         <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
-                            Choose monthly or yearly billing. Prices in your selected display currency.
+                            <Trans i18nKey="hardcoded.views_client_pricing_6b07a5cffbdd" />
                         </p>
                     </div>
                     <div className="flex items-center gap-2 rounded-soft-lg border border-soft border-neutral-200 bg-neutral-50 p-1">
@@ -102,7 +104,7 @@ export default function Pricing({ plans = [], gateways = [], flash = {} }) {
                                         <div className="mt-6 space-y-2">
                                             {configuredGateways.length === 0 ? (
                                                 <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-soft px-3 py-2">
-                                                    No payment gateway configured. Contact support.
+                                                    <Trans i18nKey="hardcoded.views_client_pricing_7857d1dec4d4" />
                                                 </p>
                                             ) : (
                                                 configuredGateways.map((gw) => {
@@ -126,7 +128,7 @@ export default function Pricing({ plans = [], gateways = [], flash = {} }) {
                                         </div>
                                     )}
                                     {isFree && (
-                                        <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">Free plan — no payment required.</p>
+                                        <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_pricing_59062270a081" /></p>
                                     )}
                                 </Card.Body>
                             </Card>
@@ -136,7 +138,7 @@ export default function Pricing({ plans = [], gateways = [], flash = {} }) {
 
                 {gateways.length > 0 && (
                     <div className="rounded-soft-lg border border-soft border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 px-4 py-3 text-sm text-neutral-600 dark:text-neutral-300">
-                        <span className="font-medium">Payment gateways: </span>
+                        <span className="font-medium"><Trans i18nKey="hardcoded.views_client_pricing_54771330ba57" /> </span>
                         {gateways.map((g) => (
                             <span key={g.key} className="mr-2">
                                 {g.name} {g.configured ? '✓' : '(not configured)'}
@@ -148,7 +150,7 @@ export default function Pricing({ plans = [], gateways = [], flash = {} }) {
                 {!plans?.length && (
                     <Card>
                         <Card.Body>
-                            <p className="text-neutral-500 dark:text-neutral-400">No plans available. Run the plan seeder to see pricing.</p>
+                            <p className="text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_pricing_253757790191" /></p>
                         </Card.Body>
                     </Card>
                 )}

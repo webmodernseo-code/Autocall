@@ -1,10 +1,12 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { Head, Link, router } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
 import KycGate from '@/components/KycGate';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { ArrowLeft, Play, Pause, Trash2, Users, PhoneCall, Bot, Hash, Megaphone, Pencil } from 'lucide-react';
 
 const STATUS = {
@@ -46,8 +48,8 @@ export default function CampaignShow({ campaign }) {
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        {['draft', 'paused'].includes(campaign.status) && <Link href={route('client.campaigns.edit', campaign.id)} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Pencil className="h-4 w-4" /> Edit</Link>}
-                        {['draft', 'paused'].includes(campaign.status) && <button onClick={() => act(campaign.status === 'draft' ? 'launch' : 'resume')} className="inline-flex items-center gap-2 rounded-soft bg-signal-500 px-3 py-2 text-sm font-medium text-white hover:bg-signal-600"><Play className="h-4 w-4" /> {campaign.status === 'draft' ? 'Launch' : 'Resume'}</button>}
+                        {['draft', 'paused'].includes(campaign.status) && <Link href={route('client.campaigns.edit', campaign.id)} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Pencil className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_campaigns_show_875d7934a2b0" /></Link>}
+                        {['draft', 'paused'].includes(campaign.status) && <button onClick={() => act(campaign.status === 'draft' ? 'launch' : 'resume')} className="inline-flex items-center gap-2 rounded-soft bg-signal-500 px-3 py-2 text-sm font-medium text-white hover:bg-signal-600"><Play className="h-4 w-4" /> {campaign.status === 'draft' ? translationI18n.t('hardcoded.views_client_campaigns_show_22be66ffcbe0') : translationI18n.t('hardcoded.views_client_campaigns_show_81cf7a5239e1')}</button>}
                         {campaign.status === 'active' && <button onClick={() => act('pause')} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Pause className="h-4 w-4" /> Pause</button>}
                         <button onClick={remove} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2 text-sm text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button>
                     </div>
@@ -66,7 +68,7 @@ export default function CampaignShow({ campaign }) {
 
                 {(!campaign.agent || !campaign.number) && (
                     <div className="rounded-soft-lg border border-warm/30 bg-warm/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
-                        Assign an agent and a phone number before launching. Edit the campaign to set them.
+                        <Trans i18nKey="hardcoded.views_client_campaigns_show_27aa237cd5cc" />
                     </div>
                 )}
             </div>

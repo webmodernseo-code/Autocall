@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router } from '@/lib/page-router';
@@ -21,16 +23,16 @@ function BuyModal({ twilioConfigured, onClose }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <div className="w-full max-w-lg rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl" onClick={(e) => e.stopPropagation()}>
-                <div className="mb-3 flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">Add system number</h3><button onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
-                <div className="mb-4 flex gap-1.5"><button onClick={() => setTab('search')} disabled={!twilioConfigured} className={`flex-1 rounded-soft px-3 py-1.5 text-sm ${tab === 'search' ? 'bg-brand-600 text-white' : 'border border-neutral-200 dark:border-ink-700 disabled:opacity-40'}`}>Search Twilio</button><button onClick={() => setTab('manual')} className={`flex-1 rounded-soft px-3 py-1.5 text-sm ${tab === 'manual' ? 'bg-brand-600 text-white' : 'border border-neutral-200 dark:border-ink-700'}`}>Add manually</button></div>
+                <div className="mb-3 flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_admin_phonepool_index_e8c4e8ae2a08" /></h3><button onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
+                <div className="mb-4 flex gap-1.5"><button onClick={() => setTab('search')} disabled={!twilioConfigured} className={`flex-1 rounded-soft px-3 py-1.5 text-sm ${tab === 'search' ? 'bg-brand-600 text-white' : 'border border-neutral-200 dark:border-ink-700 disabled:opacity-40'}`}><Trans i18nKey="hardcoded.views_admin_phonepool_index_bdffa30b0ea0" /></button><button onClick={() => setTab('manual')} className={`flex-1 rounded-soft px-3 py-1.5 text-sm ${tab === 'manual' ? 'bg-brand-600 text-white' : 'border border-neutral-200 dark:border-ink-700'}`}><Trans i18nKey="hardcoded.views_admin_phonepool_index_b8ebab0077cf" /></button></div>
                 {tab === 'search' ? (
                     <div className="space-y-3">
                         <div className="grid grid-cols-3 gap-2"><input className={inputCls} maxLength={2} value={q.country} onChange={(e) => setQ({ ...q, country: e.target.value.toUpperCase() })} placeholder="US" /><input className={inputCls} value={q.area_code} onChange={(e) => setQ({ ...q, area_code: e.target.value })} placeholder="Area" /><select className={inputCls} value={q.type} onChange={(e) => setQ({ ...q, type: e.target.value })}><option value="local">Local</option><option value="toll_free">Toll-free</option><option value="mobile">Mobile</option></select></div>
-                        <button onClick={search} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Search className="h-4 w-4" /> Search</button>
+                        <button onClick={search} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Search className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_admin_phonepool_index_4c4052b2aed5" /></button>
                         <div className="max-h-56 space-y-1.5 overflow-auto">{results.map((n) => <div key={n.e164} className="flex items-center justify-between rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2"><span className="font-mono text-sm">{n.e164}</span><button onClick={() => buy({ phone: n.e164, type: q.type, country: n.country })} className="rounded-soft bg-brand-600 px-3 py-1 text-xs text-white">Buy</button></div>)}</div>
                     </div>
                 ) : (
-                    <div className="space-y-3"><input className={inputCls} placeholder="+14155550100" value={manual.phone} onChange={(e) => setManual({ ...manual, phone: e.target.value })} /><div className="grid grid-cols-2 gap-2"><select className={inputCls} value={manual.type} onChange={(e) => setManual({ ...manual, type: e.target.value })}><option value="local">Local</option><option value="toll_free">Toll-free</option><option value="mobile">Mobile</option></select><input className={inputCls} maxLength={2} value={manual.country} onChange={(e) => setManual({ ...manual, country: e.target.value.toUpperCase() })} /></div><button onClick={() => buy(manual)} disabled={!manual.phone} className="w-full rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Add</button></div>
+                    <div className="space-y-3"><input className={inputCls} placeholder="+14155550100" value={manual.phone} onChange={(e) => setManual({ ...manual, phone: e.target.value })} /><div className="grid grid-cols-2 gap-2"><select className={inputCls} value={manual.type} onChange={(e) => setManual({ ...manual, type: e.target.value })}><option value="local">Local</option><option value="toll_free">Toll-free</option><option value="mobile">Mobile</option></select><input className={inputCls} maxLength={2} value={manual.country} onChange={(e) => setManual({ ...manual, country: e.target.value.toUpperCase() })} /></div><button onClick={() => buy(manual)} disabled={!manual.phone} className="w-full rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_admin_phonepool_index_64f5f868e064" /></button></div>
                 )}
             </div>
         </div>
@@ -47,12 +49,12 @@ export default function PhonePoolIndex({ numbers = [], assigned = [], customers 
             <Head title="Phone Pool" />
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                    <div><h2 className="font-display text-xl font-semibold text-neutral-900 dark:text-white">System Phone Pool</h2><p className="text-sm text-neutral-500">{numbers.length} available · {assigned.length} assigned</p></div>
-                    <button onClick={() => setBuying(true)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> Add number</button>
+                    <div><h2 className="font-display text-xl font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_admin_phonepool_index_9c434192b524" /></h2><p className="text-sm text-neutral-500">{numbers.length} <Trans i18nKey="hardcoded.views_admin_phonepool_index_248aa629e87c" /> {assigned.length} assigned</p></div>
+                    <button onClick={() => setBuying(true)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_admin_phonepool_index_001d1bb60ea7" /></button>
                 </div>
                 <PageOverview feature="admin-phone-pool" />
                 <StatCards items={stats} />
-                {!twilioConfigured && <div className="rounded-soft-lg border border-warm/30 bg-warm/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">Twilio not configured — search disabled; add numbers manually.</div>}
+                {!twilioConfigured && <div className="rounded-soft-lg border border-warm/30 bg-warm/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300"><Trans i18nKey="hardcoded.views_admin_phonepool_index_3ff77f1697a5" /></div>}
 
                 <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                     <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">

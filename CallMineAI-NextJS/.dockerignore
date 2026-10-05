@@ -1,0 +1,16 @@
+.git
+.github
+.next
+node_modules
+coverage
+Documentation
+Licensing
+*.log
+.env
+.env.*
+!.env.example
+README*
+installation.md
+Dockerfile*
+compose*.yml
+

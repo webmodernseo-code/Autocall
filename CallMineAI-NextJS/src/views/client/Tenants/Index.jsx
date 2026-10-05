@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import ClientLayout from '@/layouts/ClientLayout';
 import PageOverview from '@/components/PageOverview';
@@ -39,7 +43,7 @@ export default function TenantsIndex({ tenants = [], stats = [] }) {
                     <div>
                         <h2 className="text-xl font-semibold text-neutral-900">Workspaces</h2>
                         <p className="text-sm text-neutral-500 mt-1">
-                            Switch workspace or create a new one. Your calling data is scoped per workspace.
+                            <Trans i18nKey="hardcoded.views_client_tenants_index_32efc8c625b6" />
                         </p>
                     </div>
                 </div>
@@ -50,7 +54,7 @@ export default function TenantsIndex({ tenants = [], stats = [] }) {
 
                 <Card>
                     <Card.Body>
-                        <h3 className="text-sm font-semibold text-neutral-800 mb-3">Create workspace</h3>
+                        <h3 className="text-sm font-semibold text-neutral-800 mb-3"><Trans i18nKey="hardcoded.views_client_tenants_index_7b2ef8628a11" /></h3>
                         <form onSubmit={handleCreate} className="flex flex-col gap-3 sm:flex-row sm:items-end">
                             <Input
                                 label="Name"
@@ -60,18 +64,18 @@ export default function TenantsIndex({ tenants = [], stats = [] }) {
                                 className="sm:max-w-xs"
                             />
                             <Button type="submit" variant="primary" disabled={creating || !name.trim()}>
-                                {creating ? 'Creating…' : 'Create'}
+                                {creating ? 'Creating…' : translationI18n.t('hardcoded.views_client_tenants_index_064078c659e1')}
                             </Button>
                         </form>
                     </Card.Body>
                 </Card>
 
                 <div>
-                    <h3 className="text-sm font-semibold text-neutral-800 mb-2">Your workspaces</h3>
+                    <h3 className="text-sm font-semibold text-neutral-800 mb-2"><Trans i18nKey="hardcoded.views_client_tenants_index_1562f5432d32" /></h3>
                     {tenants.length === 0 ? (
                         <Card>
                             <Card.Body>
-                                <p className="text-neutral-500">No workspaces yet. Create one above.</p>
+                                <p className="text-neutral-500"><Trans i18nKey="hardcoded.views_client_tenants_index_70825a5ddc69" /></p>
                             </Card.Body>
                         </Card>
                     ) : (
@@ -87,7 +91,7 @@ export default function TenantsIndex({ tenants = [], stats = [] }) {
                                                 onClick={() => handleSwitch(t.id)}
                                                 disabled={currentTenant?.id === t.id}
                                             >
-                                                {currentTenant?.id === t.id ? 'Current' : 'Switch'}
+                                                {currentTenant?.id === t.id ? translationI18n.t('hardcoded.views_client_tenants_index_c24fb530466f') : 'Switch'}
                                             </Button>
                                         </Card.Body>
                                     </Card>

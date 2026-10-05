@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { Head, Link, router, useForm, usePage } from '@/lib/page-router';
 import { useState } from 'react';
@@ -51,11 +55,11 @@ export default function Register() {
             brand={brand}
             logoUrl={logoUrl}
             eyebrow="Get started free"
-            title="Create your account"
+            title={translationI18n.t('hardcoded.views_auth_register_354fc2cf21c4')}
             subtitle="Deploy your first AI caller in minutes — no credit card needed."
             footer={<>Already have an account? <Link href={route('login')} className="font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400 dark:hover:text-brand-300">Sign in</Link></>}
         >
-            <Head title="Create account" />
+            <Head title={translationI18n.t('hardcoded.views_auth_register_9fa1c4da85a5')} />
 
             {showGoogle && (
                 <div className="mb-2">
@@ -79,7 +83,7 @@ export default function Register() {
                     value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} error={errors.password_confirmation} />
 
                 <div className="pt-2">
-                    <SubmitButton processing={processing} loadingText="Creating account…">Create account</SubmitButton>
+                    <SubmitButton processing={processing} loadingText="Creating account…"><Trans i18nKey="hardcoded.views_auth_register_9fa1c4da85a5" /></SubmitButton>
                 </div>
             </form>
 

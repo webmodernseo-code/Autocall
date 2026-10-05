@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { Head, Link, router, useForm, usePage } from '@/lib/page-router';
 import { useState } from 'react';
@@ -62,9 +66,9 @@ export default function Login({ status, canResetPassword }) {
             brand={brand}
             logoUrl={logoUrl}
             eyebrow="Welcome back"
-            title="Sign in to your workspace"
+            title={translationI18n.t('hardcoded.views_auth_login_10183bcc740a')}
             subtitle="Pick up where you left off — your agents are ready."
-            footer={<>Don&apos;t have an account? <Link href={route('register')} className="font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400 dark:hover:text-brand-300">Create one</Link></>}
+            footer={<>Don&apos;t have an account? <Link href={route('register')} className="font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400 dark:hover:text-brand-300"><Trans i18nKey="hardcoded.views_auth_login_00d7aaa6a4c1" /></Link></>}
         >
             <Head title="Login" />
 
@@ -96,7 +100,7 @@ export default function Login({ status, canResetPassword }) {
                         Remember me
                     </label>
                     {canResetPassword && (
-                        <Link href={route('password.request')} className="text-sm font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400 dark:hover:text-brand-300">Forgot password?</Link>
+                        <Link href={route('password.request')} className="text-sm font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400 dark:hover:text-brand-300"><Trans i18nKey="hardcoded.views_auth_login_99cc1fd58937" /></Link>
                     )}
                 </div>
 

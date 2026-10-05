@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router, useForm } from '@/lib/page-router';
@@ -19,8 +23,8 @@ function TrunkModal({ templates, engines, onClose }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <form onSubmit={submit} className="max-h-[88vh] w-full max-w-lg space-y-3 overflow-auto rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl" onClick={(e) => e.stopPropagation()}>
-                <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">Add SIP trunk</h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
-                <input className={inputCls} placeholder="Trunk name" value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
+                <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_sip_index_801d29e2fd14" /></h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
+                <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_sip_index_9148ffa30c0d')} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
                 <div className="grid grid-cols-2 gap-2">
                     <select className={inputCls} value={form.data.provider} onChange={(e) => pickProvider(e.target.value)}>{Object.entries(templates).map(([k, t]) => <option key={k} value={k}>{t.name}</option>)}</select>
                     <select className={inputCls} value={form.data.engine} onChange={(e) => form.setData('engine', e.target.value)}>{engines.map((x) => <option key={x.key} value={x.key}>{x.name}</option>)}</select>
@@ -35,12 +39,12 @@ function TrunkModal({ templates, engines, onClose }) {
                     <input className={`${inputCls} col-span-2`} type="number" placeholder="Concurrency" value={form.data.concurrency_limit} onChange={(e) => form.setData('concurrency_limit', Number(e.target.value))} />
                 </div>
                 <input className={inputCls} placeholder="Username" value={form.data.username} onChange={(e) => form.setData('username', e.target.value)} />
-                <input className={inputCls} type="password" placeholder="Password" value={form.data.password} onChange={(e) => form.setData('password', e.target.value)} />
+                <input className={inputCls} type="password" placeholder={translationI18n.t('hardcoded.views_client_sip_index_6de14ac55084')} value={form.data.password} onChange={(e) => form.setData('password', e.target.value)} />
                 <div className="flex gap-4 text-sm text-neutral-700 dark:text-neutral-300">
-                    <label className="flex items-center gap-1.5"><input type="checkbox" checked={form.data.inbound_enabled} onChange={(e) => form.setData('inbound_enabled', e.target.checked)} /> Inbound</label>
-                    <label className="flex items-center gap-1.5"><input type="checkbox" checked={form.data.outbound_enabled} onChange={(e) => form.setData('outbound_enabled', e.target.checked)} /> Outbound</label>
+                    <label className="flex items-center gap-1.5"><input type="checkbox" checked={form.data.inbound_enabled} onChange={(e) => form.setData('inbound_enabled', e.target.checked)} /> <Trans i18nKey="hardcoded.views_client_sip_index_58b24a3244ae" /></label>
+                    <label className="flex items-center gap-1.5"><input type="checkbox" checked={form.data.outbound_enabled} onChange={(e) => form.setData('outbound_enabled', e.target.checked)} /> <Trans i18nKey="hardcoded.views_client_sip_index_bb73c7682025" /></label>
                 </div>
-                <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800">Cancel</button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Add trunk</button></div>
+                <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_sip_index_d6905f0db855" /></button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_client_sip_index_839aecd84a7b" /></button></div>
             </form>
         </div>
     );
@@ -52,14 +56,14 @@ function NumberModal({ trunks, agents, onClose }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <form onSubmit={submit} className="w-full max-w-md space-y-3 rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl" onClick={(e) => e.stopPropagation()}>
-                <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">Import number</h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
+                <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_sip_index_28e949239ecd" /></h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
                 <select className={inputCls} value={form.data.sip_trunk_id} onChange={(e) => form.setData('sip_trunk_id', e.target.value)}>{trunks.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}</select>
                 <input className={inputCls} placeholder="Phone (+14155550100)" value={form.data.phone} onChange={(e) => form.setData('phone', e.target.value)} />
                 <div className="grid grid-cols-2 gap-2">
-                    <select className={inputCls} value={form.data.direction} onChange={(e) => form.setData('direction', e.target.value)}><option value="inbound">Inbound</option><option value="outbound">Outbound</option><option value="both">Both</option></select>
-                    <select className={inputCls} value={form.data.agent_id} onChange={(e) => form.setData('agent_id', e.target.value)}><option value="">No agent</option>{agents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}</select>
+                    <select className={inputCls} value={form.data.direction} onChange={(e) => form.setData('direction', e.target.value)}><option value="inbound"><Trans i18nKey="hardcoded.views_client_sip_index_58b24a3244ae" /></option><option value="outbound"><Trans i18nKey="hardcoded.views_client_sip_index_bb73c7682025" /></option><option value="both"><Trans i18nKey="hardcoded.views_client_sip_index_e3495a5641a8" /></option></select>
+                    <select className={inputCls} value={form.data.agent_id} onChange={(e) => form.setData('agent_id', e.target.value)}><option value=""><Trans i18nKey="hardcoded.views_client_sip_index_42e8966d83ee" /></option>{agents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}</select>
                 </div>
-                <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800">Cancel</button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Import</button></div>
+                <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_sip_index_d6905f0db855" /></button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Import</button></div>
             </form>
         </div>
     );
@@ -75,10 +79,10 @@ export default function SipIndex({ trunks = [], numbers = [], stats = [], provid
             <Head title="SIP Trunks" />
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">SIP Trunk Engine</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Bring your own SIP trunk for AI inbound/outbound calls.</p></div>
+                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">SIP Trunk Engine</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_sip_index_5f344722a7f3" /></p></div>
                     <div className="flex gap-2">
-                        <button onClick={() => setModal('number')} disabled={trunks.length === 0 || (limits.numbers_used ?? 0) >= (limits.numbers ?? 0)} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 disabled:opacity-40"><Plus className="h-4 w-4" /> Import number</button>
-                        <button onClick={() => setModal('trunk')} disabled={(limits.trunks_used ?? 0) >= (limits.trunks ?? 0)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-40"><Plus className="h-4 w-4" /> Add trunk</button>
+                        <button onClick={() => setModal('number')} disabled={trunks.length === 0 || (limits.numbers_used ?? 0) >= (limits.numbers ?? 0)} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 disabled:opacity-40"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_sip_index_28e949239ecd" /></button>
+                        <button onClick={() => setModal('trunk')} disabled={(limits.trunks_used ?? 0) >= (limits.trunks ?? 0)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-40"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_sip_index_839aecd84a7b" /></button>
                     </div>
                 </div>
 
@@ -101,7 +105,7 @@ export default function SipIndex({ trunks = [], numbers = [], stats = [], provid
                                 <div className="mt-2 flex gap-2 text-[11px] text-neutral-500">{t.inbound_enabled && <span className="rounded-full bg-signal-100 px-2 py-0.5 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300">inbound</span>}{t.outbound_enabled && <span className="rounded-full bg-brand-100 px-2 py-0.5 text-brand-700 dark:bg-brand-500/20 dark:text-brand-300">outbound</span>}<span className="ml-auto">{t.numbers_count} numbers</span></div>
                             </div>
                         ))}
-                        {trunks.length === 0 && <div className="col-span-full rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-12 text-center"><Network className="mx-auto mb-2 h-10 w-10 text-neutral-300" /><p className="text-sm text-neutral-500">No SIP trunks. Add one from a provider template.</p></div>}
+                        {trunks.length === 0 && <div className="col-span-full rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-12 text-center"><Network className="mx-auto mb-2 h-10 w-10 text-neutral-300" /><p className="text-sm text-neutral-500"><Trans i18nKey="hardcoded.views_client_sip_index_cec9fb56ca85" /></p></div>}
                     </div>
                 </div>
 

@@ -21,6 +21,7 @@ export default function Pagination({
     className = '',
     data,
 }) {
+    const { t } = useTranslation();
     const meta = data
         ? {
               links: data.links ?? [],
@@ -96,7 +97,6 @@ export default function Pagination({
             .trim();
     };
 
-    const { t } = useTranslation();
     const btnClass =
         'inline-flex items-center justify-center min-w-[2.25rem] h-9 px-2.5 text-sm font-medium rounded-soft text-neutral-600 dark:text-neutral-400 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900';
 

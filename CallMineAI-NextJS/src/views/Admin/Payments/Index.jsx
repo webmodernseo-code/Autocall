@@ -6,7 +6,7 @@ import { Button, Card, Pagination } from '@/components/ui';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import { Head, Link, router } from '@/lib/page-router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 export default function AdminPaymentsIndex({ payments, filters = {}, stats = [] }) {
     const { t } = useTranslation();
@@ -27,13 +27,13 @@ export default function AdminPaymentsIndex({ payments, filters = {}, stats = [] 
                 <StatCards items={stats} />
                 <form className="flex flex-wrap gap-2" onSubmit={(e) => { e.preventDefault(); const f = e.target; router.get(route('admin.payments.index'), { status: f.status?.value, gateway: f.gateway?.value }, { preserveState: true }); }}>
                     <select name="status" className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 px-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20" defaultValue={filters.status}>
-                        <option value="">All statuses</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_admin_payments_index_86126b7372ae" /></option>
                         <option value="succeeded">Succeeded</option>
                         <option value="pending">Pending</option>
-                        <option value="failed">Failed</option>
+                        <option value="failed"><Trans i18nKey="hardcoded.views_admin_payments_index_04aa05531bec" /></option>
                     </select>
                     <select name="gateway" className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 px-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20" defaultValue={filters.gateway}>
-                        <option value="">All gateways</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_admin_payments_index_508abf034912" /></option>
                         <option value="stripe">Stripe</option>
                         <option value="paypal">PayPal</option>
                         <option value="paddle">Paddle</option>
@@ -45,11 +45,11 @@ export default function AdminPaymentsIndex({ payments, filters = {}, stats = [] 
                         <table className="min-w-full text-sm">
                             <thead>
                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
-                                    <th className="pb-2 pr-4 font-medium">User</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_payments_index_d5d106583f0e" /></th>
                                     <th className="pb-2 pr-4 font-medium">Amount</th>
                                     <th className="pb-2 pr-4 font-medium">Gateway</th>
-                                    <th className="pb-2 pr-4 font-medium">Status</th>
-                                    <th className="pb-2 pr-4 font-medium">Date</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_payments_index_64bbefc0f07a" /></th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_payments_index_d21586cff532" /></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,7 +65,7 @@ export default function AdminPaymentsIndex({ payments, filters = {}, stats = [] 
                             </tbody>
                         </table>
                     </div>
-                    {payments.data?.length === 0 && <div className="py-8 text-center text-neutral-500 dark:text-neutral-400">No payments.</div>}
+                    {payments.data?.length === 0 && <div className="py-8 text-center text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_payments_index_c86856030d7a" /></div>}
                     <Pagination data={payments} />
                 </Card>
             </div>

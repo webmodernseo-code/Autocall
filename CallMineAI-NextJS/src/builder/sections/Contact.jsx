@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 export default function Contact({ props: p = {}, style = {}, isSelected, onSelect, ...rest }) {
   const base = 'border-l-4 ' + (isSelected ? 'border-brand-500' : 'border-transparent');
   return (
@@ -27,7 +29,7 @@ export default function Contact({ props: p = {}, style = {}, isSelected, onSelec
         </div>
         {p.showForm !== false && (
           <div className="mt-8 p-6 rounded-soft-lg border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-800">
-            <p className="text-sm text-neutral-500 dark:text-neutral-400 text-center">Contact form placeholder (name, email, message)</p>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 text-center"><Trans i18nKey="hardcoded.builder_sections_contact_1012bfbfbc29" /></p>
           </div>
         )}
       </div>

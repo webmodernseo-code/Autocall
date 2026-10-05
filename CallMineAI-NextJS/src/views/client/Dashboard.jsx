@@ -1,9 +1,11 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import ClientLayout from '@/layouts/ClientLayout';
 import { Head, Link } from '@/lib/page-router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { PhoneCall, TrendingUp, Target, Clock, Bot, Phone, Users, Megaphone, ArrowRight, ArrowUpRight, CheckCircle2, Circle, Sparkles, Zap } from 'lucide-react';
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
@@ -91,7 +93,7 @@ function Onboarding({ steps }) {
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500/15 text-brand-600 dark:text-brand-300"><Sparkles className="h-5 w-5" /></span>
                     <div>
                         <h3 className="font-display font-semibold text-neutral-900 dark:text-white">Get started</h3>
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400">Launch your first AI calling campaign.</p>
+                        <p className="text-xs text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_dashboard_e75f6c9c3f5f" /></p>
                     </div>
                 </div>
                 <div className="flex items-center gap-2.5">
@@ -133,9 +135,9 @@ export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, credi
                         <div>
                             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-brand-100 ring-1 ring-inset ring-white/15"><span className="h-1.5 w-1.5 rounded-full bg-signal-400 animate-pulse" /> Live overview</span>
                             <h1 className="mt-3 font-display text-3xl font-bold tracking-tight">{greeting}</h1>
-                            <p className="mt-1 max-w-md text-sm text-brand-100/80">Your AI calling activity over the last 30 days.</p>
+                            <p className="mt-1 max-w-md text-sm text-brand-100/80"><Trans i18nKey="hardcoded.views_client_dashboard_acd5a59afe9a" /></p>
                         </div>
-                        <Link href={route('client.campaigns.create')} className="inline-flex items-center gap-2 rounded-soft bg-white px-4 py-2.5 text-sm font-semibold text-brand-700 shadow-soft transition hover:bg-brand-50 hover:shadow-soft-lg"><Megaphone className="h-4 w-4" /> New campaign</Link>
+                        <Link href={route('client.campaigns.create')} className="inline-flex items-center gap-2 rounded-soft bg-white px-4 py-2.5 text-sm font-semibold text-brand-700 shadow-soft transition hover:bg-brand-50 hover:shadow-soft-lg"><Megaphone className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_dashboard_1be5a69c5397" /></Link>
                     </div>
                 </div>
 
@@ -149,7 +151,7 @@ export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, credi
                         <div className="relative flex items-center gap-2 text-brand-100"><Zap className="h-4 w-4" /><span className="text-xs font-medium uppercase tracking-wide">Calling credits</span></div>
                         <p className="relative mt-3 font-mono text-4xl font-bold tabular-nums">{Number(creditBalance).toLocaleString()}</p>
                         <div className="relative mt-4 flex items-center justify-between">
-                            <span className="text-xs text-brand-100/90">{currentPlan ? currentPlan.name + ' plan' : 'No active plan'}{renewsAt ? ` · renews ${formatDate(renewsAt)}` : ''}</span>
+                            <span className="text-xs text-brand-100/90">{currentPlan ? currentPlan.name + ' plan' : translationI18n.t('hardcoded.views_client_dashboard_f122f1488adb')}{renewsAt ? ` · renews ${formatDate(renewsAt)}` : ''}</span>
                             <Link href={route('client.billing.index')} className="rounded-soft bg-white/20 px-2.5 py-1 text-xs font-medium backdrop-blur transition hover:bg-white/30">Top up</Link>
                         </div>
                     </div>
@@ -171,7 +173,7 @@ export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, credi
 
                 {/* Charts */}
                 <div className="grid gap-4 lg:grid-cols-3">
-                    <SectionCard title="Calls this week" className="lg:col-span-2">
+                    <SectionCard title={translationI18n.t('hardcoded.views_client_dashboard_dc9c1795c980')} className="lg:col-span-2">
                         <ResponsiveContainer width="100%" height={230}>
                             <BarChart data={callsByDay} barCategoryGap="28%">
                                 <defs>
@@ -210,7 +212,7 @@ export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, credi
 
                 {/* Recent calls + campaigns */}
                 <div className="grid gap-4 lg:grid-cols-3">
-                    <SectionCard title="Recent calls" pad={false} className="lg:col-span-2" action={<Link href={route('client.calls.index')} className="inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400">View all <ArrowRight className="h-3 w-3" /></Link>}>
+                    <SectionCard title={translationI18n.t('hardcoded.views_client_dashboard_5cecea58185e')} pad={false} className="lg:col-span-2" action={<Link href={route('client.calls.index')} className="inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400"><Trans i18nKey="hardcoded.views_client_dashboard_8db4cdaf2abb" /> <ArrowRight className="h-3 w-3" /></Link>}>
                         {recentCalls.length > 0 ? (
                             <table className="min-w-full divide-y divide-neutral-100 text-sm dark:divide-ink-800">
                                 <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
@@ -229,9 +231,9 @@ export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, credi
                                     ))}
                                 </tbody>
                             </table>
-                        ) : <p className="px-5 py-12 text-center text-sm text-neutral-400">No calls yet. Launch a campaign to start.</p>}
+                        ) : <p className="px-5 py-12 text-center text-sm text-neutral-400"><Trans i18nKey="hardcoded.views_client_dashboard_2ab7bf5d9550" /></p>}
                     </SectionCard>
-                    <SectionCard title="Active campaigns">
+                    <SectionCard title={translationI18n.t('hardcoded.views_client_dashboard_f1422889abed')}>
                         <div className="space-y-2">
                             {activeCampaigns.map((c) => (
                                 <Link key={c.id} href={route('client.campaigns.show', c.id)} className="group flex items-center justify-between rounded-soft border border-neutral-200 px-3 py-2.5 transition hover:border-brand-300 hover:shadow-soft dark:border-ink-700 dark:hover:border-brand-500/40">
@@ -242,7 +244,7 @@ export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, credi
                                     <ArrowRight className="h-4 w-4 shrink-0 text-neutral-300 transition group-hover:translate-x-0.5 group-hover:text-brand-500 dark:text-ink-600" />
                                 </Link>
                             ))}
-                            {activeCampaigns.length === 0 && <p className="py-10 text-center text-sm text-neutral-400">No active campaigns.</p>}
+                            {activeCampaigns.length === 0 && <p className="py-10 text-center text-sm text-neutral-400"><Trans i18nKey="hardcoded.views_client_dashboard_22aa8f27e9e8" /></p>}
                         </div>
                     </SectionCard>
                 </div>

@@ -17,8 +17,8 @@ export default function ClientSettingsIndex({
     const { t } = useTranslation();
     const { flash = {}, demo_mode = false } = usePage().props;
     const form = useForm({
-        locale: preferences.locale ?? 'en',
-        display_currency: preferences.display_currency ?? 'USD',
+        locale: preferences.locale ?? 'fr',
+        display_currency: preferences.display_currency ?? 'EUR',
         theme: preferences.theme ?? 'light',
         client_name: client?.name ?? '',
         client_email: client?.email ?? '',

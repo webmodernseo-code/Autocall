@@ -1,10 +1,12 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import { Pagination } from '@/components/ui';
@@ -56,7 +58,7 @@ function AddModal({ agents = [], contacts = [], onClose }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <form onSubmit={submit} className="w-full max-w-lg rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl space-y-3 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center justify-between">
-                    <h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">New appointment</h3>
+                    <h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_appointments_index_c48890287100" /></h3>
                     <button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button>
                 </div>
 
@@ -65,7 +67,7 @@ function AddModal({ agents = [], contacts = [], onClose }) {
 
                 <div className="grid grid-cols-2 gap-3">
                     <div>
-                        <label className="mb-1 block text-xs text-neutral-500">Date &amp; time</label>
+                        <label className="mb-1 block text-xs text-neutral-500"><Trans i18nKey="hardcoded.views_client_appointments_index_3eb568b4783b" /></label>
                         <input type="datetime-local" className={inputCls} value={form.data.scheduled_at} onChange={(e) => form.setData('scheduled_at', e.target.value)} />
                         {form.errors.scheduled_at && <p className="text-xs text-danger">{form.errors.scheduled_at}</p>}
                     </div>
@@ -77,24 +79,24 @@ function AddModal({ agents = [], contacts = [], onClose }) {
 
                 {contacts.length > 0 && (
                     <div>
-                        <label className="mb-1 block text-xs text-neutral-500">Link contact (optional)</label>
+                        <label className="mb-1 block text-xs text-neutral-500"><Trans i18nKey="hardcoded.views_client_appointments_index_6cd4c52b7bf2" /></label>
                         <select className={`${inputCls} pr-8`} value={form.data.contact_id} onChange={(e) => pickContact(e.target.value)}>
-                            <option value="">— None —</option>
+                            <option value=""><Trans i18nKey="hardcoded.views_client_appointments_index_fd0158e6b0de" /></option>
                             {contacts.map((c) => <option key={c.id} value={c.id}>{c.name || c.phone}</option>)}
                         </select>
                     </div>
                 )}
 
                 <div className="grid grid-cols-2 gap-3">
-                    <input className={inputCls} placeholder="Contact name" value={form.data.contact_name} onChange={(e) => form.setData('contact_name', e.target.value)} />
+                    <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_appointments_index_9b92889b8d67')} value={form.data.contact_name} onChange={(e) => form.setData('contact_name', e.target.value)} />
                     <input className={inputCls} placeholder="Contact phone" value={form.data.contact_phone} onChange={(e) => form.setData('contact_phone', e.target.value)} />
                 </div>
-                <input className={inputCls} placeholder="Contact email" value={form.data.contact_email} onChange={(e) => form.setData('contact_email', e.target.value)} />
+                <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_appointments_index_13a2b7303bce')} value={form.data.contact_email} onChange={(e) => form.setData('contact_email', e.target.value)} />
 
                 <div>
-                    <label className="mb-1 block text-xs text-neutral-500">Assign agent (optional)</label>
+                    <label className="mb-1 block text-xs text-neutral-500"><Trans i18nKey="hardcoded.views_client_appointments_index_68fcb2f3e4a8" /></label>
                     <select className={`${inputCls} pr-8`} value={form.data.agent_id} onChange={(e) => form.setData('agent_id', e.target.value)}>
-                        <option value="">— None —</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_client_appointments_index_fd0158e6b0de" /></option>
                         {agents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
                     </select>
                 </div>
@@ -102,8 +104,8 @@ function AddModal({ agents = [], contacts = [], onClose }) {
                 <textarea className={inputCls} rows="2" placeholder="Notes" value={form.data.notes} onChange={(e) => form.setData('notes', e.target.value)} />
 
                 <div className="flex justify-end gap-2 pt-1">
-                    <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800">Cancel</button>
-                    <button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Create</button>
+                    <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_appointments_index_0dac27937628" /></button>
+                    <button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_client_appointments_index_e0dfd3105777" /></button>
                 </div>
             </form>
         </div>
@@ -134,9 +136,9 @@ export default function AppointmentsIndex({ appointments, filters = {}, stats = 
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                         <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Appointments</h1>
-                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Manage bookings and scheduled meetings</p>
+                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_appointments_index_9ff5f86a0f39" /></p>
                     </div>
-                    <button onClick={() => setShowModal(true)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> New appointment</button>
+                    <button onClick={() => setShowModal(true)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_appointments_index_c48890287100" /></button>
                 </div>
 
                 <PageOverview feature="appointments" />
@@ -146,10 +148,10 @@ export default function AppointmentsIndex({ appointments, filters = {}, stats = 
                 <div className="flex flex-wrap items-center gap-2">
                     <form onSubmit={apply} className="relative max-w-md flex-1">
                         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search title or contact…" className="w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 py-2 pl-9 pr-3 text-sm" />
+                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_appointments_index_a6644a11bd0b')} className="w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 py-2 pl-9 pr-3 text-sm" />
                     </form>
                     <select value={status} onChange={(e) => filterStatus(e.target.value)} className="rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 px-3 pr-8 py-2 text-sm">
-                        <option value="">All statuses</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_client_appointments_index_c54e7f7c4f01" /></option>
                         <option value="scheduled">Scheduled</option>
                         <option value="completed">Completed</option>
                         <option value="cancelled">Cancelled</option>
@@ -179,10 +181,10 @@ export default function AppointmentsIndex({ appointments, filters = {}, stats = 
                                             <td className="px-4 py-3"><span className={`rounded-full px-2 py-0.5 text-xs font-medium ${meta.cls}`}>{meta.label}</span></td>
                                             <td className="px-4 py-3">
                                                 <div className="flex items-center justify-end gap-1">
-                                                    {a.status !== 'completed' && <button title="Mark completed" onClick={() => setRowStatus(a, 'completed')} className="rounded-soft p-1.5 text-cold-600 hover:bg-cold-500/10"><Check className="h-4 w-4" /></button>}
-                                                    {a.status !== 'cancelled' && <button title="Cancel" onClick={() => setRowStatus(a, 'cancelled')} className="rounded-soft p-1.5 text-warm-600 hover:bg-warm-500/10"><Ban className="h-4 w-4" /></button>}
-                                                    {a.status !== 'scheduled' && <button title="Reschedule (mark scheduled)" onClick={() => setRowStatus(a, 'scheduled')} className="rounded-soft p-1.5 text-signal-600 hover:bg-signal-500/10"><Clock className="h-4 w-4" /></button>}
-                                                    <button title="Delete" onClick={() => remove(a)} className="rounded-soft p-1.5 text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button>
+                                                    {a.status !== 'completed' && <button title={translationI18n.t('hardcoded.views_client_appointments_index_247e21f73698')} onClick={() => setRowStatus(a, 'completed')} className="rounded-soft p-1.5 text-cold-600 hover:bg-cold-500/10"><Check className="h-4 w-4" /></button>}
+                                                    {a.status !== 'cancelled' && <button title={translationI18n.t('hardcoded.views_client_appointments_index_0dac27937628')} onClick={() => setRowStatus(a, 'cancelled')} className="rounded-soft p-1.5 text-warm-600 hover:bg-warm-500/10"><Ban className="h-4 w-4" /></button>}
+                                                    {a.status !== 'scheduled' && <button title={translationI18n.t('hardcoded.views_client_appointments_index_dd2e9a7f1acb')} onClick={() => setRowStatus(a, 'scheduled')} className="rounded-soft p-1.5 text-signal-600 hover:bg-signal-500/10"><Clock className="h-4 w-4" /></button>}
+                                                    <button title={translationI18n.t('hardcoded.views_client_appointments_index_aa90f822e7c3')} onClick={() => remove(a)} className="rounded-soft p-1.5 text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -191,7 +193,7 @@ export default function AppointmentsIndex({ appointments, filters = {}, stats = 
                             </tbody>
                         </table>
                     ) : (
-                        <div className="px-6 py-16 text-center"><CalendarClock className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500">No appointments yet. Create one to get started.</p></div>
+                        <div className="px-6 py-16 text-center"><CalendarClock className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500"><Trans i18nKey="hardcoded.views_client_appointments_index_3c92c35a5783" /></p></div>
                     )}
                 </div>
 

@@ -1,5 +1,7 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useForm } from '@/lib/page-router';
 import { Modal } from '@/components/ui';
@@ -54,7 +56,7 @@ export default function PlanModal({ show, onClose, plan = null }) {
     return (
         <Modal show={show} onClose={onClose} maxWidth="3xl">
             <Modal.Header
-                title={isEdit ? 'Edit Plan' : 'Add Plan'}
+                title={isEdit ? translationI18n.t('hardcoded.views_admin_plans_planmodal_615984f75aa3') : translationI18n.t('hardcoded.views_admin_plans_planmodal_bbabdf2afeb2')}
                 onClose={onClose}
             />
             <Modal.Body className="max-h-[70vh] overflow-y-auto">

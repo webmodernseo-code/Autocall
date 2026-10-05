@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import ClientLayout from '@/layouts/ClientLayout';
 import PageOverview from '@/components/PageOverview';
@@ -58,7 +62,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
                         Website Widget
                     </h1>
                     <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-                        Embed an AI chat widget on your website.
+                        <Trans i18nKey="hardcoded.views_client_widget_index_ac6fc9896b8b" />
                     </p>
                 </div>
 
@@ -98,7 +102,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
 
                         <div>
                             <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                                Welcome message
+                                <Trans i18nKey="hardcoded.views_client_widget_index_baab044fc3ef" />
                             </label>
                             <textarea
                                 rows={2}
@@ -160,7 +164,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
                                 onChange={(e) => form.setData('agent_id', e.target.value || '')}
                                 className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm"
                             >
-                                <option value="">— None —</option>
+                                <option value=""><Trans i18nKey="hardcoded.views_client_widget_index_3b52430f2613" /></option>
                                 {agents.map((a) => (
                                     <option key={a.id} value={a.id}>{a.name}</option>
                                 ))}
@@ -196,7 +200,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
                             disabled={form.processing}
                             className="rounded-soft bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-brand-600 disabled:opacity-60"
                         >
-                            {form.processing ? 'Saving…' : 'Save settings'}
+                            {form.processing ? 'Saving…' : translationI18n.t('hardcoded.views_client_widget_index_b6da8fbc6426')}
                         </button>
                     </form>
 
@@ -204,7 +208,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
                     <div className="space-y-6">
                         <div className="rounded-soft-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800/50 p-6 shadow-soft">
                             <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">
-                                Live preview
+                                <Trans i18nKey="hardcoded.views_client_widget_index_14eab3bad2e6" />
                             </h2>
 
                             {/* Mock browser viewport */}
@@ -240,7 +244,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
                                     </div>
                                     <div className="flex items-center gap-2 border-t border-neutral-200 dark:border-neutral-700 px-3 py-2">
                                         <div className="flex-1 rounded-full bg-neutral-100 dark:bg-neutral-700 px-3 py-1.5 text-xs text-neutral-400">
-                                            Type a message…
+                                            <Trans i18nKey="hardcoded.views_client_widget_index_3294cc81a39a" />
                                         </div>
                                         <span
                                             className="flex h-7 w-7 items-center justify-center rounded-full text-white"
@@ -263,7 +267,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
 
                                 {!form.data.enabled && (
                                     <div className="absolute right-3 top-12 rounded-soft bg-neutral-900/70 px-2 py-1 text-[10px] font-medium text-white">
-                                        Disabled — preview only
+                                        <Trans i18nKey="hardcoded.views_client_widget_index_b51eddba4aa7" />
                                     </div>
                                 )}
                             </div>
@@ -281,7 +285,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
                                     className="inline-flex items-center gap-1.5 rounded-soft border border-neutral-300 dark:border-neutral-600 px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-700"
                                 >
                                     {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-                                    {copied ? 'Copied' : 'Copy'}
+                                    {copied ? 'Copied' : translationI18n.t('hardcoded.views_client_widget_index_288b6aca5efc')}
                                 </button>
                             </div>
                             <textarea
@@ -292,7 +296,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
                                 className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-900 px-3 py-2 text-xs font-mono text-neutral-700 dark:text-neutral-300"
                             />
                             <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-                                Paste this before the closing &lt;/body&gt; tag on your site.
+                                <Trans i18nKey="hardcoded.views_client_widget_index_04485d5244b2" />
                             </p>
                         </div>
                     </div>

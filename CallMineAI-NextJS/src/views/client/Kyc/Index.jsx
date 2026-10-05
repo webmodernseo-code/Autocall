@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { Head, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
@@ -25,7 +29,7 @@ function UploadRow({ doc }) {
                 <div className="flex items-center gap-2"><Icon className={`h-5 w-5 ${doc.status ? DOC[doc.status] : 'text-neutral-400'}`} /><div><p className="font-medium text-neutral-900 dark:text-white">{doc.label}</p>{doc.uploaded ? <p className="text-xs text-neutral-400">{doc.original_name} · <span className={`capitalize ${DOC[doc.status]}`}>{doc.status}</span>{doc.note ? ` · ${doc.note}` : ''}</p> : <p className="text-xs text-neutral-400">PDF, JPG or PNG · max 10MB</p>}</div></div>
                 <div className="w-full sm:w-80 space-y-2">
                     <FileInput value={form.data.file} onChange={(f) => form.setData('file', f)} accept=".pdf,.jpg,.jpeg,.png" hint="PDF, JPG or PNG · max 10MB" />
-                    {form.data.file && <button type="submit" disabled={form.processing} className="w-full rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">{doc.uploaded ? 'Replace document' : 'Upload document'}</button>}
+                    {form.data.file && <button type="submit" disabled={form.processing} className="w-full rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">{doc.uploaded ? 'Replace document' : translationI18n.t('hardcoded.views_client_kyc_index_490b7bb5d2a8')}</button>}
                 </div>
             </div>
             {form.errors.file && <p className="mt-2 text-xs text-danger">{form.errors.file}</p>}
@@ -40,7 +44,7 @@ export default function KycIndex({ kycStatus = 'unverified', types = [] }) {
         <ClientLayout title="Verification">
             <Head title="Verification" />
             <div className="mx-auto max-w-2xl space-y-5">
-                <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Business verification</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Verify your business to unlock outbound calling at scale.</p></div>
+                <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Business verification</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_kyc_index_35225a63f5bf" /></p></div>
                 <PageOverview feature="kyc" />
                 <div className={`flex items-center gap-2 rounded-soft-lg border px-4 py-3 text-sm ${b.cls}`}><Icon className="h-5 w-5 shrink-0" /> {b.text}</div>
                 <div className="space-y-3">{types.map((d) => <UploadRow key={d.type} doc={d} />)}</div>

@@ -794,7 +794,7 @@
         "delete_user_title": "Delete user",
         "search_clients": "Search clients...",
         "enter_client_name": "Enter client name",
-        "enter_email": "client@spagreen.net",
+        "enter_email": "you@example.com",
         "enter_phone": "+1 (555) 123-4567",
         "enter_address": "Enter full address",
         "add_admin": "Add Admin",

@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { Head, Link, router } from '@/lib/page-router';
 import AdminLayout from '@/layouts/AdminLayout';
@@ -42,7 +44,7 @@ export default function KycShow({ client, documents = [], types = {} }) {
                 </div>
 
                 <div className="flex items-center gap-2 rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4">
-                    <span className="text-sm text-neutral-500">Override status:</span>
+                    <span className="text-sm text-neutral-500"><Trans i18nKey="hardcoded.views_admin_kyc_show_2b50e0706a09" /></span>
                     {['verified', 'rejected', 'pending', 'unverified'].map((s) => <button key={s} onClick={() => setStatus(s)} className="rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs capitalize text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800">{s}</button>)}
                 </div>
             </div>

@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState, useEffect } from 'react';
 import AdminLayout from '@/layouts/AdminLayout';
@@ -32,23 +36,23 @@ function DeleteConfirmModal({ show, plan, onClose, onConfirm }) {
     if (!plan) return null;
     return (
         <Modal show={show} onClose={onClose} maxWidth="sm">
-            <Modal.Header title="Delete Plan" onClose={onClose} />
+            <Modal.Header title={translationI18n.t('hardcoded.views_admin_plans_index_5011c474e9e4')} onClose={onClose} />
             <Modal.Body>
                 <p className="text-neutral-600 dark:text-neutral-400">
-                    Are you sure you want to delete this plan? This action cannot be undone.
+                    <Trans i18nKey="hardcoded.views_admin_plans_index_8fb018f9667d" />
                 </p>
                 <p className="mt-2 font-medium text-neutral-900 dark:text-neutral-100">{plan.name}</p>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline" onClick={onClose}>
-                    Cancel
+                    <Trans i18nKey="hardcoded.views_admin_plans_index_6e2a26f6a420" />
                 </Button>
                 <Button
                     variant="primary"
                     className="bg-red-600 hover:bg-red-700 text-white"
                     onClick={() => onConfirm(plan)}
                 >
-                    Delete
+                    <Trans i18nKey="hardcoded.views_admin_plans_index_b94a05beddee" />
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -141,7 +145,7 @@ export default function AdminPlansIndex({ plans = [], stats = [] }) {
                             Price Plans
                         </h1>
                         <p className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">
-                            Manage subscription plans and pricing
+                            <Trans i18nKey="hardcoded.views_admin_plans_index_d978ce6603dc" />
                         </p>
                     </div>
                     <div>
@@ -149,7 +153,7 @@ export default function AdminPlansIndex({ plans = [], stats = [] }) {
                             onClick={handleAdd}
                             className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-sm"
                         >
-                            + Add Plan
+                            <Trans i18nKey="hardcoded.views_admin_plans_index_f82a7c7dbbf2" />
                         </Button>
                     </div>
                 </div>

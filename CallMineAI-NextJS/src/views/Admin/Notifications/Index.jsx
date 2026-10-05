@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { Head, router, useForm } from '@/lib/page-router';
 import AdminLayout from '@/layouts/AdminLayout';
@@ -26,9 +30,9 @@ export default function NotificationsIndex({ notifications = [], stats = [] }) {
                     <h3 className="flex items-center gap-2 font-display font-semibold text-neutral-900 dark:text-white"><Bell className="h-5 w-5 text-brand-600 dark:text-brand-400" /> Broadcast</h3>
                     <input className={inputCls} placeholder="Title" value={form.data.title} onChange={(e) => form.setData('title', e.target.value)} />
                     {form.errors.title && <p className="text-xs text-danger">{form.errors.title}</p>}
-                    <textarea rows="4" className={inputCls} placeholder="Message to all customers…" value={form.data.message} onChange={(e) => form.setData('message', e.target.value)} />
-                    <select className={inputCls} value={form.data.level} onChange={(e) => form.setData('level', e.target.value)}><option value="info">Info</option><option value="success">Success</option><option value="warning">Warning</option><option value="critical">Critical</option></select>
-                    <button type="submit" disabled={form.processing} className="inline-flex w-full items-center justify-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Send className="h-4 w-4" /> Send to all customers</button>
+                    <textarea rows="4" className={inputCls} placeholder={translationI18n.t('hardcoded.views_admin_notifications_index_ba974fc48ead')} value={form.data.message} onChange={(e) => form.setData('message', e.target.value)} />
+                    <select className={inputCls} value={form.data.level} onChange={(e) => form.setData('level', e.target.value)}><option value="info">Info</option><option value="success"><Trans i18nKey="hardcoded.views_admin_notifications_index_cb28eca7944c" /></option><option value="warning"><Trans i18nKey="hardcoded.views_admin_notifications_index_248f5564f14c" /></option><option value="critical"><Trans i18nKey="hardcoded.views_admin_notifications_index_44b8bd0fe150" /></option></select>
+                    <button type="submit" disabled={form.processing} className="inline-flex w-full items-center justify-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Send className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_admin_notifications_index_d9f575823771" /></button>
                 </form>
 
                 <div className="lg:col-span-2">

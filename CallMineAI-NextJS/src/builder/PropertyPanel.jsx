@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 /**
  * Right-panel property editor for the selected section.
  * Renders fields from section schema (text, textarea, select, checkbox, list types).
@@ -86,10 +88,10 @@ function FeaturesListEditor({ value = [], onChange }) {
               <option key={opt} value={opt}>{opt}</option>
             ))}
           </select>
-          <Button variant="ghost" size="sm" className="text-red-600" onClick={() => remove(i)}>Remove</Button>
+          <Button variant="ghost" size="sm" className="text-red-600" onClick={() => remove(i)}><Trans i18nKey="hardcoded.builder_propertypanel_afe3cf30d655" /></Button>
         </div>
       ))}
-      <Button variant="outline" size="sm" onClick={add}>+ Add feature</Button>
+      <Button variant="outline" size="sm" onClick={add}><Trans i18nKey="hardcoded.builder_propertypanel_f747d5c08bf3" /></Button>
     </div>
   );
 }
@@ -110,10 +112,10 @@ function ServicesListEditor({ value = [], onChange }) {
         <div key={i} className="p-3 border border-neutral-200 rounded-soft space-y-2">
           <Input label="Title" value={item.title ?? ''} onChange={(e) => update(i, 'title', e.target.value)} />
           <Input label="Description" value={item.description ?? ''} onChange={(e) => update(i, 'description', e.target.value)} />
-          <Button variant="ghost" size="sm" className="text-red-600" onClick={() => remove(i)}>Remove</Button>
+          <Button variant="ghost" size="sm" className="text-red-600" onClick={() => remove(i)}><Trans i18nKey="hardcoded.builder_propertypanel_afe3cf30d655" /></Button>
         </div>
       ))}
-      <Button variant="outline" size="sm" onClick={add}>+ Add service</Button>
+      <Button variant="outline" size="sm" onClick={add}><Trans i18nKey="hardcoded.builder_propertypanel_9ed9ea9bf091" /></Button>
     </div>
   );
 }
@@ -151,10 +153,10 @@ function PricingListEditor({ value = [], onChange }) {
             <input type="checkbox" checked={!!plan.highlighted} onChange={(e) => update(i, 'highlighted', e.target.checked)} />
             <span className="text-sm">Highlighted</span>
           </label>
-          <Button variant="ghost" size="sm" className="text-red-600" onClick={() => remove(i)}>Remove</Button>
+          <Button variant="ghost" size="sm" className="text-red-600" onClick={() => remove(i)}><Trans i18nKey="hardcoded.builder_propertypanel_afe3cf30d655" /></Button>
         </div>
       ))}
-      <Button variant="outline" size="sm" onClick={add}>+ Add plan</Button>
+      <Button variant="outline" size="sm" onClick={add}><Trans i18nKey="hardcoded.builder_propertypanel_0e0e14ae1233" /></Button>
     </div>
   );
 }
@@ -179,10 +181,10 @@ function TestimonialsListEditor({ value = [], onChange }) {
           </div>
           <Input label="Author" value={item.author ?? ''} onChange={(e) => update(i, 'author', e.target.value)} />
           <Input label="Role" value={item.role ?? ''} onChange={(e) => update(i, 'role', e.target.value)} />
-          <Button variant="ghost" size="sm" className="text-red-600" onClick={() => remove(i)}>Remove</Button>
+          <Button variant="ghost" size="sm" className="text-red-600" onClick={() => remove(i)}><Trans i18nKey="hardcoded.builder_propertypanel_afe3cf30d655" /></Button>
         </div>
       ))}
-      <Button variant="outline" size="sm" onClick={add}>+ Add testimonial</Button>
+      <Button variant="outline" size="sm" onClick={add}><Trans i18nKey="hardcoded.builder_propertypanel_d4ae5a439cd2" /></Button>
     </div>
   );
 }
@@ -206,10 +208,10 @@ function FAQListEditor({ value = [], onChange }) {
             <label className="text-sm font-medium text-neutral-700">Answer</label>
             <textarea value={item.answer ?? ''} onChange={(e) => update(i, 'answer', e.target.value)} rows={2} className="w-full rounded-soft border border-neutral-300 px-2 py-1 text-sm mt-1" />
           </div>
-          <Button variant="ghost" size="sm" className="text-red-600" onClick={() => remove(i)}>Remove</Button>
+          <Button variant="ghost" size="sm" className="text-red-600" onClick={() => remove(i)}><Trans i18nKey="hardcoded.builder_propertypanel_afe3cf30d655" /></Button>
         </div>
       ))}
-      <Button variant="outline" size="sm" onClick={add}>+ Add question</Button>
+      <Button variant="outline" size="sm" onClick={add}><Trans i18nKey="hardcoded.builder_propertypanel_4769a82e6a4a" /></Button>
     </div>
   );
 }
@@ -224,7 +226,7 @@ const LIST_EDITORS = {
 
 export default function PropertyPanel({ section, onUpdate, onRemove }) {
   if (!section) {
-    return <p className="text-sm text-neutral-500">Select a section to edit its properties.</p>;
+    return <p className="text-sm text-neutral-500"><Trans i18nKey="hardcoded.builder_propertypanel_000126bb21f1" /></p>;
   }
 
   const schema = SECTION_SCHEMAS[section.type];
@@ -238,7 +240,7 @@ export default function PropertyPanel({ section, onUpdate, onRemove }) {
     return (
       <div className="space-y-4">
         <p className="text-sm text-neutral-700">Unknown section type: {section.type}</p>
-        <Button variant="ghost" size="sm" className="text-red-600" onClick={onRemove}>Remove section</Button>
+        <Button variant="ghost" size="sm" className="text-red-600" onClick={onRemove}><Trans i18nKey="hardcoded.builder_propertypanel_b66a0f384b13" /></Button>
       </div>
     );
   }
@@ -272,7 +274,7 @@ export default function PropertyPanel({ section, onUpdate, onRemove }) {
       );
       })}
       <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700" onClick={onRemove}>
-        Remove section
+        <Trans i18nKey="hardcoded.builder_propertypanel_b66a0f384b13" />
       </Button>
     </div>
   );

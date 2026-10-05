@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useMemo, useState } from 'react';
 import { Head, router, useForm } from '@/lib/page-router';
@@ -44,16 +48,16 @@ function TemplateModal({ template, categories, onClose }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <form onSubmit={submit} className="w-full max-w-2xl rounded-soft-lg bg-white p-5 shadow-soft-xl dark:bg-ink-900" onClick={(e) => e.stopPropagation()}>
                 <div className="mb-3 flex items-center justify-between">
-                    <h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">{editing ? 'Edit template' : 'New template'}</h3>
+                    <h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">{editing ? translationI18n.t('hardcoded.views_client_prompttemplates_index_ce2357051ca2') : translationI18n.t('hardcoded.views_client_prompttemplates_index_459f0c327457')}</h3>
                     <button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
-                    <input className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-950 sm:col-span-2" placeholder="Template name" value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
+                    <input className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-950 sm:col-span-2" placeholder={translationI18n.t('hardcoded.views_client_prompttemplates_index_4494de05da51')} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
                     <select className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-950" value={form.data.category} onChange={(e) => form.setData('category', e.target.value)}>
                         {categories.map((c) => <option key={c} value={c}>{catLabel(c)}</option>)}
                     </select>
-                    <input className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-950" placeholder="Short description" value={form.data.description} onChange={(e) => form.setData('description', e.target.value)} />
-                    <textarea rows="7" className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 font-mono text-sm dark:border-ink-700 dark:bg-ink-950 sm:col-span-2" placeholder="Write your prompt. Use {{variable}} for placeholders…" value={form.data.content} onChange={(e) => form.setData('content', e.target.value)} />
+                    <input className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-950" placeholder={translationI18n.t('hardcoded.views_client_prompttemplates_index_f4745c6d3f59')} value={form.data.description} onChange={(e) => form.setData('description', e.target.value)} />
+                    <textarea rows="7" className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 font-mono text-sm dark:border-ink-700 dark:bg-ink-950 sm:col-span-2" placeholder={translationI18n.t('hardcoded.views_client_prompttemplates_index_fb64e943d30e')} value={form.data.content} onChange={(e) => form.setData('content', e.target.value)} />
                 </div>
                 {form.errors.content && <p className="mt-1 text-xs text-danger">{form.errors.content}</p>}
                 {vars.length > 0 && (
@@ -63,8 +67,8 @@ function TemplateModal({ template, categories, onClose }) {
                     </div>
                 )}
                 <div className="mt-4 flex justify-end gap-2">
-                    <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-ink-800">Cancel</button>
-                    <button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">{editing ? 'Save changes' : 'Create template'}</button>
+                    <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_prompttemplates_index_5fbdc37ba684" /></button>
+                    <button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">{editing ? translationI18n.t('hardcoded.views_client_prompttemplates_index_5068810635fc') : translationI18n.t('hardcoded.views_client_prompttemplates_index_16be4979a129')}</button>
                 </div>
             </form>
         </div>
@@ -87,9 +91,9 @@ export default function PromptTemplatesIndex({ templates, filters = {}, categori
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                         <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Agent Workspace</h1>
-                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Reusable AI prompt templates with variables.</p>
+                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_prompttemplates_index_d46114254458" /></p>
                     </div>
-                    <button onClick={() => setModal('new')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> New template</button>
+                    <button onClick={() => setModal('new')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_prompttemplates_index_459f0c327457" /></button>
                 </div>
 
                 <AgentTabs active="templates" />
@@ -99,10 +103,10 @@ export default function PromptTemplatesIndex({ templates, filters = {}, categori
                 <div className="flex flex-wrap items-center gap-2">
                     <form onSubmit={applySearch} className="relative max-w-xs flex-1">
                         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search templates…" className="w-full rounded-soft border border-neutral-200 bg-white py-2 pl-9 pr-3 text-sm dark:border-ink-700 dark:bg-ink-900" />
+                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_prompttemplates_index_8af4a9e2c695')} className="w-full rounded-soft border border-neutral-200 bg-white py-2 pl-9 pr-3 text-sm dark:border-ink-700 dark:bg-ink-900" />
                     </form>
                     <div className="flex flex-wrap gap-1.5">
-                        <button onClick={() => setCategory('')} className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${!filters.category ? 'bg-brand-600 text-white' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300'}`}>All</button>
+                        <button onClick={() => setCategory('')} className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${!filters.category ? 'bg-brand-600 text-white' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300'}`}><Trans i18nKey="hardcoded.views_client_prompttemplates_index_5814b064ba37" /></button>
                         {categories.map((c) => (
                             <button key={c} onClick={() => setCategory(c)} className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${filters.category === c ? 'bg-brand-600 text-white' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300'}`}>{catLabel(c)}</button>
                         ))}
@@ -116,7 +120,7 @@ export default function PromptTemplatesIndex({ templates, filters = {}, categori
                                 <div className="flex items-start justify-between gap-2">
                                     <h3 className="font-medium text-neutral-900 dark:text-white">{t.name}</h3>
                                     <div className="flex shrink-0 items-center gap-1">
-                                        {t.is_system && <span className="inline-flex items-center gap-0.5 rounded-full bg-neutral-100 px-1.5 py-0.5 text-[10px] font-medium text-neutral-500 dark:bg-ink-800 dark:text-neutral-400"><ShieldCheck className="h-3 w-3" /> System</span>}
+                                        {t.is_system && <span className="inline-flex items-center gap-0.5 rounded-full bg-neutral-100 px-1.5 py-0.5 text-[10px] font-medium text-neutral-500 dark:bg-ink-800 dark:text-neutral-400"><ShieldCheck className="h-3 w-3" /> <Trans i18nKey="hardcoded.views_client_prompttemplates_index_514d81b12dee" /></span>}
                                         <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${CAT[t.category]?.cls || CAT.general.cls}`}>{catLabel(t.category)}</span>
                                     </div>
                                 </div>
@@ -132,8 +136,8 @@ export default function PromptTemplatesIndex({ templates, filters = {}, categori
                                     <span className="text-xs text-neutral-400">{t.usage_count}× used</span>
                                     <div className="ml-auto flex items-center gap-0.5">
                                         <button onClick={() => duplicate(t)} title="Duplicate" className="rounded-soft p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-ink-800"><Copy className="h-4 w-4" /></button>
-                                        {t.owned && <button onClick={() => setModal(t)} title="Edit" className="rounded-soft p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-brand-600 dark:hover:bg-ink-800"><Pencil className="h-4 w-4" /></button>}
-                                        {t.owned && <button onClick={() => remove(t)} title="Delete" className="rounded-soft p-1.5 text-neutral-400 hover:bg-danger/10 hover:text-danger"><Trash2 className="h-4 w-4" /></button>}
+                                        {t.owned && <button onClick={() => setModal(t)} title={translationI18n.t('hardcoded.views_client_prompttemplates_index_f8e42f3ef1e9')} className="rounded-soft p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-brand-600 dark:hover:bg-ink-800"><Pencil className="h-4 w-4" /></button>}
+                                        {t.owned && <button onClick={() => remove(t)} title={translationI18n.t('hardcoded.views_client_prompttemplates_index_bee36ed8c18c')} className="rounded-soft p-1.5 text-neutral-400 hover:bg-danger/10 hover:text-danger"><Trash2 className="h-4 w-4" /></button>}
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +146,7 @@ export default function PromptTemplatesIndex({ templates, filters = {}, categori
                 ) : (
                     <div className="rounded-soft-lg border border-dashed border-neutral-300 px-6 py-16 text-center dark:border-ink-700">
                         <FileText className="mx-auto mb-3 h-12 w-12 text-neutral-300" />
-                        <p className="text-neutral-500">No templates match. Create one to get started.</p>
+                        <p className="text-neutral-500"><Trans i18nKey="hardcoded.views_client_prompttemplates_index_63244c39be3b" /></p>
                     </div>
                 )}
 

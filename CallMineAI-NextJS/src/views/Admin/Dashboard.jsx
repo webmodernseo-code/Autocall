@@ -1,10 +1,12 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { Link } from '@/lib/page-router';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Head } from '@/lib/page-router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { Building2, Users, Banknote, PhoneCall, Target, TrendingUp, ListChecks, CheckCircle2, XCircle, ArrowRight, ArrowUpRight, Activity } from 'lucide-react';
 import { useMoney } from '@/lib/money';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
@@ -79,9 +81,9 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                     <div className="pointer-events-none absolute -bottom-24 left-1/4 h-56 w-56 rounded-full bg-signal-500/15 blur-3xl" />
                     <div className="relative flex flex-wrap items-end justify-between gap-4">
                         <div>
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-brand-100 ring-1 ring-inset ring-white/15"><Activity className="h-3 w-3" /> Platform health</span>
-                            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight">Platform overview</h2>
-                            <p className="mt-1 max-w-md text-sm text-brand-100/80">Customers, calling activity and service health at a glance.</p>
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-brand-100 ring-1 ring-inset ring-white/15"><Activity className="h-3 w-3" /> <Trans i18nKey="hardcoded.views_admin_dashboard_7878502c61ba" /></span>
+                            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight"><Trans i18nKey="hardcoded.views_admin_dashboard_2ee048e9b65e" /></h2>
+                            <p className="mt-1 max-w-md text-sm text-brand-100/80"><Trans i18nKey="hardcoded.views_admin_dashboard_fae3a7f95d3d" /></p>
                         </div>
                         <div className="rounded-soft-lg bg-white/10 px-4 py-3 text-right ring-1 ring-inset ring-white/15 backdrop-blur">
                             <p className="text-[11px] font-medium uppercase tracking-wide text-brand-100/80">Monthly recurring</p>
@@ -100,7 +102,7 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                 </div>
 
                 <div className="grid gap-4 lg:grid-cols-3">
-                    <SectionCard title="Calls this week" className="lg:col-span-2">
+                    <SectionCard title={translationI18n.t('hardcoded.views_admin_dashboard_58294010fabc')} className="lg:col-span-2">
                         <ResponsiveContainer width="100%" height={230}>
                             <BarChart data={callsByDay} barCategoryGap="28%">
                                 <defs>
@@ -126,13 +128,13 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                             <ListChecks className="pointer-events-none absolute -bottom-3 -right-2 h-24 w-24 text-white/10" />
                             <div className="relative flex items-center gap-2 text-brand-100"><ListChecks className="h-4 w-4" /><span className="text-xs font-medium uppercase tracking-wide">Queue pending</span></div>
                             <p className="relative mt-2 font-display text-3xl font-bold tabular-nums">{kpis.queue_pending ?? 0}</p>
-                            <Link href={route('admin.call-queue.index')} className="relative mt-2 inline-flex items-center gap-1 rounded-soft bg-white/20 px-2.5 py-1 text-xs font-medium backdrop-blur transition hover:bg-white/30">Manage queue <ArrowRight className="h-3 w-3" /></Link>
+                            <Link href={route('admin.call-queue.index')} className="relative mt-2 inline-flex items-center gap-1 rounded-soft bg-white/20 px-2.5 py-1 text-xs font-medium backdrop-blur transition hover:bg-white/30"><Trans i18nKey="hardcoded.views_admin_dashboard_ad95ddf5f43b" /> <ArrowRight className="h-3 w-3" /></Link>
                         </div>
                     </div>
                 </div>
 
                 <div className="grid gap-4 lg:grid-cols-2">
-                    <SectionCard title="Recent customers" pad={false} action={<Link href={route('admin.clients.index')} className="inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400">View all <ArrowRight className="h-3 w-3" /></Link>}>
+                    <SectionCard title={translationI18n.t('hardcoded.views_admin_dashboard_0658c3120add')} pad={false} action={<Link href={route('admin.clients.index')} className="inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400"><Trans i18nKey="hardcoded.views_admin_dashboard_1b2222a82319" /> <ArrowRight className="h-3 w-3" /></Link>}>
                         <table className="min-w-full divide-y divide-neutral-100 text-sm dark:divide-ink-800">
                             <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                                 {recentCustomers.map((v) => (
@@ -164,11 +166,11 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                                     );
                                 })}
                             </div>
-                        ) : <p className="py-10 text-center text-sm text-neutral-400">No call activity yet.</p>}
+                        ) : <p className="py-10 text-center text-sm text-neutral-400"><Trans i18nKey="hardcoded.views_admin_dashboard_e002d5492a56" /></p>}
                         <div className="mt-5 flex flex-wrap gap-2 border-t border-neutral-100 pt-4 dark:border-ink-800">
                             <Link href={route('admin.plans.index')} className="inline-flex items-center gap-1 rounded-soft bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300 dark:hover:bg-ink-700">{t('admin.plans')} <ArrowUpRight className="h-3 w-3" /></Link>
                             <Link href={route('admin.engines.index')} className="inline-flex items-center gap-1 rounded-soft bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300 dark:hover:bg-ink-700">Engines <ArrowUpRight className="h-3 w-3" /></Link>
-                            <Link href={route('admin.payments.index')} className="inline-flex items-center gap-1 rounded-soft bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300 dark:hover:bg-ink-700">Payments <ArrowUpRight className="h-3 w-3" /></Link>
+                            <Link href={route('admin.payments.index')} className="inline-flex items-center gap-1 rounded-soft bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300 dark:hover:bg-ink-700"><Trans i18nKey="hardcoded.views_admin_dashboard_86ab5af7c26c" /> <ArrowUpRight className="h-3 w-3" /></Link>
                         </div>
                     </SectionCard>
                 </div>

@@ -1,5 +1,7 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import AdminLayout from '@/layouts/AdminLayout';
 import PageOverview from '@/components/PageOverview';
@@ -305,7 +307,7 @@ export default function AdminClientsIndex({ clients, plans = [], stats = [], fil
                                         <td className="py-3 pr-4 font-medium text-neutral-900 dark:text-neutral-100">{c.name}</td>
                                         <td className="py-3 pr-4 text-neutral-600 dark:text-neutral-300">{c.email ?? '—'}</td>
                                         <td className="py-3 pr-4">
-                                            <Badge variant={c.status === STATUS_ACTIVE ? 'success' : 'default'}>
+                                            <Badge variant={c.status === STATUS_ACTIVE ? translationI18n.t('hardcoded.views_admin_clients_index_b1cfd50ac639') : translationI18n.t('hardcoded.views_admin_clients_index_f929050bc999')}>
                                                 {c.status === STATUS_ACTIVE ? t('common.active') : t('common.inactive')}
                                             </Badge>
                                         </td>
@@ -566,7 +568,7 @@ export default function AdminClientsIndex({ clients, plans = [], stats = [], fil
                                                         <Badge variant="default" className="text-xs">{u.client_role === CLIENT_ROLE_ADMIN ? t('admin.administrator') : (u.role_name || t('admin.staff'))}</Badge>
                                                     </td>
                                                     <td className="py-3 pr-4">
-                                                        <Badge variant={u.status === STATUS_ACTIVE ? 'success' : 'default'}>{u.status === STATUS_ACTIVE ? t('common.active') : t('common.inactive')}</Badge>
+                                                        <Badge variant={u.status === STATUS_ACTIVE ? translationI18n.t('hardcoded.views_admin_clients_index_b1cfd50ac639') : translationI18n.t('hardcoded.views_admin_clients_index_f929050bc999')}>{u.status === STATUS_ACTIVE ? t('common.active') : t('common.inactive')}</Badge>
                                                     </td>
                                                     <td className="py-3 pr-4 text-right">
                                                         <button type="button" onClick={() => openEditUser(u)} className="rounded-soft p-1.5 text-brand-500 hover:bg-brand-50 dark:hover:bg-brand-900/20" title={t('admin.edit_user_title')}><Pencil className="h-4 w-4" /></button>

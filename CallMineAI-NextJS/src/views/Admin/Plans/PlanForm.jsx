@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { Button, Input, Toggle } from '@/components/ui';
 import PlanLimits from './PlanLimits';
 import PlanFeatures from './PlanFeatures';
@@ -44,14 +48,14 @@ export default function PlanForm({
                     />
                     <div>
                         <label className="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Description
+                            <Trans i18nKey="hardcoded.views_admin_plans_planform_fed10e9f566b" />
                         </label>
                         <textarea
                             value={data.description ?? ''}
                             onChange={(e) => setData('description', e.target.value)}
                             rows={2}
                             className="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-                            placeholder="Short description for the plan"
+                            placeholder={translationI18n.t('hardcoded.views_admin_plans_planform_e1e1f0a6ba8b')}
                         />
                         {errors.description && (
                             <p className="mt-1.5 text-sm text-red-500 dark:text-red-400">{errors.description}</p>
@@ -155,7 +159,7 @@ export default function PlanForm({
 
             {/* Status toggles */}
             <section>
-                <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3">Status</h4>
+                <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3"><Trans i18nKey="hardcoded.views_admin_plans_planform_cb101cc1b64f" /></h4>
                 <div className="flex flex-wrap gap-6">
                     <Toggle
                         label="Active"
@@ -177,10 +181,10 @@ export default function PlanForm({
 
             <div className="flex justify-end gap-3 pt-2 border-t border-neutral-200 dark:border-neutral-700">
                 <Button type="button" variant="outline" onClick={onCancel}>
-                    Cancel
+                    <Trans i18nKey="hardcoded.views_admin_plans_planform_09e2d48e036b" />
                 </Button>
                 <Button type="submit" disabled={processing} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-sm">
-                    {isEdit ? 'Save Plan' : 'Create Plan'}
+                    {isEdit ? translationI18n.t('hardcoded.views_admin_plans_planform_d5d88f9f1e05') : translationI18n.t('hardcoded.views_admin_plans_planform_b6e5ce2b1447')}
                 </Button>
             </div>
         </form>

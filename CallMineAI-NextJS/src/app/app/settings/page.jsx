@@ -33,7 +33,7 @@ export default async function Page() {
     const props = {
         preferences: {
             locale: user.locale ?? config.app.locale,
-            display_currency: user.display_currency ?? 'USD',
+            display_currency: user.display_currency ?? 'EUR',
             theme: user.theme ?? 'light',
         },
         supportedLocales: supportedLocales.map((l) => ({ code: l.code, name: l.name })),

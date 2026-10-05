@@ -34,9 +34,11 @@ export const POST = handler(async (request) => {
     const enFlat = await flatDictionary('en');
     const targetFlat = { ...(await flatDictionary(data.locale)) };
 
-    const missing = Object.keys(enFlat).filter(
-        (k) => String(targetFlat[k] ?? '').trim() === '' && String(enFlat[k] ?? '').trim() !== '',
-    );
+    const missing = Object.keys(enFlat).filter((key) => {
+        const source = String(enFlat[key] ?? '').trim();
+        const targetValue = String(targetFlat[key] ?? '').trim();
+        return source !== '' && (targetValue === '' || targetValue === source);
+    });
     if (!missing.length) return back({ success: 'Nothing to translate — all keys are filled.' });
 
     let updated = 0;

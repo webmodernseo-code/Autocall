@@ -23,9 +23,9 @@ export const config = {
         url: APP_URL,
         demo_mode: bool(process.env.APP_DEMO_MODE ?? process.env.DEMO_MODE),
         installed: bool(process.env.APP_INSTALLED, true),
-        timezone: 'UTC',
-        locale: process.env.APP_LOCALE || 'en',
-        fallback_locale: process.env.APP_FALLBACK_LOCALE || 'en',
+        timezone: process.env.APP_TIMEZONE || 'Europe/Paris',
+        locale: process.env.APP_LOCALE || 'fr',
+        fallback_locale: process.env.APP_FALLBACK_LOCALE || 'fr',
     },
 
     frontend: {
@@ -34,9 +34,9 @@ export const config = {
     },
 
     locales: {
-        supported: { en: 'English', bn: 'বাংলা', ar: 'العربية' },
-        rtl: ['ar'],
-        fallback: process.env.APP_LOCALE || 'en',
+        supported: { fr: 'Français', en: 'English' },
+        rtl: [],
+        fallback: process.env.APP_LOCALE || 'fr',
     },
 
     calling: {
@@ -194,10 +194,10 @@ export const config = {
     },
 
     seed: {
-        client_email: process.env.CLIENT_SEED_EMAIL || 'client@spagreen.net',
-        client_password: process.env.CLIENT_SEED_PASSWORD || '12345678',
-        admin_email: process.env.ADMIN_SEED_EMAIL || 'admin@spagreen.net',
-        admin_password: process.env.ADMIN_SEED_PASSWORD || '12345678',
+        client_email: process.env.CLIENT_SEED_EMAIL || 'client@example.invalid',
+        client_password: process.env.CLIENT_SEED_PASSWORD || 'Local-Demo-Client-2026!',
+        admin_email: process.env.ADMIN_SEED_EMAIL || 'admin@example.invalid',
+        admin_password: process.env.ADMIN_SEED_PASSWORD || 'Local-Demo-Admin-2026!',
     },
 };
 

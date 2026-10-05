@@ -105,7 +105,10 @@ export async function localesForSwitcher() {
         /* fall through to the bundled default */
     }
 
-    return [{ code: 'en', name: 'English', native_name: 'English', is_rtl: false, flag: null }];
+    return [
+        { code: 'fr', name: 'French', native_name: 'Français', is_rtl: false, flag: null },
+        { code: 'en', name: 'English', native_name: 'English', is_rtl: false, flag: null },
+    ];
 }
 
 export function isRtl(code) {

@@ -13,21 +13,33 @@
  */
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import fs from 'node:fs';
+import path from 'node:path';
 import { ensureAppKey } from '../scripts/generate-key.mjs';
 import { CLIENT_ROLE_NAMES, rbacCatalog, roleTemplate } from '../src/lib/rbac-catalog.mjs';
+import { seedConfiguration } from './seed-policy.mjs';
+
+// `npm run db:seed` executes Node directly, outside the Prisma CLI. Load local
+// environment files without ever overriding variables injected by CI/hosting.
+for (const file of ['.env.local', '.env']) {
+    const fullPath = path.join(process.cwd(), file);
+    if (!fs.existsSync(fullPath)) continue;
+    for (const line of fs.readFileSync(fullPath, 'utf8').split(/\r?\n/)) {
+        const match = line.match(/^\s*([A-Z][A-Z0-9_]*)\s*=\s*(.*)\s*$/);
+        if (!match || process.env[match[1]] !== undefined) continue;
+        process.env[match[1]] = match[2].replace(/^(["'])(.*)\1$/, '$2');
+    }
+}
 
 const prisma = new PrismaClient();
+const seedConfig = seedConfiguration();
 
 const now = () => new Date();
 const hash = (plain) => bcrypt.hash(plain, 12);
 
-const ADMIN_EMAIL = (process.env.ADMIN_SEED_EMAIL || 'admin@spagreen.net').toLowerCase();
-const ADMIN_NAME = process.env.ADMIN_SEED_NAME || 'Super Admin';
-const ADMIN_PASSWORD = process.env.ADMIN_SEED_PASSWORD || '12345678';
-
-const CLIENT_EMAIL = (process.env.CLIENT_SEED_EMAIL || 'client@spagreen.net').toLowerCase();
-const CLIENT_NAME = process.env.CLIENT_SEED_NAME || 'Customer User';
-const CLIENT_PASSWORD = process.env.CLIENT_SEED_PASSWORD || '12345678';
+const ADMIN_EMAIL = seedConfig.admin.email;
+const ADMIN_NAME = seedConfig.admin.name;
+const ADMIN_PASSWORD = seedConfig.admin.password;
 
 /* --------------------------------------------------------- PermissionSeeder */
 
@@ -86,20 +98,16 @@ const ROLES = [
 /* -------------------------------------------------------- CurrencySeeder */
 
 const CURRENCIES = [
-    { code: 'USD', symbol: '$', decimals: 2, exchange_rate: 1, is_default: true },
-    { code: 'EUR', symbol: '€', decimals: 2, exchange_rate: 1.08, is_default: false },
-    { code: 'GBP', symbol: '£', decimals: 2, exchange_rate: 1.27, is_default: false },
-    { code: 'INR', symbol: '₹', decimals: 2, exchange_rate: 0.01205, is_default: false },
-    { code: 'BDT', symbol: '৳', decimals: 2, exchange_rate: 0.00909, is_default: false },
+    { code: 'EUR', symbol: '€', decimals: 2, exchange_rate: 1, is_default: true },
+    { code: 'USD', symbol: '$', decimals: 2, exchange_rate: 0.9259, is_default: false },
+    { code: 'XOF', symbol: 'F CFA', decimals: 0, exchange_rate: 0.00152449, is_default: false },
 ];
 
 /* ---------------------------------------------------------- LocaleSeeder */
 
 const LOCALES = [
-    { code: 'en', name: 'English', native_name: 'English', flag: null, is_default: true, is_rtl: false, sort_order: 1 },
-    { code: 'bn', name: 'Bangla', native_name: 'বাংলা', flag: null, is_default: false, is_rtl: false, sort_order: 2 },
-    { code: 'ar', name: 'Arabic', native_name: 'العربية', flag: null, is_default: false, is_rtl: true, sort_order: 3 },
-    { code: 'hi', name: 'Hindi', native_name: 'हिन्दी', flag: null, is_default: false, is_rtl: false, sort_order: 4 },
+    { code: 'fr', name: 'French', native_name: 'Français', flag: null, is_default: true, is_rtl: false, sort_order: 1 },
+    { code: 'en', name: 'English', native_name: 'English', flag: null, is_default: false, is_rtl: false, sort_order: 2 },
 ];
 
 /* ------------------------------------------------------------ PlanSeeder */
@@ -184,6 +192,11 @@ const TEMPLATES = [
 /* ------------------------------------------------------------------ seeds */
 
 async function seedCurrencies() {
+    const supportedCodes = CURRENCIES.map((currency) => currency.code);
+    await prisma.currency.updateMany({
+        where: { code: { notIn: supportedCodes } },
+        data: { enabled: false, is_default: false, updated_at: now() },
+    });
     for (const c of CURRENCIES) {
         await prisma.currency.upsert({
             where: { code: c.code },
@@ -202,6 +215,11 @@ async function seedCurrencies() {
 }
 
 async function seedLocales() {
+    const supportedCodes = LOCALES.map((locale) => locale.code);
+    await prisma.locale.updateMany({
+        where: { code: { notIn: supportedCodes } },
+        data: { enabled: false, is_default: false, updated_at: now() },
+    });
     for (const l of LOCALES) {
         await prisma.locale.upsert({
             where: { code: l.code },
@@ -345,17 +363,22 @@ async function seedAdmin(superAdminRole) {
 }
 
 async function seedClient() {
-    let client = await prisma.client.findFirst({ where: { email: CLIENT_EMAIL } });
+    if (!seedConfig.seedDemoClient) {
+        console.log('  demo client: skipped (disabled or protected environment)');
+        return;
+    }
+    const { email: clientEmail, name: clientName, password: clientPassword } = seedConfig.client;
+    let client = await prisma.client.findFirst({ where: { email: clientEmail } });
     if (!client) {
         client = await prisma.client.create({
             data: {
                 name: 'Demo Workspace',
-                email: CLIENT_EMAIL,
+                email: clientEmail,
                 status: 'active',
                 kyc_status: 'verified',
-                base_currency: 'USD',
-                currency_symbol: '$',
-                currency_position: 'before',
+                base_currency: 'EUR',
+                currency_symbol: '€',
+                currency_position: 'after',
                 created_at: now(),
                 updated_at: now(),
             },
@@ -364,20 +387,21 @@ async function seedClient() {
 
     await ensureClientSystemRoles(client.id);
 
-    const existing = await prisma.user.findUnique({ where: { email: CLIENT_EMAIL } });
+    const existing = await prisma.user.findUnique({ where: { email: clientEmail } });
     if (!existing) {
         await prisma.user.create({
             data: {
-                name: CLIENT_NAME,
-                email: CLIENT_EMAIL,
-                password: await hash(CLIENT_PASSWORD),
+                name: clientName,
+                email: clientEmail,
+                password: await hash(clientPassword),
                 role: 'client',
                 client_id: client.id,
                 client_role: 'administrator',
                 status: 'active',
                 // The /app/* portal requires a verified email.
                 email_verified_at: now(),
-                locale: 'en',
+                locale: 'fr',
+                display_currency: 'EUR',
                 theme: 'light',
                 created_at: now(),
                 updated_at: now(),
@@ -401,7 +425,7 @@ async function seedClient() {
         });
     }
 
-    console.log(`  client user: ${CLIENT_EMAIL}`);
+    console.log(`  demo client user: ${clientEmail}`);
 }
 
 async function seedTemplates() {
@@ -424,9 +448,9 @@ async function seedGeneralSettings() {
                 system_title: process.env.APP_NAME || 'CallMineAI',
                 company_name: '',
                 primary_color: '#6d3fea',
-                timezone: 'UTC',
-                default_locale: 'en',
-                default_currency: 'USD',
+                timezone: 'Europe/Paris',
+                default_locale: 'fr',
+                default_currency: 'EUR',
                 created_at: now(),
                 updated_at: now(),
             },

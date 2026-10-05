@@ -6,7 +6,7 @@ import ClientLayout from '@/layouts/ClientLayout';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import KycGate from '@/components/KycGate';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { Megaphone, Plus, Users, PhoneCall } from 'lucide-react';
 
 const STATUS = {
@@ -30,7 +30,7 @@ export default function CampaignsIndex({ campaigns, filters = {}, stats = [] }) 
                         <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Campaigns</h1>
                         <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Outbound AI calling campaigns.</p>
                     </div>
-                    <Link href={route('client.campaigns.create')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> New campaign</Link>
+                    <Link href={route('client.campaigns.create')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_campaigns_index_c05a6c452861" /></Link>
                 </div>
 
                 <PageOverview feature="campaigns" />
@@ -56,13 +56,13 @@ export default function CampaignsIndex({ campaigns, filters = {}, stats = [] }) 
                                 </div>
                                 <div className="mt-3 flex gap-4 text-xs text-neutral-500">
                                     <span className="inline-flex items-center gap-1"><Users className="h-3.5 w-3.5" /> {c.contacts_count} contacts</span>
-                                    <span className="inline-flex items-center gap-1"><PhoneCall className="h-3.5 w-3.5" /> {c.calls_count} calls</span>
+                                    <span className="inline-flex items-center gap-1"><PhoneCall className="h-3.5 w-3.5" /> {c.calls_count} <Trans i18nKey="hardcoded.views_client_campaigns_index_ecbbea2fa5d3" /></span>
                                 </div>
                             </Link>
                         ))}
                     </div>
                 ) : (
-                    <div className="rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-16 text-center"><Megaphone className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500">No campaigns yet.</p><Link href={route('client.campaigns.create')} className="mt-3 inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> Create your first campaign</Link></div>
+                    <div className="rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-16 text-center"><Megaphone className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500">No campaigns yet.</p><Link href={route('client.campaigns.create')} className="mt-3 inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_campaigns_index_25e4f16682dd" /></Link></div>
                 )}
             </div>
         </ClientLayout>

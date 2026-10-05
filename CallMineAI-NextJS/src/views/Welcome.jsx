@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Link, usePage } from '@/lib/page-router';
@@ -502,8 +504,8 @@ export default function Welcome() {
                 <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
                     <Reveal>
                         <Eyebrow>Prêt pour le modèle SaaS</Eyebrow>
-                        <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">Exploitez-le pour une équipe — ou vendez-le à des milliers de clients.</h2>
-                        <p className="mt-4 text-neutral-600 dark:text-neutral-400">Une console de contrôle Super-Admin complète chapeaute l'application client. Intégrez de nouveaux comptes clients, attribuez des forfaits et des crédits, configurez les moteurs IA et supervisez l'activité en temps réel.</p>
+                        <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl"><Trans i18nKey="hardcoded.views_welcome_ee84eca392a7" /></h2>
+                        <p className="mt-4 text-neutral-600 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_welcome_aa520607f550" /></p>
                         <div className="mt-6 grid gap-3 sm:grid-cols-2">
                             {[['Gestion multi-clients', Users], ['Surveillance des appels en direct', BarChart3], ['Supervision des tâches en lot', Layers], ['Moteurs & fournisseurs IA', Server], ['Paiements & abonnements', KeyRound], ['Rôles, KYC & journal d\'audit', ShieldCheck]].map(([t, Icon]) => (
                                 <div key={t} className="flex items-center gap-2.5 rounded-xl border border-neutral-200 bg-white px-3.5 py-3 shadow-soft dark:border-white/10 dark:bg-ink-900/50 dark:shadow-none"><span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/12 text-brand-600 dark:text-brand-300"><Icon className="h-4 w-4" /></span><span className="text-sm text-neutral-800 dark:text-neutral-200">{t}</span></div>

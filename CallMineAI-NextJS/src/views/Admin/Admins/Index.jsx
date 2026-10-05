@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import AdminLayout from '@/layouts/AdminLayout';
 import PageOverview from '@/components/PageOverview';
@@ -84,11 +88,11 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                 )}
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">Admin Management</h2>
-                        <p className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">Manage admin users and their roles.</p>
+                        <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100"><Trans i18nKey="hardcoded.views_admin_admins_index_793ced0aa36a" /></h2>
+                        <p className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_admins_index_7b356b8b6d90" /></p>
                     </div>
                     {canCreate && (
-                        <Button onClick={() => setAddOpen(true)}>Add Admin</Button>
+                        <Button onClick={() => setAddOpen(true)}><Trans i18nKey="hardcoded.views_admin_admins_index_4aba464b2a9c" /></Button>
                     )}
                 </div>
 
@@ -101,10 +105,10 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                         type="text"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search name or email"
+                        placeholder={translationI18n.t('hardcoded.views_admin_admins_index_83972d38a7c1')}
                         className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 px-3 py-2 text-sm w-56 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     />
-                    <Button type="submit" variant="outline" size="sm">Search</Button>
+                    <Button type="submit" variant="outline" size="sm"><Trans i18nKey="hardcoded.views_admin_admins_index_890284dd6f2d" /></Button>
                 </form>
 
                 <Card>
@@ -112,10 +116,10 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                         <table className="min-w-full text-sm">
                             <thead>
                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
-                                    <th className="pb-2 pr-4 font-medium">Admin</th>
-                                    <th className="pb-2 pr-4 font-medium">Roles</th>
-                                    <th className="pb-2 pr-4 font-medium">Status</th>
-                                    <th className="pb-2 pr-4 font-medium w-28">Actions</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_admins_index_cce8e33410eb" /></th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_admins_index_b10c97b1a8dc" /></th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_admins_index_3c7ec3a526c1" /></th>
+                                    <th className="pb-2 pr-4 font-medium w-28"><Trans i18nKey="hardcoded.views_admin_admins_index_0a454f99deda" /></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -134,7 +138,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                             </div>
                                         </td>
                                         <td className="py-3 pr-4">
-                                            <Badge variant={a.status === STATUS_ACTIVE ? 'success' : 'default'}>
+                                            <Badge variant={a.status === STATUS_ACTIVE ? translationI18n.t('hardcoded.views_admin_admins_index_48ef7c0ddc2b') : translationI18n.t('hardcoded.views_admin_admins_index_6f22bdb9633f')}>
                                                 {a.status}
                                             </Badge>
                                         </td>
@@ -154,7 +158,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                                             type="button"
                                                             onClick={() => openEdit(a)}
                                                             className="rounded-soft p-1.5 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-neutral-300"
-                                                            title="Edit"
+                                                            title={translationI18n.t('hardcoded.views_admin_admins_index_b8937e08baa9')}
                                                         >
                                                             <Pencil className="h-4 w-4" />
                                                         </button>
@@ -165,7 +169,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                                         type="button"
                                                         onClick={() => setDeleteConfirm(a)}
                                                         className="rounded-soft p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
-                                                        title="Delete"
+                                                        title={translationI18n.t('hardcoded.views_admin_admins_index_d0a8a2c40398')}
                                                     >
                                                         <Trash2 className="h-4 w-4" />
                                                     </button>
@@ -186,7 +190,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
 
             {/* Add Admin Modal */}
             <Modal show={addOpen} onClose={() => setAddOpen(false)}>
-                <Modal.Header title="Add Admin" onClose={() => setAddOpen(false)} />
+                <Modal.Header title={translationI18n.t('hardcoded.views_admin_admins_index_4aba464b2a9c')} onClose={() => setAddOpen(false)} />
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
@@ -201,7 +205,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                     <Modal.Body>
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Name</label>
+                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"><Trans i18nKey="hardcoded.views_admin_admins_index_d52637072a65" /></label>
                                 <input
                                     type="text"
                                     value={addForm.data.name}
@@ -212,7 +216,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                 {addForm.errors.name && <p className="mt-1 text-sm text-red-500">{addForm.errors.name}</p>}
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Email</label>
+                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"><Trans i18nKey="hardcoded.views_admin_admins_index_07193078a388" /></label>
                                 <input
                                     type="email"
                                     value={addForm.data.email}
@@ -223,7 +227,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                 {addForm.errors.email && <p className="mt-1 text-sm text-red-500">{addForm.errors.email}</p>}
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Password</label>
+                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"><Trans i18nKey="hardcoded.views_admin_admins_index_6cd14135689d" /></label>
                                 <input
                                     type="password"
                                     value={addForm.data.password}
@@ -234,7 +238,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                 {addForm.errors.password && <p className="mt-1 text-sm text-red-500">{addForm.errors.password}</p>}
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Confirm Password</label>
+                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"><Trans i18nKey="hardcoded.views_admin_admins_index_f365a9094fe0" /></label>
                                 <input
                                     type="password"
                                     value={addForm.data.password_confirmation}
@@ -243,7 +247,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Status</label>
+                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"><Trans i18nKey="hardcoded.views_admin_admins_index_3c7ec3a526c1" /></label>
                                 <select
                                     value={addForm.data.status}
                                     onChange={(e) => addForm.setData('status', e.target.value)}
@@ -254,7 +258,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Roles</label>
+                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"><Trans i18nKey="hardcoded.views_admin_admins_index_b10c97b1a8dc" /></label>
                                 <div className="space-y-2">
                                     {roles?.map((r) => (
                                         <label key={r.id} className="flex items-center gap-2">
@@ -277,15 +281,15 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button type="button" variant="outline" onClick={() => setAddOpen(false)}>Cancel</Button>
-                        <Button type="submit" disabled={addForm.processing}>Create</Button>
+                        <Button type="button" variant="outline" onClick={() => setAddOpen(false)}><Trans i18nKey="hardcoded.views_admin_admins_index_5634d044a2ef" /></Button>
+                        <Button type="submit" disabled={addForm.processing}><Trans i18nKey="hardcoded.views_admin_admins_index_4054f55d80c0" /></Button>
                     </Modal.Footer>
                 </form>
             </Modal>
 
             {/* Edit Admin Modal */}
             <Modal show={editOpen} onClose={() => setEditOpen(false)}>
-                <Modal.Header title="Edit Admin" onClose={() => setEditOpen(false)} />
+                <Modal.Header title={translationI18n.t('hardcoded.views_admin_admins_index_a3d6352ac032')} onClose={() => setEditOpen(false)} />
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
@@ -301,7 +305,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                     <Modal.Body>
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Name</label>
+                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"><Trans i18nKey="hardcoded.views_admin_admins_index_d52637072a65" /></label>
                                 <input
                                     type="text"
                                     value={editForm.data.name}
@@ -312,7 +316,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                 {editForm.errors.name && <p className="mt-1 text-sm text-red-500">{editForm.errors.name}</p>}
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Email</label>
+                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"><Trans i18nKey="hardcoded.views_admin_admins_index_07193078a388" /></label>
                                 <input
                                     type="email"
                                     value={editForm.data.email}
@@ -323,7 +327,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                 {editForm.errors.email && <p className="mt-1 text-sm text-red-500">{editForm.errors.email}</p>}
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Status</label>
+                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1"><Trans i18nKey="hardcoded.views_admin_admins_index_3c7ec3a526c1" /></label>
                                 <select
                                     value={editForm.data.status}
                                     onChange={(e) => editForm.setData('status', e.target.value)}
@@ -334,7 +338,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Roles</label>
+                                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"><Trans i18nKey="hardcoded.views_admin_admins_index_b10c97b1a8dc" /></label>
                                 <div className="space-y-2">
                                     {roles?.map((r) => (
                                         <label key={r.id} className="flex items-center gap-2">
@@ -357,23 +361,23 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button type="button" variant="outline" onClick={() => setEditOpen(false)}>Cancel</Button>
-                        <Button type="submit" disabled={editForm.processing}>Update</Button>
+                        <Button type="button" variant="outline" onClick={() => setEditOpen(false)}><Trans i18nKey="hardcoded.views_admin_admins_index_5634d044a2ef" /></Button>
+                        <Button type="submit" disabled={editForm.processing}><Trans i18nKey="hardcoded.views_admin_admins_index_c361ce82c5cd" /></Button>
                     </Modal.Footer>
                 </form>
             </Modal>
 
             {/* Delete confirm */}
             <Modal show={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} maxWidth="sm">
-                <Modal.Header title="Delete Admin" onClose={() => setDeleteConfirm(null)} />
+                <Modal.Header title={translationI18n.t('hardcoded.views_admin_admins_index_48717be7aa5e')} onClose={() => setDeleteConfirm(null)} />
                 <Modal.Body>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        Are you sure you want to delete <strong>{deleteConfirm?.name}</strong>? This cannot be undone.
+                        <Trans i18nKey="hardcoded.views_admin_admins_index_7e297bc8664b" /> <strong>{deleteConfirm?.name}</strong><Trans i18nKey="hardcoded.views_admin_admins_index_e6d6a6b056c3" />
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="outline" onClick={() => setDeleteConfirm(null)}>Cancel</Button>
-                    <Button variant="danger" onClick={() => doDelete(deleteConfirm)}>Delete</Button>
+                    <Button variant="outline" onClick={() => setDeleteConfirm(null)}><Trans i18nKey="hardcoded.views_admin_admins_index_5634d044a2ef" /></Button>
+                    <Button variant="danger" onClick={() => doDelete(deleteConfirm)}><Trans i18nKey="hardcoded.views_admin_admins_index_d0a8a2c40398" /></Button>
                 </Modal.Footer>
             </Modal>
         </AdminLayout>

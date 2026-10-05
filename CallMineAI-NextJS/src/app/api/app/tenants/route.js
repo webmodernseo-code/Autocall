@@ -16,7 +16,7 @@ export const POST = handler(async (request) => {
         data: {
             name: data.name,
             owner_id: gate.user.id,
-            default_locale: gate.user.locale ?? 'en',
+            default_locale: gate.user.locale ?? 'fr',
             currency_code: gate.user.display_currency,
             created_at: new Date(),
             updated_at: new Date(),

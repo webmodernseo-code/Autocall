@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Button, Modal, Toggle } from '@/components/ui';
 import { useForm } from '@/lib/page-router';
@@ -27,8 +31,7 @@ function WebhookUrlField({ url }) {
         <div className="rounded-soft-lg border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 px-4 py-3">
             <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Webhook URL</h4>
             <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
-                Add this URL as the webhook / callback endpoint in the gateway dashboard so subscription and payment
-                events reach the app.
+                <Trans i18nKey="hardcoded.components_paymentgatewayeditmodal_1334b415003c" />
             </p>
             <div className="mt-2 flex items-stretch gap-2">
                 <input
@@ -39,7 +42,7 @@ function WebhookUrlField({ url }) {
                     className="flex-1 rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 px-3 py-2 text-sm font-mono"
                 />
                 <Button type="button" variant="outline" size="sm" onClick={copy}>
-                    {copied ? 'Copied' : 'Copy'}
+                    {copied ? 'Copied' : translationI18n.t('hardcoded.components_paymentgatewayeditmodal_1001d79cee05')}
                 </Button>
             </div>
         </div>
@@ -58,7 +61,7 @@ function CredentialField({ field, mode, value, onChange, error }) {
                 {field.required && <span className="text-red-500"> *</span>}
             </label>
             <input
-                type={field.type === 'password' ? 'password' : 'text'}
+                type={field.type === 'password' ? translationI18n.t('hardcoded.components_paymentgatewayeditmodal_87f2ec7e04ae') : 'text'}
                 value={value}
                 onChange={(e) => onChange(name, e.target.value)}
                 autoComplete="off"
@@ -125,7 +128,7 @@ export default function PaymentGatewayEditModal({
 
     return (
         <Modal show={show} onClose={onClose} maxWidth="2xl">
-            <Modal.Header title="Edit Payment Gateway" onClose={onClose} />
+            <Modal.Header title={translationI18n.t('hardcoded.components_paymentgatewayeditmodal_e22654b098d7')} onClose={onClose} />
             <form onSubmit={handleSubmit}>
                 <Modal.Body className="space-y-6">
                     <SetupGuide guide={gatewayKey} />
@@ -143,15 +146,14 @@ export default function PaymentGatewayEditModal({
 
                             {initialData.recurring === false && (
                                 <div className="rounded-soft-lg border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 px-4 py-2 text-sm text-amber-800 dark:text-amber-200">
-                                    This gateway charges a single billing period (no automatic recurring renewal).
-                                    Customers are billed once per checkout.
+                                    <Trans i18nKey="hardcoded.components_paymentgatewayeditmodal_86ca44a09765" />
                                 </div>
                             )}
 
                             <div>
-                                <h4 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Test Mode</h4>
+                                <h4 className="text-sm font-medium text-neutral-900 dark:text-neutral-100"><Trans i18nKey="hardcoded.components_paymentgatewayeditmodal_79499996d624" /></h4>
                                 <p className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">
-                                    Using sandbox/test credentials for development and testing.
+                                    <Trans i18nKey="hardcoded.components_paymentgatewayeditmodal_71a49d9aa698" />
                                 </p>
                                 <Toggle
                                     checked={data.test_mode}
@@ -182,9 +184,7 @@ export default function PaymentGatewayEditModal({
                             ))}
 
                             <div className="rounded-soft-lg border border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800 px-4 py-3 text-sm text-blue-800 dark:text-blue-200">
-                                <strong>Note:</strong> Both test and live credentials are stored securely (encrypted).
-                                The active set is chosen by the Test Mode toggle above. Leave a secret field blank to keep
-                                the stored value.
+                                <strong>Note:</strong> <Trans i18nKey="hardcoded.components_paymentgatewayeditmodal_df55d2669603" />
                             </div>
 
                             <div>
@@ -193,7 +193,7 @@ export default function PaymentGatewayEditModal({
                                 <Toggle
                                     checked={data.enabled}
                                     onChange={(v) => setData('enabled', v)}
-                                    label={data.enabled ? 'Enabled' : 'Disabled'}
+                                    label={data.enabled ? translationI18n.t('hardcoded.components_paymentgatewayeditmodal_b3a91c1ccbd7') : translationI18n.t('hardcoded.components_paymentgatewayeditmodal_22409b0286d1')}
                                     className="mt-2"
                                 />
                             </div>
@@ -203,10 +203,10 @@ export default function PaymentGatewayEditModal({
                 {!loading && initialData && (
                     <Modal.Footer>
                         <Button type="button" variant="outline" onClick={onClose}>
-                            Cancel
+                            <Trans i18nKey="hardcoded.components_paymentgatewayeditmodal_44df872a69f9" />
                         </Button>
                         <Button type="submit" variant="primary" disabled={processing}>
-                            Update Gateway
+                            <Trans i18nKey="hardcoded.components_paymentgatewayeditmodal_28e13a449201" />
                         </Button>
                     </Modal.Footer>
                 )}

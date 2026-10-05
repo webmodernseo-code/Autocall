@@ -5,6 +5,7 @@ import { readBody, validate, validationError } from '@/lib/http';
 import { verifyPassword } from '@/lib/auth';
 import { writeSession } from '@/lib/auth/session';
 import { availableIn, clear, hit, throttleKey, tooManyAttempts } from '@/lib/rate-limit';
+import { detectRegionalPreferences } from '@/lib/regional-preferences.mjs';
 
 /**
  * POST /login via LoginRequest.
@@ -12,6 +13,7 @@ import { availableIn, clear, hit, throttleKey, tooManyAttempts } from '@/lib/rat
  */
 export const POST = handler(async (request) => {
     const body = await readBody(request);
+    const detected = detectRegionalPreferences(request.headers);
     await validate(body, {
         email: ['required', 'string', 'email'],
         password: ['required', 'string'],
@@ -32,32 +34,18 @@ export const POST = handler(async (request) => {
     try {
         user = await prisma.user.findUnique({ where: { email: String(body.email).toLowerCase() } });
     } catch (e) {
-        console.warn('[login] database unreachable, checking demo mode credentials');
+        console.error('[login] database unavailable');
     }
 
-    const email = String(body.email).toLowerCase();
-    const isDemoClient = (email === 'client@spagreen.net' && body.password === '12345678');
+    const valid = user && (await verifyPassword(body.password, user.password));
+    if (!valid) {
+        await hit(key);
+        return validationError({ email: ['Ces identifiants ne correspondent pas à nos enregistrements.'] });
+    }
 
-    if (!user && isDemoClient) {
-        user = {
-            id: 1,
-            client_id: 1,
-            tenant_id: 1,
-            status: 'active',
-            locale: 'fr',
-            theme: 'light',
-        };
-    } else {
-        const valid = user && (await verifyPassword(body.password, user.password));
-        if (!valid) {
-            await hit(key);
-            return validationError({ email: ['Ces identifiants ne correspondent pas à nos enregistrements.'] });
-        }
-
-        if ((user.status ?? 'active') !== 'active') {
-            await hit(key);
-            return validationError({ email: ['Votre compte est désactivé.'] });
-        }
+    if ((user.status ?? 'active') !== 'active') {
+        await hit(key);
+        return validationError({ email: ['Votre compte est désactivé.'] });
     }
 
     await clear(key);
@@ -66,6 +54,7 @@ export const POST = handler(async (request) => {
         client_id: user.client_id ? Number(user.client_id) : null,
         current_tenant_id: user.tenant_id ? Number(user.tenant_id) : null,
         locale: user.locale ?? null,
+        display_currency: user.display_currency ?? detected.currency,
         theme: user.theme ?? 'light',
     });
 

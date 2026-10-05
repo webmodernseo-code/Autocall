@@ -7,7 +7,7 @@ import { putSession } from '@/lib/auth/session';
 /** PUT /locale */
 export const PUT = handler(async (request) => {
     const rows = await prisma.locale.findMany({ where: { enabled: true }, select: { code: true } });
-    const codes = rows.length ? rows.map((r) => r.code) : ['en'];
+    const codes = rows.length ? rows.map((r) => r.code) : ['fr', 'en'];
 
     const data = await validate(await readBody(request), {
         locale: ['required', 'string', `in:${codes.join(',')}`],

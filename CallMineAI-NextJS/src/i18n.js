@@ -1,21 +1,13 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import ar from './locales/ar.json';
-import au from './locales/au.json';
-import bn from './locales/bn.json';
-import cn from './locales/cn.json';
 import en from './locales/en.json';
-import hi from './locales/hi.json';
+import fr from './locales/fr.json';
 
 /** Nested translation shape handed to the client as `props.i18n.translations`. */
 const BUNDLED_LOCALES = {
-    ar,
-    au,
-    bn,
-    cn,
+    fr,
     en,
-    hi,
 };
 
 /**
@@ -25,12 +17,12 @@ const BUNDLED_LOCALES = {
  */
 export function initI18n() {
     const initialLang = typeof document !== 'undefined'
-        ? (document.documentElement.getAttribute('lang') || 'en').split('-')[0]
-        : 'en';
+        ? (document.documentElement.getAttribute('lang') || 'fr').split('-')[0]
+        : 'fr';
 
     i18n.use(initReactI18next).init({
         lng: initialLang,
-        fallbackLng: 'en',
+        fallbackLng: 'fr',
         ns: ['translation'],
         defaultNS: 'translation',
         resources: {},

@@ -6,7 +6,7 @@ import { Head, router } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { KanbanSquare, Building2, Phone, GripVertical } from 'lucide-react';
 
 // Distinct accent per stage. Each entry drives the column header + card ring.
@@ -123,7 +123,7 @@ export default function CrmBoard({ columns = [], stats = [], stages = [] }) {
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                         <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Quick CRM</h1>
-                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Drag leads across your pipeline stages.</p>
+                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_crm_board_5716aa910bfb" /></p>
                     </div>
                 </div>
 

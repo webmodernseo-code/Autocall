@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 import { Button, Input } from '@/components/ui';
 
 const LIMIT_KEYS = [
@@ -56,7 +58,7 @@ export default function PlanLimits({ limits = {}, onChange }) {
                 <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Plan limits</span>
                 <div className="flex gap-2">
                     <Button type="button" variant="outline" size="sm" onClick={setAllUnlimited}>
-                        Set All Unlimited
+                        <Trans i18nKey="hardcoded.views_admin_plans_planlimits_34b0b0da38ff" />
                     </Button>
                     <Button type="button" variant="outline" size="sm" onClick={resetDefaults}>
                         Reset Defaults

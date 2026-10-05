@@ -1,11 +1,13 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router } from '@/lib/page-router';
 import axios from 'axios';
 import ClientLayout from '@/layouts/ClientLayout';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import KycGate from '@/components/KycGate';
@@ -34,14 +36,14 @@ function BuyModal({ twilioConfigured, cost, onClose }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <div className="w-full max-w-lg rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl" onClick={(e) => e.stopPropagation()}>
                 <div className="mb-3 flex items-center justify-between">
-                    <h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">Add a phone number</h3>
+                    <h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_phonenumbers_index_f645e2a423af" /></h3>
                     <button onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button>
                 </div>
                 <div className="mb-4 flex gap-1.5">
-                    <button onClick={() => setTab('search')} disabled={!twilioConfigured} className={`flex-1 rounded-soft px-3 py-1.5 text-sm ${tab === 'search' ? 'bg-brand-600 text-white' : 'border border-neutral-200 dark:border-ink-700 text-neutral-600 dark:text-neutral-300 disabled:opacity-40'}`}>Buy new (search)</button>
+                    <button onClick={() => setTab('search')} disabled={!twilioConfigured} className={`flex-1 rounded-soft px-3 py-1.5 text-sm ${tab === 'search' ? 'bg-brand-600 text-white' : 'border border-neutral-200 dark:border-ink-700 text-neutral-600 dark:text-neutral-300 disabled:opacity-40'}`}><Trans i18nKey="hardcoded.views_client_phonenumbers_index_5e9766d18479" /></button>
                     <button onClick={() => setTab('manual')} className={`flex-1 rounded-soft px-3 py-1.5 text-sm ${tab === 'manual' ? 'bg-brand-600 text-white' : 'border border-neutral-200 dark:border-ink-700 text-neutral-600 dark:text-neutral-300'}`}>Use number I own</button>
                 </div>
-                <p className="mb-3 text-xs text-neutral-500">Active numbers cost <span className="font-mono">{cost}</span> credits/month.</p>
+                <p className="mb-3 text-xs text-neutral-500"><Trans i18nKey="hardcoded.views_client_phonenumbers_index_3921cfc09e84" /> <span className="font-mono">{cost}</span> credits/month.</p>
 
                 {tab === 'search' ? (
                     <div className="space-y-3">
@@ -50,7 +52,7 @@ function BuyModal({ twilioConfigured, cost, onClose }) {
                             <input className={inputCls} placeholder="Area code" value={q.area_code} onChange={(e) => setQ({ ...q, area_code: e.target.value })} />
                             <select className={inputCls} value={q.type} onChange={(e) => setQ({ ...q, type: e.target.value })}><option value="local">Local</option><option value="toll_free">Toll-free</option><option value="mobile">Mobile</option></select>
                         </div>
-                        <button onClick={search} disabled={loading} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Search className="h-4 w-4" /> {loading ? 'Searching…' : 'Search'}</button>
+                        <button onClick={search} disabled={loading} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Search className="h-4 w-4" /> {loading ? 'Searching…' : translationI18n.t('hardcoded.views_client_phonenumbers_index_c2f06088b517')}</button>
                         <div className="max-h-60 space-y-1.5 overflow-auto">
                             {results.map((n) => (
                                 <div key={n.e164} className="flex items-center justify-between rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2">
@@ -58,21 +60,21 @@ function BuyModal({ twilioConfigured, cost, onClose }) {
                                     <button onClick={() => buy({ phone: n.e164, type: q.type, country: n.country })} className="rounded-soft bg-brand-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-brand-500">Buy</button>
                                 </div>
                             ))}
-                            {results.length === 0 && !loading && <p className="py-4 text-center text-xs text-neutral-400">Search to find available numbers.</p>}
+                            {results.length === 0 && !loading && <p className="py-4 text-center text-xs text-neutral-400"><Trans i18nKey="hardcoded.views_client_phonenumbers_index_6a631a26762b" /></p>}
                         </div>
                     </div>
                 ) : (
                     <div className="space-y-3">
                         <p className="rounded-soft bg-neutral-50 dark:bg-ink-800 px-3 py-2 text-xs text-neutral-500 dark:text-neutral-400">
-                            Enter a number you <span className="font-medium">already own</span> — a Twilio number in the platform account (including a trial number), or an external/BYO number. No purchase is made.
+                            <Trans i18nKey="hardcoded.views_client_phonenumbers_index_9307808e8862" /> <span className="font-medium">already own</span> <Trans i18nKey="hardcoded.views_client_phonenumbers_index_46c9a74a2849" />
                         </p>
                         <input className={inputCls} placeholder="Phone (+14155550123)" value={manual.phone} onChange={(e) => setManual({ ...manual, phone: e.target.value })} />
-                        <input className={inputCls} placeholder="Friendly name (optional)" value={manual.friendly_name} onChange={(e) => setManual({ ...manual, friendly_name: e.target.value })} />
+                        <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_phonenumbers_index_2ae36473479e')} value={manual.friendly_name} onChange={(e) => setManual({ ...manual, friendly_name: e.target.value })} />
                         <div className="grid grid-cols-2 gap-2">
                             <select className={inputCls} value={manual.type} onChange={(e) => setManual({ ...manual, type: e.target.value })}><option value="local">Local</option><option value="toll_free">Toll-free</option><option value="mobile">Mobile</option></select>
                             <input className={inputCls} placeholder="Country (US)" maxLength={2} value={manual.country} onChange={(e) => setManual({ ...manual, country: e.target.value.toUpperCase() })} />
                         </div>
-                        <button onClick={() => buy({ ...manual, owned: true })} disabled={!manual.phone} className="inline-flex w-full items-center justify-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Plus className="h-4 w-4" /> Add number</button>
+                        <button onClick={() => buy({ ...manual, owned: true })} disabled={!manual.phone} className="inline-flex w-full items-center justify-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_phonenumbers_index_27ab0eff6848" /></button>
                     </div>
                 )}
             </div>
@@ -106,7 +108,7 @@ export default function PhoneNumbersIndex({ numbers = [], stats = [], twilioConf
 
                 {!twilioConfigured && (
                     <div className="rounded-soft-lg border border-warm/30 bg-warm/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
-                        Twilio isn't configured — number search is disabled, but you can still add your own numbers manually.
+                        <Trans i18nKey="hardcoded.views_client_phonenumbers_index_ff2a69936c85" />
                     </div>
                 )}
 
@@ -126,7 +128,7 @@ export default function PhoneNumbersIndex({ numbers = [], stats = [], twilioConf
                         ))}
                     </div>
                 ) : (
-                    <div className="rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-16 text-center"><Phone className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500">No phone numbers yet. Buy one to use as caller ID for your campaigns.</p></div>
+                    <div className="rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-16 text-center"><Phone className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500"><Trans i18nKey="hardcoded.views_client_phonenumbers_index_ace281bf35e8" /></p></div>
                 )}
             </div>
 

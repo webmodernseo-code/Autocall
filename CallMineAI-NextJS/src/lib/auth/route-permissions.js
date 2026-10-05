@@ -77,10 +77,10 @@ export function permissionForRoute(routeName) {
     const parts = name.slice('client.'.length).split('.').filter(Boolean);
     if (parts.length < 2) return null;
 
-    const module = MODULE_FOR[parts[0]];
-    if (!module) return null;
+    const permissionModule = MODULE_FOR[parts[0]];
+    if (!permissionModule) return null;
 
-    const available = CLIENT_MODULES[module] ?? ['read'];
+    const available = CLIENT_MODULES[permissionModule] ?? ['read'];
     const verb = parts[parts.length - 1];
 
     let action = 'update';
@@ -93,5 +93,5 @@ export function permissionForRoute(routeName) {
         action = available.includes('manage') ? 'manage' : available.includes('update') ? 'update' : 'read';
     }
 
-    return `${module}.${action}`;
+    return `${permissionModule}.${action}`;
 }

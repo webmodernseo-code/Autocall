@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { Head, Link, router, useForm, usePage } from '@/lib/page-router';
 import { useState } from 'react';
@@ -39,9 +43,9 @@ export default function AdminLogin({ status, error }) {
             logoUrl={logoUrl}
             variant="admin"
             eyebrow="Admin sign in"
-            title="Sign in to the control panel"
+            title={translationI18n.t('hardcoded.views_admin_auth_login_c668e96fb4a4')}
             subtitle="Manage the whole platform from one secure console."
-            footer={<>Not an admin? <Link href={route('login')} className="font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400 dark:hover:text-brand-300">Client login</Link></>}
+            footer={<>Not an admin? <Link href={route('login')} className="font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400 dark:hover:text-brand-300"><Trans i18nKey="hardcoded.views_admin_auth_login_fb617b5acbcf" /></Link></>}
         >
             <Head title="Admin sign in" />
 

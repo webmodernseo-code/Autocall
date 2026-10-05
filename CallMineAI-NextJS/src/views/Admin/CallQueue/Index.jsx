@@ -1,10 +1,12 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { Head, router } from '@/lib/page-router';
 import AdminLayout from '@/layouts/AdminLayout';
 import PageOverview from '@/components/PageOverview';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { ListChecks, RotateCw, Trash2 } from 'lucide-react';
 
 const STATUS = {
@@ -35,11 +37,11 @@ export default function CallQueueIndex({ jobs, filters = {}, stats = {} }) {
 
     return (
         <AdminLayout title={t('admin.call_queue') || 'Call Queue'}>
-            <Head title="Call Queue" />
+            <Head title={translationI18n.t('hardcoded.views_admin_callqueue_index_0c1e7a50f4c7')} />
             <div className="space-y-6">
                 <div className="flex items-center gap-2">
                     <ListChecks className="h-6 w-6 text-brand-600 dark:text-brand-400" />
-                    <h2 className="font-display text-xl font-semibold text-neutral-900 dark:text-white">Call Queue</h2>
+                    <h2 className="font-display text-xl font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_admin_callqueue_index_0c1e7a50f4c7" /></h2>
                 </div>
 
                 <PageOverview feature="admin-call-queue" />
@@ -75,7 +77,7 @@ export default function CallQueueIndex({ jobs, filters = {}, stats = {} }) {
                                     <td className="px-4 py-3 text-right">
                                         <div className="inline-flex gap-1">
                                             <button onClick={() => retry(j)} title="Requeue" className="rounded-soft p-1.5 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-ink-800"><RotateCw className="h-4 w-4" /></button>
-                                            <button onClick={() => cancel(j)} title="Remove" className="rounded-soft p-1.5 text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button>
+                                            <button onClick={() => cancel(j)} title={translationI18n.t('hardcoded.views_admin_callqueue_index_a77a397ce814')} className="rounded-soft p-1.5 text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button>
                                         </div>
                                     </td>
                                 </tr>

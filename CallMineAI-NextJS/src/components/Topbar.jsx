@@ -53,7 +53,7 @@ export default function Topbar({
     };
 
     const currencies = page.props.currencies?.length ? page.props.currencies : FALLBACK_CURRENCIES;
-    const currentCurrency = page.props.displayCurrency ?? 'USD';
+    const currentCurrency = page.props.displayCurrency ?? 'EUR';
 
     const handleLocale = (code) => {
         setLocaleCode(code);
@@ -294,4 +294,3 @@ export default function Topbar({
         </header>
     );
 }
-

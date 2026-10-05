@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { Head, Link, router } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
@@ -26,7 +28,7 @@ export default function ExecutionsIndex({ executions, filters = {}, stats = [] }
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                         <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Execution Logs</h1>
-                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Every flow run, with per-step results.</p>
+                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_flows_executions_index_3f5277606a00" /></p>
                     </div>
                     <Link href={route('client.flows.index')} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800">Back to flows</Link>
                 </div>
@@ -36,9 +38,9 @@ export default function ExecutionsIndex({ executions, filters = {}, stats = [] }
 
                 <div className="flex gap-2">
                     <select value={filters.status || ''} onChange={(e) => setStatus(e.target.value)} className="rounded-soft border border-neutral-200 bg-white px-3 pr-8 py-2 text-sm dark:border-ink-700 dark:bg-ink-900">
-                        <option value="">All statuses</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_client_flows_executions_index_3b0bd2c0c0b2" /></option>
                         <option value="completed">Completed</option>
-                        <option value="failed">Failed</option>
+                        <option value="failed"><Trans i18nKey="hardcoded.views_client_flows_executions_index_f77b2d0dbf7a" /></option>
                         <option value="running">Running</option>
                     </select>
                 </div>
@@ -60,7 +62,7 @@ export default function ExecutionsIndex({ executions, filters = {}, stats = [] }
                                             <td className="px-5 py-3 capitalize text-neutral-500">{(e.trigger_source || '').replace('_', ' ')}</td>
                                             <td className="px-5 py-3 font-mono text-neutral-500">{fmtDur(e.duration_ms)}</td>
                                             <td className="px-5 py-3 text-neutral-500">{e.started_at ? fmtTime(e.started_at) : '—'}</td>
-                                            <td className="px-5 py-3 text-right"><Link href={route('client.flows.executions.show', e.id)} className="inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400">View <ArrowRight className="h-3 w-3" /></Link></td>
+                                            <td className="px-5 py-3 text-right"><Link href={route('client.flows.executions.show', e.id)} className="inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400"><Trans i18nKey="hardcoded.views_client_flows_executions_index_9464164c49ea" /> <ArrowRight className="h-3 w-3" /></Link></td>
                                         </tr>
                                     );
                                 })}

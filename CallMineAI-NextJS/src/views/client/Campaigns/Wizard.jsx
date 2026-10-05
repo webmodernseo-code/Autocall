@@ -1,10 +1,12 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, Link, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { ArrowLeft, ArrowRight, Check, Target, Bot, Users } from 'lucide-react';
 
 const TYPE_LABEL = { lead_qualification: 'Lead Qualification', sales: 'Sales', support: 'Support', survey: 'Survey' };
@@ -34,12 +36,12 @@ export default function CampaignWizard({ types = [], agents = [], numbers = [], 
     const canNext = step === 1 ? data.name.trim() && data.type : true;
 
     return (
-        <ClientLayout title={editing ? 'Edit campaign' : 'New campaign'}>
-            <Head title={editing ? 'Edit campaign' : 'New campaign'} />
+        <ClientLayout title={editing ? translationI18n.t('hardcoded.views_client_campaigns_wizard_93c654a5370b') : translationI18n.t('hardcoded.views_client_campaigns_wizard_4d15cff5dd89')}>
+            <Head title={editing ? translationI18n.t('hardcoded.views_client_campaigns_wizard_93c654a5370b') : translationI18n.t('hardcoded.views_client_campaigns_wizard_4d15cff5dd89')} />
             <div className="mx-auto max-w-3xl space-y-6">
                 <div className="flex items-center gap-3">
                     <Link href={editing ? route('client.campaigns.show', campaign.id) : route('client.campaigns.index')} className="rounded-soft p-2 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-ink-800"><ArrowLeft className="h-4 w-4" /></Link>
-                    <h1 className="font-display text-xl font-bold text-neutral-900 dark:text-white">{editing ? 'Edit campaign' : 'New campaign'}</h1>
+                    <h1 className="font-display text-xl font-bold text-neutral-900 dark:text-white">{editing ? translationI18n.t('hardcoded.views_client_campaigns_wizard_93c654a5370b') : translationI18n.t('hardcoded.views_client_campaigns_wizard_4d15cff5dd89')}</h1>
                 </div>
 
                 {/* Stepper */}
@@ -58,24 +60,24 @@ export default function CampaignWizard({ types = [], agents = [], numbers = [], 
                 <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft space-y-4">
                     {step === 1 && (
                         <>
-                            <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500">Campaign name</span><input className={inputCls} value={data.name} onChange={(e) => setData('name', e.target.value)} placeholder="e.g. Q3 Lead Outreach" />{errors.name && <p className="mt-1 text-xs text-danger">{errors.name}</p>}</label>
+                            <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500"><Trans i18nKey="hardcoded.views_client_campaigns_wizard_201b13e40128" /></span><input className={inputCls} value={data.name} onChange={(e) => setData('name', e.target.value)} placeholder="e.g. Q3 Lead Outreach" />{errors.name && <p className="mt-1 text-xs text-danger">{errors.name}</p>}</label>
                             <div><span className="mb-1 block text-xs font-medium uppercase text-neutral-500">Type</span><div className="grid grid-cols-2 gap-2">{types.map((tp) => <button key={tp} type="button" onClick={() => setData('type', tp)} className={`rounded-soft border px-3 py-2 text-sm ${data.type === tp ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-300' : 'border-neutral-200 dark:border-ink-700 text-neutral-600 dark:text-neutral-300'}`}>{TYPE_LABEL[tp] || tp}</button>)}</div></div>
-                            <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500">Goal</span><textarea rows="3" className={inputCls} value={data.goal} onChange={(e) => setData('goal', e.target.value)} placeholder="What should the agent achieve on each call?" /></label>
+                            <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500"><Trans i18nKey="hardcoded.views_client_campaigns_wizard_27b35163ea15" /></span><textarea rows="3" className={inputCls} value={data.goal} onChange={(e) => setData('goal', e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_campaigns_wizard_29bff01e0ec8')} /></label>
                         </>
                     )}
                     {step === 2 && (
                         <>
-                            <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500">AI agent</span><select className={inputCls} value={data.agent_id} onChange={(e) => setData('agent_id', e.target.value)}><option value="">Select an agent…</option>{agents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}</select>{agents.length === 0 && <p className="mt-1 text-xs text-warm">No active agents — create one first.</p>}</label>
-                            <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500">Caller ID (phone number)</span><select className={inputCls} value={data.phone_number_id} onChange={(e) => setData('phone_number_id', e.target.value)}><option value="">Select a number…</option>{numbers.map((n) => <option key={n.id} value={n.id}>{n.e164_number}</option>)}</select>{numbers.length === 0 && <p className="mt-1 text-xs text-warm">No phone numbers — buy one first.</p>}</label>
+                            <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500">AI agent</span><select className={inputCls} value={data.agent_id} onChange={(e) => setData('agent_id', e.target.value)}><option value=""><Trans i18nKey="hardcoded.views_client_campaigns_wizard_1e30a9888c0b" /></option>{agents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}</select>{agents.length === 0 && <p className="mt-1 text-xs text-warm"><Trans i18nKey="hardcoded.views_client_campaigns_wizard_329ae847d332" /></p>}</label>
+                            <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500">Caller ID (phone number)</span><select className={inputCls} value={data.phone_number_id} onChange={(e) => setData('phone_number_id', e.target.value)}><option value=""><Trans i18nKey="hardcoded.views_client_campaigns_wizard_84f7c1628134" /></option>{numbers.map((n) => <option key={n.id} value={n.id}>{n.e164_number}</option>)}</select>{numbers.length === 0 && <p className="mt-1 text-xs text-warm">No phone numbers — buy one first.</p>}</label>
                             <div className="grid grid-cols-2 gap-3">
                                 <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500">Max retries</span><input type="number" min="0" max="5" className={inputCls} value={data.max_retries} onChange={(e) => setData('max_retries', Number(e.target.value))} /></label>
-                                <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500">Start (optional)</span><input type="datetime-local" className={inputCls} value={data.schedule_start} onChange={(e) => setData('schedule_start', e.target.value)} /></label>
+                                <label className="block"><span className="mb-1 block text-xs font-medium uppercase text-neutral-500"><Trans i18nKey="hardcoded.views_client_campaigns_wizard_b80fed9c7ce6" /></span><input type="datetime-local" className={inputCls} value={data.schedule_start} onChange={(e) => setData('schedule_start', e.target.value)} /></label>
                             </div>
                         </>
                     )}
                     {step === 3 && (
                         <>
-                            <label className="flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2.5"><input type="checkbox" checked={data.select_all} onChange={(e) => setData('select_all', e.target.checked)} /><span className="text-sm text-neutral-700 dark:text-neutral-300">Use all {contactsTotal} contacts</span></label>
+                            <label className="flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2.5"><input type="checkbox" checked={data.select_all} onChange={(e) => setData('select_all', e.target.checked)} /><span className="text-sm text-neutral-700 dark:text-neutral-300"><Trans i18nKey="hardcoded.views_client_campaigns_wizard_c76b3fb87e24" /> {contactsTotal} contacts</span></label>
                             {!data.select_all && (
                                 <div className="max-h-72 space-y-1 overflow-auto rounded-soft border border-neutral-200 dark:border-ink-700 p-2">
                                     {recentContacts.map((c) => (
@@ -84,7 +86,7 @@ export default function CampaignWizard({ types = [], agents = [], numbers = [], 
                                     {recentContacts.length === 0 && <p className="py-4 text-center text-xs text-neutral-400">No contacts yet — import some first.</p>}
                                 </div>
                             )}
-                            <p className="text-xs text-neutral-500">{editing ? 'Changes apply to the draft/paused campaign. Launch it from its page when ready.' : 'The campaign is saved as a draft. You can launch it from its page when ready.'}</p>
+                            <p className="text-xs text-neutral-500">{editing ? translationI18n.t('hardcoded.views_client_campaigns_wizard_1cf54d056c61') : translationI18n.t('hardcoded.views_client_campaigns_wizard_211fa4284036')}</p>
                         </>
                     )}
                 </div>
@@ -94,7 +96,7 @@ export default function CampaignWizard({ types = [], agents = [], numbers = [], 
                     {step < 3 ? (
                         <button type="button" onClick={() => canNext && setStep((s) => s + 1)} disabled={!canNext} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Next <ArrowRight className="h-4 w-4" /></button>
                     ) : (
-                        <button type="button" onClick={submit} disabled={processing} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Check className="h-4 w-4" /> {editing ? 'Save changes' : 'Create draft'}</button>
+                        <button type="button" onClick={submit} disabled={processing} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Check className="h-4 w-4" /> {editing ? translationI18n.t('hardcoded.views_client_campaigns_wizard_c86b49718e14') : translationI18n.t('hardcoded.views_client_campaigns_wizard_789caf59cc63')}</button>
                     )}
                 </div>
             </div>

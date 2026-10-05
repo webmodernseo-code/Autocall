@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { router } from '@/lib/page-router';
 import {
@@ -62,7 +66,7 @@ function StatusCell({ plan }) {
                         : 'bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400'
                 }`}
             >
-                {plan.enabled ? 'Active' : 'Disabled'}
+                {plan.enabled ? translationI18n.t('hardcoded.views_admin_plans_plantable_7bad8e23e9db') : translationI18n.t('hardcoded.views_admin_plans_plantable_33e7ec3d17b3')}
             </span>
             {plan.popular && (
                 <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
@@ -145,7 +149,7 @@ function SortableRow({ plan, onEdit, onDuplicate, onToggleEnabled, onDelete }) {
                     <Dropdown.Content align="right" width="56">
                         <Dropdown.Item onClick={() => onEdit(plan)}>
                             <Pencil className="h-4 w-4 mr-2 inline" />
-                            Edit Plan
+                            <Trans i18nKey="hardcoded.views_admin_plans_plantable_bf5b1549f31e" />
                         </Dropdown.Item>
                         <Dropdown.Item onClick={() => onDuplicate(plan)}>
                             <Copy className="h-4 w-4 mr-2 inline" />
@@ -170,7 +174,7 @@ function SortableRow({ plan, onEdit, onDuplicate, onToggleEnabled, onDelete }) {
                             className="text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
                         >
                             <Trash2 className="h-4 w-4 mr-2 inline" />
-                            Delete Plan
+                            <Trans i18nKey="hardcoded.views_admin_plans_plantable_c6908b218236" />
                         </Dropdown.Item>
                     </Dropdown.Content>
                 </Dropdown>
@@ -260,7 +264,7 @@ export default function PlanTable({
             </DndContext>
             {plans.length === 0 && (
                 <div className="py-12 text-center text-neutral-500 dark:text-neutral-400">
-                    No plans yet. Add your first plan to get started.
+                    <Trans i18nKey="hardcoded.views_admin_plans_plantable_9ab2eec116dd" />
                 </div>
             )}
         </div>

@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, Link, router, useForm } from '@/lib/page-router';
@@ -41,7 +45,7 @@ function CredentialForm({ provider }) {
                 <label key={f.name} className="block">
                     <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">{FIELD_LABEL[f.name] || f.name}</span>
                     <input
-                        type={f.secret ? 'password' : 'text'}
+                        type={f.secret ? translationI18n.t('hardcoded.views_admin_engines_provider_0289b8f6c360') : 'text'}
                         value={form.data[f.name]}
                         onChange={(e) => form.setData(f.name, e.target.value)}
                         placeholder={f.set ? '•••••••• (saved — leave blank to keep)' : ''}
@@ -54,12 +58,12 @@ function CredentialForm({ provider }) {
 
             <label className="inline-flex cursor-pointer items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
                 <input type="checkbox" checked={form.data.enabled} onChange={(e) => form.setData('enabled', e.target.checked)} className="h-4 w-4 rounded accent-brand-600" />
-                Enabled for engines
+                <Trans i18nKey="hardcoded.views_admin_engines_provider_c481f5de7b71" />
             </label>
 
             <div className="flex items-center gap-2 border-t border-neutral-100 pt-4 dark:border-ink-800">
-                <button type="submit" disabled={form.processing} className="inline-flex items-center gap-1.5 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Save className="h-4 w-4" /> Save</button>
-                <button type="button" onClick={test} className="inline-flex items-center gap-1.5 rounded-soft border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800"><Plug className="h-4 w-4" /> Test connection</button>
+                <button type="submit" disabled={form.processing} className="inline-flex items-center gap-1.5 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Save className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_admin_engines_provider_1ab2a48176c8" /></button>
+                <button type="button" onClick={test} className="inline-flex items-center gap-1.5 rounded-soft border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800"><Plug className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_admin_engines_provider_b88397b7d791" /></button>
             </div>
         </form>
     );
@@ -95,12 +99,12 @@ function ElevenLabsPool({ provider, keys, poolStats }) {
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <label className="inline-flex cursor-pointer items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
                     <input type="checkbox" checked={enabledForm.data.enabled} onChange={(e) => { enabledForm.setData('enabled', e.target.checked); toggleEnabled(e.target.checked); }} className="h-4 w-4 rounded accent-brand-600" />
-                    Enabled for engines
+                    <Trans i18nKey="hardcoded.views_admin_engines_provider_c481f5de7b71" />
                 </label>
                 <div className="flex gap-2">
                     <button onClick={health} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800"><Activity className="h-4 w-4" /> Health check</button>
                     <button onClick={sync} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800"><RefreshCw className="h-4 w-4" /> Sync voices</button>
-                    <button onClick={() => setAdding((v) => !v)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> Add key</button>
+                    <button onClick={() => setAdding((v) => !v)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_admin_engines_provider_0ebc40bb0b4d" /></button>
                 </div>
             </div>
 
@@ -124,10 +128,10 @@ function ElevenLabsPool({ provider, keys, poolStats }) {
                         {form.errors.api_key && <p className="mt-1 text-xs text-danger">{form.errors.api_key}</p>}
                     </div>
                     <div>
-                        <label className="mb-1 block text-xs font-medium uppercase text-neutral-500">Max concurrency</label>
+                        <label className="mb-1 block text-xs font-medium uppercase text-neutral-500"><Trans i18nKey="hardcoded.views_admin_engines_provider_561db09eeb68" /></label>
                         <div className="flex gap-2">
                             <input className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-950" type="number" min="1" value={form.data.max_concurrency} onChange={(e) => form.setData('max_concurrency', Number(e.target.value))} />
-                            <button type="submit" disabled={form.processing} className="shrink-0 rounded-soft bg-brand-600 px-4 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Save</button>
+                            <button type="submit" disabled={form.processing} className="shrink-0 rounded-soft bg-brand-600 px-4 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_admin_engines_provider_1ab2a48176c8" /></button>
                         </div>
                     </div>
                 </form>
@@ -148,7 +152,7 @@ function ElevenLabsPool({ provider, keys, poolStats }) {
                                 <td className="px-4 py-3 text-right"><button onClick={() => remove(k)} className="rounded-soft p-1.5 text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button></td>
                             </tr>
                         ))}
-                        {keys.length === 0 && <tr><td colSpan="5" className="px-4 py-10 text-center text-neutral-500">No keys yet. Add an ElevenLabs API key to build the pool.</td></tr>}
+                        {keys.length === 0 && <tr><td colSpan="5" className="px-4 py-10 text-center text-neutral-500"><Trans i18nKey="hardcoded.views_admin_engines_provider_4007006e2c24" /></td></tr>}
                     </tbody>
                 </table>
             </div>
@@ -169,7 +173,7 @@ export default function EngineProvider({ provider, keys = [], poolStats = {} }) 
                         <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/15 text-brand-600 dark:text-brand-300"><Icon className="h-5 w-5" /></span>
                         <div>
                             <h2 className="font-display text-xl font-bold text-neutral-900 dark:text-white">{provider.label}</h2>
-                            <p className="text-xs capitalize text-neutral-400">{provider.kind} provider</p>
+                            <p className="text-xs capitalize text-neutral-400">{provider.kind} <Trans i18nKey="hardcoded.views_admin_engines_provider_b9735534d59a" /></p>
                         </div>
                     </div>
                     <StatusPill ok={provider.configured} />

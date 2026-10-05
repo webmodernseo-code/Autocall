@@ -17,7 +17,7 @@ export const GET = handler(async (request, { params }) => {
         select: { code: true, is_default: true },
     });
 
-    const enabled = rows.length ? rows.map((r) => r.code) : ['en'];
+    const enabled = rows.length ? rows.map((r) => r.code) : ['fr', 'en'];
 
     let code = locale;
     if (!enabled.includes(code)) code = rows.find((r) => r.is_default)?.code ?? enabled[0];

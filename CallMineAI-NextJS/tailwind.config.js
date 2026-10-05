@@ -2,7 +2,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
-export default {
+const config = {
     darkMode: 'class',
     content: [
         './src/**/*.{js,jsx,mjs}',
@@ -159,3 +159,5 @@ export default {
 
     plugins: [forms],
 };
+
+export default config;

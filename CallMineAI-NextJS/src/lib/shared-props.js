@@ -1,5 +1,6 @@
 import 'server-only';
 
+import { headers } from 'next/headers';
 import prisma from '@/lib/prisma';
 import config from '@/lib/config';
 import { plain } from '@/lib/serialize';
@@ -16,6 +17,7 @@ import {
     tenantAccessibleBy,
 } from '@/lib/auth';
 import { getSession } from '@/lib/auth/session';
+import { detectRegionalPreferences } from '@/lib/regional-preferences.mjs';
 
 /**
  * Port of .
@@ -33,13 +35,15 @@ export async function sharedProps({ isAdminRoute = false } = {}) {
 }
 
 async function buildShared({ isAdminRoute }) {
-    const [session, user, adminUser] = await Promise.all([
+    const [session, user, adminUser, requestHeaders] = await Promise.all([
         getSession(),
         currentUser(),
         isAdminRoute ? currentAdmin() : Promise.resolve(null),
+        headers(),
     ]);
 
-    const locale = user?.locale || session?.locale || config.app.locale;
+    const detected = detectRegionalPreferences(requestHeaders);
+    const locale = user?.locale || session?.locale || detected.locale || config.app.locale;
     const i18nLocales = await localesForSwitcher();
     const rtlCodes = i18nLocales.filter((l) => l.is_rtl).map((l) => l.code);
     const rtl = rtlCodes.length ? rtlCodes : config.locales.rtl;
@@ -77,8 +81,9 @@ async function buildShared({ isAdminRoute }) {
         user?.display_currency ??
         tenantBits.currentTenantCurrency ??
         session?.display_currency ??
+        detected.currency ??
         defaultCurrency ??
-        'USD';
+        'EUR';
 
     const supportedLocales = Object.fromEntries(i18nLocales.map((l) => [l.code, l.native_name]));
 
@@ -136,7 +141,7 @@ async function buildShared({ isAdminRoute }) {
         locale,
         dir: isRtl ? 'rtl' : 'ltr',
         i18n: { locale, isRtl, locales: i18nLocales, translations },
-        supportedLocales: Object.keys(supportedLocales).length ? supportedLocales : { en: 'English' },
+        supportedLocales: Object.keys(supportedLocales).length ? supportedLocales : { fr: 'Français', en: 'English' },
         rtlLocales: rtl,
         currencies,
         displayCurrency,

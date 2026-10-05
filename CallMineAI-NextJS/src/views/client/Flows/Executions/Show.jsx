@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { Head, Link } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
@@ -39,7 +41,7 @@ export default function ExecutionShow({ execution }) {
                             </div>
                             <p className="mt-1 text-xs text-neutral-400">Execution #{execution.id} · triggered {execution.trigger_source?.replace('_', ' ')}</p>
                         </div>
-                        <Link href={route('client.flows.edit', execution.flow_id)} className="rounded-soft border border-neutral-200 px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800">Open flow</Link>
+                        <Link href={route('client.flows.edit', execution.flow_id)} className="rounded-soft border border-neutral-200 px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_flows_executions_show_6bd491c31fb6" /></Link>
                     </div>
                     <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
                         <div className="rounded-soft border border-neutral-200 px-3 py-2 dark:border-ink-800"><p className="text-[11px] uppercase text-neutral-400">Duration</p><p className="font-display font-semibold text-neutral-900 dark:text-white">{fmtDur(execution.duration_ms)}</p></div>

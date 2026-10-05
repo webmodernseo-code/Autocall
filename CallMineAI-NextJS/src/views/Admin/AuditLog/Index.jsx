@@ -6,7 +6,7 @@ import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import { Card, Pagination } from '@/components/ui';
 import { Head, router } from '@/lib/page-router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 export default function AdminAuditLogIndex({ logs, stats = [], filters = {} }) {
     const { t } = useTranslation();
@@ -27,8 +27,8 @@ export default function AdminAuditLogIndex({ logs, stats = [], filters = {} }) {
                         <table className="min-w-full text-sm">
                             <thead>
                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
-                                    <th className="pb-2 pr-4 font-medium">Date</th>
-                                    <th className="pb-2 pr-4 font-medium">User</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_auditlog_index_888faf3a2a9b" /></th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_auditlog_index_a06203770587" /></th>
                                     <th className="pb-2 pr-4 font-medium">Action</th>
                                     <th className="pb-2 pr-4 font-medium">Auditable</th>
                                     <th className="pb-2 pr-4 font-medium">IP</th>

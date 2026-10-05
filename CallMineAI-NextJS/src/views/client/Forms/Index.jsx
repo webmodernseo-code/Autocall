@@ -1,5 +1,7 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, Link, router } from '@/lib/page-router';
@@ -7,7 +9,7 @@ import ClientLayout from '@/layouts/ClientLayout';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import { Pagination } from '@/components/ui';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { FileText, Plus, Search, List, Pencil, Trash2 } from 'lucide-react';
 
 const STATUS = {
@@ -24,15 +26,15 @@ export default function FormsIndex({ forms, filters = {}, stats = [] }) {
     const remove = (f) => { if (confirm('Delete this form?')) router.delete(route('client.forms.destroy', f.id), { preserveScroll: true }); };
 
     return (
-        <ClientLayout title={t('nav.forms') !== 'nav.forms' ? t('nav.forms') : 'Forms'}>
-            <Head title="Forms" />
+        <ClientLayout title={t('nav.forms') !== 'nav.forms' ? t('nav.forms') : translationI18n.t('hardcoded.views_client_forms_index_5e6fadc2249f')}>
+            <Head title={translationI18n.t('hardcoded.views_client_forms_index_5e6fadc2249f')} />
             <div className="space-y-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Forms</h1>
-                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Build forms and collect submissions.</p>
+                        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_forms_index_5e6fadc2249f" /></h1>
+                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_forms_index_3a5b45a6a959" /></p>
                     </div>
-                    <Link href={route('client.forms.create')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> New form</Link>
+                    <Link href={route('client.forms.create')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_forms_index_af8c99367cd8" /></Link>
                 </div>
 
                 <PageOverview feature="forms" />
@@ -41,7 +43,7 @@ export default function FormsIndex({ forms, filters = {}, stats = [] }) {
                 <div className="flex flex-wrap items-center gap-2">
                     <form onSubmit={apply} className="relative max-w-xs flex-1">
                         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search forms…" className="w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 py-2 pl-9 pr-3 text-sm" />
+                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_forms_index_900f16f39197')} className="w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 py-2 pl-9 pr-3 text-sm" />
                     </form>
                     <div className="flex gap-1.5">
                         {['', 'active', 'inactive'].map((s) => (
@@ -65,7 +67,7 @@ export default function FormsIndex({ forms, filters = {}, stats = [] }) {
                                     <span className="inline-flex items-center gap-1"><List className="h-3.5 w-3.5" /> {f.submissions_count} submissions</span>
                                 </div>
                                 <div className="mt-4 flex items-center gap-2 border-t border-neutral-100 dark:border-ink-800 pt-3 text-sm">
-                                    <Link href={route('client.forms.edit', f.id)} className="inline-flex items-center gap-1 rounded-soft px-2 py-1 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Pencil className="h-3.5 w-3.5" /> Edit</Link>
+                                    <Link href={route('client.forms.edit', f.id)} className="inline-flex items-center gap-1 rounded-soft px-2 py-1 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Pencil className="h-3.5 w-3.5" /> <Trans i18nKey="hardcoded.views_client_forms_index_52b91bdf8387" /></Link>
                                     <Link href={route('client.forms.submissions', f.id)} className="inline-flex items-center gap-1 rounded-soft px-2 py-1 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><List className="h-3.5 w-3.5" /> Submissions</Link>
                                     <button onClick={() => remove(f)} className="ml-auto text-danger hover:bg-danger/10 rounded-soft p-1.5"><Trash2 className="h-4 w-4" /></button>
                                 </div>
@@ -73,7 +75,7 @@ export default function FormsIndex({ forms, filters = {}, stats = [] }) {
                         ))}
                     </div>
                 ) : (
-                    <div className="rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-16 text-center"><FileText className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500">No forms yet.</p><Link href={route('client.forms.create')} className="mt-3 inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> Create your first form</Link></div>
+                    <div className="rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-16 text-center"><FileText className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500"><Trans i18nKey="hardcoded.views_client_forms_index_3b2da4672adc" /></p><Link href={route('client.forms.create')} className="mt-3 inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_forms_index_f678e37ef826" /></Link></div>
                 )}
 
                 <Pagination data={forms} />

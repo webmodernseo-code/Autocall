@@ -1,0 +1,57 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /CallMineAI-NextJS
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    groups:
+      safe-patches:
+        patterns:
+          - "*"
+        update-types:
+          - patch
+      nextjs-framework-minor:
+        patterns:
+          - next
+          - react
+          - react-dom
+          - eslint-config-next
+          - "@next/*"
+        update-types:
+          - minor
+      prisma-minor:
+        patterns:
+          - prisma
+          - "@prisma/*"
+        update-types:
+          - minor
+      other-minor-updates:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - next
+          - react
+          - react-dom
+          - "@next/*"
+          - "@prisma/*"
+        update-types:
+          - minor
+    labels:
+      - dependencies
+    commit-message:
+      prefix: deps
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - github-actions

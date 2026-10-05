@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 /**
  * Renders builder JSON (theme + sections) dynamically.
  * Supports drag-and-drop reorder via @dnd-kit/sortable.
@@ -119,7 +121,7 @@ export default function Renderer({
   if (sections.length === 0) {
     return (
       <div className="flex items-center justify-center h-64 text-neutral-400 dark:text-neutral-500 text-sm">
-        Add a section from the left panel
+        <Trans i18nKey="hardcoded.builder_renderer_167914f6aa06" />
       </div>
     );
   }

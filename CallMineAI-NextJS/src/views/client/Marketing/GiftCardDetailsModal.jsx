@@ -1,5 +1,7 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Badge, Modal } from '@/components/ui';
@@ -75,7 +77,7 @@ export default function GiftCardDetailsModal({ show, onClose, card }) {
                                         <span className="font-mono text-xs font-normal">{card.code}</span>
                                     </Detail>
                                     <Detail label={ui('field_status')}>
-                                        <Badge variant={card.status === 'active' ? 'success' : 'default'} size="sm">
+                                        <Badge variant={card.status === 'active' ? translationI18n.t('hardcoded.views_client_marketing_giftcarddetailsmodal_3ed38d0491e8') : translationI18n.t('hardcoded.views_client_marketing_giftcarddetailsmodal_230fd51859bf')} size="sm">
                                             {card.status === 'active' ? ui('status_active') : ui('status_inactive')}
                                         </Badge>
                                     </Detail>

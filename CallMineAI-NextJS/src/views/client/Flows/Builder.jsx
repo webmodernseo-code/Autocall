@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Head, Link, router, useForm } from '@/lib/page-router';
@@ -117,7 +121,7 @@ function Canvas({ flow, isNew, triggers, statuses }) {
             {/* Toolbar */}
             <div className="flex flex-wrap items-center gap-2 rounded-soft-lg border border-neutral-200 bg-white p-3 shadow-soft dark:border-ink-800 dark:bg-ink-900">
                 <Link href={route('client.flows.index')} className="rounded-soft p-2 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-ink-800"><ArrowLeft className="h-4 w-4" /></Link>
-                <input value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} className="min-w-[180px] flex-1 rounded-soft border border-transparent bg-transparent px-2 py-1.5 font-display text-lg font-semibold text-neutral-900 hover:border-neutral-200 focus:border-brand-300 dark:text-white dark:hover:border-ink-700" placeholder="Flow name" />
+                <input value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} className="min-w-[180px] flex-1 rounded-soft border border-transparent bg-transparent px-2 py-1.5 font-display text-lg font-semibold text-neutral-900 hover:border-neutral-200 focus:border-brand-300 dark:text-white dark:hover:border-ink-700" placeholder={translationI18n.t('hardcoded.views_client_flows_builder_54636727f207')} />
                 <select value={form.data.trigger_type} onChange={(e) => form.setData('trigger_type', e.target.value)} className="rounded-soft border border-neutral-200 bg-white px-2.5 py-1.5 text-sm dark:border-ink-700 dark:bg-ink-900">
                     {triggers.map((t) => <option key={t} value={t}>{t.replace(/_/g, ' ')}</option>)}
                 </select>
@@ -125,7 +129,7 @@ function Canvas({ flow, isNew, triggers, statuses }) {
                     {statuses.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>
                 {!isNew && <button onClick={run} className="inline-flex items-center gap-1.5 rounded-soft border border-neutral-200 px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800"><Play className="h-4 w-4" /> Run</button>}
-                <button onClick={save} disabled={form.processing} className="inline-flex items-center gap-1.5 rounded-soft bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Save className="h-4 w-4" /> Save</button>
+                <button onClick={save} disabled={form.processing} className="inline-flex items-center gap-1.5 rounded-soft bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Save className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_flows_builder_722999d504bb" /></button>
             </div>
 
             <div className="flex gap-3">
@@ -170,7 +174,7 @@ function Canvas({ flow, isNew, triggers, statuses }) {
                     </ReactFlow>
                     {nodes.length === 0 && (
                         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                            <p className="rounded-soft bg-white/80 px-3 py-1.5 text-sm text-neutral-400 backdrop-blur dark:bg-ink-900/80">Click a block on the left to add it →</p>
+                            <p className="rounded-soft bg-white/80 px-3 py-1.5 text-sm text-neutral-400 backdrop-blur dark:bg-ink-900/80"><Trans i18nKey="hardcoded.views_client_flows_builder_2f7b38f62bc9" /></p>
                         </div>
                     )}
                 </div>
@@ -179,15 +183,15 @@ function Canvas({ flow, isNew, triggers, statuses }) {
                 {selected && (
                     <div className="hidden w-64 shrink-0 rounded-soft-lg border border-neutral-200 bg-white p-4 shadow-soft dark:border-ink-800 dark:bg-ink-900 lg:block">
                         <div className="flex items-center justify-between">
-                            <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{CAT[selected.data.category]?.label} settings</p>
+                            <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{CAT[selected.data.category]?.label} <Trans i18nKey="hardcoded.views_client_flows_builder_068a3e3cb121" /></p>
                             <button onClick={() => setSelectedId(null)} className="rounded-soft p-1 text-neutral-400 hover:bg-neutral-100 dark:hover:bg-ink-800"><X className="h-4 w-4" /></button>
                         </div>
                         <label className="mt-3 block text-xs font-medium text-neutral-500">Label</label>
                         <input value={selected.data.label} onChange={(e) => patchSelected({ label: e.target.value })} className="mt-1 w-full rounded-soft border border-neutral-200 bg-white px-2.5 py-1.5 text-sm dark:border-ink-700 dark:bg-ink-950" />
                         <label className="mt-3 block text-xs font-medium text-neutral-500">Notes / parameters</label>
-                        <textarea rows="4" value={selected.data.config?.note || ''} onChange={(e) => patchSelected({ config: { ...selected.data.config, note: e.target.value } })} placeholder="e.g. message text, delay, tag name…" className="mt-1 w-full rounded-soft border border-neutral-200 bg-white px-2.5 py-1.5 text-sm dark:border-ink-700 dark:bg-ink-950" />
+                        <textarea rows="4" value={selected.data.config?.note || ''} onChange={(e) => patchSelected({ config: { ...selected.data.config, note: e.target.value } })} placeholder={translationI18n.t('hardcoded.views_client_flows_builder_3578f2ec0977')} className="mt-1 w-full rounded-soft border border-neutral-200 bg-white px-2.5 py-1.5 text-sm dark:border-ink-700 dark:bg-ink-950" />
                         <p className="mt-3 text-[11px] text-neutral-400">Type: <span className="font-mono">{selected.data.kind}</span></p>
-                        <button onClick={deleteSelected} className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-soft border border-danger/30 px-3 py-1.5 text-sm font-medium text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /> Delete step</button>
+                        <button onClick={deleteSelected} className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-soft border border-danger/30 px-3 py-1.5 text-sm font-medium text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_flows_builder_3e9e64aa2fb1" /></button>
                     </div>
                 )}
             </div>
@@ -197,8 +201,8 @@ function Canvas({ flow, isNew, triggers, statuses }) {
 
 export default function FlowBuilder({ flow, isNew, triggers = [], statuses = [] }) {
     return (
-        <ClientLayout title={isNew ? 'New flow' : flow.name}>
-            <Head title={isNew ? 'New flow' : `${flow.name} · Flow`} />
+        <ClientLayout title={isNew ? translationI18n.t('hardcoded.views_client_flows_builder_d11c9884c3d9') : flow.name}>
+            <Head title={isNew ? translationI18n.t('hardcoded.views_client_flows_builder_d11c9884c3d9') : `${flow.name} · Flow`} />
             <ReactFlowProvider>
                 <Canvas flow={flow} isNew={isNew} triggers={triggers} statuses={statuses} />
             </ReactFlowProvider>

@@ -9,7 +9,7 @@ import { usePage, router } from '@/lib/page-router';
  */
 export function useLocale() {
     const props = usePage().props;
-    const locale = props.i18n?.locale ?? props.locale ?? 'en';
+    const locale = props.i18n?.locale ?? props.locale ?? 'fr';
     const isRtl = props.i18n?.isRtl ?? false;
     const locales = props.i18n?.locales ?? [];
 

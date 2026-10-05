@@ -32,30 +32,18 @@ export const POST = handler(async (request) => {
             where: { email: String(body.email).toLowerCase() },
         });
     } catch (e) {
-        console.warn('[admin-login] database unreachable, checking demo mode credentials');
+        console.error('[admin-login] database unavailable');
     }
 
-    const email = String(body.email).toLowerCase();
-    const isDemoAdmin = (email === 'admin@spagreen.net' && body.password === '12345678');
+    const valid = admin && (await verifyPassword(body.password, admin.password));
+    if (!valid) {
+        await hit(key);
+        return validationError({ email: ['Ces identifiants ne correspondent pas à nos enregistrements.'] });
+    }
 
-    if (!admin && isDemoAdmin) {
-        admin = {
-            id: 1,
-            name: 'Super Administrateur',
-            email: 'admin@spagreen.net',
-            status: 'ACTIVE',
-        };
-    } else {
-        const valid = admin && (await verifyPassword(body.password, admin.password));
-        if (!valid) {
-            await hit(key);
-            return validationError({ email: ['Ces identifiants ne correspondent pas à nos enregistrements.'] });
-        }
-
-        if (admin.status !== 'ACTIVE') {
-            await hit(key);
-            return validationError({ email: ['Votre compte administrateur est inactif.'] });
-        }
+    if (admin.status !== 'ACTIVE') {
+        await hit(key);
+        return validationError({ email: ['Votre compte administrateur est inactif.'] });
     }
 
     await clear(key);

@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import AdminLayout from '@/layouts/AdminLayout';
 import PageOverview from '@/components/PageOverview';
@@ -21,14 +25,14 @@ export default function EnginesIndex({ providers = [], engines = [] }) {
             <div className="space-y-6">
                 <div>
                     <h2 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Calling Engines</h2>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">Configure every telephony + voice provider in one place, and choose which engines customers can use.</p>
+                    <p className="text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_engines_index_4f2a9b10a8d8" /></p>
                 </div>
 
                 <PageOverview feature="admin-engines" />
 
                 {/* Provider cards → each opens its own config page */}
                 <div>
-                    <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Providers</h3>
+                    <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_engines_index_ffb22a243f6f" /></h3>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         {providers.map((p) => {
                             const Icon = p.kind === 'telephony' ? Phone : AudioLines;
@@ -36,10 +40,10 @@ export default function EnginesIndex({ providers = [], engines = [] }) {
                                 <Link key={p.key} href={route('admin.engines.show', p.key)} className="group flex flex-col rounded-soft-lg border border-neutral-200 bg-white p-5 shadow-soft transition hover:border-brand-300 hover:shadow-soft-lg dark:border-ink-800 dark:bg-ink-900 dark:hover:border-brand-500/40">
                                     <div className="flex items-start justify-between">
                                         <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/15 text-brand-600 dark:text-brand-300"><Icon className="h-5 w-5" /></span>
-                                        {p.enabled ? null : <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] font-medium text-neutral-500 dark:bg-ink-800">Disabled</span>}
+                                        {p.enabled ? null : <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] font-medium text-neutral-500 dark:bg-ink-800"><Trans i18nKey="hardcoded.views_admin_engines_index_d92276c024c3" /></span>}
                                     </div>
                                     <h4 className="mt-3 font-display font-semibold text-neutral-900 dark:text-white">{p.label}</h4>
-                                    <p className="text-xs capitalize text-neutral-400">{p.kind} provider</p>
+                                    <p className="text-xs capitalize text-neutral-400">{p.kind} <Trans i18nKey="hardcoded.views_admin_engines_index_a8a7ee0979a4" /></p>
                                     <div className="mt-3"><StatusBadge ok={p.configured} okText="Configured" badText="Not configured" /></div>
                                     {p.summary && <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">{p.summary}</p>}
                                     <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400"><Settings2 className="h-4 w-4" /> Configure <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" /></span>
@@ -67,7 +71,7 @@ export default function EnginesIndex({ providers = [], engines = [] }) {
                                         <td className="px-5 py-3">
                                             <label className="inline-flex cursor-pointer items-center gap-2">
                                                 <input type="checkbox" checked={e.enabled} onChange={(ev) => toggleEngine(e, ev.target.checked)} className="h-4 w-4 rounded accent-brand-600" />
-                                                <span className="text-xs text-neutral-500">{e.enabled ? 'Enabled' : 'Disabled'}</span>
+                                                <span className="text-xs text-neutral-500">{e.enabled ? translationI18n.t('hardcoded.views_admin_engines_index_8b4b48ce82d3') : translationI18n.t('hardcoded.views_admin_engines_index_d92276c024c3')}</span>
                                             </label>
                                         </td>
                                     </tr>
@@ -75,7 +79,7 @@ export default function EnginesIndex({ providers = [], engines = [] }) {
                             </tbody>
                         </table>
                     </div>
-                    <p className="mt-2 text-xs text-neutral-400">Disabled engines are hidden from the customer agent form. A "Missing creds" engine still shows to customers but calls fail until its providers are configured.</p>
+                    <p className="mt-2 text-xs text-neutral-400"><Trans i18nKey="hardcoded.views_admin_engines_index_56a7b8195b5e" /></p>
                 </div>
             </div>
         </AdminLayout>

@@ -1,0 +1,134 @@
+name: Release to staging
+
+on:
+  workflow_run:
+    workflows: ["Application CI"]
+    types: [completed]
+
+concurrency:
+  group: staging-deployment
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-24.04
+    outputs:
+      image: ${{ steps.names.outputs.image }}
+      tag: ${{ steps.names.outputs.tag }}
+
+    steps:
+      - name: Checkout the exact verified commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Compute immutable image names
+        id: names
+        shell: bash
+        run: |
+          repository="${GITHUB_REPOSITORY,,}"
+          echo "image=ghcr.io/${repository}/app" >> "$GITHUB_OUTPUT"
+          echo "tag=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and publish runtime image
+        uses: docker/build-push-action@v6
+        with:
+          context: CallMineAI-NextJS
+          file: CallMineAI-NextJS/Dockerfile
+          target: runtime
+          push: true
+          tags: ${{ steps.names.outputs.image }}:${{ steps.names.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            NEXT_PUBLIC_APP_NAME=${{ vars.NEXT_PUBLIC_APP_NAME || 'CallMindAI' }}
+            NEXT_PUBLIC_APP_URL=${{ vars.STAGING_APP_URL }}
+
+      - name: Build and publish migration image
+        uses: docker/build-push-action@v6
+        with:
+          context: CallMineAI-NextJS
+          file: CallMineAI-NextJS/Dockerfile
+          target: migration
+          push: true
+          tags: ${{ steps.names.outputs.image }}-migration:${{ steps.names.outputs.tag }}
+          cache-from: type=gha
+
+  deploy:
+    name: Deploy verified image
+    needs: publish
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: staging
+      url: ${{ vars.APP_URL }}
+
+    steps:
+      - name: Checkout deployment files
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Configure SSH trust
+        shell: bash
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/deploy_key ~/.ssh/known_hosts
+
+      - name: Upload deployment definition
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          PORT: ${{ secrets.DEPLOY_PORT }}
+          APP_DIR: ${{ secrets.DEPLOY_PATH }}
+        shell: bash
+        run: |
+          [[ "$HOST" =~ ^[A-Za-z0-9.-]+$ ]] || { echo "Invalid DEPLOY_HOST" >&2; exit 2; }
+          [[ "$USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]] || { echo "Invalid DEPLOY_USER" >&2; exit 2; }
+          [[ "${PORT:-22}" =~ ^[0-9]{1,5}$ ]] || { echo "Invalid DEPLOY_PORT" >&2; exit 2; }
+          [[ "$APP_DIR" =~ ^/[A-Za-z0-9._/-]+$ ]] || { echo "Invalid DEPLOY_PATH" >&2; exit 2; }
+          ssh -i ~/.ssh/deploy_key -p "${PORT:-22}" "$USER@$HOST" "mkdir -p '$APP_DIR'"
+          scp -i ~/.ssh/deploy_key -P "${PORT:-22}" \
+            CallMineAI-NextJS/compose.deploy.yaml "$USER@$HOST:$APP_DIR/compose.deploy.yaml"
+          scp -i ~/.ssh/deploy_key -P "${PORT:-22}" \
+            CallMineAI-NextJS/scripts/deploy.sh "$USER@$HOST:$APP_DIR/deploy.sh"
+
+      - name: Authenticate server and deploy
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          PORT: ${{ secrets.DEPLOY_PORT }}
+          APP_DIR: ${{ secrets.DEPLOY_PATH }}
+          IMAGE: ${{ needs.publish.outputs.image }}
+          IMAGE_TAG: ${{ needs.publish.outputs.tag }}
+          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          printf '%s' "$REGISTRY_TOKEN" | ssh -i ~/.ssh/deploy_key -p "${PORT:-22}" "$USER@$HOST" \
+            "docker login ghcr.io --username '${{ github.actor }}' --password-stdin"
+          ssh -i ~/.ssh/deploy_key -p "${PORT:-22}" "$USER@$HOST" \
+            "chmod 700 '$APP_DIR/deploy.sh' && '$APP_DIR/deploy.sh' '$APP_DIR' '$IMAGE' '$IMAGE_TAG'"

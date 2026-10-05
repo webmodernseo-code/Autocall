@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router, useForm } from '@/lib/page-router';
@@ -31,7 +35,7 @@ export default function Conversations({ conversations = [], thread = null }) {
                 {/* Thread */}
                 <div className="flex flex-col overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 lg:col-span-2">
                     {!thread ? (
-                        <div className="flex flex-1 items-center justify-center text-sm text-neutral-400">Select a conversation.</div>
+                        <div className="flex flex-1 items-center justify-center text-sm text-neutral-400"><Trans i18nKey="hardcoded.views_client_messaging_conversations_62e363d8ba72" /></div>
                     ) : (
                         <>
                             <div className="flex items-center justify-between border-b border-neutral-100 dark:border-ink-800 px-4 py-3">
@@ -47,10 +51,10 @@ export default function Conversations({ conversations = [], thread = null }) {
                                         </div>
                                     </div>
                                 ))}
-                                {thread.messages.length === 0 && <p className="py-8 text-center text-sm text-neutral-400">No messages yet.</p>}
+                                {thread.messages.length === 0 && <p className="py-8 text-center text-sm text-neutral-400"><Trans i18nKey="hardcoded.views_client_messaging_conversations_5a2f712649b6" /></p>}
                             </div>
                             <form onSubmit={send} className="flex gap-2 border-t border-neutral-100 dark:border-ink-800 p-3">
-                                <input className="flex-1 rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 px-3 py-2 text-sm" placeholder="Type a message…" value={form.data.body} onChange={(e) => form.setData('body', e.target.value)} />
+                                <input className="flex-1 rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 px-3 py-2 text-sm" placeholder={translationI18n.t('hardcoded.views_client_messaging_conversations_59aea40e5221')} value={form.data.body} onChange={(e) => form.setData('body', e.target.value)} />
                                 <button type="submit" disabled={form.processing || !form.data.body} className="inline-flex items-center gap-1 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Send className="h-4 w-4" /></button>
                             </form>
                         </>

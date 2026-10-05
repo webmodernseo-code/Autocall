@@ -18,7 +18,7 @@ import { usePage } from '@/lib/page-router';
 export function useMoney() {
     const page = usePage();
     const currencies = page.props.currencies ?? [];
-    const displayCode = page.props.displayCurrency ?? 'USD';
+    const displayCode = page.props.displayCurrency ?? 'EUR';
 
     const byCode = (code) => currencies.find((c) => c.code === code);
     const defaultCode = currencies.find((c) => Number(c.exchange_rate) === 1)?.code ?? 'USD';

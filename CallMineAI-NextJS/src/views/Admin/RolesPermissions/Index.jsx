@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import AdminLayout from '@/layouts/AdminLayout';
 import PageOverview from '@/components/PageOverview';
@@ -78,8 +82,8 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                     <div className="rounded-soft-lg bg-red-50 dark:bg-red-900/30 text-red-800 dark:text-red-200 px-4 py-2 text-sm">{pageFlash.error}</div>
                 )}
                 <div>
-                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">Roles & Permissions</h2>
-                    <p className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">Manage roles and permissions for the admin panel.</p>
+                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_68b5f6c37f07" /></h2>
+                    <p className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_d1647d2dae34" /></p>
                 </div>
 
                 <PageOverview feature="admin-roles" />
@@ -87,13 +91,13 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                 <div className="grid gap-4 sm:grid-cols-2">
                     <Card>
                         <Card.Body>
-                            <p className="text-sm text-neutral-500 dark:text-neutral-400">Total Roles</p>
+                            <p className="text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_678e24615a50" /></p>
                             <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">{roles?.length ?? 0}</p>
                         </Card.Body>
                     </Card>
                     <Card>
                         <Card.Body>
-                            <p className="text-sm text-neutral-500 dark:text-neutral-400">Total Permissions</p>
+                            <p className="text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_15cdcff49d9e" /></p>
                             <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">{permissions?.length ?? 0}</p>
                         </Card.Body>
                     </Card>
@@ -105,21 +109,21 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                             <div className="space-y-4">
                                 <div className="flex flex-wrap items-center justify-between gap-2">
                                     <form onSubmit={submitRoleSearch} className="flex gap-2">
-                                        <input type="text" value={roleSearch} onChange={(e) => setRoleSearch(e.target.value)} placeholder="Search roles" className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm w-48" />
-                                        <Button type="submit" variant="outline" size="sm">Search</Button>
+                                        <input type="text" value={roleSearch} onChange={(e) => setRoleSearch(e.target.value)} placeholder={translationI18n.t('hardcoded.views_admin_rolespermissions_index_acef28fcb7d5')} className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm w-48" />
+                                        <Button type="submit" variant="outline" size="sm"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_84366a3e3e3c" /></Button>
                                     </form>
-                                    {canManageRoles && <Button onClick={() => setAddRoleOpen(true)}>Add Role</Button>}
+                                    {canManageRoles && <Button onClick={() => setAddRoleOpen(true)}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_97d742cf6932" /></Button>}
                                 </div>
                                 <Card>
                                     <div className="overflow-x-auto">
                                         <table className="min-w-full text-sm">
                                             <thead>
                                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
-                                                    <th className="pb-2 pr-4 font-medium">Role Name</th>
-                                                    <th className="pb-2 pr-4 font-medium">Description</th>
+                                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_8f84d70417ad" /></th>
+                                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_c0a06882d448" /></th>
                                                     <th className="pb-2 pr-4 font-medium">Permissions</th>
                                                     <th className="pb-2 pr-4 font-medium">Admins</th>
-                                                    <th className="pb-2 pr-4 w-24">Actions</th>
+                                                    <th className="pb-2 pr-4 w-24"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_5511f7b87eaf" /></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -132,18 +136,18 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                                                         <td className="py-3 pr-4">
                                                             {canManageRoles && !r.is_system && (
                                                                 <div className="flex gap-1">
-                                                                    <button type="button" onClick={() => openEditRole(r)} className="rounded-soft p-1.5 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800" title="Edit"><Pencil className="h-4 w-4" /></button>
-                                                                    <button type="button" onClick={() => setDeleteRoleConfirm(r)} className="rounded-soft p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" title="Delete"><Trash2 className="h-4 w-4" /></button>
+                                                                    <button type="button" onClick={() => openEditRole(r)} className="rounded-soft p-1.5 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800" title={translationI18n.t('hardcoded.views_admin_rolespermissions_index_1dff6a65d457')}><Pencil className="h-4 w-4" /></button>
+                                                                    <button type="button" onClick={() => setDeleteRoleConfirm(r)} className="rounded-soft p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" title={translationI18n.t('hardcoded.views_admin_rolespermissions_index_e01fc6812d69')}><Trash2 className="h-4 w-4" /></button>
                                                                 </div>
                                                             )}
-                                                            {r.is_system && <span className="text-xs text-neutral-400">System</span>}
+                                                            {r.is_system && <span className="text-xs text-neutral-400"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_9ab3d5a46baf" /></span>}
                                                         </td>
                                                     </tr>
                                                 ))}
                                             </tbody>
                                         </table>
                                     </div>
-                                    {(!roles || roles.length === 0) && <div className="py-8 text-center text-neutral-500 dark:text-neutral-400">No roles found.</div>}
+                                    {(!roles || roles.length === 0) && <div className="py-8 text-center text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_37fc9c0eee0a" /></div>}
                                 </Card>
                             </div>
                         )}
@@ -152,10 +156,10 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                             <div className="space-y-4">
                                 <div className="flex flex-wrap items-center justify-between gap-2">
                                     <form onSubmit={submitPermissionSearch} className="flex gap-2">
-                                        <input type="text" value={permissionSearch} onChange={(e) => setPermissionSearch(e.target.value)} placeholder="Search key, name, category" className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm w-56" />
-                                        <Button type="submit" variant="outline" size="sm">Search</Button>
+                                        <input type="text" value={permissionSearch} onChange={(e) => setPermissionSearch(e.target.value)} placeholder={translationI18n.t('hardcoded.views_admin_rolespermissions_index_248abd972e87')} className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm w-56" />
+                                        <Button type="submit" variant="outline" size="sm"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_84366a3e3e3c" /></Button>
                                     </form>
-                                    {canManageRoles && <Button onClick={() => setAddPermOpen(true)}>Add Permission</Button>}
+                                    {canManageRoles && <Button onClick={() => setAddPermOpen(true)}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_e68a97c34de8" /></Button>}
                                 </div>
                                 <Card>
                                     <div className="overflow-x-auto">
@@ -163,10 +167,10 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                                             <thead>
                                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
                                                     <th className="pb-2 pr-4 font-medium">Key</th>
-                                                    <th className="pb-2 pr-4 font-medium">Name</th>
+                                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_2153f3828919" /></th>
                                                     <th className="pb-2 pr-4 font-medium">Category</th>
-                                                    <th className="pb-2 pr-4 font-medium">Description</th>
-                                                    <th className="pb-2 pr-4 w-24">Actions</th>
+                                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_c0a06882d448" /></th>
+                                                    <th className="pb-2 pr-4 w-24"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_5511f7b87eaf" /></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -179,8 +183,8 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                                                         <td className="py-3 pr-4">
                                                             {canManageRoles && (
                                                                 <div className="flex gap-1">
-                                                                    <button type="button" onClick={() => openEditPermission(p)} className="rounded-soft p-1.5 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800" title="Edit"><Pencil className="h-4 w-4" /></button>
-                                                                    <button type="button" onClick={() => setDeletePermConfirm(p)} className="rounded-soft p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" title="Delete"><Trash2 className="h-4 w-4" /></button>
+                                                                    <button type="button" onClick={() => openEditPermission(p)} className="rounded-soft p-1.5 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800" title={translationI18n.t('hardcoded.views_admin_rolespermissions_index_1dff6a65d457')}><Pencil className="h-4 w-4" /></button>
+                                                                    <button type="button" onClick={() => setDeletePermConfirm(p)} className="rounded-soft p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" title={translationI18n.t('hardcoded.views_admin_rolespermissions_index_e01fc6812d69')}><Trash2 className="h-4 w-4" /></button>
                                                                 </div>
                                                             )}
                                                         </td>
@@ -199,12 +203,12 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
 
             {/* Add Role Modal */}
             <Modal show={addRoleOpen} onClose={() => setAddRoleOpen(false)} maxWidth="2xl">
-                <Modal.Header title="Add Role" onClose={() => setAddRoleOpen(false)} />
+                <Modal.Header title={translationI18n.t('hardcoded.views_admin_rolespermissions_index_97d742cf6932')} onClose={() => setAddRoleOpen(false)} />
                 <form onSubmit={(e) => { e.preventDefault(); roleForm.post(route('admin.roles.store'), { onSuccess: () => { setAddRoleOpen(false); roleForm.reset(); } }); }}>
                     <Modal.Body>
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium mb-1">Name</label>
+                                <label className="block text-sm font-medium mb-1"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_2153f3828919" /></label>
                                 <input type="text" value={roleForm.data.name} onChange={(e) => roleForm.setData('name', e.target.value)} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm" required />
                                 {roleForm.errors.name && <p className="mt-1 text-sm text-red-500">{roleForm.errors.name}</p>}
                             </div>
@@ -214,7 +218,7 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                                 {roleForm.errors.key && <p className="mt-1 text-sm text-red-500">{roleForm.errors.key}</p>}
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-1">Description</label>
+                                <label className="block text-sm font-medium mb-1"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_c0a06882d448" /></label>
                                 <input type="text" value={roleForm.data.description} onChange={(e) => roleForm.setData('description', e.target.value)} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm" />
                             </div>
                             <div>
@@ -236,21 +240,21 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button type="button" variant="outline" onClick={() => setAddRoleOpen(false)}>Cancel</Button>
-                        <Button type="submit" disabled={roleForm.processing}>Create</Button>
+                        <Button type="button" variant="outline" onClick={() => setAddRoleOpen(false)}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_78cac803ee30" /></Button>
+                        <Button type="submit" disabled={roleForm.processing}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_42255a262eb2" /></Button>
                     </Modal.Footer>
                 </form>
             </Modal>
 
             {/* Edit Role Modal */}
             <Modal show={editRoleOpen} onClose={() => { setEditRoleOpen(false); setEditingRole(null); }} maxWidth="2xl">
-                <Modal.Header title="Edit Role" onClose={() => { setEditRoleOpen(false); setEditingRole(null); }} />
+                <Modal.Header title={translationI18n.t('hardcoded.views_admin_rolespermissions_index_754281515236')} onClose={() => { setEditRoleOpen(false); setEditingRole(null); }} />
                 {editingRole && (
                     <form onSubmit={(e) => { e.preventDefault(); editRoleForm.put(route('admin.roles.update', editingRole.id), { onSuccess: () => { setEditRoleOpen(false); setEditingRole(null); } }); }}>
                         <Modal.Body>
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium mb-1">Name</label>
+                                    <label className="block text-sm font-medium mb-1"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_2153f3828919" /></label>
                                     <input type="text" value={editRoleForm.data.name} onChange={(e) => editRoleForm.setData('name', e.target.value)} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm" required />
                                     {editRoleForm.errors.name && <p className="mt-1 text-sm text-red-500">{editRoleForm.errors.name}</p>}
                                 </div>
@@ -260,7 +264,7 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                                     {editRoleForm.errors.key && <p className="mt-1 text-sm text-red-500">{editRoleForm.errors.key}</p>}
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium mb-1">Description</label>
+                                    <label className="block text-sm font-medium mb-1"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_c0a06882d448" /></label>
                                     <input type="text" value={editRoleForm.data.description} onChange={(e) => editRoleForm.setData('description', e.target.value)} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm" />
                                 </div>
                                 <div>
@@ -282,8 +286,8 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button type="button" variant="outline" onClick={() => { setEditRoleOpen(false); setEditingRole(null); }}>Cancel</Button>
-                            <Button type="submit" disabled={editRoleForm.processing}>Update</Button>
+                            <Button type="button" variant="outline" onClick={() => { setEditRoleOpen(false); setEditingRole(null); }}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_78cac803ee30" /></Button>
+                            <Button type="submit" disabled={editRoleForm.processing}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_174030a44526" /></Button>
                         </Modal.Footer>
                     </form>
                 )}
@@ -291,7 +295,7 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
 
             {/* Add Permission Modal */}
             <Modal show={addPermOpen} onClose={() => setAddPermOpen(false)}>
-                <Modal.Header title="Add Permission" onClose={() => setAddPermOpen(false)} />
+                <Modal.Header title={translationI18n.t('hardcoded.views_admin_rolespermissions_index_e68a97c34de8')} onClose={() => setAddPermOpen(false)} />
                 <form onSubmit={(e) => { e.preventDefault(); permForm.post(route('admin.permissions.store'), { onSuccess: () => { setAddPermOpen(false); permForm.reset(); } }); }}>
                     <Modal.Body>
                         <div className="space-y-4">
@@ -301,7 +305,7 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                                 {permForm.errors.key && <p className="mt-1 text-sm text-red-500">{permForm.errors.key}</p>}
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-1">Name</label>
+                                <label className="block text-sm font-medium mb-1"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_2153f3828919" /></label>
                                 <input type="text" value={permForm.data.name} onChange={(e) => permForm.setData('name', e.target.value)} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm" required />
                                 {permForm.errors.name && <p className="mt-1 text-sm text-red-500">{permForm.errors.name}</p>}
                             </div>
@@ -311,21 +315,21 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                                 {permForm.errors.category && <p className="mt-1 text-sm text-red-500">{permForm.errors.category}</p>}
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-1">Description</label>
+                                <label className="block text-sm font-medium mb-1"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_c0a06882d448" /></label>
                                 <input type="text" value={permForm.data.description} onChange={(e) => permForm.setData('description', e.target.value)} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm" />
                             </div>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button type="button" variant="outline" onClick={() => setAddPermOpen(false)}>Cancel</Button>
-                        <Button type="submit" disabled={permForm.processing}>Create</Button>
+                        <Button type="button" variant="outline" onClick={() => setAddPermOpen(false)}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_78cac803ee30" /></Button>
+                        <Button type="submit" disabled={permForm.processing}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_42255a262eb2" /></Button>
                     </Modal.Footer>
                 </form>
             </Modal>
 
             {/* Edit Permission Modal */}
             <Modal show={editPermOpen} onClose={() => { setEditPermOpen(false); setEditingPerm(null); }}>
-                <Modal.Header title="Edit Permission" onClose={() => { setEditPermOpen(false); setEditingPerm(null); }} />
+                <Modal.Header title={translationI18n.t('hardcoded.views_admin_rolespermissions_index_b8e79f9965d8')} onClose={() => { setEditPermOpen(false); setEditingPerm(null); }} />
                 {editingPerm && (
                     <form onSubmit={(e) => { e.preventDefault(); editPermForm.put(route('admin.permissions.update', editingPerm.id), { onSuccess: () => { setEditPermOpen(false); setEditingPerm(null); } }); }}>
                         <Modal.Body>
@@ -336,7 +340,7 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                                     {editPermForm.errors.key && <p className="mt-1 text-sm text-red-500">{editPermForm.errors.key}</p>}
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium mb-1">Name</label>
+                                    <label className="block text-sm font-medium mb-1"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_2153f3828919" /></label>
                                     <input type="text" value={editPermForm.data.name} onChange={(e) => editPermForm.setData('name', e.target.value)} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm" required />
                                     {editPermForm.errors.name && <p className="mt-1 text-sm text-red-500">{editPermForm.errors.name}</p>}
                                 </div>
@@ -346,14 +350,14 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                                     {editPermForm.errors.category && <p className="mt-1 text-sm text-red-500">{editPermForm.errors.category}</p>}
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium mb-1">Description</label>
+                                    <label className="block text-sm font-medium mb-1"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_c0a06882d448" /></label>
                                     <input type="text" value={editPermForm.data.description} onChange={(e) => editPermForm.setData('description', e.target.value)} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm" />
                                 </div>
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button type="button" variant="outline" onClick={() => { setEditPermOpen(false); setEditingPerm(null); }}>Cancel</Button>
-                            <Button type="submit" disabled={editPermForm.processing}>Update</Button>
+                            <Button type="button" variant="outline" onClick={() => { setEditPermOpen(false); setEditingPerm(null); }}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_78cac803ee30" /></Button>
+                            <Button type="submit" disabled={editPermForm.processing}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_174030a44526" /></Button>
                         </Modal.Footer>
                     </form>
                 )}
@@ -361,29 +365,29 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
 
             {/* Delete Role Confirm */}
             <Modal show={!!deleteRoleConfirm} onClose={() => setDeleteRoleConfirm(null)} maxWidth="sm">
-                <Modal.Header title="Delete Role" onClose={() => setDeleteRoleConfirm(null)} />
+                <Modal.Header title={translationI18n.t('hardcoded.views_admin_rolespermissions_index_94c596d3b232')} onClose={() => setDeleteRoleConfirm(null)} />
                 <Modal.Body>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        Are you sure you want to delete role <strong>{deleteRoleConfirm?.name}</strong>? This cannot be undone.
+                        <Trans i18nKey="hardcoded.views_admin_rolespermissions_index_a31875dc57de" /> <strong>{deleteRoleConfirm?.name}</strong><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_684d7715f13e" />
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="outline" onClick={() => setDeleteRoleConfirm(null)}>Cancel</Button>
-                    <Button variant="danger" onClick={() => { router.delete(route('admin.roles.destroy', deleteRoleConfirm?.id), { preserveScroll: true }); setDeleteRoleConfirm(null); }}>Delete</Button>
+                    <Button variant="outline" onClick={() => setDeleteRoleConfirm(null)}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_78cac803ee30" /></Button>
+                    <Button variant="danger" onClick={() => { router.delete(route('admin.roles.destroy', deleteRoleConfirm?.id), { preserveScroll: true }); setDeleteRoleConfirm(null); }}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_e01fc6812d69" /></Button>
                 </Modal.Footer>
             </Modal>
 
             {/* Delete Permission Confirm */}
             <Modal show={!!deletePermConfirm} onClose={() => setDeletePermConfirm(null)} maxWidth="sm">
-                <Modal.Header title="Delete Permission" onClose={() => setDeletePermConfirm(null)} />
+                <Modal.Header title={translationI18n.t('hardcoded.views_admin_rolespermissions_index_2887bf8731a6')} onClose={() => setDeletePermConfirm(null)} />
                 <Modal.Body>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        Are you sure you want to delete permission <strong>{deletePermConfirm?.key}</strong>? This cannot be undone.
+                        <Trans i18nKey="hardcoded.views_admin_rolespermissions_index_0d1923dd774b" /> <strong>{deletePermConfirm?.key}</strong><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_684d7715f13e" />
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="outline" onClick={() => setDeletePermConfirm(null)}>Cancel</Button>
-                    <Button variant="danger" onClick={() => { router.delete(route('admin.permissions.destroy', deletePermConfirm?.id), { preserveScroll: true }); setDeletePermConfirm(null); }}>Delete</Button>
+                    <Button variant="outline" onClick={() => setDeletePermConfirm(null)}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_78cac803ee30" /></Button>
+                    <Button variant="danger" onClick={() => { router.delete(route('admin.permissions.destroy', deletePermConfirm?.id), { preserveScroll: true }); setDeletePermConfirm(null); }}><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_e01fc6812d69" /></Button>
                 </Modal.Footer>
             </Modal>
         </AdminLayout>

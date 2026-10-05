@@ -47,7 +47,7 @@ export default async function Page() {
         orderBy: [{ is_default: 'desc' }, { sort_order: 'asc' }, { code: 'asc' }],
     });
     let locales = localeRows.map((l) => ({ value: l.code, label: l.native_name || l.name }));
-    if (!locales.length) locales = [{ value: 'en', label: 'English' }];
+    if (!locales.length) locales = [{ value: 'fr', label: 'Français' }, { value: 'en', label: 'English' }];
 
     const localeSaved = String(row?.default_locale || locales[0].value);
     locales = ensureOption(locales, localeSaved);
@@ -65,7 +65,7 @@ export default async function Page() {
         ];
     }
 
-    const currencySaved = String(row?.default_currency || 'USD').toUpperCase();
+    const currencySaved = String(row?.default_currency || 'EUR').toUpperCase();
     currencies = ensureOption(currencies, currencySaved);
 
     const props = {

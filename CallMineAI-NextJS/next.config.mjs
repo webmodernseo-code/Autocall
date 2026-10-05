@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    output: 'standalone',
     reactStrictMode: false,
     poweredByHeader: false,
-    eslint: { ignoreDuringBuilds: true },
     serverExternalPackages: ['@prisma/client', 'bcryptjs', 'nodemailer'],
     async headers() {
         // Mirrors App\Http\Middleware\SecureHeaders.

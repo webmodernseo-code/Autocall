@@ -1,5 +1,7 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useRef, useState } from 'react';
 import { Head, router } from '@/lib/page-router';
@@ -8,7 +10,7 @@ import ClientLayout from '@/layouts/ClientLayout';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import { showToast } from '@/components/FlashToast';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { AudioLines, Play, Pause, Search } from 'lucide-react';
 
 function VoiceCard({ voice }) {
@@ -50,7 +52,7 @@ function VoiceCard({ voice }) {
                         {voice.tone && <p className="truncate text-xs text-neutral-500">{voice.tone}</p>}
                     </div>
                 </div>
-                <button onClick={play} className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition ${state === 'playing' ? 'bg-signal-500 text-white animate-pulse-signal' : 'bg-brand-600 text-white hover:bg-brand-500'}`} aria-label="Preview">
+                <button onClick={play} className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition ${state === 'playing' ? 'bg-signal-500 text-white animate-pulse-signal' : 'bg-brand-600 text-white hover:bg-brand-500'}`} aria-label={translationI18n.t('hardcoded.views_client_voices_index_a5b596f429a3')}>
                     {state === 'playing' ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                 </button>
             </div>
@@ -75,7 +77,7 @@ export default function VoicesIndex({ voices, stats = [], filters = {}, filterOp
             <div className="space-y-5">
                 <div>
                     <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Voice library</h1>
-                    <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Browse and preview ElevenLabs voices for your agents.</p>
+                    <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_voices_index_7f36bc0b7b17" /></p>
                 </div>
 
                 <PageOverview feature="voices" />
@@ -85,7 +87,7 @@ export default function VoicesIndex({ voices, stats = [], filters = {}, filterOp
                 <div className="flex flex-wrap items-center gap-2">
                     <form onSubmit={(e) => { e.preventDefault(); apply(); }} className="relative flex-1 min-w-[200px]">
                         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search voices…" className="w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 py-2 pl-9 pr-3 text-sm" />
+                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_voices_index_cad3eab2192a')} className="w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 py-2 pl-9 pr-3 text-sm" />
                     </form>
                     {['gender', 'age_group', 'best_for'].map((f) => (
                         <select key={f} value={filters[f] || ''} onChange={(e) => apply({ [f]: e.target.value })} className="rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 py-2 px-3 text-sm capitalize">
@@ -98,7 +100,7 @@ export default function VoicesIndex({ voices, stats = [], filters = {}, filterOp
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {voices.data.map((v) => <VoiceCard key={v.id} voice={v} />)}
                 </div>
-                {voices.data.length === 0 && <p className="py-10 text-center text-sm text-neutral-500">No voices found. Ask your administrator to sync the ElevenLabs voice library.</p>}
+                {voices.data.length === 0 && <p className="py-10 text-center text-sm text-neutral-500"><Trans i18nKey="hardcoded.views_client_voices_index_12b2fd022fd4" /></p>}
             </div>
         </ClientLayout>
     );

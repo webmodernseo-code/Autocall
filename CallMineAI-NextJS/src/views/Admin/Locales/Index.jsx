@@ -7,7 +7,7 @@ import StatCards from '@/components/StatCards';
 import { Button, Card, Tabs } from '@/components/ui';
 import { Head, router, useForm } from '@/lib/page-router';
 import { useState, useCallback, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 const TAB_LANGUAGES = 0;
 const TAB_TRANSLATIONS = 1;
@@ -26,7 +26,7 @@ export default function AdminLocalesIndex({
     const { t } = useTranslation();
     const [tabIndex, setTabIndex] = useState(TAB_LANGUAGES);
     const [adding, setAdding] = useState(false);
-    const { data: newLocale, setData: setNewLocale, post, processing } = useForm({
+    const { data: newLocale, setData: setNewLocale, post, processing, transform } = useForm({
         code: '',
         name: '',
         native_name: '',
@@ -46,7 +46,7 @@ export default function AdminLocalesIndex({
             <Head title="Languages · Admin" />
             <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">Languages &amp; Translations</h2>
+                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100"><Trans i18nKey="hardcoded.views_admin_locales_index_ba6c1fa9211f" /></h2>
                 </div>
                 <PageOverview feature="admin-locales" />
                 <StatCards items={stats} />
@@ -74,7 +74,10 @@ export default function AdminLocalesIndex({
                                         <form
                                             onSubmit={(e) => {
                                                 e.preventDefault();
-                                                newLocale.native_name = newLocale.native_name || newLocale.name;
+                                                transform((data) => ({
+                                                    ...data,
+                                                    native_name: data.native_name || data.name,
+                                                }));
                                                 post(route('admin.locales.store'), {
                                                     onSuccess: () => {
                                                         setAdding(false);
@@ -148,7 +151,7 @@ export default function AdminLocalesIndex({
                                             <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
                                                 <th className="pb-2 pr-4 font-medium">{t('locales.languages')}</th>
                                                 <th className="pb-2 pr-4 font-medium">{t('locales.code')}</th>
-                                                <th className="pb-2 pr-4 font-medium">Status</th>
+                                                <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_locales_index_abeee8e30859" /></th>
                                                 <th className="pb-2 pr-4 font-medium">RTL</th>
                                                 <th className="pb-2"></th>
                                             </tr>
@@ -215,7 +218,7 @@ function LocaleRow({ locale, locales }) {
             </td>
             <td className="py-3 pr-4 font-mono text-neutral-700 dark:text-neutral-300">{locale.code}</td>
             <td className="py-3 pr-4">
-                {locale.is_default ? <span className="rounded bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300 px-1.5 py-0.5 text-xs font-medium">Default</span> : locale.enabled ? t('common.active') : t('common.inactive')}
+                {locale.is_default ? <span className="rounded bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300 px-1.5 py-0.5 text-xs font-medium"><Trans i18nKey="hardcoded.views_admin_locales_index_038c12e76882" /></span> : locale.enabled ? t('common.active') : t('common.inactive')}
             </td>
             <td className="py-3 pr-4">{locale.is_rtl ? t('common.yes') : t('common.no')}</td>
             <td className="py-3 flex flex-wrap gap-2">

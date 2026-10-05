@@ -1,9 +1,11 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { Head, Link, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { Bot, ArrowLeft, Coins } from 'lucide-react';
 
 function Field({ label, error, children, hint }) {
@@ -23,7 +25,7 @@ export default function AgentForm({ agent, voices = [], llmModels = [], voiceCos
     const { data, setData, post, put, processing, errors } = useForm({
         name: agent?.name || '',
         voice_id: agent?.voice_id || '',
-        language: agent?.language || 'en',
+        language: agent?.language || 'fr',
         engine: agent?.engine || defaultEngine,
         llm_model: agent?.llm_model || (llmModels[0]?.value ?? 'gpt-4o-mini'),
         temperature: agent?.temperature ?? 0.7,
@@ -47,14 +49,14 @@ export default function AgentForm({ agent, voices = [], llmModels = [], voiceCos
     const inputCls = 'w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 px-3 py-2 text-sm';
 
     return (
-        <ClientLayout title={editing ? 'Edit agent' : 'New agent'}>
-            <Head title={editing ? 'Edit agent' : 'New agent'} />
+        <ClientLayout title={editing ? translationI18n.t('hardcoded.views_client_agents_form_dd04a2dafd73') : translationI18n.t('hardcoded.views_client_agents_form_72ecd4ffca40')}>
+            <Head title={editing ? translationI18n.t('hardcoded.views_client_agents_form_dd04a2dafd73') : translationI18n.t('hardcoded.views_client_agents_form_72ecd4ffca40')} />
             <form onSubmit={submit} className="mx-auto max-w-4xl space-y-6">
                 <div className="flex items-center gap-3">
                     <Link href={route('client.agents.index')} className="rounded-soft p-2 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-ink-800"><ArrowLeft className="h-4 w-4" /></Link>
                     <div className="flex items-center gap-2">
                         <Bot className="h-6 w-6 text-brand-600 dark:text-brand-400" />
-                        <h1 className="font-display text-xl font-bold text-neutral-900 dark:text-white">{editing ? 'Edit agent' : 'New agent'}</h1>
+                        <h1 className="font-display text-xl font-bold text-neutral-900 dark:text-white">{editing ? translationI18n.t('hardcoded.views_client_agents_form_dd04a2dafd73') : translationI18n.t('hardcoded.views_client_agents_form_72ecd4ffca40')}</h1>
                     </div>
                 </div>
 
@@ -66,12 +68,12 @@ export default function AgentForm({ agent, voices = [], llmModels = [], voiceCos
                             </Field>
                             <Field label="Status" error={errors.status}>
                                 <select className={inputCls} value={data.status} onChange={(e) => setData('status', e.target.value)}>
-                                    <option value="draft">Draft</option><option value="active">Active</option><option value="archived">Archived</option>
+                                    <option value="draft">Draft</option><option value="active"><Trans i18nKey="hardcoded.views_client_agents_form_acf64d82446a" /></option><option value="archived">Archived</option>
                                 </select>
                             </Field>
                             <Field label="Voice" error={errors.voice_id}>
                                 <select className={inputCls} value={data.voice_id} onChange={(e) => setData('voice_id', e.target.value)}>
-                                    <option value="">Select a voice…</option>
+                                    <option value=""><Trans i18nKey="hardcoded.views_client_agents_form_abcc688aaf19" /></option>
                                     {voices.map((v) => <option key={v.id} value={v.id}>{v.name}{v.accent ? ` · ${v.accent}` : ''}</option>)}
                                 </select>
                             </Field>
@@ -104,7 +106,7 @@ export default function AgentForm({ agent, voices = [], llmModels = [], voiceCos
                         </div>
 
                         <Field label="Greeting" error={errors.greeting}>
-                            <input className={inputCls} value={data.greeting} onChange={(e) => setData('greeting', e.target.value)} placeholder="Hi, this is your AI assistant…" />
+                            <input className={inputCls} value={data.greeting} onChange={(e) => setData('greeting', e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_agents_form_ff758b0b82b1')} />
                         </Field>
 
                         <Field label="System prompt" error={errors.system_prompt}>
@@ -113,7 +115,7 @@ export default function AgentForm({ agent, voices = [], llmModels = [], voiceCos
                                     <button type="button" key={tpl.label} onClick={() => setData('system_prompt', tpl.prompt)} className="rounded-full bg-brand-50 dark:bg-brand-500/10 px-2.5 py-1 text-[11px] font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100">{tpl.label}</button>
                                 ))}
                             </div>
-                            <textarea rows="6" className={inputCls} value={data.system_prompt} onChange={(e) => setData('system_prompt', e.target.value)} placeholder="Describe how the agent should behave on the call…" />
+                            <textarea rows="6" className={inputCls} value={data.system_prompt} onChange={(e) => setData('system_prompt', e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_agents_form_8510bb07122c')} />
                         </Field>
                     </div>
 
@@ -128,8 +130,8 @@ export default function AgentForm({ agent, voices = [], llmModels = [], voiceCos
                             <p className="mt-3 text-[11px] text-neutral-400">≈ 1 credit per minute of talk time.</p>
                         </div>
                         <div className="flex gap-2">
-                            <button type="submit" disabled={processing} className="flex-1 rounded-soft bg-brand-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">{editing ? 'Save agent' : 'Create agent'}</button>
-                            <Link href={route('client.agents.index')} className="rounded-soft border border-neutral-200 dark:border-ink-700 px-4 py-2.5 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800">Cancel</Link>
+                            <button type="submit" disabled={processing} className="flex-1 rounded-soft bg-brand-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">{editing ? translationI18n.t('hardcoded.views_client_agents_form_974acba563bc') : translationI18n.t('hardcoded.views_client_agents_form_077d896e79ef')}</button>
+                            <Link href={route('client.agents.index')} className="rounded-soft border border-neutral-200 dark:border-ink-700 px-4 py-2.5 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_agents_form_cc4a411e2832" /></Link>
                         </div>
                     </div>
                 </div>

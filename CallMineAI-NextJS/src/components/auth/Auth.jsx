@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Link } from '@/lib/page-router';
@@ -67,7 +71,7 @@ export function AuthField({ id, label, type = 'text', secret = false, value, onC
                     {...rest}
                 />
                 {secret && (
-                    <button type="button" onClick={() => setShow((v) => !v)} aria-label={show ? 'Hide password' : 'Show password'}
+                    <button type="button" onClick={() => setShow((v) => !v)} aria-label={show ? translationI18n.t('hardcoded.components_auth_auth_5c44a58df1ba') : translationI18n.t('hardcoded.components_auth_auth_9f739c43a8ef')}
                         className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-neutral-500 transition hover:text-neutral-700 dark:hover:text-neutral-200">
                         {show ? <EyeOff className="h-4.5 w-4.5" strokeWidth={1.75} /> : <Eye className="h-4.5 w-4.5" strokeWidth={1.75} />}
                     </button>
@@ -142,13 +146,13 @@ export function SubmitButton({ processing, children, loadingText }) {
 const PANELS = {
     customer: {
         eyebrow: 'AI voice operator',
-        title: <>Your AI callers,<br />always on the phones.</>,
+        title: <><Trans i18nKey="hardcoded.components_auth_auth_0174fb355133" /><br /><Trans i18nKey="hardcoded.components_auth_auth_ac0d896b7b87" /></>,
         sub: 'Sign in to build agents, launch campaigns, and watch qualified leads land in your CRM — scored in real time.',
         bullets: ['Recorded, transcribed & scored calls', '29 languages with real accents', 'CRM sync & webhooks out of the box'],
     },
     admin: {
         eyebrow: 'Platform control',
-        title: <>Run the whole platform<br />from one console.</>,
+        title: <><Trans i18nKey="hardcoded.components_auth_auth_23d3387becc5" /><br /><Trans i18nKey="hardcoded.components_auth_auth_e629eb594f8d" /></>,
         sub: 'Oversee customers, plans, payments, engines and call activity — everything that keeps the business running, in one secure place.',
         bullets: ['Customers, subscriptions & payments', 'Engines & platform-wide call oversight', 'Roles, KYC & full audit trail'],
     },

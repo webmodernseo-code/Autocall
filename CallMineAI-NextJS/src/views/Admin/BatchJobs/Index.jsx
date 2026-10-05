@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router } from '@/lib/page-router';
@@ -29,7 +33,7 @@ export default function BatchJobsIndex({ batches, filters = {}, clients = [], st
             <div className="space-y-5">
                 <div>
                     <h2 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Batch Jobs</h2>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">Bulk calling batches across all customers, with live progress.</p>
+                    <p className="text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_batchjobs_index_40af38da761c" /></p>
                 </div>
 
                 <PageOverview feature="admin-batch-jobs" />
@@ -38,14 +42,14 @@ export default function BatchJobsIndex({ batches, filters = {}, clients = [], st
                 <div className="flex flex-wrap items-center gap-2">
                     <form onSubmit={submit} className="relative max-w-xs flex-1">
                         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search batches…" className="w-full rounded-soft border border-neutral-200 bg-white py-2 pl-9 pr-3 text-sm dark:border-ink-700 dark:bg-ink-900" />
+                        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={translationI18n.t('hardcoded.views_admin_batchjobs_index_7de1f9fd1c27')} className="w-full rounded-soft border border-neutral-200 bg-white py-2 pl-9 pr-3 text-sm dark:border-ink-700 dark:bg-ink-900" />
                     </form>
                     <select value={filters.status || ''} onChange={(e) => set({ status: e.target.value })} className="rounded-soft border border-neutral-200 bg-white px-3 pr-8 py-2 text-sm dark:border-ink-700 dark:bg-ink-900">
-                        <option value="">All statuses</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_admin_batchjobs_index_daa583f49eb1" /></option>
                         {statuses.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                     <select value={filters.client || ''} onChange={(e) => set({ client: e.target.value })} className="rounded-soft border border-neutral-200 bg-white px-3 pr-8 py-2 text-sm dark:border-ink-700 dark:bg-ink-900">
-                        <option value="">All customers</option>
+                        <option value=""><Trans i18nKey="hardcoded.views_admin_batchjobs_index_1c33eeae1845" /></option>
                         {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
                     </select>
                 </div>
@@ -72,7 +76,7 @@ export default function BatchJobsIndex({ batches, filters = {}, clients = [], st
                                                 <div className="h-1.5 w-24 overflow-hidden rounded-full bg-neutral-100 dark:bg-ink-800"><div className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-300" style={{ width: `${b.progress}%` }} /></div>
                                                 <span className="font-mono text-xs text-neutral-500">{b.progress}%</span>
                                             </div>
-                                            <span className="text-[11px] text-neutral-400">{b.completed} done · {b.failed} failed · {b.contacts} contacts</span>
+                                            <span className="text-[11px] text-neutral-400">{b.completed} done · {b.failed} <Trans i18nKey="hardcoded.views_admin_batchjobs_index_b5623bcd762c" /> {b.contacts} contacts</span>
                                         </td>
                                         <td className="px-5 py-3 font-mono text-neutral-500">{b.calls}</td>
                                         <td className="px-5 py-3"><span className={b.success_rate >= 50 ? 'text-signal-600 dark:text-signal-400' : 'text-neutral-500'}>{b.success_rate}%</span></td>

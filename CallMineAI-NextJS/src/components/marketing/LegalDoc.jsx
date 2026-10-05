@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 import { Info } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { Eyebrow } from '@/components/marketing/ui';
@@ -23,7 +25,7 @@ export default function LegalDoc({ eyebrow, title, updated, intro, sections = []
                     {intro && <p className="mt-5 max-w-2xl text-neutral-600 dark:text-neutral-400">{intro}</p>}
                     <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-warm/30 bg-warm/[0.08] px-4 py-3 text-sm text-amber-800 dark:text-amber-200/90">
                         <Info className="mt-0.5 h-4 w-4 shrink-0 text-warm" />
-                        <p>This document is a professionally structured <span className="font-semibold">template</span>. Review and adapt it with qualified legal counsel to meet the laws of your jurisdiction before production use.</p>
+                        <p><Trans i18nKey="hardcoded.components_marketing_legaldoc_5e8a34ed44a8" /> <span className="font-semibold">template</span><Trans i18nKey="hardcoded.components_marketing_legaldoc_a82f9f4737d9" /></p>
                     </div>
                 </div>
             </section>
@@ -32,7 +34,7 @@ export default function LegalDoc({ eyebrow, title, updated, intro, sections = []
                 <div className="mx-auto grid max-w-4xl gap-10 px-4 sm:px-6 lg:grid-cols-[220px_1fr] lg:px-8">
                     <nav aria-label="Contents" className="hidden lg:block">
                         <div className="sticky top-24">
-                            <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-500">On this page</p>
+                            <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-500"><Trans i18nKey="hardcoded.components_marketing_legaldoc_ffa7fe12f627" /></p>
                             <ul className="mt-4 space-y-2 text-sm">
                                 {sections.map((s) => (
                                     <li key={s.h}><a href={`#${slug(s.h)}`} className="text-neutral-500 transition hover:text-neutral-900 dark:hover:text-white">{s.h}</a></li>

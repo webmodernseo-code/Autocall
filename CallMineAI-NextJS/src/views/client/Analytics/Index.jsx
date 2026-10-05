@@ -1,10 +1,12 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { Head, router } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
 import PageOverview from '@/components/PageOverview';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { PhoneCall, Target, TrendingUp, Clock, ArrowUp, ArrowDown } from 'lucide-react';
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
@@ -48,7 +50,7 @@ export default function AnalyticsIndex({ days = 30, kpis = {}, charts = {} }) {
             <Head title="Analytics" />
             <div className="space-y-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Analytics</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Lead intelligence across your campaigns.</p></div>
+                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Analytics</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_analytics_index_992af29f811b" /></p></div>
                     <div className="flex gap-1.5">{[7, 30, 90].map((d) => <button key={d} onClick={() => setDays(d)} className={`rounded-soft px-3 py-1.5 text-xs font-medium ${days === d ? 'bg-brand-600 text-white' : 'border border-neutral-200 dark:border-ink-700 text-neutral-600 dark:text-neutral-300'}`}>{d}d</button>)}</div>
                 </div>
 
@@ -63,7 +65,7 @@ export default function AnalyticsIndex({ days = 30, kpis = {}, charts = {} }) {
 
                 <div className="grid gap-4 lg:grid-cols-3">
                     <div className="lg:col-span-2">
-                        <Card title="Calls this week">
+                        <Card title={translationI18n.t('hardcoded.views_client_analytics_index_e79a9e8ab4f1')}>
                             <ResponsiveContainer width="100%" height={240}>
                                 <BarChart data={charts.calls_by_day || []}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" vertical={false} />
@@ -103,7 +105,7 @@ export default function AnalyticsIndex({ days = 30, kpis = {}, charts = {} }) {
                             </ResponsiveContainer>
                         ) : <p className="py-16 text-center text-sm text-neutral-400">No sentiment data yet.</p>}
                     </Card>
-                    <Card title="Campaign success rate">
+                    <Card title={translationI18n.t('hardcoded.views_client_analytics_index_7b3ee6e2da6a')}>
                         <ResponsiveContainer width="100%" height={220}>
                             <BarChart data={charts.campaign_success || []} layout="vertical" margin={{ left: 20 }}>
                                 <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 12 }} stroke="#a1a1aa" />

@@ -15,7 +15,12 @@ export const GET = handler(async (request) => {
 
     const where = referralWhere(clientId, queryParams(request));
 
-    const stamp = new Date().toISOString().replace(/[-:T]/g, '').slice(0, 15);
+    // Avoid a bracketed token that Tailwind can mistake for an arbitrary class.
+    const stamp = new Date().toISOString()
+        .replaceAll('-', '')
+        .replaceAll(':', '')
+        .replace('T', '')
+        .slice(0, 15);
     const filename = `referrals-${stamp.slice(0, 8)}-${stamp.slice(9)}.csv`;
 
     const stream = new ReadableStream({

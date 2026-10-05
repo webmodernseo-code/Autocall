@@ -37,28 +37,9 @@ export async function currentUser() {
         });
         if (user && (user.status ?? 'active') === 'active') return user;
     } catch (e) {
-        // Fallback in demo mode when MySQL is offline
+        console.error('[auth] user lookup failed');
     }
-
-    // Demo Mode User Fallback
-    return {
-        id: BigInt(session.uid || 1),
-        name: 'Client Démo',
-        email: 'client@spagreen.net',
-        role: 'client',
-        status: 'active',
-        client_role: 'administrator',
-        email_verified_at: new Date('2026-01-01'),
-        client_id: BigInt(1),
-        tenant_id: BigInt(1),
-        locale: session.locale || 'fr',
-        theme: session.theme || 'light',
-        clients: {
-            id: BigInt(1),
-            name: 'Entreprise Démo SAS',
-            status: 'active',
-        },
-    };
+    return null;
 }
 
 /** `$request->user('admin')` — the admin guard. */
@@ -70,15 +51,9 @@ export async function currentAdmin() {
         const admin = await prisma.adminUser.findUnique({ where: { id: BigInt(session.uid) } });
         if (admin && admin.status === 'ACTIVE') return admin;
     } catch (e) {
-        // Fallback in demo mode
+        console.error('[auth] administrator lookup failed');
     }
-
-    return {
-        id: BigInt(session.uid || 1),
-        name: session.name || 'Super Administrateur',
-        email: session.email || 'admin@spagreen.net',
-        status: 'ACTIVE',
-    };
+    return null;
 }
 
 /* ------------------------------------------------------------ admin RBAC */
@@ -98,7 +73,7 @@ export async function adminPermissionKeys(adminId) {
         }
         return [...keys];
     } catch {
-        return ['*'];
+        return [];
     }
 }
 
@@ -109,7 +84,7 @@ export async function adminIsSuper(adminId) {
         });
         return !!row;
     } catch {
-        return true;
+        return false;
     }
 }
 
@@ -145,7 +120,7 @@ export async function clientPermissionKeys(user) {
         }
         return [...keys];
     } catch {
-        return ['*'];
+        return [];
     }
 }
 
@@ -166,7 +141,7 @@ export async function creditBalance(clientId) {
         });
         return Number(row?.balance_after ?? 0);
     } catch {
-        return 250; // Demo credit balance
+        return 0;
     }
 }
 
@@ -184,7 +159,7 @@ export async function accessibleTenants(user) {
 
         return [...byId.values()];
     } catch {
-        return [{ id: BigInt(1), name: 'Espace Principal' }];
+        return [];
     }
 }
 
@@ -213,21 +188,9 @@ export async function effectiveSubscription(user) {
         });
         if (sub) return { ...sub, __kind: 'user' };
     } catch {
-        // Fallback demo plan
+        return null;
     }
-
-    return {
-        id: 1,
-        status: 'active',
-        __kind: 'client',
-        ends_at: new Date('2028-01-01'),
-        plans: {
-            id: 1,
-            name: 'Professionnel',
-            slug: 'pro',
-            monthly_price_cents: 14900,
-        }
-    };
+    return null;
 }
 
 export function subscriptionIsActive(sub) {

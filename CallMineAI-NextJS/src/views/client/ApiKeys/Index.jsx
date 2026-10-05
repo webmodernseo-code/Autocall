@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router, useForm, usePage } from '@/lib/page-router';
@@ -18,15 +22,15 @@ function CreateModal({ scopes, onClose }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <form onSubmit={submit} className="w-full max-w-md space-y-3 rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl" onClick={(e) => e.stopPropagation()}>
-                <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">New API key</h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
-                <input className={inputCls} placeholder="Key name (e.g. Production)" value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
+                <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_apikeys_index_014a29d86a99" /></h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
+                <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_apikeys_index_401faaa4ec83')} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
                 {form.errors.name && <p className="text-xs text-danger">{form.errors.name}</p>}
                 <div>
                     <p className="mb-1 text-xs font-medium uppercase text-neutral-500">Scopes</p>
                     <div className="grid max-h-44 grid-cols-2 gap-1 overflow-auto">{scopes.map((s) => <label key={s} className="flex items-center gap-1.5 text-xs text-neutral-700 dark:text-neutral-300"><input type="checkbox" checked={form.data.scopes.includes(s)} onChange={() => toggle(s)} /> <code className="font-mono">{s}</code></label>)}</div>
                 </div>
-                <input className={inputCls} placeholder="IP whitelist (comma-separated, optional)" value={form.data.ip_whitelist} onChange={(e) => form.setData('ip_whitelist', e.target.value)} />
-                <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800">Cancel</button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Create</button></div>
+                <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_apikeys_index_3e4659dbdbf3')} value={form.data.ip_whitelist} onChange={(e) => form.setData('ip_whitelist', e.target.value)} />
+                <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_apikeys_index_bdac66830af3" /></button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_client_apikeys_index_ef86b0e8d1aa" /></button></div>
             </form>
         </div>
     );
@@ -46,8 +50,8 @@ export default function ApiKeysIndex({ keys = [], availableScopes = [], limit = 
             <Head title="API Keys" />
             <div className="space-y-5">
                 <div className="flex items-center justify-between">
-                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">API Keys</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{activeCount}/{limit} active · <a href={route('api.docs.playground')} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400"><BookOpen className="h-3.5 w-3.5" /> API docs</a></p></div>
-                    <button onClick={() => setCreating(true)} disabled={activeCount >= limit} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Plus className="h-4 w-4" /> New key</button>
+                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">API Keys</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{activeCount}/{limit} <Trans i18nKey="hardcoded.views_client_apikeys_index_2fa147a90d39" /> <a href={route('api.docs.playground')} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400"><BookOpen className="h-3.5 w-3.5" /> API docs</a></p></div>
+                    <button onClick={() => setCreating(true)} disabled={activeCount >= limit} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_apikeys_index_82ed9451a312" /></button>
                 </div>
 
                 <PageOverview feature="api-keys" />
@@ -57,7 +61,7 @@ export default function ApiKeysIndex({ keys = [], availableScopes = [], limit = 
 
                 {flashKey && (
                     <div className="rounded-soft-lg border border-signal-300 bg-signal-50 dark:bg-signal-900/20 dark:border-signal-800 p-4">
-                        <p className="text-sm font-medium text-signal-800 dark:text-signal-200">Copy your API key now — it won't be shown again.</p>
+                        <p className="text-sm font-medium text-signal-800 dark:text-signal-200"><Trans i18nKey="hardcoded.views_client_apikeys_index_5f8e14cc6b56" /></p>
                         <div className="mt-2 flex items-center gap-2"><code className="flex-1 truncate rounded bg-white dark:bg-ink-900 px-3 py-2 font-mono text-xs">{flashKey.plain}</code><button onClick={() => copy(flashKey.plain)} className="rounded-soft bg-brand-600 px-3 py-2 text-white hover:bg-brand-500"><Copy className="h-4 w-4" /></button></div>
                     </div>
                 )}
@@ -82,7 +86,7 @@ export default function ApiKeysIndex({ keys = [], availableScopes = [], limit = 
 
                 {auditLog.length > 0 && (
                     <div>
-                        <h2 className="mb-2 text-sm font-semibold uppercase text-neutral-500">Recent API requests</h2>
+                        <h2 className="mb-2 text-sm font-semibold uppercase text-neutral-500"><Trans i18nKey="hardcoded.views_client_apikeys_index_bdb64622d988" /></h2>
                         <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                             <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm"><tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                                 {auditLog.map((l, i) => <tr key={i}><td className="px-4 py-2 font-mono text-xs">{l.method}</td><td className="px-4 py-2 font-mono text-xs text-neutral-500">/{l.path}</td><td className="px-4 py-2"><span className={`font-mono text-xs ${l.status_code < 300 ? 'text-signal-600' : 'text-danger'}`}>{l.status_code}</span></td><td className="px-4 py-2 text-xs text-neutral-400">{l.duration_ms}ms · {new Date(l.created_at).toLocaleTimeString()}</td></tr>)}

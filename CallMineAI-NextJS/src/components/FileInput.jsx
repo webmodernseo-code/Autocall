@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { useRef, useState } from 'react';
 import { UploadCloud, X, FileText, Image as ImageIcon } from 'lucide-react';
 
@@ -38,7 +42,7 @@ export default function FileInput({ value = null, onChange, accept, hint, disabl
                     <p className="text-xs text-neutral-500">{humanSize(value.size)}</p>
                 </div>
                 <button type="button" onClick={() => ref.current?.click()} className="shrink-0 rounded-soft px-2 py-1 text-xs font-medium text-brand-600 hover:bg-brand-100 dark:text-brand-300 dark:hover:bg-brand-500/20">Change</button>
-                <button type="button" onClick={clear} aria-label="Remove file" className="shrink-0 rounded-soft p-1.5 text-neutral-400 hover:bg-danger/10 hover:text-danger transition"><X className="h-4 w-4" /></button>
+                <button type="button" onClick={clear} aria-label={translationI18n.t('hardcoded.components_fileinput_206cf69c4210')} className="shrink-0 rounded-soft p-1.5 text-neutral-400 hover:bg-danger/10 hover:text-danger transition"><X className="h-4 w-4" /></button>
                 <input ref={ref} id={id} type="file" accept={accept} className="hidden" onChange={(e) => pick(e.target.files?.[0])} />
             </div>
         );
@@ -55,7 +59,7 @@ export default function FileInput({ value = null, onChange, accept, hint, disabl
             className={`flex w-full flex-col items-center justify-center gap-1.5 rounded-soft-lg border border-dashed px-4 py-6 text-center transition disabled:opacity-50 ${dragOver ? 'border-brand-400 bg-brand-50 dark:bg-brand-500/10' : 'border-neutral-300 dark:border-ink-700 hover:border-brand-300 hover:bg-neutral-50 dark:hover:bg-ink-800/50'}`}
         >
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-100 text-brand-600 dark:bg-brand-500/20 dark:text-brand-400"><UploadCloud className="h-5 w-5" /></span>
-            <span className="text-sm font-medium text-neutral-700 dark:text-neutral-200">Choose a file <span className="text-neutral-400">or drag & drop</span></span>
+            <span className="text-sm font-medium text-neutral-700 dark:text-neutral-200"><Trans i18nKey="hardcoded.components_fileinput_01393a642fc7" /> <span className="text-neutral-400">or drag & drop</span></span>
             {hint && <span className="text-xs text-neutral-400">{hint}</span>}
             <input ref={ref} id={id} type="file" accept={accept} className="hidden" onChange={(e) => pick(e.target.files?.[0])} />
         </button>

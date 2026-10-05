@@ -5,7 +5,7 @@ import ClientLayout from '@/layouts/ClientLayout';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import { Head, Link, router, usePage } from '@/lib/page-router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { CreditCard, Package, PhoneCall, Star, Check } from 'lucide-react';
 import { useMoney } from '@/lib/money';
 
@@ -52,7 +52,7 @@ export default function BillingIndex({ transactions, stats = [], creditBalance =
             <div className="space-y-6">
                 {hasCheckoutSuccess && (
                     <div className="rounded-soft-lg border border-signal-200 bg-signal-50 dark:bg-signal-900/20 dark:border-signal-800 px-4 py-3 text-sm text-signal-800 dark:text-signal-200">
-                        Payment successful. Your subscription is active.
+                        <Trans i18nKey="hardcoded.views_client_billing_index_263ae078045e" />
                     </div>
                 )}
 
@@ -75,7 +75,7 @@ export default function BillingIndex({ transactions, stats = [], creditBalance =
                     <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white shadow-soft">
                         <div className="flex items-center gap-2 text-brand-100"><PhoneCall className="h-4 w-4" /><span className="text-xs font-medium uppercase tracking-wide">Calling credits</span></div>
                         <p className="mt-2 font-mono text-4xl font-bold tabular-nums">{Number(creditBalance).toLocaleString()}</p>
-                        <p className="mt-1 text-xs text-brand-100">≈ {Number(creditBalance).toLocaleString()} call minutes remaining</p>
+                        <p className="mt-1 text-xs text-brand-100">≈ {Number(creditBalance).toLocaleString()} <Trans i18nKey="hardcoded.views_client_billing_index_485e96f55562" /></p>
                     </div>
                     {planUsage && (
                         <div className="lg:col-span-2 rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft">
@@ -105,14 +105,14 @@ export default function BillingIndex({ transactions, stats = [], creditBalance =
                                 </button>
                             </div>
                         ))}
-                        {creditPackages.length === 0 && <p className="text-sm text-neutral-500">No credit packages available.</p>}
+                        {creditPackages.length === 0 && <p className="text-sm text-neutral-500"><Trans i18nKey="hardcoded.views_client_billing_index_c7d85329a8cc" /></p>}
                     </div>
                 </div>
 
                 {/* Credit history */}
                 {creditHistory.length > 0 && (
                     <div>
-                        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-300">Credit history</h2>
+                        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-300"><Trans i18nKey="hardcoded.views_client_billing_index_6590e33b6693" /></h2>
                         <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                             <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">
                                 <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
@@ -132,7 +132,7 @@ export default function BillingIndex({ transactions, stats = [], creditBalance =
 
                 {/* Payment transactions */}
                 <div>
-                    <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-300">Payment history</h2>
+                    <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-300"><Trans i18nKey="hardcoded.views_client_billing_index_da1b49b216ec" /></h2>
                     <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                         {transactions.data?.length > 0 ? (
                             <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">

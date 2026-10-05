@@ -17,10 +17,10 @@ export const PUT = handler(async (request) => {
 
     const body = await readBody(request);
     const data = await validate(body, {
-        locale: ['nullable', 'string', 'max:16', `in:${(localeCodes.length ? localeCodes : ['en']).join(',')}`],
+        locale: ['nullable', 'string', 'max:16', `in:${(localeCodes.length ? localeCodes : ['fr', 'en']).join(',')}`],
         display_currency: [
             'nullable', 'string', 'max:10',
-            `in:${(currencyCodes.length ? currencyCodes : ['USD']).join(',')}`,
+            `in:${(currencyCodes.length ? currencyCodes : ['EUR', 'USD', 'XOF']).join(',')}`,
         ],
         theme: ['nullable', 'string', 'in:light,dark'],
         client_name: ['nullable', 'string', 'max:255'],

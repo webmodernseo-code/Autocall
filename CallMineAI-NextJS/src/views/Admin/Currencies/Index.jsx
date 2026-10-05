@@ -7,7 +7,7 @@ import StatCards from '@/components/StatCards';
 import { Card } from '@/components/ui';
 import { Head } from '@/lib/page-router';
 import { useForm } from '@/lib/page-router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 export default function AdminCurrenciesIndex({ currencies = [], stats = [], flash = {} }) {
     const { t } = useTranslation();
@@ -28,8 +28,8 @@ export default function AdminCurrenciesIndex({ currencies = [], stats = [], flas
                                     <th className="pb-2 pr-4 font-medium">Symbol</th>
                                     <th className="pb-2 pr-4 font-medium">Decimals</th>
                                     <th className="pb-2 pr-4 font-medium">Exchange rate</th>
-                                    <th className="pb-2 pr-4 font-medium">Default</th>
-                                    <th className="pb-2 pr-4 font-medium">Enabled</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_currencies_index_d785cd3fe5e8" /></th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_currencies_index_f9a4554577ae" /></th>
                                     <th className="pb-2"></th>
                                 </tr>
                             </thead>
@@ -62,7 +62,7 @@ function CurrencyRow({ currency }) {
             <td className="py-3 pr-4"><input type="number" step="any" value={data.exchange_rate} onChange={(e) => setData('exchange_rate', e.target.value)} className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 px-2 py-1 w-20 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20" /></td>
             <td className="py-3 pr-4"><input type="checkbox" checked={data.is_default} onChange={(e) => setData('is_default', e.target.checked)} className="rounded border-neutral-300 dark:border-neutral-600 text-brand-500" /></td>
             <td className="py-3 pr-4"><input type="checkbox" checked={data.enabled} onChange={(e) => setData('enabled', e.target.checked)} className="rounded border-neutral-300 dark:border-neutral-600 text-brand-500" /></td>
-            <td className="py-3"><button type="button" onClick={() => put(route('admin.currencies.update', currency.code))} className="text-brand-600 dark:text-brand-400 text-sm hover:underline font-medium" disabled={processing}>Save</button></td>
+            <td className="py-3"><button type="button" onClick={() => put(route('admin.currencies.update', currency.code))} className="text-brand-600 dark:text-brand-400 text-sm hover:underline font-medium" disabled={processing}><Trans i18nKey="hardcoded.views_admin_currencies_index_bba46771aad0" /></button></td>
         </tr>
     );
 }

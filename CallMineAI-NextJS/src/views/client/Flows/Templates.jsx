@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { Head, Link, router } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
@@ -28,7 +30,7 @@ export default function FlowTemplates({ templates = [] }) {
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                         <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Templates</h1>
-                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Proven automations you can clone and customize in seconds.</p>
+                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_flows_templates_c22449197e7e" /></p>
                     </div>
                     <Link href={route('client.flows.index')} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800"><ArrowLeft className="h-4 w-4" /> Back to flows</Link>
                 </div>

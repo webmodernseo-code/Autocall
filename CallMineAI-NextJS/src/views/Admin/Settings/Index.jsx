@@ -1,12 +1,14 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import AdminLayout from '@/layouts/AdminLayout';
 import PageOverview from '@/components/PageOverview';
 import { Button, Card } from '@/components/ui';
 import { Head } from '@/lib/page-router';
 import { useForm } from '@/lib/page-router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 export default function AdminSettingsIndex({ settingsByGroup = {}, flash = {} }) {
     const { t } = useTranslation();
@@ -23,13 +25,13 @@ export default function AdminSettingsIndex({ settingsByGroup = {}, flash = {} })
                 <form onSubmit={(e) => { e.preventDefault(); put(route('admin.settings.update')); }}>
                     <Card>
                         <Card.Body className="space-y-4">
-                            {data.settings?.length === 0 && <p className="text-neutral-500 dark:text-neutral-400">No settings yet. Add keys via the form below or seed.</p>}
+                            {data.settings?.length === 0 && <p className="text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_settings_index_6d938a7b9599" /></p>}
                             {data.settings?.map((s, i) => (
                                 <div key={s.id || i} className="flex flex-wrap gap-2 items-center border-b border-neutral-100 dark:border-neutral-800 pb-2">
                                     <input type="hidden" name={`settings[${i}].key`} value={s.key} />
                                     <span className="font-mono text-sm w-40 text-neutral-900 dark:text-neutral-100">{s.key}</span>
                                     <input
-                                        type={s.is_secret ? 'password' : 'text'}
+                                        type={s.is_secret ? translationI18n.t('hardcoded.views_admin_settings_index_4732f77ca0a0') : 'text'}
                                         value={s.value}
                                         onChange={(e) => {
                                             const next = [...data.settings];
@@ -43,7 +45,7 @@ export default function AdminSettingsIndex({ settingsByGroup = {}, flash = {} })
                                     <input type="text" value={s.group ?? ''} onChange={(e) => { const n = [...data.settings]; n[i] = { ...n[i], group: e.target.value }; setData('settings', n); }} placeholder="Group" className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 px-2 py-1 w-24 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20" />
                                 </div>
                             ))}
-                            <Button type="submit" variant="primary" disabled={processing}>Save</Button>
+                            <Button type="submit" variant="primary" disabled={processing}><Trans i18nKey="hardcoded.views_admin_settings_index_7cf94d52aefb" /></Button>
                         </Card.Body>
                     </Card>
                 </form>

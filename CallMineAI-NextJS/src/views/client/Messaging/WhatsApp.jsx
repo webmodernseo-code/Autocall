@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router, useForm } from '@/lib/page-router';
@@ -31,7 +35,7 @@ function AccountModal({ providers, onClose }) {
                         <input className={inputCls} placeholder="API key" value={form.data.api_key} onChange={(e) => form.setData('api_key', e.target.value)} />
                     </>
                 )}
-                <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800">Cancel</button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Connect</button></div>
+                <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_messaging_whatsapp_d531aaacc453" /></button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Connect</button></div>
             </form>
         </div>
     );
@@ -43,14 +47,14 @@ function TemplateModal({ accounts, onClose }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <form onSubmit={submit} className="w-full max-w-md space-y-3 rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl" onClick={(e) => e.stopPropagation()}>
-                <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">New WhatsApp template</h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
-                <input className={inputCls} placeholder="Template name" value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
+                <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_messaging_whatsapp_b4b70d9aa854" /></h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
+                <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_messaging_whatsapp_0b73eefb2fff')} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
                 <div className="grid grid-cols-2 gap-2">
-                    <input className={inputCls} placeholder="Language (en_US)" value={form.data.language} onChange={(e) => form.setData('language', e.target.value)} />
+                    <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_messaging_whatsapp_fc9dee73c322')} value={form.data.language} onChange={(e) => form.setData('language', e.target.value)} />
                     <select className={inputCls} value={form.data.category} onChange={(e) => form.setData('category', e.target.value)}><option>UTILITY</option><option>MARKETING</option><option>AUTHENTICATION</option></select>
                 </div>
-                <textarea rows="4" className={inputCls} placeholder="Body — use {{1}}, {{2}} for params" value={form.data.body} onChange={(e) => form.setData('body', e.target.value)} />
-                <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800">Cancel</button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Save</button></div>
+                <textarea rows="4" className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_messaging_whatsapp_9829c767008c')} value={form.data.body} onChange={(e) => form.setData('body', e.target.value)} />
+                <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_messaging_whatsapp_d531aaacc453" /></button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_client_messaging_whatsapp_a429ca24879b" /></button></div>
             </form>
         </div>
     );
@@ -66,14 +70,14 @@ export default function WhatsApp({ accounts = [], templates = [], enabledProvide
             <Head title="WhatsApp" />
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">WhatsApp</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Connect accounts and manage message templates.</p></div>
+                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">WhatsApp</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_messaging_whatsapp_92b5d1a5264a" /></p></div>
                     <div className="flex gap-2">
                         <button onClick={() => setModal('template')} disabled={accounts.length === 0} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 disabled:opacity-40"><Plus className="h-4 w-4" /> Template</button>
                         <button onClick={() => setModal('account')} disabled={enabledProviders.length === 0} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-40"><Plus className="h-4 w-4" /> Connect account</button>
                     </div>
                 </div>
 
-                {enabledProviders.length === 0 && <div className="rounded-soft-lg border border-warm/30 bg-warm/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">WhatsApp is disabled platform-wide. Ask your administrator to enable a provider.</div>}
+                {enabledProviders.length === 0 && <div className="rounded-soft-lg border border-warm/30 bg-warm/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300"><Trans i18nKey="hardcoded.views_client_messaging_whatsapp_2ba60deb0b8b" /></div>}
 
                 <div>
                     <h2 className="mb-2 text-sm font-semibold uppercase text-neutral-500">Accounts</h2>

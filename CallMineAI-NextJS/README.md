@@ -33,9 +33,8 @@ npm run dev
 npm run worker
 ```
 
-### 🔑 Identifiants Démo
-* **Espace Super-Admin** (`/admin`) : `admin@spagreen.net` / mot de passe : `12345678`
-* **Espace Client** (`/app`) : `client@spagreen.net` / mot de passe : `12345678`
+### 🔑 Identifiants locaux
+Les comptes sont créés par le seed à partir des variables `ADMIN_SEED_*` et, uniquement si le mode démo local est activé, `CLIENT_SEED_*`. Aucun identifiant public ne fonctionne comme accès de secours.
 
 ### 🛠️ Commandes Disponibles
 
@@ -79,9 +78,8 @@ npm run dev
 npm run worker
 ```
 
-### 🔑 Default Credentials
-* **Super-Admin Back-Office** (`/admin`): `admin@spagreen.net` / password: `12345678`
-* **Customer Dashboard** (`/app`): `client@spagreen.net` / password: `12345678`
+### 🔑 Local credentials
+Seeded accounts use the `ADMIN_SEED_*` variables and, only when local demo mode is enabled, `CLIENT_SEED_*`. There are no public fallback credentials.
 
 ### 🛠️ Available Scripts
 

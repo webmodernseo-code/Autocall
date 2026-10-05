@@ -16,7 +16,7 @@ export default async function Page({ searchParams }) {
         orderBy: [{ is_default: 'desc' }, { sort_order: 'asc' }, { code: 'asc' }],
     });
 
-    const translationsLocale = String(params?.translations_locale ?? 'en');
+    const translationsLocale = String(params?.translations_locale ?? 'fr');
     const translationsGroup = String(params?.translations_group ?? '');
     const translationsSearch = String(params?.translations_search ?? '');
     const translationsMissingOnly = ['1', 'true'].includes(String(params?.translations_missing ?? ''));

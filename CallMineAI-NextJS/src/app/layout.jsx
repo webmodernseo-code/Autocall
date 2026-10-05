@@ -6,7 +6,7 @@ import RouteProgress from '@/components/RouteProgress';
 
 export const metadata = {
     title: config.app.name,
-    description: 'AI voice calling platform',
+    description: "Plateforme d'appels vocaux propulsée par l'intelligence artificielle",
 };
 
 export const viewport = {
@@ -15,7 +15,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en" dir="ltr" suppressHydrationWarning>
+        <html lang="fr" dir="ltr" suppressHydrationWarning>
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

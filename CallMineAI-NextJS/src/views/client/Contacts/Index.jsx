@@ -1,10 +1,12 @@
 'use client';
 
+
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import FileInput from '@/components/FileInput';
 import PageOverview from '@/components/PageOverview';
 import { Pagination } from '@/components/ui';
@@ -18,15 +20,15 @@ function AddModal({ onClose }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <form onSubmit={submit} className="w-full max-w-md rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl space-y-3" onClick={(e) => e.stopPropagation()}>
-                <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">Add contact</h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
-                <input className={inputCls} placeholder="Name" value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
+                <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_contacts_index_e4de352193c8" /></h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
+                <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_contacts_index_a0ebdb44849a')} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
                 <input className={inputCls} placeholder="Phone (e.g. +14155550123)" value={form.data.phone} onChange={(e) => form.setData('phone', e.target.value)} />
                 {form.errors.phone && <p className="text-xs text-danger">{form.errors.phone}</p>}
-                <input className={inputCls} placeholder="Email" value={form.data.email} onChange={(e) => form.setData('email', e.target.value)} />
+                <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_contacts_index_b33086de385e')} value={form.data.email} onChange={(e) => form.setData('email', e.target.value)} />
                 <input className={inputCls} placeholder="Company" value={form.data.company} onChange={(e) => form.setData('company', e.target.value)} />
                 <div className="flex justify-end gap-2 pt-1">
-                    <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800">Cancel</button>
-                    <button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Add</button>
+                    <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_contacts_index_0bcec6e48b19" /></button>
+                    <button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_client_contacts_index_acad775f6ab3" /></button>
                 </div>
             </form>
         </div>
@@ -40,11 +42,11 @@ function ImportModal({ onClose }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
             <form onSubmit={submit} className="w-full max-w-md rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl space-y-3" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">Import contacts (CSV)</h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
-                <p className="text-xs text-neutral-500">CSV with a <code>phone</code> column (and optional <code>name</code>, <code>email</code>, <code>company</code>). Duplicates are merged by phone number.</p>
+                <p className="text-xs text-neutral-500"><Trans i18nKey="hardcoded.views_client_contacts_index_1a796cde2778" /> <code>phone</code> <Trans i18nKey="hardcoded.views_client_contacts_index_a5eb9b0b4815" /> <code><Trans i18nKey="hardcoded.views_client_contacts_index_c1cef0016559" /></code>, <code><Trans i18nKey="hardcoded.views_client_contacts_index_9ccd5c952728" /></code>, <code>company</code>). Duplicates are merged by phone number.</p>
                 <FileInput value={form.data.file} onChange={(f) => form.setData('file', f)} accept=".csv,.txt" hint="CSV file" />
                 {form.errors.file && <p className="text-xs text-danger">{form.errors.file}</p>}
                 <div className="flex justify-end gap-2 pt-1">
-                    <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800">Cancel</button>
+                    <button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_contacts_index_0bcec6e48b19" /></button>
                     <button type="submit" disabled={form.processing || !form.data.file} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">Import</button>
                 </div>
             </form>
@@ -71,7 +73,7 @@ export default function ContactsIndex({ contacts, filters = {}, stats = {} }) {
                     </div>
                     <div className="flex gap-2">
                         <button onClick={() => setModal('import')} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Upload className="h-4 w-4" /> Import CSV</button>
-                        <button onClick={() => setModal('add')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> Add contact</button>
+                        <button onClick={() => setModal('add')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_contacts_index_e4de352193c8" /></button>
                     </div>
                 </div>
 
@@ -79,7 +81,7 @@ export default function ContactsIndex({ contacts, filters = {}, stats = {} }) {
 
                 <form onSubmit={apply} className="relative max-w-md">
                     <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-                    <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search name, phone, email…" className="w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 py-2 pl-9 pr-3 text-sm" />
+                    <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_contacts_index_8525d96dd8e6')} className="w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 py-2 pl-9 pr-3 text-sm" />
                 </form>
 
                 <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
@@ -102,7 +104,7 @@ export default function ContactsIndex({ contacts, filters = {}, stats = {} }) {
                             </tbody>
                         </table>
                     ) : (
-                        <div className="px-6 py-16 text-center"><ContactIcon className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500">No contacts yet. Import a CSV or add one manually.</p></div>
+                        <div className="px-6 py-16 text-center"><ContactIcon className="mx-auto mb-3 h-12 w-12 text-neutral-300" /><p className="text-neutral-500"><Trans i18nKey="hardcoded.views_client_contacts_index_5dba3dbc20a6" /></p></div>
                     )}
                 </div>
 
