@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout the exact verified commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
 
@@ -84,7 +84,7 @@ jobs:
 
     steps:
       - name: Checkout deployment files
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
 
