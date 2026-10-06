@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma';
 import { handler } from '@/lib/guards';
 import { currentUser } from '@/lib/auth';
 import { emailVerificationHash, hasValidSignature } from '@/lib/auth/verification';
+import { redirectWithFlash } from '@/lib/http';
 import config from '@/lib/config';
 
 /** GET /verify-email/{id}/{hash} (signed). */
@@ -41,5 +42,7 @@ export const GET = handler(async (request, { params }) => {
         return NextResponse.redirect(new URL('/app/dashboard', config.app.url));
     }
 
-    return NextResponse.redirect(new URL('/app/dashboard?verified=1', config.app.url));
+    return redirectWithFlash(new URL('/app/dashboard?verified=1', config.app.url), {
+        success: 'Votre adresse e-mail a été vérifiée avec succès !',
+    });
 });

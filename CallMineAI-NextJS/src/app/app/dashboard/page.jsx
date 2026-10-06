@@ -9,9 +9,16 @@ import { iso } from '@/lib/serialize';
 export const dynamic = 'force-dynamic';
 
 /** GET /app/dashboard */
-export default async function Page() {
+export default async function Page({ searchParams }) {
     const { user, clientId } = await requireClientPage();
     const props = await buildProps(user, clientId);
+    const params = await searchParams;
+    if (params?.verified === '1') {
+        props.flash = {
+            ...(props.flash ?? {}),
+            success: 'Votre adresse e-mail a été vérifiée avec succès !',
+        };
+    }
     return renderPage(Dashboard, 'client/Dashboard', props, { url: '/app/dashboard' });
 }
 
