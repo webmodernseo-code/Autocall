@@ -17,6 +17,7 @@ import {
 } from '@/lib/auth';
 import { getSession } from '@/lib/auth/session';
 import { permissionForRoute } from '@/lib/auth/route-permissions';
+import { ensureClientWorkspace } from '@/lib/domain/clients';
 
 /**
  * Route-handler guards — one function per access rule, composed by the routes.
@@ -46,7 +47,10 @@ export async function requireClientPage() {
     if (user.role !== 'client') redirect('/login');
     if (!user.email_verified_at) redirect('/verify-email');
 
-    return { user, clientId: await resolveClientId(user) };
+    const clientId = await resolveClientId(user);
+    if (!clientId) redirect('/login');
+
+    return { user, clientId };
 }
 
 /** `['auth:admin']` for an admin-panel page. */
@@ -187,7 +191,7 @@ export function demoBlocked(routeName = '') {
 
 /* --------------------------------------------------------------- helpers */
 
-/** EnsureClientScope — falls back to the impersonated client id. */
+/** EnsureClientScope — falls back to the impersonated client id or auto-heals workspace. */
 export async function resolveClientId(user) {
     if (user?.client_id) return user.client_id;
 
@@ -195,6 +199,12 @@ export async function resolveClientId(user) {
     if (session?.impersonating && session?.impersonated_client_id) {
         return BigInt(session.impersonated_client_id);
     }
+
+    if (user && user.role === 'client') {
+        const autoId = await ensureClientWorkspace(user);
+        if (autoId) return autoId;
+    }
+
     return null;
 }
 

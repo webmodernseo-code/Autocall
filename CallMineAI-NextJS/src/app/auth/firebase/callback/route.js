@@ -114,9 +114,15 @@ export const POST = handler(async (request) => {
         });
     }
 
+    let effectiveClientId = user.client_id;
+    if (user.role === 'client' && !effectiveClientId) {
+        const { ensureClientWorkspace } = await import('@/lib/domain/clients');
+        effectiveClientId = await ensureClientWorkspace(user);
+    }
+
     await writeSession({
         uid: Number(user.id),
-        client_id: user.client_id ? Number(user.client_id) : null,
+        client_id: effectiveClientId ? Number(effectiveClientId) : null,
         current_tenant_id: user.tenant_id ? Number(user.tenant_id) : null,
         locale: user.locale ?? null,
         theme: user.theme ?? 'light',

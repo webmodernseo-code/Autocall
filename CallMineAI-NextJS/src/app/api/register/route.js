@@ -9,6 +9,8 @@ import { verificationUrl } from '@/lib/auth/verification';
 import config from '@/lib/config';
 import { detectRegionalPreferences } from '@/lib/regional-preferences.mjs';
 
+import { ensureClientWorkspace } from '@/lib/domain/clients';
+
 /**
  * POST /register.
  * Creates the user, fires the "Registered" side effect (verification mail) and
@@ -42,6 +44,9 @@ export const POST = handler(async (request) => {
         },
     });
 
+    // Provision default workspace and initial credits for the client
+    const clientId = await ensureClientWorkspace(user);
+
     // event(new Registered($user)) -> SendEmailVerificationNotification
     try {
         await sendTemplateMail('email_verification', user.email, {
@@ -54,7 +59,7 @@ export const POST = handler(async (request) => {
 
     await writeSession({
         uid: Number(user.id),
-        client_id: null,
+        client_id: clientId ? Number(clientId) : null,
         current_tenant_id: null,
         locale: user.locale ?? null,
         display_currency: user.display_currency ?? detected.currency,
