@@ -37,10 +37,20 @@ export function hasValidSignature(requestUrl) {
     if (expires && Number(expires) * 1000 < Date.now()) return false;
 
     url.searchParams.delete('signature');
-    const expected = sign(url.toString());
 
-    if (expected.length !== signature.length) return false;
-    return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+    // Reverse proxies commonly forward the request to Next.js with an internal
+    // protocol/host even though the signed link was generated from APP_URL.
+    // Validate both representations: the untouched request URL (direct access)
+    // and the canonical public URL (proxied access). The path, query parameters
+    // and expiry remain covered by the HMAC in either case.
+    const canonicalUrl = new URL(`${url.pathname}${url.search}`, config.app.url);
+    const candidates = new Set([url.toString(), canonicalUrl.toString()]);
+
+    return [...candidates].some((candidate) => {
+        const expected = sign(candidate);
+        return expected.length === signature.length &&
+            crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+    });
 }
 
 /** `URL::temporarySignedRoute('verification.verify', 60min, [id, hash])` */

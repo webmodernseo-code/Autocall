@@ -30,6 +30,12 @@ export default function VerifyEmail({ status }) {
                 </div>
             )}
 
+            {status === 'invalid' && (
+                <div className="mb-4 text-sm font-medium text-rose-600">
+                    Ce lien de vérification est invalide ou a expiré. Vous pouvez demander un nouveau lien ci-dessous.
+                </div>
+            )}
+
             <form onSubmit={submit}>
                 <div className="mt-4 flex items-center justify-between">
                     <PrimaryButton disabled={processing}>

@@ -13,18 +13,32 @@ export const GET = handler(async (request, { params }) => {
         return NextResponse.redirect(new URL('/verify-email?status=invalid', config.app.url));
     }
 
-    const user = await currentUser();
-    if (!user) return NextResponse.redirect(new URL('/login', config.app.url));
-    if (String(user.id) !== String(id)) return NextResponse.redirect(new URL('/verify-email', config.app.url));
-    if (emailVerificationHash(user.email) !== hash) {
+    let targetUser = null;
+    try {
+        targetUser = await prisma.user.findUnique({
+            where: { id: BigInt(id) },
+        });
+    } catch {
         return NextResponse.redirect(new URL('/verify-email?status=invalid', config.app.url));
     }
 
-    if (!user.email_verified_at) {
+    if (!targetUser || emailVerificationHash(targetUser.email) !== hash) {
+        return NextResponse.redirect(new URL('/verify-email?status=invalid', config.app.url));
+    }
+
+    if (!targetUser.email_verified_at) {
         await prisma.user.update({
-            where: { id: user.id },
+            where: { id: targetUser.id },
             data: { email_verified_at: new Date(), updated_at: new Date() },
         });
+    }
+
+    const user = await currentUser();
+    if (!user) {
+        return NextResponse.redirect(new URL('/login?verified=1', config.app.url));
+    }
+    if (String(user.id) !== String(targetUser.id)) {
+        return NextResponse.redirect(new URL('/app/dashboard', config.app.url));
     }
 
     return NextResponse.redirect(new URL('/app/dashboard?verified=1', config.app.url));
