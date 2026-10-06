@@ -10,7 +10,7 @@ import AdminLayout from '@/layouts/AdminLayout';
 import PageOverview from '@/components/PageOverview';
 import SetupGuide from '@/components/SetupGuide';
 import { Button, Card, Modal, Tabs } from '@/components/ui';
-import { Head, router, useForm } from '@/lib/page-router';
+import { apiUrl, Head, router, useForm } from '@/lib/page-router';
 import axios from 'axios';
 import { Send, Settings, Pencil, Trash2 } from 'lucide-react';
 
@@ -265,7 +265,7 @@ export default function AdminEmailSystemIndex({ smtpConfigurations = [], emailTe
                         setTestError(null);
                         setTestSuccess(false);
                         try {
-                            await axios.post(route('admin.smtp-configurations.test'), { email });
+                            await axios.post(apiUrl(route('admin.smtp-configurations.test')), { email });
                             setTestSuccess(true);
                         } catch (e) {
                             setTestError(e?.response?.data?.message || e?.message || 'Failed to send test email.');
