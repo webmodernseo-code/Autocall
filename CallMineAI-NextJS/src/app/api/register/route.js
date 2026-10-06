@@ -66,5 +66,5 @@ export const POST = handler(async (request) => {
         theme: 'light',
     });
 
-    return NextResponse.json({ redirect: '/app/dashboard' });
+    return NextResponse.json({ redirect: '/app/pricing?onboarding=1' });
 });

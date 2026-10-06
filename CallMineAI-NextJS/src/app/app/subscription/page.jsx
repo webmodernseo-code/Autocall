@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 /** GET /app/subscription */
 export default async function Page() {
-    const { user } = await requireClientPage();
+    const { user } = await requireClientPage({ allowUnsubscribed: true });
     const effective = await effectiveSubscription(user);
 
     let subscription = null;

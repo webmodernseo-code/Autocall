@@ -6,6 +6,7 @@ import { verifyPassword } from '@/lib/auth';
 import { writeSession } from '@/lib/auth/session';
 import { availableIn, clear, hit, throttleKey, tooManyAttempts } from '@/lib/rate-limit';
 import { detectRegionalPreferences } from '@/lib/regional-preferences.mjs';
+import { safeRedirectPath } from '@/lib/safe-redirect.mjs';
 
 /**
  * POST /login via LoginRequest.
@@ -67,8 +68,17 @@ export const POST = handler(async (request) => {
 
     const url = new URL(request.url);
     const intended = url.searchParams.get('redirect');
+    let target = safeRedirectPath(intended);
+
+    if (user.role === 'client' && (!intended || target === '/app/dashboard')) {
+        const { effectiveSubscription, subscriptionIsActive } = await import('@/lib/auth');
+        const sub = await effectiveSubscription(user);
+        if (!sub || !subscriptionIsActive(sub)) {
+            target = '/app/pricing?required=1';
+        }
+    }
 
     return NextResponse.json({
-        redirect: intended && intended.startsWith('/') ? intended : '/app/dashboard',
+        redirect: target,
     });
 });

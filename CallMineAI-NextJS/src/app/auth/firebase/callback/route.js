@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { safeRedirectPath } from '@/lib/safe-redirect.mjs';
 import crypto from 'node:crypto';
 import { createRemoteJWKSet, jwtVerify } from 'jose';
 
@@ -132,6 +133,6 @@ export const POST = handler(async (request) => {
     const intended = url.searchParams.get('redirect');
 
     return NextResponse.json({
-        redirect: intended && intended.startsWith('/') ? intended : '/app/dashboard',
+        redirect: safeRedirectPath(intended),
     });
 });

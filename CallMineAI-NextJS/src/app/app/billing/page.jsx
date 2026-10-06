@@ -12,23 +12,28 @@ import { billingRegistry } from '@/lib/services/billing';
 
 export const dynamic = 'force-dynamic';
 
+import { redirect } from 'next/navigation';
+
 /** GET /app/billing (client.permission:billing.read). */
 export default async function Page({ searchParams }) {
-    const { user, clientId } = await requireClientPage();
-    if (!(await userCan(user, 'billing.read'))) notFound();
-
+    const { user, clientId } = await requireClientPage({ allowUnsubscribed: true });
     const params = await searchParams;
     const registry = await billingRegistry();
 
     // Returning from Stripe Checkout: fulfil immediately so the plan is live even
-    // if the webhook is delayed, then top up this month's plan credits.
+    // if the webhook is delayed, then top up this month's plan credits and redirect to dashboard.
     if (params?.session_id) {
         const stripe = registry.get('stripe');
         if (stripe) {
-            await stripe.fulfillCheckoutSession(String(params.session_id)).catch(() => {});
-            if (clientId) await monthlyGrantForPlan(clientId).catch(() => {});
+            const res = await stripe.fulfillCheckoutSession(String(params.session_id)).catch(() => ({ ok: false }));
+            if (res?.ok) {
+                if (clientId) await monthlyGrantForPlan(clientId).catch(() => {});
+                redirect('/app/dashboard?activated=1');
+            }
         }
     }
+
+    if (!(await userCan(user, 'billing.read'))) notFound();
 
     const transactions = await paginate(prisma.paymentTransaction, {
         where: { user_id: user.id },

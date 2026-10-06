@@ -18,10 +18,14 @@ export const POST = handler(async (request) => {
     const plan = await prisma.plan.findFirst({ where: { id: BigInt(data.plan_id), enabled: true } });
     if (!plan) return validationError({ plan_id: ['The selected plan id is invalid.'] });
 
+    if (Number(plan.monthly_price_cents ?? 0) <= 0 && Number(plan.yearly_price_cents ?? 0) <= 0) {
+        return validationError({ plan_id: ['Un forfait payant est requis pour activer votre compte.'] });
+    }
+
     const registry = await billingRegistry();
     const gateway = registry.get(data.gateway);
     if (!gateway || !gateway.isConfigured()) {
-        return back({ error: 'That payment gateway is not configured.' });
+        return back({ error: 'La passerelle de paiement (Stripe) n\'est pas configurée.' });
     }
 
     const result = await gateway.createCheckout(gate.user, plan, data.billing_cycle);

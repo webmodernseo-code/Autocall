@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 /** GET /app/profile */
 export default async function Page({ searchParams }) {
-    await requireClientPage();
+    await requireClientPage({ allowUnsubscribed: true });
     const params = await searchParams;
 
     return renderPage(

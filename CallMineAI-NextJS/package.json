@@ -13,7 +13,7 @@
     "start": "node --max-old-space-size=4096 ./node_modules/next/dist/bin/next start",
     "lint": "eslint src prisma/*.mjs scripts/*.mjs next.config.mjs postcss.config.js tailwind.config.js --quiet",
     "lint:report": "eslint src prisma/*.mjs scripts/*.mjs next.config.mjs postcss.config.js tailwind.config.js",
-    "verify": "prisma validate && npm run test:seed-policy && npm run test:regional-preferences && npm run test:locales && npm run lint && npm run build",
+    "verify": "prisma validate && npm run test:seed-policy && npm run test:regional-preferences && npm run test:safe-redirect && npm run test:locales && npm run lint && npm run build",
     "db:pull": "prisma db pull",
     "db:push": "node -e \"if(process.env.NODE_ENV==='production')throw new Error('db:push is forbidden in production; use npm run db:migrate');\" && prisma db push",
     "db:generate": "prisma generate",
@@ -24,6 +24,7 @@
     "db:seed": "node prisma/seed.mjs",
     "test:seed-policy": "node --test prisma/seed-policy.test.mjs",
     "test:regional-preferences": "node --test src/lib/regional-preferences.test.mjs",
+    "test:safe-redirect": "node --test src/lib/safe-redirect.test.mjs",
     "test:locales": "node --test src/locales/locales.test.mjs",
     "key:generate": "node scripts/generate-key.mjs",
     "worker": "node scripts/worker.mjs"

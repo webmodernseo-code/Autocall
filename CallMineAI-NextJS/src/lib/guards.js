@@ -41,7 +41,7 @@ export { HttpError };
 /* ---------------------------------------------------------- page contexts */
 
 /** `['auth','role:client','client.scope','verified']` for a client-portal page. */
-export async function requireClientPage() {
+export async function requireClientPage({ allowUnsubscribed = false } = {}) {
     const user = await currentUser();
     if (!user) redirect('/login');
     if (user.role !== 'client') redirect('/login');
@@ -49,6 +49,16 @@ export async function requireClientPage() {
 
     const clientId = await resolveClientId(user);
     if (!clientId) redirect('/login');
+
+    if (!allowUnsubscribed) {
+        const session = await getSession();
+        if (!session?.impersonating) {
+            const sub = await effectiveSubscription(user);
+            if (!sub || !subscriptionIsActive(sub)) {
+                redirect('/app/pricing?required=1');
+            }
+        }
+    }
 
     return { user, clientId };
 }

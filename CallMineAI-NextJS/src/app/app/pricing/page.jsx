@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import Pricing from '@/views/client/Pricing';
 import { renderPage } from '@/lib/render';
 import { requireClientPage } from '@/lib/guards';
@@ -6,13 +7,28 @@ import { priceCentsForCycle } from '@/lib/plans';
 import { defaultCurrencyCode, formatConverted } from '@/lib/services/currency';
 import { billingRegistry } from '@/lib/services/billing';
 import { getSession } from '@/lib/auth/session';
+import { monthlyGrantForPlan } from '@/lib/services/credits';
 
 export const dynamic = 'force-dynamic';
 
 /** GET /app/pricing */
-export default async function Page() {
-    const { user } = await requireClientPage();
+export default async function Page({ searchParams }) {
+    const { user, clientId } = await requireClientPage({ allowUnsubscribed: true });
     const session = await getSession();
+    const params = await searchParams;
+
+    // Fulfill Stripe Checkout session if returned from Stripe with session_id
+    if (params?.session_id) {
+        const registry = await billingRegistry();
+        const stripe = registry.get('stripe');
+        if (stripe) {
+            const fulfilled = await stripe.fulfillCheckoutSession(String(params.session_id)).catch(() => ({ ok: false }));
+            if (fulfilled?.ok) {
+                if (clientId) await monthlyGrantForPlan(clientId).catch(() => {});
+                redirect('/app/dashboard?activated=1');
+            }
+        }
+    }
 
     const displayCurrency =
         user?.display_currency ??
@@ -20,7 +36,17 @@ export default async function Page() {
         session?.display_currency ??
         (await defaultCurrencyCode());
 
-    const rows = await prisma.plan.findMany({ where: { enabled: true }, orderBy: { sort_order: 'asc' } });
+    // Only fetch payable plans to ensure no free bypass without payment
+    const rows = await prisma.plan.findMany({
+        where: {
+            enabled: true,
+            OR: [
+                { monthly_price_cents: { gt: 0 } },
+                { yearly_price_cents: { gt: 0 } },
+            ],
+        },
+        orderBy: { sort_order: 'asc' },
+    });
 
     const plans = [];
     for (const plan of rows) {
@@ -44,16 +70,22 @@ export default async function Page() {
             export_enabled: plan.export_enabled,
             custom_domain_enabled: plan.custom_domain_enabled,
             white_label_enabled: plan.white_label_enabled,
-            is_free: Number(plan.monthly_price_cents ?? 0) === 0 && Number(plan.yearly_price_cents ?? 0) === 0,
+            is_free: false,
         });
     }
 
     const registry = await billingRegistry();
+    const isRequired = Boolean(params?.required || params?.onboarding);
 
     return renderPage(
         Pricing,
         'client/Pricing',
-        { plans, gateways: registry.listForFrontend(), flash: { error: null, success: null } },
+        {
+            plans,
+            gateways: registry.listForFrontend(),
+            isRequired,
+            flash: { error: null, success: null },
+        },
         { url: '/app/pricing' },
     );
 }
