@@ -11,6 +11,10 @@ export default function HeroSection({ avatarList = [] }) {
                 __html: `
                 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
+                html {
+                    scroll-behavior: smooth;
+                }
+
                 .font-hero-serif {
                     font-family: 'Playfair Display', Georgia, Cambria, serif;
                 }

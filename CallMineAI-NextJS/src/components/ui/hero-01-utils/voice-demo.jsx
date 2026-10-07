@@ -243,7 +243,7 @@ export default function VoiceDemoSection() {
     };
 
     return (
-        <section id="demo" className="relative px-6 py-20 sm:py-28 text-white">
+        <section id="produit" className="relative px-6 py-20 sm:py-28 text-white scroll-mt-20">
             {/* LUEUR RADIALE D'ARRIÈRE-PLAN SOUS LA DÉMO */}
             <div
                 className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[900px] rounded-full blur-[160px] opacity-25"
