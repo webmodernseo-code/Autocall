@@ -8,6 +8,7 @@ import VoiceDemoSection from "@/components/ui/hero-01-utils/voice-demo";
 import SectorsSection from "@/components/ui/hero-01-utils/sectors-section";
 import IntegrationsSection from "@/components/ui/hero-01-utils/integrations-section";
 import PricingSection from "@/components/ui/hero-01-utils/pricing-section";
+import FaqSection from "@/components/ui/hero-01-utils/faq-section";
 
 export default function AgencyHeroSection() {
   const avatarList = [
@@ -130,6 +131,7 @@ export default function AgencyHeroSection() {
           <SectorsSection />
           <IntegrationsSection />
           <PricingSection />
+          <FaqSection />
         </main>
       </div>
     </div>
