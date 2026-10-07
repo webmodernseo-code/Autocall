@@ -36,8 +36,8 @@ export default function AgencyHeroSection() {
       href: "#fonctionnalites",
     },
     {
-      title: "Métiers",
-      href: "#metiers",
+      title: "Secteurs",
+      href: "#secteurs",
     },
     {
       title: "Intégrations",
