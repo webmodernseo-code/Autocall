@@ -20,10 +20,16 @@ export default function HeroSection({ avatarList = [] }) {
             `}} />
 
             <div className="mx-auto max-w-5xl">
-                {/* 1. Titre Principal avec le contraste Sans-Bold + Serif-Italique */}
-                <h1 className="font-hero-sans text-5xl font-bold tracking-[-0.04em] text-white sm:text-7xl lg:text-[88px] leading-[1.04]">
-                    Ne perdez plus aucun appel. <br />
-                    <span className="font-hero-sans font-normal text-white">Transformez chaque sonnerie en </span>
+                {/* 1. Badge supérieur élégant & discret */}
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs sm:text-sm font-medium text-white/80 backdrop-blur-md">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>Ne perdez plus aucun appel</span>
+                </div>
+
+                {/* 2. Titre Principal équilibré en 2 lignes nettes */}
+                <h1 className="font-hero-sans text-4xl font-bold tracking-[-0.035em] text-white sm:text-6xl lg:text-[66px] leading-[1.1]">
+                    Transformez chaque sonnerie <br />
+                    <span className="font-hero-sans font-normal text-white">en </span>
                     <span className="font-hero-serif italic font-normal tracking-[-0.01em] text-white/95">
                         client qualifié.
                     </span>
