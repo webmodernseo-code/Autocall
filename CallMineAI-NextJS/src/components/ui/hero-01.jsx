@@ -7,9 +7,6 @@ import BrandSlider from "@/components/ui/hero-01-utils/brand-slider";
 import VoiceDemoSection from "@/components/ui/hero-01-utils/voice-demo";
 
 export default function AgencyHeroSection() {
-  const [isDark, setIsDark] = React.useState(true);
-  const toggleTheme = () => setIsDark(prev => !prev);
-
   const avatarList = [
     {
       image:
@@ -122,11 +119,11 @@ export default function AgencyHeroSection() {
 
       {/* CONTENU PRINCIPAL */}
       <div className="relative z-10">
-        <Header navigationData={navigationData} isDark={isDark} onToggleTheme={toggleTheme} />
+        <Header navigationData={navigationData} />
         <main>
           <HeroSection avatarList={avatarList} />
           <BrandSlider brandList={brandList} />
-          <VoiceDemoSection isDark={isDark} />
+          <VoiceDemoSection />
         </main>
       </div>
     </div>
