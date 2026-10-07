@@ -64,7 +64,7 @@ export default function Header({ navigationData = [], isDark = true, onToggleThe
     const [mobileOpen, setMobileOpen] = useState(false);
 
     return (
-        <header className="relative z-30 w-full px-6 py-6 lg:px-16">
+        <header className="sticky top-0 z-50 w-full px-6 py-4 lg:px-16 transition-all duration-200 backdrop-blur-xl bg-[#08090C]/80 border-b border-white/[0.06]">
             <div className="mx-auto flex max-w-7xl items-center justify-between">
                 {/* 1. Logo shadcnspace. */}
                 <Link href="/" className="flex items-center group">
