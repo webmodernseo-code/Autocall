@@ -27,29 +27,25 @@ export default function AgencyHeroSection() {
 
   const navigationData = [
     {
-      title: "Home",
+      title: "Accueil",
       href: "#",
       isActive: true,
     },
     {
-      title: "About us",
-      href: "#",
+      title: "Fonctionnalités",
+      href: "#fonctionnalites",
     },
     {
-      title: "Services",
-      href: "#",
+      title: "Métiers",
+      href: "#metiers",
     },
     {
-      title: "Team",
-      href: "#",
+      title: "Intégrations",
+      href: "#integrations",
     },
     {
-      title: "Pricing",
-      href: "#",
-    },
-    {
-      title: "Awards",
-      href: "#",
+      title: "Tarifs",
+      href: "#tarifs",
     },
   ];
 
