@@ -1,38 +1,29 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
+import * as React from "react"
+import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
-/**
- * Simple tooltip on hover. Wraps trigger and shows content on hover/focus.
- */
-export default function Tooltip({ content, children, position = 'top' }) {
-    const [visible, setVisible] = useState(false);
+import { cn } from "@/lib/utils"
 
-    const positionClasses = {
-        top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
-        bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
-        left: 'right-full top-1/2 -translate-y-1/2 mr-2',
-        right: 'left-full top-1/2 -translate-y-1/2 ml-2',
-    };
+const TooltipProvider = TooltipPrimitive.Provider
 
-    return (
-        <div
-            className="relative inline-flex"
-            onMouseEnter={() => setVisible(true)}
-            onMouseLeave={() => setVisible(false)}
-        >
-            {children}
-            {visible && (
-                <div
-                    role="tooltip"
-                    className={[
-                        'absolute z-50 px-2.5 py-1.5 text-xs font-medium text-white bg-neutral-800 rounded-soft shadow-soft-md whitespace-nowrap',
-                        positionClasses[position],
-                    ].join(' ')}
-                >
-                    {content}
-                </div>
-            )}
-        </div>
-    );
-}
+const Tooltip = TooltipPrimitive.Root
+
+const TooltipTrigger = TooltipPrimitive.Trigger
+
+const TooltipContent = React.forwardRef(
+  ({ className, sideOffset = 4, ...props }, ref) => (
+    <TooltipPrimitive.Content
+      ref={ref}
+      sideOffset={sideOffset}
+      className={cn(
+        "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        className,
+      )}
+      {...props}
+    />
+  )
+)
+TooltipContent.displayName = TooltipPrimitive.Content.displayName
+
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
