@@ -124,16 +124,9 @@ export default function AgencyHeroSection() {
       <div className="relative z-10">
         <Header navigationData={navigationData} isDark={isDark} onToggleTheme={toggleTheme} />
         <main>
-          {/* HERO SECTION STICKY / PINNED PENDANT LE SCROLL */}
-          <div className="sticky top-0 z-0">
-            <HeroSection avatarList={avatarList} />
-            <BrandSlider brandList={brandList} />
-          </div>
-
-          {/* SECTION SUIVANTE QUI GLISSE PAR-DESSUS AVEC ÉLÉGANCE (EFFET CARTE / RIDEAU) */}
-          <div className="relative z-10 rounded-t-[36px] sm:rounded-t-[48px] shadow-[0_-25px_60px_rgba(0,0,0,0.55)] overflow-hidden">
-            <VoiceDemoSection isDark={isDark} />
-          </div>
+          <HeroSection avatarList={avatarList} />
+          <BrandSlider brandList={brandList} />
+          <VoiceDemoSection isDark={isDark} />
         </main>
       </div>
     </div>
