@@ -66,13 +66,13 @@ export default function Topbar({
     const defaultUserItems = [
         ...(user
             ? [
-                { label: t('nav.profile'), href: route('client.profile.edit'), as: 'link' },
+                { label: t('nav.profile', 'Mon Profil'), href: route('client.profile.edit'), as: 'link' },
                 { type: 'divider' },
-                { label: t('nav.logout'), href: route('logout'), method: 'post', as: 'link' },
+                { label: t('nav.logout', 'Déconnexion'), href: route('logout'), method: 'post', as: 'link' },
             ]
             : [
-                { label: t('nav.login'), href: route('login'), as: 'link' },
-                { label: t('nav.register'), href: route('register'), as: 'link' },
+                { label: t('nav.login', 'Connexion'), href: route('login'), as: 'link' },
+                { label: t('nav.register', 'Inscription'), href: route('register'), as: 'link' },
             ]),
     ];
 

@@ -152,13 +152,21 @@ export default function Header({ navigationData = [], isDark = true, onToggleThe
                             >
                                 Connexion
                             </Link>
-                            <a
+                            <Link
                                 href="/register"
+                                onClick={() => setMobileOpen(false)}
                                 className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-full bg-white text-xs font-semibold text-black hover:bg-neutral-200"
                             >
-                                <span>Essai gratuit</span>
+                                <span>Essai gratuit (14 jours)</span>
                                 <ArrowUpRight className="h-3.5 w-3.5" />
-                            </a>
+                            </Link>
+                            <Link
+                                href="/forgot-password"
+                                onClick={() => setMobileOpen(false)}
+                                className="text-center text-[11px] text-white/50 hover:text-white/80 py-1"
+                            >
+                                Mot de passe oublié ?
+                            </Link>
                         </div>
                     </nav>
                 </div>

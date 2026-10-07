@@ -77,10 +77,10 @@ function ResourceCard({ href, icon: Icon, value, label, accent }) {
 
 function Onboarding({ steps }) {
     const items = [
-        { key: 'has_agent', label: 'Create an AI agent', href: route('client.agents.create') },
-        { key: 'has_number', label: 'Add a phone number', href: route('client.phone-numbers.index') },
-        { key: 'has_contacts', label: 'Import contacts', href: route('client.contacts.index') },
-        { key: 'has_campaign', label: 'Launch a campaign', href: route('client.campaigns.create') },
+        { key: 'has_agent', label: 'Créer un agent vocal IA', href: route('client.agents.create') },
+        { key: 'has_number', label: 'Ajouter un numéro de téléphone', href: route('client.phone-numbers.index') },
+        { key: 'has_contacts', label: 'Importer des contacts', href: route('client.contacts.index') },
+        { key: 'has_campaign', label: 'Lancer une campagne', href: route('client.campaigns.create') },
     ];
     const done = items.filter((i) => steps[i.key]).length;
     if (done === items.length) return null;
@@ -92,7 +92,7 @@ function Onboarding({ steps }) {
                 <div className="flex items-center gap-2">
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500/15 text-brand-600 dark:text-brand-300"><Sparkles className="h-5 w-5" /></span>
                     <div>
-                        <h3 className="font-display font-semibold text-neutral-900 dark:text-white">Get started</h3>
+                        <h3 className="font-display font-semibold text-neutral-900 dark:text-white">Démarrage rapide</h3>
                         <p className="text-xs text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_dashboard_e75f6c9c3f5f" /></p>
                     </div>
                 </div>
@@ -114,18 +114,18 @@ function Onboarding({ steps }) {
     );
 }
 
-function formatDate(iso) { try { return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }); } catch { return iso; } }
+function formatDate(iso) { try { return new Date(iso).toLocaleDateString('fr-FR', { month: 'short', day: 'numeric' }); } catch { return iso; } }
 
 export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, creditBalance = 0, kpis, callsByDay = [], leadDistribution = [], recentCalls = [], activeCampaigns = [], onboarding, isClientAdministrator }) {
     const { t } = useTranslation();
     const hasLeads = leadDistribution.some((d) => d.value > 0);
     const leadTotal = leadDistribution.reduce((s, d) => s + (d.value || 0), 0);
     const hour = new Date().getHours();
-    const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+    const greeting = hour < 12 ? 'Bonjour' : hour < 18 ? 'Bon après-midi' : 'Bonsoir';
 
     return (
-        <ClientLayout title={t('client.dashboard') || 'Dashboard'}>
-            <Head title={t('client.dashboard') || 'Dashboard'} />
+        <ClientLayout title={t('client.dashboard') || 'Tableau de bord'}>
+            <Head title={t('client.dashboard') || 'Tableau de bord'} />
             <div className="space-y-6">
                 {/* Hero band */}
                 <div className="relative overflow-hidden rounded-soft-xl bg-gradient-to-br from-ink-900 via-brand-800 to-brand-600 p-6 text-white shadow-soft-lg sm:p-7">
@@ -133,7 +133,7 @@ export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, credi
                     <div className="pointer-events-none absolute -bottom-24 left-1/4 h-56 w-56 rounded-full bg-signal-500/20 blur-3xl" />
                     <div className="relative flex flex-wrap items-end justify-between gap-4">
                         <div>
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-brand-100 ring-1 ring-inset ring-white/15"><span className="h-1.5 w-1.5 rounded-full bg-signal-400 animate-pulse" /> Live overview</span>
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-brand-100 ring-1 ring-inset ring-white/15"><span className="h-1.5 w-1.5 rounded-full bg-signal-400 animate-pulse" /> Aperçu en temps réel</span>
                             <h1 className="mt-3 font-display text-3xl font-bold tracking-tight">{greeting}</h1>
                             <p className="mt-1 max-w-md text-sm text-brand-100/80"><Trans i18nKey="hardcoded.views_client_dashboard_acd5a59afe9a" /></p>
                         </div>
@@ -148,27 +148,27 @@ export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, credi
                     <div className="relative overflow-hidden rounded-soft-lg bg-gradient-to-br from-brand-600 via-brand-600 to-brand-800 p-5 text-white shadow-soft-lg">
                         <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-white/10 blur-2xl" />
                         <PhoneCall className="pointer-events-none absolute -bottom-3 -right-2 h-24 w-24 text-white/10" />
-                        <div className="relative flex items-center gap-2 text-brand-100"><Zap className="h-4 w-4" /><span className="text-xs font-medium uppercase tracking-wide">Calling credits</span></div>
+                        <div className="relative flex items-center gap-2 text-brand-100"><Zap className="h-4 w-4" /><span className="text-xs font-medium uppercase tracking-wide">Crédits d&apos;appel</span></div>
                         <p className="relative mt-3 font-mono text-4xl font-bold tabular-nums">{Number(creditBalance).toLocaleString()}</p>
                         <div className="relative mt-4 flex items-center justify-between">
-                            <span className="text-xs text-brand-100/90">{currentPlan ? currentPlan.name + ' plan' : translationI18n.t('hardcoded.views_client_dashboard_f122f1488adb')}{renewsAt ? ` · renews ${formatDate(renewsAt)}` : ''}</span>
-                            <Link href={route('client.billing.index')} className="rounded-soft bg-white/20 px-2.5 py-1 text-xs font-medium backdrop-blur transition hover:bg-white/30">Top up</Link>
+                            <span className="text-xs text-brand-100/90">{currentPlan ? `Forfait ${currentPlan.name}` : translationI18n.t('hardcoded.views_client_dashboard_f122f1488adb')}{renewsAt ? ` · renouvelé le ${formatDate(renewsAt)}` : ''}</span>
+                            <Link href={route('client.billing.index')} className="rounded-soft bg-white/20 px-2.5 py-1 text-xs font-medium backdrop-blur transition hover:bg-white/30">Recharger</Link>
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:col-span-2">
-                        <Stat icon={PhoneCall} label="Calls (30d)" value={kpis?.calls_30d ?? 0} accent="brand" />
-                        <Stat icon={TrendingUp} label="Success" value={`${kpis?.success_rate ?? 0}%`} accent="signal" />
-                        <Stat icon={Target} label="Qualified" value={kpis?.qualified_leads ?? 0} accent="warm" />
-                        <Stat icon={Clock} label="Avg call" value={fmtDur(kpis?.avg_duration)} accent="cold" />
+                        <Stat icon={PhoneCall} label="Appels (30j)" value={kpis?.calls_30d ?? 0} accent="brand" />
+                        <Stat icon={TrendingUp} label="Succès" value={`${kpis?.success_rate ?? 0}%`} accent="signal" />
+                        <Stat icon={Target} label="Qualifiés" value={kpis?.qualified_leads ?? 0} accent="warm" />
+                        <Stat icon={Clock} label="Durée moy." value={fmtDur(kpis?.avg_duration)} accent="cold" />
                     </div>
                 </div>
 
                 {/* Resource counts */}
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                    <ResourceCard href={route('client.agents.index')} icon={Bot} value={kpis?.agents ?? 0} label="Agents" accent="brand" />
-                    <ResourceCard href={route('client.phone-numbers.index')} icon={Phone} value={kpis?.numbers ?? 0} label="Numbers" accent="signal" />
+                    <ResourceCard href={route('client.agents.index')} icon={Bot} value={kpis?.agents ?? 0} label="Agents IA" accent="brand" />
+                    <ResourceCard href={route('client.phone-numbers.index')} icon={Phone} value={kpis?.numbers ?? 0} label="Numéros" accent="signal" />
                     <ResourceCard href={route('client.contacts.index')} icon={Users} value={(kpis?.contacts ?? 0).toLocaleString()} label="Contacts" accent="cold" />
-                    <ResourceCard href={route('client.campaigns.index')} icon={Megaphone} value={kpis?.active_campaigns ?? 0} label="Active campaigns" accent="warm" />
+                    <ResourceCard href={route('client.campaigns.index')} icon={Megaphone} value={kpis?.active_campaigns ?? 0} label="Campagnes actives" accent="warm" />
                 </div>
 
                 {/* Charts */}
@@ -187,7 +187,7 @@ export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, credi
                             </BarChart>
                         </ResponsiveContainer>
                     </SectionCard>
-                    <SectionCard title="Lead distribution">
+                    <SectionCard title="Répartition des prospects">
                         {hasLeads ? (
                             <>
                                 <div className="relative mx-auto" style={{ height: 180 }}>
@@ -201,12 +201,12 @@ export default function Dashboard({ currentPlan, renewsAt, managedByAdmin, credi
                                     </ResponsiveContainer>
                                     <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
                                         <span className="font-display text-2xl font-bold tabular-nums text-neutral-900 dark:text-white">{leadTotal}</span>
-                                        <span className="text-[11px] uppercase tracking-wide text-neutral-400">Leads</span>
+                                        <span className="text-[11px] uppercase tracking-wide text-neutral-400">Prospects</span>
                                     </div>
                                 </div>
                                 <div className="mt-2 flex justify-center gap-4 text-xs">{leadDistribution.map((e) => <span key={e.name} className="inline-flex items-center gap-1.5 text-neutral-600 dark:text-neutral-300"><span className="h-2.5 w-2.5 rounded-full" style={{ background: LEAD_COLORS[e.name] }} />{e.name} <span className="font-semibold">{e.value}</span></span>)}</div>
                             </>
-                        ) : <p className="py-16 text-center text-sm text-neutral-400">No qualified leads yet.</p>}
+                        ) : <p className="py-16 text-center text-sm text-neutral-400">Aucun prospect qualifié pour l&apos;instant.</p>}
                     </SectionCard>
                 </div>
 
