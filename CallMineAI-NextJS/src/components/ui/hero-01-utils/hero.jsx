@@ -5,7 +5,7 @@ import { ArrowUpRight, Star } from 'lucide-react';
 
 export default function HeroSection({ avatarList = [] }) {
     return (
-        <section className="relative px-6 pt-16 pb-20 sm:pt-24 sm:pb-32 text-center">
+        <section className="relative px-6 pt-14 pb-10 sm:pt-20 sm:pb-14 text-center">
             {/* Google Fonts: Playfair Display pour le rendu éditorial italien élégant */}
             <style dangerouslySetInnerHTML={{
                 __html: `

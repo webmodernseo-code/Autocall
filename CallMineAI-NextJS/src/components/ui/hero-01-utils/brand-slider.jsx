@@ -132,16 +132,16 @@ export default function BrandSlider() {
     const marqueeList = [...logos, ...logos, ...logos, ...logos];
 
     return (
-        <section className="relative w-full pt-10 pb-16 overflow-hidden">
+        <section className="relative w-full pt-0 pb-16 overflow-hidden">
             {/* Ligne séparatrice avec texte centré */}
-            <div className="relative mx-auto max-w-5xl px-6 mb-12">
+            <div className="relative mx-auto max-w-5xl px-6 mb-8">
                 <div className="relative flex items-center justify-center">
                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
                         <div className="w-full border-t border-white/[0.08]" />
                     </div>
                     <div className="relative bg-[#08090C] px-6">
                         <span className="text-xs font-medium tracking-wide text-white/50">
-                            Loved by 1000+ big and small brands around the worlds
+                            Connecté à vos outils favoris & approuvé par +1 000 professionnels
                         </span>
                     </div>
                 </div>
