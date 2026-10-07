@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X, Sun, Moon } from 'lucide-react';
 
 /**
  * Logo vectoriel shadcnspace. avec le cercle blanc et le découpage bicolore exact :
@@ -60,7 +60,7 @@ export function ShadcnSpaceLogo() {
     );
 }
 
-export default function Header({ navigationData = [] }) {
+export default function Header({ navigationData = [], isDark = true, onToggleTheme }) {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     return (
@@ -88,8 +88,18 @@ export default function Header({ navigationData = [] }) {
                     ))}
                 </nav>
 
-                {/* 3. Groupe d'action : Connexion + Bouton CTA */}
-                <div className="hidden md:flex items-center gap-5">
+                {/* 3. Groupe d'action : Toggle Thème + Connexion + Bouton CTA */}
+                <div className="hidden md:flex items-center gap-4">
+                    {onToggleTheme && (
+                        <button
+                            onClick={onToggleTheme}
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
+                            aria-label={isDark ? "Activer le mode clair" : "Activer le mode sombre"}
+                            title={isDark ? "Mode clair" : "Mode sombre"}
+                        >
+                            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                        </button>
+                    )}
                     <Link
                         href="/login"
                         className="text-xs font-semibold text-white/70 transition-colors hover:text-white"

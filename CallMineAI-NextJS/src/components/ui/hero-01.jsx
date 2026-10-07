@@ -4,8 +4,12 @@ import React from 'react';
 import HeroSection from "@/components/ui/hero-01-utils/hero";
 import Header from "@/components/ui/hero-01-utils/header";
 import BrandSlider from "@/components/ui/hero-01-utils/brand-slider";
+import VoiceDemoSection from "@/components/ui/hero-01-utils/voice-demo";
 
 export default function AgencyHeroSection() {
+  const [isDark, setIsDark] = React.useState(true);
+  const toggleTheme = () => setIsDark(prev => !prev);
+
   const avatarList = [
     {
       image:
@@ -118,10 +122,11 @@ export default function AgencyHeroSection() {
 
       {/* CONTENU PRINCIPAL */}
       <div className="relative z-10">
-        <Header navigationData={navigationData} />
+        <Header navigationData={navigationData} isDark={isDark} onToggleTheme={toggleTheme} />
         <main>
           <HeroSection avatarList={avatarList} />
           <BrandSlider brandList={brandList} />
+          <VoiceDemoSection />
         </main>
       </div>
     </div>
