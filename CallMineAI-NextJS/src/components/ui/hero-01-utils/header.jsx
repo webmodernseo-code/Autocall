@@ -62,9 +62,28 @@ export function ShadcnSpaceLogo() {
 
 export default function Header({ navigationData = [], isDark = true, onToggleTheme }) {
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    React.useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 20) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
-        <header className="relative z-30 w-full px-6 py-6 lg:px-16">
+        <header className={`sticky top-0 z-50 w-full px-6 py-4 lg:px-16 transition-all duration-300 ${
+            isScrolled
+                ? isDark
+                    ? 'bg-[#08090C]/80 backdrop-blur-xl border-b border-white/5 shadow-2xl'
+                    : 'bg-white/80 backdrop-blur-xl border-b border-neutral-200/80 shadow-md'
+                : 'bg-transparent'
+        }`}>
             <div className="mx-auto flex max-w-7xl items-center justify-between">
                 {/* 1. Logo shadcnspace. */}
                 <Link href="/" className="flex items-center group">

@@ -92,41 +92,48 @@ export default function AgencyHeroSection() {
   ];
 
   return (
-    <div className="relative min-h-screen bg-[#08090C] font-sans text-white overflow-hidden selection:bg-white selection:text-black">
-      {/* 1. HALO BLEU OCÉANIQUE PROFOND À GAUCHE */}
-      <div
-        className="pointer-events-none absolute -left-48 top-1/4 h-[750px] w-[750px] rounded-full blur-[140px] opacity-70"
-        style={{
-          background: 'radial-gradient(circle, rgba(22, 65, 125, 0.45) 0%, rgba(12, 35, 75, 0.2) 45%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
+    <div className="relative min-h-screen bg-[#08090C] font-sans text-white overflow-x-clip selection:bg-white selection:text-black">
+      {/* HALOS CLIPPÉS DANS LEUR CONTENEUR SANS BLOQUER LE STICKY */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        {/* 1. HALO BLEU OCÉANIQUE PROFOND À GAUCHE */}
+        <div
+          className="absolute -left-48 top-1/4 h-[750px] w-[750px] rounded-full blur-[140px] opacity-70"
+          style={{
+            background: 'radial-gradient(circle, rgba(22, 65, 125, 0.45) 0%, rgba(12, 35, 75, 0.2) 45%, transparent 70%)',
+          }}
+        />
 
-      {/* 2. HALO AMBRÉ / COUCHER DE SOLEIL CHAUD À DROITE */}
-      <div
-        className="pointer-events-none absolute -right-48 top-1/4 h-[750px] w-[750px] rounded-full blur-[140px] opacity-65"
-        style={{
-          background: 'radial-gradient(circle, rgba(145, 92, 45, 0.42) 0%, rgba(85, 50, 22, 0.18) 45%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
+        {/* 2. HALO AMBRÉ / COUCHER DE SOLEIL CHAUD À DROITE */}
+        <div
+          className="absolute -right-48 top-1/4 h-[750px] w-[750px] rounded-full blur-[140px] opacity-65"
+          style={{
+            background: 'radial-gradient(circle, rgba(145, 92, 45, 0.42) 0%, rgba(85, 50, 22, 0.18) 45%, transparent 70%)',
+          }}
+        />
 
-      {/* 3. HALO CENTRAL DIFFUS DERRIÈRE LE TITRE */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-24 -translate-x-1/2 h-[550px] w-[950px] rounded-full blur-[160px] opacity-40"
-        style={{
-          background: 'radial-gradient(ellipse, rgba(255, 255, 255, 0.08) 0%, transparent 65%)',
-        }}
-        aria-hidden="true"
-      />
+        {/* 3. HALO CENTRAL DIFFUS DERRIÈRE LE TITRE */}
+        <div
+          className="absolute left-1/2 top-24 -translate-x-1/2 h-[550px] w-[950px] rounded-full blur-[160px] opacity-40"
+          style={{
+            background: 'radial-gradient(ellipse, rgba(255, 255, 255, 0.08) 0%, transparent 65%)',
+          }}
+        />
+      </div>
 
       {/* CONTENU PRINCIPAL */}
       <div className="relative z-10">
         <Header navigationData={navigationData} isDark={isDark} onToggleTheme={toggleTheme} />
         <main>
-          <HeroSection avatarList={avatarList} />
-          <BrandSlider brandList={brandList} />
-          <VoiceDemoSection isDark={isDark} />
+          {/* HERO SECTION STICKY / PINNED PENDANT LE SCROLL */}
+          <div className="sticky top-0 z-0">
+            <HeroSection avatarList={avatarList} />
+            <BrandSlider brandList={brandList} />
+          </div>
+
+          {/* SECTION SUIVANTE QUI GLISSE PAR-DESSUS AVEC ÉLÉGANCE (EFFET CARTE / RIDEAU) */}
+          <div className="relative z-10 rounded-t-[36px] sm:rounded-t-[48px] shadow-[0_-25px_60px_rgba(0,0,0,0.55)] overflow-hidden">
+            <VoiceDemoSection isDark={isDark} />
+          </div>
         </main>
       </div>
     </div>
