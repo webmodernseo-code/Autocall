@@ -7,6 +7,7 @@ import BrandSlider from "@/components/ui/hero-01-utils/brand-slider";
 import VoiceDemoSection from "@/components/ui/hero-01-utils/voice-demo";
 import SectorsSection from "@/components/ui/hero-01-utils/sectors-section";
 import IntegrationsSection from "@/components/ui/hero-01-utils/integrations-section";
+import PricingSection from "@/components/ui/hero-01-utils/pricing-section";
 
 export default function AgencyHeroSection() {
   const avatarList = [
@@ -128,6 +129,7 @@ export default function AgencyHeroSection() {
           <VoiceDemoSection />
           <SectorsSection />
           <IntegrationsSection />
+          <PricingSection />
         </main>
       </div>
     </div>
