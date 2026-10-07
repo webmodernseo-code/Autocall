@@ -32,8 +32,8 @@ export default function AgencyHeroSection() {
       isActive: true,
     },
     {
-      title: "Fonctionnalités",
-      href: "#fonctionnalites",
+      title: "Produit",
+      href: "#produit",
     },
     {
       title: "Secteurs",
