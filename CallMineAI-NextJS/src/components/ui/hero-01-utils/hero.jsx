@@ -22,26 +22,38 @@ export default function HeroSection({ avatarList = [] }) {
             <div className="mx-auto max-w-5xl">
                 {/* 1. Titre Principal avec le contraste Sans-Bold + Serif-Italique */}
                 <h1 className="font-hero-sans text-5xl font-bold tracking-[-0.04em] text-white sm:text-7xl lg:text-[88px] leading-[1.04]">
-                    Building bold brands <br />
-                    <span className="font-hero-sans font-normal text-white">with </span>
+                    Ne perdez plus aucun appel. <br />
+                    <span className="font-hero-sans font-normal text-white">Transformez chaque sonnerie en </span>
                     <span className="font-hero-serif italic font-normal tracking-[-0.01em] text-white/95">
-                        thoughtful design
+                        client qualifié.
                     </span>
                 </h1>
 
                 {/* 2. Sous-titre */}
                 <p className="mx-auto mt-7 max-w-2xl text-sm sm:text-base leading-relaxed text-white/60">
-                    At shadcn space, we help small startups tackle the world's biggest challenges with tailored solutions, guiding you from strategy to success in a competitive market.
+                    Votre standard téléphonique IA répond 24h/24, filtre les demandes urgentes et réserve vos rendez-vous directement dans votre agenda.
                 </p>
 
-                {/* 3. Groupe CTA : Bouton + Avatars superposés + Étoiles */}
+                {/* 3. Badges des secteurs clés à fort volume */}
+                <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-2">
+                    {["Immobilier", "Cabinets d'avocats", "Habitat & Devis", "Santé & Cliniques"].map((sector, idx) => (
+                        <span
+                            key={idx}
+                            className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1 text-xs font-medium text-white/75 backdrop-blur-sm transition-colors hover:border-white/20 hover:text-white"
+                        >
+                            {sector}
+                        </span>
+                    ))}
+                </div>
+
+                {/* 4. Groupe CTA : Bouton + Avatars superposés + Étoiles */}
                 <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-8">
-                    {/* Bouton blanc Get Started avec pastille flèche noire */}
+                    {/* Bouton blanc Commencer maintenant avec pastille flèche noire */}
                     <a
                         href="/register"
                         className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-white px-6 text-sm font-semibold text-black transition-all hover:bg-neutral-200 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-white/5"
                     >
-                        <span>Get Started</span>
+                        <span>Commencer maintenant</span>
                         <div className="flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-[11px]">
                             <ArrowUpRight className="h-3 w-3" />
                         </div>
@@ -71,7 +83,7 @@ export default function HeroSection({ avatarList = [] }) {
                                 ))}
                             </div>
                             <span className="text-[11px] font-medium text-white/70 mt-0.5">
-                                Trusted by 1000+ clients
+                                +1 000 professionnels conquis
                             </span>
                         </div>
                     </div>
