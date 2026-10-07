@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Volume2, VolumeX, Sparkles, PhoneCall, Calendar, CheckCircle2, MessageSquare, ArrowRight, Clock, ShieldCheck } from 'lucide-react';
 
-export default function VoiceDemoSection() {
+export default function VoiceDemoSection({ isDark = true }) {
     // 4 Scénarios réalistes B2B
     const scenarios = [
         {
@@ -242,21 +242,92 @@ export default function VoiceDemoSection() {
         return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
     };
 
+    // Design System adaptatif : Mode Sombre et Mode Clair ultra-premium (Style Apple/Stripe)
+    const s = isDark ? {
+        sectionBg: 'text-white scroll-mt-20 transition-colors duration-300',
+        glow: 'radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(59, 130, 246, 0.15) 50%, transparent 70%)',
+        badge: 'border-emerald-500/20 bg-emerald-500/10 text-emerald-300',
+        title: 'text-white',
+        titleGradient: 'from-white via-white/90 to-white/60',
+        subtitle: 'text-white/60',
+        tabActive: 'bg-white text-black font-semibold shadow-lg shadow-white/10 scale-[1.02]',
+        tabInactive: 'border-white/10 bg-white/[0.03] text-white/70 hover:bg-white/[0.08] hover:text-white',
+        card: 'border-white/10 bg-[#0F1117]/80 backdrop-blur-2xl shadow-2xl',
+        box: 'border-white/10 bg-white/[0.02]',
+        boxHeader: 'text-white/50 border-white/5',
+        callerName: 'text-white',
+        callerPhone: 'text-white/50',
+        tag: 'bg-white/5 border-white/10 text-white/90',
+        tagLabel: 'text-white/60',
+        waveInactive: 'bg-white/20',
+        trackBg: 'bg-white/10',
+        trackBar: 'bg-white',
+        timeText: 'text-white/50',
+        playBtn: 'bg-white text-black hover:bg-neutral-200 shadow-xl shadow-white/10',
+        muteBtn: 'border-white/10 bg-white/5 text-white/70 hover:text-white hover:bg-white/10',
+        infoText: 'text-white/40',
+        actionBox: 'border-emerald-500/20 bg-emerald-500/[0.04]',
+        actionTitle: 'text-emerald-400',
+        actionText: 'text-white/80',
+        transcriptBox: 'bg-black/40 border-white/10',
+        transcriptHeader: 'border-white/10 text-white/70',
+        bubbleAiActive: 'bg-white/[0.09] border-white/20 shadow-lg text-white',
+        bubbleAiInactive: 'bg-white/[0.03] border-white/5 opacity-80 text-white/85',
+        bubbleClientActive: 'bg-sky-500/10 border-sky-400/20 text-white',
+        bubbleClientInactive: 'bg-white/[0.02] border-white/5 opacity-70 text-white/85',
+        footerBorder: 'border-white/10 text-white/50',
+        ctaTitle: 'text-white/70',
+        ctaBtn: 'border-white/20 bg-white/5 text-white hover:bg-white hover:text-black hover:border-white'
+    } : {
+        sectionBg: 'text-neutral-900 scroll-mt-20 bg-[#F8F9FA] border-t border-b border-neutral-200/80 transition-colors duration-300',
+        glow: 'radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(59, 130, 246, 0.08) 50%, transparent 70%)',
+        badge: 'border-emerald-500/30 bg-emerald-50 text-emerald-800 shadow-xs',
+        title: 'text-neutral-900',
+        titleGradient: 'from-neutral-900 via-neutral-800 to-neutral-700',
+        subtitle: 'text-neutral-600',
+        tabActive: 'bg-neutral-900 text-white font-semibold shadow-md scale-[1.02]',
+        tabInactive: 'border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50 hover:text-black shadow-xs',
+        card: 'border-neutral-200 bg-white backdrop-blur-2xl shadow-xl shadow-neutral-200/60',
+        box: 'border-neutral-200 bg-neutral-50/80',
+        boxHeader: 'text-neutral-500 border-neutral-200',
+        callerName: 'text-neutral-900',
+        callerPhone: 'text-neutral-500',
+        tag: 'bg-white border-neutral-200 text-neutral-800 shadow-xs',
+        tagLabel: 'text-neutral-500',
+        waveInactive: 'bg-neutral-200',
+        trackBg: 'bg-neutral-200',
+        trackBar: 'bg-neutral-900',
+        timeText: 'text-neutral-500',
+        playBtn: 'bg-neutral-900 text-white hover:bg-black shadow-lg shadow-neutral-900/10',
+        muteBtn: 'border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-100',
+        infoText: 'text-neutral-500',
+        actionBox: 'border-emerald-500/30 bg-emerald-50/80',
+        actionTitle: 'text-emerald-800',
+        actionText: 'text-neutral-700',
+        transcriptBox: 'bg-neutral-50/80 border-neutral-200',
+        transcriptHeader: 'border-neutral-200 text-neutral-700',
+        bubbleAiActive: 'bg-white border-emerald-400 shadow-md ring-1 ring-emerald-200 text-neutral-900',
+        bubbleAiInactive: 'bg-white/80 border-neutral-200 opacity-90 text-neutral-800',
+        bubbleClientActive: 'bg-sky-50 border-sky-300 shadow-md text-neutral-900',
+        bubbleClientInactive: 'bg-white border-neutral-200 opacity-80 text-neutral-800',
+        footerBorder: 'border-neutral-200 text-neutral-600',
+        ctaTitle: 'text-neutral-600',
+        ctaBtn: 'border-neutral-300 bg-white text-neutral-900 hover:bg-neutral-900 hover:text-white shadow-xs'
+    };
+
     return (
-        <section id="produit" className="relative px-6 py-20 sm:py-28 text-white scroll-mt-20">
+        <section id="produit" className={`relative px-6 py-20 sm:py-28 ${s.sectionBg}`}>
             {/* LUEUR RADIALE D'ARRIÈRE-PLAN SOUS LA DÉMO */}
             <div
                 className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[900px] rounded-full blur-[160px] opacity-25"
-                style={{
-                    background: 'radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(59, 130, 246, 0.15) 50%, transparent 70%)',
-                }}
+                style={{ background: s.glow }}
                 aria-hidden="true"
             />
 
             <div className="relative mx-auto max-w-6xl">
                 {/* 1. ENTÊTE DE SECTION */}
                 <div className="text-center max-w-3xl mx-auto mb-14">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold text-emerald-300 backdrop-blur-md mb-4 shadow-xs">
+                    <div className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold backdrop-blur-md mb-4 ${s.badge}`}>
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -264,14 +335,14 @@ export default function VoiceDemoSection() {
                         <span>Démonstration Audio Interactive</span>
                     </div>
 
-                    <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.15]">
+                    <h2 className={`text-3xl sm:text-5xl font-bold tracking-tight leading-[1.15] ${s.title}`}>
                         Une voix naturelle. <br className="hidden sm:inline" />
-                        <span className="bg-gradient-to-r from-white via-white/90 to-white/60 bg-clip-text text-transparent">
+                        <span className={`bg-gradient-to-r ${s.titleGradient} bg-clip-text text-transparent`}>
                             Zéro latence. Une vraie conversation.
                         </span>
                     </h2>
 
-                    <p className="mt-4 text-sm sm:text-base text-white/60 leading-relaxed">
+                    <p className={`mt-4 text-sm sm:text-base leading-relaxed ${s.subtitle}`}>
                         Écoutez comment notre standard téléphonique IA répond en direct, pose les questions adaptées à votre métier et synchronise votre agenda en temps réel.
                     </p>
 
@@ -284,9 +355,7 @@ export default function VoiceDemoSection() {
                                     key={sc.id}
                                     onClick={() => handleSelectScenario(sc.id)}
                                     className={`rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
-                                        isSelected
-                                            ? 'bg-white text-black font-semibold shadow-lg shadow-white/10 scale-[1.02]'
-                                            : 'border border-white/10 bg-white/[0.03] text-white/70 hover:bg-white/[0.08] hover:text-white'
+                                        isSelected ? s.tabActive : s.tabInactive
                                     }`}
                                 >
                                     {sc.tabTitle}
@@ -297,41 +366,40 @@ export default function VoiceDemoSection() {
                 </div>
 
                 {/* 3. LE LECTEUR / SIMULATEUR D'APPEL INTERACTIF */}
-                <div className="rounded-3xl border border-white/10 bg-[#0F1117]/80 backdrop-blur-2xl p-6 sm:p-10 shadow-2xl">
+                <div className={`rounded-3xl border p-6 sm:p-10 ${s.card}`}>
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                         
                         {/* COLONNE GAUCHE : LECTEUR ET CONTRÔLES (5 colonnes) */}
                         <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-6">
                             {/* Entête de l'appel */}
-                            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
-                                <div className="flex items-center justify-between text-xs text-white/50 mb-3">
-                                    <span className="inline-flex items-center gap-1.5 font-medium text-emerald-400">
+                            <div className={`rounded-2xl border p-5 ${s.box}`}>
+                                <div className={`flex items-center justify-between text-xs mb-3 ${s.boxHeader}`}>
+                                    <span className="inline-flex items-center gap-1.5 font-medium text-emerald-500">
                                         <PhoneCall className="h-3.5 w-3.5" />
                                         Appel entrant à {activeScenario.time}
                                     </span>
-                                    <span className="rounded-md border border-white/10 px-2 py-0.5 text-[11px] font-mono text-white/70">
+                                    <span className={`rounded-md border px-2 py-0.5 text-[11px] font-mono ${s.tag}`}>
                                         Latence ~410ms
                                     </span>
                                 </div>
-                                <div className="text-base font-semibold text-white">
+                                <div className={`text-base font-semibold ${s.callerName}`}>
                                     {activeScenario.callerName}
                                 </div>
-                                <div className="text-xs font-mono text-white/50 mt-0.5">
+                                <div className={`text-xs font-mono mt-0.5 ${s.callerPhone}`}>
                                     {activeScenario.callerPhone}
                                 </div>
-                                <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-between text-xs">
-                                    <span className="text-white/60">Motif détecté :</span>
-                                    <span className="font-medium text-white/90 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">
+                                <div className={`mt-3 pt-3 border-t flex items-center justify-between text-xs ${s.boxHeader}`}>
+                                    <span className={s.tagLabel}>Motif détecté :</span>
+                                    <span className={`font-medium px-2.5 py-0.5 rounded-full border ${s.tag}`}>
                                         {activeScenario.badge}
                                     </span>
                                 </div>
                             </div>
 
                             {/* Onde sonore animée */}
-                            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-center">
+                            <div className={`rounded-2xl border p-6 text-center ${s.box}`}>
                                 <div className="flex items-center justify-center gap-1 h-14 mb-4">
                                     {[...Array(28)].map((_, i) => {
-                                        // Barres d'égaliseur animées quand la lecture est en cours
                                         const heights = [35, 60, 90, 45, 75, 100, 50, 80, 65, 40, 85, 95, 55, 70, 90, 60, 45, 80, 100, 65, 40, 75, 85, 50, 65, 90, 45, 30];
                                         const heightPercent = isPlaying ? heights[i % heights.length] : 20;
                                         return (
@@ -343,8 +411,8 @@ export default function VoiceDemoSection() {
                                                 }}
                                                 className={`w-1 rounded-full ${
                                                     isPlaying
-                                                        ? 'bg-gradient-to-t from-emerald-400 to-sky-400'
-                                                        : 'bg-white/20'
+                                                        ? 'bg-gradient-to-t from-emerald-500 to-sky-500'
+                                                        : s.waveInactive
                                                 }`}
                                             />
                                         );
@@ -352,11 +420,11 @@ export default function VoiceDemoSection() {
                                 </div>
 
                                 {/* Temps et Contrôles */}
-                                <div className="flex items-center justify-between text-xs font-mono text-white/50 px-2 mb-4">
+                                <div className={`flex items-center justify-between text-xs font-mono px-2 mb-4 ${s.timeText}`}>
                                     <span>{formatTime(currentTime)}</span>
-                                    <div className="flex-1 mx-3 h-1 bg-white/10 rounded-full overflow-hidden">
+                                    <div className={`flex-1 mx-3 h-1 rounded-full overflow-hidden ${s.trackBg}`}>
                                         <div
-                                            className="h-full bg-white transition-all duration-300"
+                                            className={`h-full transition-all duration-300 ${s.trackBar}`}
                                             style={{ width: `${(currentTime / activeScenario.duration) * 100}%` }}
                                         />
                                     </div>
@@ -367,7 +435,7 @@ export default function VoiceDemoSection() {
                                 <div className="flex items-center justify-center gap-4">
                                     <button
                                         onClick={togglePlay}
-                                        className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-black transition-all hover:bg-neutral-200 hover:scale-105 active:scale-95 shadow-xl shadow-white/10 cursor-pointer"
+                                        className={`flex h-14 w-14 items-center justify-center rounded-full transition-all hover:scale-105 active:scale-95 cursor-pointer ${s.playBtn}`}
                                         aria-label={isPlaying ? "Pause" : "Play"}
                                     >
                                         {isPlaying ? (
@@ -379,7 +447,7 @@ export default function VoiceDemoSection() {
 
                                     <button
                                         onClick={() => setIsMuted(!isMuted)}
-                                        className="rounded-full border border-white/10 bg-white/5 p-3 text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                                        className={`rounded-full border p-3 transition-colors cursor-pointer ${s.muteBtn}`}
                                         aria-label={isMuted ? "Activer le son" : "Couper le son"}
                                         title={isMuted ? "Son coupé" : "Son activé"}
                                     >
@@ -387,33 +455,33 @@ export default function VoiceDemoSection() {
                                     </button>
                                 </div>
 
-                                <div className="mt-3 text-[11px] text-white/40">
+                                <div className={`mt-3 text-[11px] ${s.infoText}`}>
                                     {isPlaying ? "Lecture de la conversation..." : "Cliquez sur Play pour écouter l'échange"}
                                 </div>
                             </div>
 
                             {/* Résultat & Action automatique */}
-                            <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.04] p-4 text-xs">
-                                <div className="flex items-center gap-2 text-emerald-400 font-semibold mb-1">
+                            <div className={`rounded-2xl border p-4 text-xs ${s.actionBox}`}>
+                                <div className={`flex items-center gap-2 font-semibold mb-1 ${s.actionTitle}`}>
                                     <CheckCircle2 className="h-4 w-4" />
                                     <span>Action déclenchée automatiquement :</span>
                                 </div>
-                                <p className="text-white/80 pl-6">
+                                <p className={`pl-6 ${s.actionText}`}>
                                     {activeScenario.actionTaken}
                                 </p>
                             </div>
                         </div>
 
                         {/* COLONNE DROITE : TRANSCRIPTION EN DIRECT DE L'ÉCHANGE (7 colonnes) */}
-                        <div className="lg:col-span-7 flex flex-col justify-between h-full bg-black/40 border border-white/10 rounded-2xl p-6 sm:p-7">
-                            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+                        <div className={`lg:col-span-7 flex flex-col justify-between h-full border rounded-2xl p-6 sm:p-7 ${s.transcriptBox}`}>
+                            <div className={`flex items-center justify-between pb-4 border-b mb-6 ${s.transcriptHeader}`}>
                                 <div className="flex items-center gap-2">
-                                    <MessageSquare className="h-4 w-4 text-white/60" />
-                                    <span className="text-xs font-semibold uppercase tracking-wider text-white/70">
+                                    <MessageSquare className="h-4 w-4 opacity-70" />
+                                    <span className="text-xs font-semibold uppercase tracking-wider">
                                         Transcription en temps réel
                                     </span>
                                 </div>
-                                <span className="text-[11px] text-white/40 font-mono">
+                                <span className="text-[11px] font-mono opacity-60">
                                     Synchronisé à la voix
                                 </span>
                             </div>
@@ -427,37 +495,33 @@ export default function VoiceDemoSection() {
                                     return (
                                         <div
                                             key={idx}
-                                            className={`rounded-2xl p-4 transition-all duration-300 ${
+                                            className={`rounded-2xl p-4 transition-all duration-300 border ${
                                                 isAi
-                                                    ? isCurrent
-                                                        ? 'bg-white/[0.09] border border-white/20 shadow-lg'
-                                                        : 'bg-white/[0.03] border border-white/5 opacity-80'
-                                                    : isCurrent
-                                                    ? 'bg-sky-500/10 border border-sky-400/20'
-                                                    : 'bg-white/[0.02] border border-white/5 opacity-70'
+                                                    ? isCurrent ? s.bubbleAiActive : s.bubbleAiInactive
+                                                    : isCurrent ? s.bubbleClientActive : s.bubbleClientInactive
                                             }`}
                                         >
                                             <div className="flex items-center justify-between text-xs mb-1.5">
                                                 <div className="flex items-center gap-2">
                                                     {isAi ? (
-                                                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">
+                                                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 text-[10px] font-bold">
                                                             IA
                                                         </span>
                                                     ) : (
-                                                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500/20 text-sky-300 text-[10px] font-bold">
+                                                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500/20 text-sky-600 dark:text-sky-300 text-[10px] font-bold">
                                                             PRO
                                                         </span>
                                                     )}
-                                                    <span className={`font-semibold ${isAi ? 'text-white' : 'text-sky-200'}`}>
+                                                    <span className={`font-semibold ${isAi ? s.callerName : 'text-sky-600 dark:text-sky-200'}`}>
                                                         {item.name}
                                                     </span>
                                                 </div>
-                                                <span className="text-[11px] font-mono text-white/40">
+                                                <span className={`text-[11px] font-mono ${s.infoText}`}>
                                                     {item.timestamp}
                                                 </span>
                                             </div>
 
-                                            <p className="text-xs sm:text-sm text-white/85 leading-relaxed pl-7">
+                                            <p className={`text-xs sm:text-sm leading-relaxed pl-7 ${s.actionText}`}>
                                                 {item.text}
                                             </p>
                                         </div>
@@ -466,17 +530,17 @@ export default function VoiceDemoSection() {
                             </div>
 
                             {/* Garanties en bas de la boîte */}
-                            <div className="mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-[11px] text-white/50">
+                            <div className={`mt-6 pt-4 border-t flex flex-wrap items-center justify-between gap-3 text-[11px] ${s.footerBorder}`}>
                                 <span className="inline-flex items-center gap-1.5">
-                                    <Clock className="h-3.5 w-3.5 text-white/70" />
+                                    <Clock className="h-3.5 w-3.5 opacity-80" />
                                     Prise en charge en 1 sonnerie
                                 </span>
                                 <span className="inline-flex items-center gap-1.5">
-                                    <Calendar className="h-3.5 w-3.5 text-white/70" />
+                                    <Calendar className="h-3.5 w-3.5 opacity-80" />
                                     Synchronisation Google & Outlook
                                 </span>
                                 <span className="inline-flex items-center gap-1.5">
-                                    <ShieldCheck className="h-3.5 w-3.5 text-white/70" />
+                                    <ShieldCheck className="h-3.5 w-3.5 opacity-80" />
                                     Données confidentielles RGPD
                                 </span>
                             </div>
@@ -487,12 +551,12 @@ export default function VoiceDemoSection() {
 
                 {/* 4. APPEL À L'ACTION SOUS LA DÉMO */}
                 <div className="mt-12 text-center">
-                    <p className="text-sm text-white/70 mb-4">
+                    <p className={`text-sm mb-4 ${s.ctaTitle}`}>
                         Vous souhaitez tester la voix en direct sur votre propre téléphone ?
                     </p>
                     <a
                         href="/register"
-                        className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 text-xs font-semibold text-white backdrop-blur-md transition-all hover:bg-white hover:text-black hover:border-white hover:scale-105"
+                        className={`inline-flex h-11 items-center justify-center gap-2 rounded-full border px-6 text-xs font-semibold backdrop-blur-md transition-all hover:scale-105 ${s.ctaBtn}`}
                     >
                         <span>Créer mon numéro test gratuit</span>
                         <ArrowRight className="h-3.5 w-3.5" />

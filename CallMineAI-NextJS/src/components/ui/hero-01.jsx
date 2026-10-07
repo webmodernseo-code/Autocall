@@ -126,7 +126,7 @@ export default function AgencyHeroSection() {
         <main>
           <HeroSection avatarList={avatarList} />
           <BrandSlider brandList={brandList} />
-          <VoiceDemoSection />
+          <VoiceDemoSection isDark={isDark} />
         </main>
       </div>
     </div>
