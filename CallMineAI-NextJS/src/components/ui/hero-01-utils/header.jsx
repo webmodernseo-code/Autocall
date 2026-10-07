@@ -88,13 +88,19 @@ export default function Header({ navigationData = [] }) {
                     ))}
                 </nav>
 
-                {/* 3. Bouton Let's Collaborate */}
-                <div className="hidden md:flex items-center">
-                    <a
+                {/* 3. Groupe d'action : Connexion + Bouton CTA */}
+                <div className="hidden md:flex items-center gap-5">
+                    <Link
                         href="/login"
+                        className="text-xs font-semibold text-white/70 transition-colors hover:text-white"
+                    >
+                        Connexion
+                    </Link>
+                    <a
+                        href="/register"
                         className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-black transition-all hover:bg-neutral-200 hover:scale-[1.02] active:scale-[0.98] shadow-md shadow-white/5"
                     >
-                        <span>Let's Collaborate</span>
+                        <span>Essai gratuit</span>
                         <div className="flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-[11px]">
                             <ArrowUpRight className="h-3 w-3" />
                         </div>
@@ -128,13 +134,22 @@ export default function Header({ navigationData = [] }) {
                             </a>
                         ))}
                         <div className="my-2 h-px bg-white/10" />
-                        <a
-                            href="/login"
-                            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-white text-xs font-semibold text-black"
-                        >
-                            <span>Let's Collaborate</span>
-                            <ArrowUpRight className="h-3.5 w-3.5" />
-                        </a>
+                        <div className="flex flex-col gap-2.5">
+                            <Link
+                                href="/login"
+                                onClick={() => setMobileOpen(false)}
+                                className="inline-flex h-10 w-full items-center justify-center rounded-full border border-white/10 bg-white/5 text-xs font-medium text-white hover:bg-white/10"
+                            >
+                                Connexion
+                            </Link>
+                            <a
+                                href="/register"
+                                className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-full bg-white text-xs font-semibold text-black hover:bg-neutral-200"
+                            >
+                                <span>Essai gratuit</span>
+                                <ArrowUpRight className="h-3.5 w-3.5" />
+                            </a>
+                        </div>
                     </nav>
                 </div>
             )}
