@@ -9,6 +9,8 @@ import SectorsSection from "@/components/ui/hero-01-utils/sectors-section";
 import IntegrationsSection from "@/components/ui/hero-01-utils/integrations-section";
 import PricingSection from "@/components/ui/hero-01-utils/pricing-section";
 import FaqSection from "@/components/ui/hero-01-utils/faq-section";
+import CtaSection from "@/components/ui/hero-01-utils/cta-section";
+import FloatingSupportButton from "@/components/ui/hero-01-utils/floating-support";
 
 export default function AgencyHeroSection() {
   const avatarList = [
@@ -132,8 +134,12 @@ export default function AgencyHeroSection() {
           <IntegrationsSection />
           <PricingSection />
           <FaqSection />
+          <CtaSection />
         </main>
       </div>
+
+      {/* BOUTON FLOTTANT DU SUPPORT */}
+      <FloatingSupportButton />
     </div>
   );
 }
