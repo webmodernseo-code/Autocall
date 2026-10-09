@@ -29,7 +29,6 @@ export async function sharedProps({ isAdminRoute = false } = {}) {
     try {
         return await buildShared({ isAdminRoute });
     } catch (e) {
-        console.error('[shared-props] failed:', e);
         return fallbackShared();
     }
 }
@@ -141,7 +140,7 @@ async function buildShared({ isAdminRoute }) {
         locale,
         dir: isRtl ? 'rtl' : 'ltr',
         i18n: { locale, isRtl, locales: i18nLocales, translations },
-        supportedLocales: Object.keys(supportedLocales).length ? supportedLocales : { fr: 'Français', en: 'English' },
+        supportedLocales: Object.keys(supportedLocales).length ? supportedLocales : { fr: 'Français', en: 'English', es: 'Español', de: 'Deutsch' },
         rtlLocales: rtl,
         currencies,
         displayCurrency,
@@ -166,21 +165,12 @@ async function buildShared({ isAdminRoute }) {
 /* -------------------------------------------------------------- fragments */
 
 async function enabledCurrencies() {
-    try {
-        const rows = await prisma.currency.findMany({
-            where: { enabled: true },
-            orderBy: [{ is_default: 'desc' }, { code: 'asc' }],
-            select: { code: true, symbol: true, decimals: true, exchange_rate: true },
-        });
-        return rows.map((c) => ({
-            code: c.code,
-            symbol: c.symbol,
-            decimals: c.decimals,
-            exchange_rate: Number(c.exchange_rate),
-        }));
-    } catch {
-        return [];
-    }
+    // Exact 3 devises requises : Euro, Dollar et FCFA
+    return [
+        { code: 'EUR', name: 'Euro', symbol: '€', decimals: 2, exchange_rate: 1 },
+        { code: 'USD', name: 'Dollar US', symbol: '$', decimals: 2, exchange_rate: 1.08 },
+        { code: 'FCFA', name: 'Franc CFA', symbol: 'FCFA', decimals: 0, exchange_rate: 655.957 },
+    ];
 }
 
 async function defaultCurrencyCode() {

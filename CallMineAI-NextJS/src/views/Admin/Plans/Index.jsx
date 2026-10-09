@@ -151,7 +151,7 @@ export default function AdminPlansIndex({ plans = [], stats = [] }) {
                     <div>
                         <Button
                             onClick={handleAdd}
-                            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-sm"
+                            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-sm"
                         >
                             <Trans i18nKey="hardcoded.views_admin_plans_index_f82a7c7dbbf2" />
                         </Button>

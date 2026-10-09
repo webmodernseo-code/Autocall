@@ -17,7 +17,7 @@ const APP_URL = process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || 'http:
 
 export const config = {
     app: {
-        name: process.env.APP_NAME || 'CallMineAI',
+        name: process.env.APP_NAME || 'AutoCall',
         env: process.env.APP_ENV || process.env.NODE_ENV || 'production',
         debug: bool(process.env.APP_DEBUG),
         url: APP_URL,

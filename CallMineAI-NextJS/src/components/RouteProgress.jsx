@@ -157,22 +157,8 @@ function ProgressBar() {
         };
     }, [start]);
 
-    if (!visible) return null;
-
-    return (
-        <div
-            aria-hidden="true"
-            className="pointer-events-none fixed inset-x-0 top-0 z-[200] h-[3px]"
-        >
-            <div
-                className="h-full rounded-r-full bg-gradient-to-r from-brand-500 via-brand-400 to-signal-400 shadow-[0_0_10px_rgba(109,63,234,0.7)] transition-[width] duration-200 ease-out"
-                style={{ width: `${value}%` }}
-            >
-                {/* Leading glow, like NProgress' peg. */}
-                <div className="float-right h-full w-24 -translate-y-px rotate-[2.5deg] opacity-90 shadow-[0_0_12px_rgba(109,63,234,0.9),0_0_6px_rgba(109,63,234,0.9)]" />
-            </div>
-        </div>
-    );
+    // Barre de progression désactivée pour une interface épurée sans barre gênante au sommet
+    return null;
 }
 
 export default function RouteProgress() {

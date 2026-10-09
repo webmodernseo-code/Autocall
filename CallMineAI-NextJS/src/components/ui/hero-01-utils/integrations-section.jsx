@@ -266,7 +266,7 @@ export default function IntegrationsSection() {
         : integrations.filter(item => item.category === activeCategory);
 
     return (
-        <section id="integrations" className="relative px-6 py-20 sm:py-28 text-white scroll-mt-20">
+        <section id="integrations" className="relative px-6 py-20 sm:py-28 bg-[#090A0F] text-white border-y border-white/[0.08] scroll-mt-20">
             {/* Lueur de fond diffuse */}
             <div
                 className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[950px] rounded-full blur-[160px] opacity-20"
@@ -293,14 +293,14 @@ export default function IntegrationsSection() {
                     </h2>
 
                     <p className="mt-4 text-sm sm:text-base text-white/60 leading-relaxed">
-                        CallMind AI s&apos;insère dans votre infrastructure existante en moins de 3 minutes. Vos agendas, CRM et messageries sont alimentés automatiquement après chaque appel.
+                        AutoCall s&apos;insère dans votre infrastructure existante en moins de 3 minutes. Vos agendas, CRM et messageries sont alimentés automatiquement après chaque appel.
                     </p>
                 </div>
 
                 {/* 2. LE FLUX EN 3 ÉTAPES LIMPIDES (SIMPLE À COMPRENDRE) */}
                 <div className="mb-16 rounded-3xl border border-white/10 bg-[#0E1015]/80 p-6 sm:p-8 backdrop-blur-2xl">
                     <div className="text-xs font-semibold uppercase tracking-wider text-white/50 mb-6 flex items-center gap-2">
-                        <Zap className="h-4 w-4 text-amber-400" />
+                        <Zap className="h-4 w-4 text-white/80" />
                         <span>Comment ça fonctionne en direct :</span>
                     </div>
 
@@ -318,7 +318,7 @@ export default function IntegrationsSection() {
                                 <h3>Un client vous appelle</h3>
                             </div>
                             <p className="text-xs text-white/60 leading-relaxed">
-                                Votre opérateur actuel (Orange, SFR, Free, VoIP) transfère la sonnerie vers CallMind AI sans aucun matériel à installer.
+                                Votre opérateur actuel (Orange, SFR, Free, VoIP) transfère la sonnerie vers AutoCall sans aucun matériel à installer.
                             </p>
                         </div>
 
@@ -348,7 +348,7 @@ export default function IntegrationsSection() {
                                 <span className="text-[11px] font-mono text-white/40">Synchronisation</span>
                             </div>
                             <div className="flex items-center gap-3 mb-2 text-white font-semibold text-sm sm:text-base">
-                                <RefreshCw className="h-4 w-4 text-indigo-400" />
+                                <RefreshCw className="h-4 w-4 text-blue-400" />
                                 <h3>Vos logiciels s&apos;actualisent</h3>
                             </div>
                             <p className="text-xs text-white/60 leading-relaxed">
@@ -431,7 +431,7 @@ export default function IntegrationsSection() {
                                 Vous utilisez un outil métier spécifique ou un CRM interne ?
                             </div>
                             <div className="text-xs text-white/60">
-                                CallMind AI propose une API REST documentée et des Webhooks sécurisés pour connecter n&apos;importe quelle base de données en toute autonomie.
+                                AutoCall propose une API REST documentée et des Webhooks sécurisés pour connecter n&apos;importe quelle base de données en toute autonomie.
                             </div>
                         </div>
                     </div>

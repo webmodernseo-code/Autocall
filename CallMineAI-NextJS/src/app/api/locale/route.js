@@ -6,11 +6,11 @@ import { putSession } from '@/lib/auth/session';
 
 /** PUT /locale */
 export const PUT = handler(async (request) => {
-    const rows = await prisma.locale.findMany({ where: { enabled: true }, select: { code: true } });
-    const codes = rows.length ? rows.map((r) => r.code) : ['fr', 'en'];
+    const rows = await prisma.locale.findMany({ where: { enabled: true }, select: { code: true } }).catch(() => []);
+    const availableCodes = Array.from(new Set([...(rows?.map(r => r.code) || []), 'fr', 'en', 'es', 'de']));
 
     const data = await validate(await readBody(request), {
-        locale: ['required', 'string', `in:${codes.join(',')}`],
+        locale: ['required', 'string', `in:${availableCodes.join(',')}`],
     });
 
     const user = await currentUser();

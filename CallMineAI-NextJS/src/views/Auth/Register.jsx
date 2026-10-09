@@ -4,19 +4,16 @@ import React, { useState } from 'react';
 import { route } from '@/lib/route';
 import { Head, Link, router, useForm, usePage } from '@/lib/page-router';
 import { signInWithGoogle } from '@/lib/firebaseAuth';
-import AuthShell, { AuthField, GoogleButton, OrDivider, SubmitButton } from '@/components/auth/Auth';
-import { Check } from 'lucide-react';
+import AuthShell, { AuthField, GoogleButton, AppleButton, OrDivider, SubmitButton, PasswordStrengthMeter } from '@/components/auth/Auth';
+import { User, Mail, Lock, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function Register() {
     const { props } = usePage();
-    const brand = props.branding?.company_name || props.branding?.system_title || 'CallMind AI';
-    const logoUrl = props.branding?.site_logo_url ?? null;
-
     const socialLogin = props.socialLogin ?? {};
-    const showGoogle = Boolean(socialLogin.enabled && socialLogin.google);
 
     const [googleLoading, setGoogleLoading] = useState(false);
     const [googleError, setGoogleError] = useState('');
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -26,7 +23,9 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('register'), { onFinish: () => reset('password', 'password_confirmation') });
+        post(route('register'), {
+            onFinish: () => reset('password', 'password_confirmation'),
+        });
     };
 
     const registerWithGoogle = async () => {
@@ -35,13 +34,13 @@ export default function Register() {
         try {
             const idToken = await signInWithGoogle(socialLogin.firebase);
             router.post(route('auth.firebase.callback'), { id_token: idToken }, {
-                onError: (errs) => setGoogleError(errs.social_login || 'L\'inscription avec Google a échoué. Veuillez réessayer.'),
+                onError: (errs) => setGoogleError(errs.social_login || 'L’inscription avec Google a échoué. Veuillez réessayer.'),
                 onFinish: () => setGoogleLoading(false),
             });
         } catch (e) {
             const code = e?.code || '';
             if (code !== 'auth/popup-closed-by-user' && code !== 'auth/cancelled-popup-request') {
-                setGoogleError(e?.message || 'L\'inscription avec Google a échoué.');
+                setGoogleError(e?.message || 'L’inscription avec Google a échoué.');
             }
             setGoogleLoading(false);
         }
@@ -49,55 +48,55 @@ export default function Register() {
 
     return (
         <AuthShell
-            brand={brand}
-            logoUrl={logoUrl}
             eyebrow="Essai Gratuit 14 Jours"
-            title="Créez votre standard téléphonique IA"
-            subtitle="Démarrez en 3 minutes sans carte bancaire requise. Vous ne payez que si vous êtes pleinement convaincu."
+            title="Activez votre standard IA"
+            subtitle="Configurez vos agents vocaux en 3 minutes. Aucun numéro à modifier et aucune carte bancaire requise."
             footer={
-                <div className="text-xs text-white/60">
+                <div className="text-xs text-neutral-400">
                     Vous possédez déjà un compte ?{' '}
-                    <Link href={route('login')} className="font-semibold text-white hover:underline">
+                    <Link href={route('login')} className="font-semibold text-white hover:underline underline-offset-4 transition-colors">
                         Se connecter
                     </Link>
                 </div>
             }
         >
-            <Head title="Inscription gratuite · CallMind AI" />
+            <Head title="Créer un compte · AutoCall" />
 
-            {/* Micro-pastilles de réassurance */}
-            <div className="mb-5 flex flex-wrap items-center gap-3 text-[11px] text-white/70">
-                <span className="inline-flex items-center gap-1">
-                    <Check className="h-3 w-3 text-emerald-400" />
-                    Aucun numéro à changer
+            {/* Micro-pastilles de réassurance au sommet */}
+            <div className="mb-5 flex flex-wrap items-center gap-3 text-[11px] text-neutral-400">
+                <span className="inline-flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                    Sans carte bancaire
                 </span>
-                <span className="inline-flex items-center gap-1">
-                    <Check className="h-3 w-3 text-emerald-400" />
-                    Sans engagement
+                <span className="inline-flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                    14 jours d&apos;essai complet
                 </span>
-                <span className="inline-flex items-center gap-1">
-                    <Check className="h-3 w-3 text-emerald-400" />
-                    Support en français
+                <span className="inline-flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                    500 minutes offertes
                 </span>
             </div>
 
-            {showGoogle && (
-                <div className="mb-2">
+            <div className="mb-2">
+                <div className="grid gap-3 sm:grid-cols-2">
                     <GoogleButton onClick={registerWithGoogle} loading={googleLoading} label="S'inscrire avec Google" />
-                    {googleError && <p className="mt-2 text-xs text-red-400">{googleError}</p>}
-                    <OrDivider label="ou avec votre adresse e-mail professionnelle" />
+                    <AppleButton label="S'inscrire avec Apple" />
                 </div>
-            )}
+                {googleError && <p className="mt-2 text-xs text-red-400">{googleError}</p>}
+                <OrDivider label="ou inscription par e-mail" />
+            </div>
 
-            <form onSubmit={submit} className="space-y-3.5">
+            <form onSubmit={submit} className="space-y-4">
                 <AuthField
                     id="name"
-                    label="Nom complet ou nom du cabinet"
+                    label="Nom complet ou raison sociale"
                     name="name"
                     autoComplete="name"
                     autoFocus
                     required
-                    placeholder="Dr. Thomas Martin ou Me. Laurent"
+                    icon={User}
+                    placeholder="Dr. Thomas Martin ou Cabinet Alpha"
                     value={data.name}
                     onChange={(e) => setData('name', e.target.value)}
                     error={errors.name}
@@ -110,24 +109,29 @@ export default function Register() {
                     name="email"
                     autoComplete="username"
                     required
-                    placeholder="contact@cabinet-martin.fr"
+                    icon={Mail}
+                    placeholder="contact@cabinet-alpha.fr"
                     value={data.email}
                     onChange={(e) => setData('email', e.target.value)}
                     error={errors.email}
                 />
 
-                <AuthField
-                    id="password"
-                    label="Mot de passe"
-                    secret
-                    name="password"
-                    autoComplete="new-password"
-                    required
-                    placeholder="Au moins 8 caractères"
-                    value={data.password}
-                    onChange={(e) => setData('password', e.target.value)}
-                    error={errors.password}
-                />
+                <div className="space-y-1">
+                    <AuthField
+                        id="password"
+                        label="Mot de passe"
+                        secret
+                        name="password"
+                        autoComplete="new-password"
+                        required
+                        icon={Lock}
+                        placeholder="Au moins 8 caractères"
+                        value={data.password}
+                        onChange={(e) => setData('password', e.target.value)}
+                        error={errors.password}
+                    />
+                    <PasswordStrengthMeter password={data.password} />
+                </div>
 
                 <AuthField
                     id="password_confirmation"
@@ -136,15 +140,28 @@ export default function Register() {
                     name="password_confirmation"
                     autoComplete="new-password"
                     required
-                    placeholder="Confirmez votre mot de passe"
+                    icon={Lock}
+                    placeholder="Répétez votre mot de passe"
                     value={data.password_confirmation}
                     onChange={(e) => setData('password_confirmation', e.target.value)}
                     error={errors.password_confirmation}
                 />
 
-                <div className="pt-3">
+                <p className="text-[11px] text-neutral-400 leading-relaxed pt-1">
+                    En créant un compte, vous acceptez nos{' '}
+                    <Link href="/terms" className="text-neutral-200 hover:underline underline-offset-2 font-medium">
+                        Conditions Générales
+                    </Link>{' '}
+                    et notre{' '}
+                    <Link href="/privacy" className="text-neutral-200 hover:underline underline-offset-2 font-medium">
+                        Politique de Confidentialité
+                    </Link>.
+                </p>
+
+                <div className="pt-2">
                     <SubmitButton processing={processing} loadingText="Création du compte…">
-                        Démarrer mon essai gratuit de 14 jours
+                        <span>Démarrer l&apos;essai gratuit (14j)</span>
+                        <ArrowRight className="h-4 w-4 ml-1" />
                     </SubmitButton>
                 </div>
             </form>

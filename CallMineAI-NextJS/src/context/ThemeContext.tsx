@@ -6,7 +6,7 @@ import { usePage } from '@/lib/page-router';
 const STORAGE_KEY = 'theme';
 
 export const ThemeContext = createContext({
-    theme: 'light',
+    theme: 'dark',
     setTheme: () => {},
 });
 
@@ -15,8 +15,37 @@ function getInitialTheme(serverTheme, hasUser, stored) {
     if (stored === 'dark' || stored === 'light') return stored;
     if (hasUser && serverTheme) return serverTheme;
     if (serverTheme) return serverTheme;
-    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
-    return 'light';
+    // Default to dark luxury theme across all pages
+    return 'dark';
+}
+
+function disableTransitionsTemporarily() {
+    if (typeof document === 'undefined') return () => {};
+    const css = document.createElement('style');
+    css.setAttribute('type', 'text/css');
+    css.appendChild(
+        document.createTextNode(
+            `*, *::before, *::after {
+                -webkit-transition: none !important;
+                -moz-transition: none !important;
+                -o-transition: none !important;
+                -ms-transition: none !important;
+                transition: none !important;
+            }`
+        )
+    );
+    document.head.appendChild(css);
+    return () => {
+        // Force reflow
+        (() => window.getComputedStyle(document.body))();
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                if (css.parentNode) {
+                    document.head.removeChild(css);
+                }
+            });
+        });
+    };
 }
 
 export function ThemeProvider({ children }) {
@@ -25,13 +54,12 @@ export function ThemeProvider({ children }) {
     const hasUser = !!page.props.auth?.user;
 
     const [theme, setThemeState] = useState(() => {
-        if (typeof window === 'undefined') return serverTheme || 'light';
+        if (typeof window === 'undefined') return serverTheme || 'dark';
         const stored = window.localStorage.getItem(STORAGE_KEY);
         return getInitialTheme(serverTheme, hasUser, stored);
     });
 
     // Sync from server when user is present (e.g. after login or refresh).
-    // Don't overwrite when user has an explicit localStorage preference that differs (e.g. just toggled to dark, or admin with no server persistence).
     useEffect(() => {
         if (!hasUser || !serverTheme || serverTheme === theme) return;
         const stored = typeof window !== 'undefined' ? window.localStorage.getItem(STORAGE_KEY) : null;
@@ -43,7 +71,9 @@ export function ThemeProvider({ children }) {
 
     // Apply class to <html>
     useEffect(() => {
+        const cleanup = disableTransitionsTemporarily();
         document.documentElement.classList.toggle('dark', theme === 'dark');
+        cleanup();
     }, [theme]);
 
     const setTheme = useCallback((next) => {
@@ -51,8 +81,17 @@ export function ThemeProvider({ children }) {
             const value = typeof next === 'function' ? next(prev) : (next === 'dark' || next === 'light' ? next : prev === 'dark' ? 'light' : 'dark');
             if (typeof window !== 'undefined') {
                 window.localStorage.setItem(STORAGE_KEY, value);
+                try {
+                    fetch('/api/theme/update', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ theme: value }),
+                    }).catch(() => {});
+                } catch {}
+                const cleanup = disableTransitionsTemporarily();
+                document.documentElement.classList.toggle('dark', value === 'dark');
+                cleanup();
             }
-            document.documentElement.classList.toggle('dark', value === 'dark');
             return value;
         });
     }, []);

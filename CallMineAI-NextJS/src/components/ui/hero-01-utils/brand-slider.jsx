@@ -140,7 +140,7 @@ export default function BrandSlider() {
                         <div className="w-full border-t border-white/[0.08]" />
                     </div>
                     <div className="relative bg-[#08090C] px-6">
-                        <span className="text-xs font-medium tracking-wide text-white/50">
+                        <span className="text-xs font-semibold tracking-wide text-white/80">
                             Connecté à vos outils favoris & approuvé par +1 000 professionnels
                         </span>
                     </div>

@@ -15,3 +15,6 @@ export { default as ThemedSelect } from './ThemedSelect';
 export { default as Tabs } from './Tabs';
 export { default as Toggle } from './Toggle';
 export { default as Tooltip } from './Tooltip';
+export { ChatMessages, AnimatedAssistantAvatar, AnimatedUserAvatar, default as ChatMessagesComponent } from './chat-messages';
+export { Calendar } from './calendar';
+export { DateTimePicker } from './date-time-picker';

@@ -26,9 +26,7 @@ function browserPrefersFrench(headers) {
 
 export function detectRegionalPreferences(headers) {
     const country = normalizedCountry(headers);
-    const locale = (country && FRANCOPHONE_COUNTRIES.has(country)) || browserPrefersFrench(headers)
-        ? 'fr'
-        : 'en';
+    const locale = 'fr';
     const currency = country && XOF_COUNTRIES.has(country)
         ? 'XOF'
         : country && EUR_COUNTRIES.has(country)

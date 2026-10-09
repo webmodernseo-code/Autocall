@@ -425,6 +425,28 @@ async function seedClient() {
         });
     }
 
+    // Active subscription so the demo workspace is unlocked and functional.
+    const sub = await prisma.clientSubscription.findFirst({ where: { client_id: client.id } });
+    if (!sub) {
+        const proPlan = await prisma.plan.findFirst({ where: { slug: 'pro' } });
+        if (proPlan) {
+            const endsAt = new Date();
+            endsAt.setFullYear(endsAt.getFullYear() + 1);
+            await prisma.clientSubscription.create({
+                data: {
+                    client_id: client.id,
+                    plan_id: proPlan.id,
+                    billing_cycle: 'monthly',
+                    starts_at: now(),
+                    ends_at: endsAt,
+                    status: 'active',
+                    created_at: now(),
+                    updated_at: now(),
+                },
+            });
+        }
+    }
+
     console.log(`  demo client user: ${clientEmail}`);
 }
 

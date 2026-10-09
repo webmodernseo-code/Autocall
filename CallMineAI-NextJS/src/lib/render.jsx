@@ -17,6 +17,13 @@ import { plain } from '@/lib/serialize';
  */
 export async function renderPage(Component, componentName, props = {}, options = {}) {
     const shared = await sharedProps({ isAdminRoute: options.isAdminRoute ?? componentName.startsWith('Admin/') });
+    if (options.user && !shared.auth?.user) {
+        shared.auth = {
+            ...(shared.auth || {}),
+            user: options.user,
+            clientPermissions: options.clientPermissions || ['*'],
+        };
+    }
     const safe = plain(props);
 
     return (

@@ -19,8 +19,8 @@ export function safeRedirectPath(value, fallback = '/app/dashboard') {
     }
 
     try {
-        const parsed = new URL(candidate, 'https://callmindai.local');
-        if (parsed.origin !== 'https://callmindai.local') return fallback;
+        const parsed = new URL(candidate, 'https://autocall.co');
+        if (parsed.origin !== 'https://autocall.co') return fallback;
         return `${parsed.pathname}${parsed.search}${parsed.hash}`;
     } catch {
         return fallback;

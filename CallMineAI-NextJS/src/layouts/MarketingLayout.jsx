@@ -18,7 +18,7 @@ const NAV = [
 export default function MarketingLayout({ children, title, description, schema, canonical }) {
     const page = usePage().props;
     const user = page?.auth?.user;
-    const brand = page?.branding?.system_title || page?.branding?.company_name || 'CallMindAI';
+    const brand = page?.branding?.system_title || page?.branding?.company_name || 'AutoCall';
     const desc = description || 'Agents vocaux IA qui appellent, mènent des conversations réelles, qualifient les prospects Chaud/Tiède/Froid et les synchronisent avec votre CRM — avec interface Super-Admin, facturation et API. Auto-hébergé et personnalisable.';
 
     const [scrolled, setScrolled] = useState(false);
@@ -57,13 +57,19 @@ export default function MarketingLayout({ children, title, description, schema, 
             {/* Top scrim */}
             <div className="pointer-events-none fixed inset-x-0 top-0 z-30 h-28 bg-gradient-to-b from-[#f6f6fb] via-[#f6f6fb]/70 to-transparent dark:from-ink-950 dark:via-ink-950/70" aria-hidden="true" />
 
-            {/* Nav */}
             <header className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${scrolled ? 'border-b border-neutral-200 dark:border-white/10 bg-white/80 dark:bg-ink-950/80 backdrop-blur-xl' : 'border-b border-transparent'}`}>
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                    <Link href={route('home')} className="flex items-center gap-1" aria-label={brand}>
-                        <BrandMark variant="light" className="h-9 w-9 dark:hidden" />
-                        <BrandMark variant="dark" className="hidden h-9 w-9 dark:block" />
-                        <span className="font-display text-lg font-bold tracking-tight text-neutral-900 dark:text-white"><BrandName brand={brand} /></span>
+                    <Link href={route('home')} className="flex items-center group py-1" aria-label={brand}>
+                        <img
+                            src="/images/autocall-logo-dark.png"
+                            alt={brand}
+                            className="h-4 sm:h-[18px] max-h-5 w-auto object-contain dark:hidden transition-transform duration-200 group-hover:scale-102"
+                        />
+                        <img
+                            src="/images/autocall-logo.png"
+                            alt={brand}
+                            className="h-4 sm:h-[18px] max-h-5 w-auto object-contain hidden dark:block transition-transform duration-200 group-hover:scale-102"
+                        />
                     </Link>
 
                     <nav className="hidden items-center gap-1 md:flex" aria-label="Navigation principale">
@@ -105,10 +111,17 @@ export default function MarketingLayout({ children, title, description, schema, 
                     <div className="grid gap-12 lg:grid-cols-[1.4fr_2.2fr_1.2fr]">
                         {/* brand + newsletter */}
                         <div>
-                            <div className="flex items-center gap-1">
-                                <BrandMark variant="light" className="h-9 w-9 dark:hidden" />
-                                <BrandMark variant="dark" className="hidden h-9 w-9 dark:block" />
-                                <span className="font-display text-lg font-bold tracking-tight text-neutral-900 dark:text-white"><BrandName brand={brand} /></span>
+                            <div className="flex items-center py-1">
+                                <img
+                                    src="/images/autocall-logo-dark.png"
+                                    alt={brand}
+                                    className="h-3.5 sm:h-4 max-h-[18px] w-auto object-contain dark:hidden"
+                                />
+                                <img
+                                    src="/images/autocall-logo.png"
+                                    alt={brand}
+                                    className="h-3.5 sm:h-4 max-h-[18px] w-auto object-contain hidden dark:block"
+                                />
                             </div>
                             <p className="mt-4 max-w-xs text-sm text-neutral-500">Agents vocaux IA qui appellent, qualifient et notent vos prospects — une plateforme d'appels complète, auto-hébergée et multi-tenant.</p>
                             <form onSubmit={(e) => { e.preventDefault(); setSubscribed(true); }} className="mt-6 max-w-xs">
@@ -140,7 +153,7 @@ export default function MarketingLayout({ children, title, description, schema, 
                         {/* contact + social */}
                         <div>
                             <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-500 dark:text-neutral-600">Contact</p>
-                            <a href="mailto:contact@callmindai.com" className="mt-4 inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 transition hover:text-neutral-900 dark:hover:text-white"><Mail className="h-4 w-4" /> contact@callmindai.com</a>
+                            <a href="mailto:contact@autocall.co" className="mt-4 inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 transition hover:text-neutral-900 dark:hover:text-white"><Mail className="h-4 w-4" /> contact@autocall.co</a>
                             <div className="mt-6 flex gap-2">
                                 {socials.map(([Icon, label]) => (
                                     <a key={label} href="#" aria-label={label} className="flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/[0.03] text-neutral-600 dark:text-neutral-400 transition hover:bg-neutral-100 dark:hover:bg-white/[0.08] hover:text-neutral-900 dark:hover:text-white"><Icon className="h-4 w-4" /></a>

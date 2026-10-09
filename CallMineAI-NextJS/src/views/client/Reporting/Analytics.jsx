@@ -15,8 +15,8 @@ const axisTick = '#71717a';
 function Kpi({ title, value, icon: Icon, tone = 'blue' }) {
     const tint = {
         blue: 'bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400',
-        violet: 'bg-violet-100 text-violet-600 dark:bg-violet-500/20 dark:text-violet-400',
-    }[tone];
+        cyan: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-500/20 dark:text-cyan-300',
+    }[tone] || 'bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400';
     return (
         <Card className="flex items-center justify-between gap-3 p-4 sm:p-5 shadow-soft">
             <div className="min-w-0">
@@ -68,10 +68,10 @@ export default function Analytics({ analytics = {}, advancedAnalytics = {} }) {
                 {/* KPIs — basic + advanced merged */}
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
                     <Kpi title={t('client.team_members') || 'Team members'} value={Number(kpis.teamMembers ?? 0).toLocaleString()} icon={Users} />
-                    <Kpi title={t('client.active_users_30d') || 'Active users (30d)'} value={Number(kpis.activeUsers30d ?? 0).toLocaleString()} icon={UserCheck} tone="violet" />
+                    <Kpi title={t('client.active_users_30d') || 'Active users (30d)'} value={Number(kpis.activeUsers30d ?? 0).toLocaleString()} icon={UserCheck} tone="cyan" />
                     <Kpi title={t('client.total_tickets') || 'Total tickets'} value={Number(kpis.totalTickets ?? 0).toLocaleString()} icon={Inbox} />
                     <Kpi title={t('client.open_tickets') || 'Open tickets'} value={Number(kpis.openTickets ?? 0).toLocaleString()} icon={LifeBuoy} />
-                    <Kpi title={t('client.activity_30d') || 'Activity (30d)'} value={Number(kpis.activity30d ?? 0).toLocaleString()} icon={Activity} tone="violet" />
+                    <Kpi title={t('client.activity_30d') || 'Activity (30d)'} value={Number(kpis.activity30d ?? 0).toLocaleString()} icon={Activity} tone="cyan" />
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -106,12 +106,12 @@ export default function Analytics({ analytics = {}, advancedAnalytics = {} }) {
                     <Panel title={t('client.weekly_activity') || 'Weekly activity'}>
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={overviewSeries} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                                <defs><linearGradient id="advGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.35} /><stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} /></linearGradient></defs>
+                                <defs><linearGradient id="advGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.35} /><stop offset="95%" stopColor="#0ea5e9" stopOpacity={0} /></linearGradient></defs>
                                 <CartesianGrid strokeDasharray="4 4" stroke="#d4d4d8" vertical={false} />
                                 <XAxis dataKey="label" tick={{ fontSize: 11, fill: axisTick }} tickLine={false} />
                                 <YAxis allowDecimals={false} tick={{ fontSize: 12, fill: axisTick }} axisLine={false} tickLine={false} width={36} />
                                 <Tooltip contentStyle={tooltipStyle} />
-                                <Area type="monotone" dataKey="value" stroke="#8b5cf6" strokeWidth={2} fill="url(#advGrad)" />
+                                <Area type="monotone" dataKey="value" stroke="#0ea5e9" strokeWidth={2} fill="url(#advGrad)" />
                             </AreaChart>
                         </ResponsiveContainer>
                     </Panel>
@@ -123,7 +123,7 @@ export default function Analytics({ analytics = {}, advancedAnalytics = {} }) {
                                 <XAxis dataKey="name" tick={{ fontSize: 12, fill: axisTick }} tickLine={false} />
                                 <YAxis allowDecimals={false} tick={{ fontSize: 12, fill: axisTick }} axisLine={false} tickLine={false} width={36} />
                                 <Tooltip contentStyle={tooltipStyle} />
-                                <Bar dataKey="events" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                                <Bar dataKey="events" fill="#0284c7" radius={[4, 4, 0, 0]} />
                             </BarChart>
                         </ResponsiveContainer>
                     </Panel>

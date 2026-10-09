@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Menu, X, Sun, Moon } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import ThemeToggle from '@/components/ThemeToggle';
 
 /**
  * Logo vectoriel shadcnspace. avec le cercle blanc et le découpage bicolore exact :
@@ -12,51 +13,11 @@ import { ArrowUpRight, Menu, X, Sun, Moon } from 'lucide-react';
  */
 export function ShadcnSpaceLogo() {
     return (
-        <svg
-            width="180"
-            height="38"
-            viewBox="0 0 180 38"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="flex-shrink-0"
-        >
-            <defs>
-                <clipPath id="shadcnLogoCircle">
-                    <circle cx="20" cy="19" r="18" />
-                </clipPath>
-            </defs>
-
-            {/* 1. Cercle blanc solide */}
-            <circle cx="20" cy="19" r="18" fill="#FFFFFF" />
-
-            {/* 2. Texte blanc sur fond sombre */}
-            <text
-                x="15"
-                y="26"
-                fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Inter', sans-serif"
-                fontSize="20.5"
-                fontWeight="800"
-                letterSpacing="-0.045em"
-                fill="#FFFFFF"
-            >
-                shadcnspace.
-            </text>
-
-            {/* 3. Texte noir découpé au millimètre dans le cercle blanc */}
-            <g clipPath="url(#shadcnLogoCircle)">
-                <text
-                    x="15"
-                    y="26"
-                    fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Inter', sans-serif"
-                    fontSize="20.5"
-                    fontWeight="800"
-                    letterSpacing="-0.045em"
-                    fill="#08090D"
-                >
-                    shadcnspace.
-                </text>
-            </g>
-        </svg>
+        <img
+            src="/images/autocall-logo.png"
+            alt="AutoCall"
+            className="h-4 sm:h-[18px] max-h-5 w-auto object-contain flex-shrink-0"
+        />
     );
 }
 
@@ -64,11 +25,15 @@ export default function Header({ navigationData = [], isDark = true, onToggleThe
     const [mobileOpen, setMobileOpen] = useState(false);
 
     return (
-        <header className="sticky top-0 z-50 w-full px-6 py-4 lg:px-16 transition-all duration-200 backdrop-blur-xl bg-[#08090C]/80 border-b border-white/[0.06]">
+        <header className="sticky top-0 z-50 w-full px-6 py-3.5 lg:px-16 transition-all duration-200 backdrop-blur-xl bg-[#08090C]/80 border-b border-white/[0.06]">
             <div className="mx-auto flex max-w-7xl items-center justify-between">
-                {/* 1. Logo shadcnspace. */}
-                <Link href="/" className="flex items-center group">
-                    <ShadcnSpaceLogo />
+                {/* 1. Logo officiel AutoCall */}
+                <Link href="/" className="flex items-center group py-1">
+                    <img
+                        src="/images/autocall-logo.png"
+                        alt="AutoCall"
+                        className="h-[18px] sm:h-5 md:h-[21px] w-auto object-contain transition-transform duration-200 group-hover:scale-102"
+                    />
                 </Link>
 
                 {/* 2. Menu en capsule sombre flottante */}
@@ -106,15 +71,15 @@ export default function Header({ navigationData = [], isDark = true, onToggleThe
                     >
                         Connexion
                     </Link>
-                    <a
+                    <Link
                         href="/register"
-                        className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-black transition-all hover:bg-neutral-200 hover:scale-[1.02] active:scale-[0.98] shadow-md shadow-white/5"
+                        className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-black transition-all hover:bg-neutral-200 hover:scale-[1.02] active:scale-[0.98] shadow-md shadow-white/5 cursor-pointer"
                     >
                         <span>Essai gratuit</span>
                         <div className="flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-[11px]">
                             <ArrowUpRight className="h-3 w-3" />
                         </div>
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Mobile Burger */}

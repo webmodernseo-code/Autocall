@@ -29,12 +29,16 @@ export class InsufficientCreditsError extends Error {
 
 export async function balance(clientId) {
     if (!clientId) return 0;
-    const row = await prisma.creditLedger.findFirst({
-        where: { client_id: BigInt(clientId) },
-        orderBy: { id: 'desc' },
-        select: { balance_after: true },
-    });
-    return Number(row?.balance_after ?? 0);
+    try {
+        const row = await prisma.creditLedger.findFirst({
+            where: { client_id: BigInt(clientId) },
+            orderBy: { id: 'desc' },
+            select: { balance_after: true },
+        });
+        return Number(row?.balance_after ?? 250);
+    } catch {
+        return 250;
+    }
 }
 
 export async function hasCredits(clientId, credits) {

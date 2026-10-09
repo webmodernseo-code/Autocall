@@ -19,9 +19,11 @@ export function PricingSection({
     plans,
     heading,
     description,
+    theme = 'light',
     ...props
 }) {
     const [frequency, setFrequency] = React.useState('monthly');
+    const isLight = theme === 'light';
 
     return (
         <div
@@ -32,11 +34,17 @@ export function PricingSection({
             {...props}
         >
             <div className="mx-auto max-w-2xl space-y-3 text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                <h2 className={cn(
+                    "text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl",
+                    isLight ? "text-neutral-900" : "text-white"
+                )}>
                     {heading}
                 </h2>
                 {description && (
-                    <p className="text-sm sm:text-base text-white/60 leading-relaxed max-w-xl mx-auto">
+                    <p className={cn(
+                        "text-sm sm:text-base leading-relaxed max-w-xl mx-auto",
+                        isLight ? "text-neutral-600" : "text-white/60"
+                    )}>
                         {description}
                     </p>
                 )}
@@ -44,10 +52,11 @@ export function PricingSection({
             <PricingFrequencyToggle
                 frequency={frequency}
                 setFrequency={setFrequency}
+                isLight={isLight}
             />
             <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-3 items-stretch">
                 {plans.map((plan) => (
-                    <PricingCard plan={plan} key={plan.name} frequency={frequency} />
+                    <PricingCard plan={plan} key={plan.name} frequency={frequency} isLight={isLight} />
                 ))}
             </div>
         </div>
@@ -57,12 +66,16 @@ export function PricingSection({
 export function PricingFrequencyToggle({
     frequency,
     setFrequency,
+    isLight = true,
     ...props
 }) {
     return (
         <div
             className={cn(
-                'bg-white/[0.04] border border-white/10 mx-auto flex w-fit rounded-full p-1 backdrop-blur-md',
+                'mx-auto flex w-fit rounded-full p-1 backdrop-blur-md',
+                isLight
+                    ? 'bg-neutral-200/70 border border-neutral-300'
+                    : 'bg-white/[0.04] border border-white/10',
                 props.className,
             )}
             {...props}
@@ -76,13 +89,20 @@ export function PricingFrequencyToggle({
                         key={freq}
                         onClick={() => setFrequency(freq)}
                         className={`relative px-5 py-2 text-xs font-semibold capitalize transition-colors duration-150 cursor-pointer ${
-                            isSelected ? 'text-black font-bold' : 'text-white/60 hover:text-white'
+                            isSelected
+                                ? isLight ? 'text-neutral-900 font-bold' : 'text-black font-bold'
+                                : isLight ? 'text-neutral-600 hover:text-neutral-900' : 'text-white/60 hover:text-white'
                         }`}
                     >
                         <span className="relative z-20 flex items-center gap-1.5">
                             {label}
                             {freq === 'yearly' && (
-                                <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-black text-white' : 'bg-emerald-500/20 text-emerald-300'}`}>
+                                <span className={cn(
+                                    "text-[10px] px-1.5 py-0.5 rounded-full font-bold",
+                                    isSelected
+                                        ? isLight ? 'bg-neutral-900 text-white' : 'bg-black text-white'
+                                        : 'bg-emerald-500/20 text-emerald-700'
+                                )}>
                                     -20%
                                 </span>
                             )}
@@ -91,7 +111,10 @@ export function PricingFrequencyToggle({
                             <motion.span
                                 layoutId="frequency"
                                 transition={{ type: 'spring', duration: 0.35, bounce: 0.15 }}
-                                className="bg-white absolute inset-0 z-10 rounded-full shadow-md"
+                                className={cn(
+                                    "absolute inset-0 z-10 rounded-full shadow-xs",
+                                    isLight ? "bg-white" : "bg-white"
+                                )}
                             />
                         )}
                     </button>
@@ -105,6 +128,7 @@ export function PricingCard({
     plan,
     className,
     frequency = frequencies[0],
+    isLight = true,
     ...props
 }) {
     const discountPercent = Math.round(
@@ -118,82 +142,92 @@ export function PricingCard({
         <div
             key={plan.name}
             className={cn(
-                'relative flex w-full flex-col justify-between rounded-2xl border border-white/10 bg-[#0E1015]/90 backdrop-blur-xl transition-all duration-200 overflow-hidden',
-                plan.highlighted && 'border-white/25 bg-[#121520] shadow-2xl scale-[1.02]',
+                'relative flex w-full flex-col justify-between rounded-2xl transition-all duration-200 overflow-hidden',
+                isLight
+                    ? plan.highlighted
+                        ? 'border-2 border-blue-600 bg-white shadow-[0_12px_40px_rgba(37,99,235,0.12)] ring-4 ring-blue-500/10 scale-[1.02]'
+                        : 'border border-neutral-200/90 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:border-neutral-300'
+                    : plan.highlighted
+                        ? 'border-white/25 bg-[#121520] shadow-2xl scale-[1.02]'
+                        : 'border border-white/10 bg-[#0E1015]/90',
                 className,
             )}
             {...props}
         >
-            {plan.highlighted && (
-                <BorderTrail
-                    style={{
-                        boxShadow:
-                            '0px 0px 60px 30px rgba(255, 255, 255, 0.4), 0 0 100px 60px rgba(16, 185, 129, 0.3), 0 0 140px 90px rgba(59, 130, 246, 0.2)',
-                    }}
-                    size={100}
-                />
-            )}
             <div>
                 <div
                     className={cn(
-                        'bg-white/[0.02] border-b border-white/10 p-6 relative',
-                        plan.highlighted && 'bg-white/[0.05]',
+                        'p-6 relative border-b',
+                        isLight
+                            ? plan.highlighted ? 'bg-blue-50/30 border-neutral-200/80' : 'bg-neutral-50/50 border-neutral-200/80'
+                            : plan.highlighted ? 'bg-white/[0.05] border-white/10' : 'bg-white/[0.02] border-white/10',
                     )}
                 >
                     <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
                         {plan.highlighted && (
-                            <p className="bg-white text-black flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold shadow-xs">
+                            <p className={cn(
+                                "flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold shadow-xs",
+                                isLight ? "bg-blue-600 text-white" : "bg-white text-black"
+                            )}>
                                 <StarIcon className="h-3 w-3 fill-current" />
-                                {plan.badge || 'Populaire'}
+                                {plan.badge || 'Recommandé'}
                             </p>
                         )}
                         {frequency === 'yearly' && discountPercent > 0 && (
-                            <p className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold">
+                            <p className="bg-emerald-500/15 text-emerald-700 border border-emerald-500/25 flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold">
                                 -{discountPercent}%
                             </p>
                         )}
                     </div>
 
-                    <div className="text-xl font-bold text-white">{plan.name}</div>
-                    <p className="text-white/60 text-xs font-normal mt-1 min-h-[32px] leading-relaxed">{plan.info}</p>
+                    <div className={cn("text-xl font-bold", isLight ? "text-neutral-900" : "text-white")}>
+                        {plan.name}
+                    </div>
+                    <p className={cn("text-xs mt-1 min-h-[32px] leading-relaxed", isLight ? "text-neutral-600 font-medium" : "text-white/70")}>
+                        {plan.info}
+                    </p>
                     <h3 className="mt-3 flex items-baseline gap-1">
-                        <span className="text-4xl font-extrabold text-white tracking-tight tabular-nums">
+                        <span className={cn(
+                            "text-4xl font-extrabold tracking-tight tabular-nums",
+                            isLight ? "text-neutral-900" : "text-white"
+                        )}>
                             {plan.price[frequency]}€
                         </span>
-                        <span className="text-white/50 text-xs font-mono">
+                        <span className={cn("text-xs font-mono", isLight ? "text-neutral-600 font-medium" : "text-white/60")}>
                             {plan.name !== 'Free'
                                 ? '/' + (frequency === 'monthly' ? 'mois' : 'mois (annuel)')
                                 : ''}
                         </span>
                     </h3>
                 </div>
-                <div
-                    className={cn(
-                        'text-white/75 space-y-3.5 px-6 py-6 text-xs sm:text-sm',
-                        plan.highlighted && 'bg-white/[0.01]',
-                    )}
-                >
-                    <div className="text-[11px] font-semibold uppercase tracking-wider text-white/40 mb-2">
+                <div className="space-y-3.5 px-6 py-6 text-xs sm:text-sm">
+                    <div className={cn(
+                        "text-[11px] font-bold uppercase tracking-wider mb-2",
+                        isLight ? "text-neutral-700" : "text-white/70"
+                    )}>
                         Inclus dans l&apos;offre :
                     </div>
                     {plan.features.map((feature, index) => (
                         <div key={index} className="flex items-start gap-2.5">
-                            <CheckCircleIcon className="text-emerald-400 h-4 w-4 shrink-0 mt-0.5" />
+                            <CheckCircleIcon className="text-emerald-600 h-4 w-4 shrink-0 mt-0.5" />
                             <TooltipProvider>
                                 <Tooltip delayDuration={0}>
                                     <TooltipTrigger asChild>
                                         <p
                                             className={cn(
-                                                'leading-relaxed text-white/85',
-                                                feature.tooltip &&
-                                                    'cursor-pointer border-b border-dashed border-white/30',
+                                                'leading-relaxed font-medium',
+                                                isLight ? 'text-neutral-800' : 'text-white/90',
+                                                feature.tooltip && (isLight ? 'cursor-pointer border-b border-dashed border-neutral-400' : 'cursor-pointer border-b border-dashed border-white/40'),
                                             )}
                                         >
                                             {feature.text}
                                         </p>
                                     </TooltipTrigger>
                                     {feature.tooltip && (
-                                        <TooltipContent className="bg-black/90 border border-white/20 text-white text-xs p-2 rounded-lg max-w-xs shadow-xl">
+                                        <TooltipContent className={cn(
+                                            "text-xs p-2 rounded-lg max-w-xs shadow-xl border",
+                                            isLight ? "bg-neutral-900 text-white border-neutral-800" : "bg-black/90 border-white/20 text-white"
+                                        )}>
                                             <p>{feature.tooltip}</p>
                                         </TooltipContent>
                                     )}
@@ -203,18 +237,20 @@ export function PricingCard({
                     ))}
                 </div>
             </div>
-            <div
-                className={cn(
-                    'mt-auto w-full border-t border-white/10 p-5',
-                    plan.highlighted && 'bg-white/[0.03]',
-                )}
-            >
+            <div className={cn(
+                'mt-auto w-full p-5 border-t',
+                isLight ? 'border-neutral-200/80 bg-neutral-50/30' : 'border-white/10 bg-white/[0.03]',
+            )}>
                 <Button
                     className={cn(
                         'w-full h-11 text-xs font-semibold rounded-xl transition-all cursor-pointer',
-                        plan.highlighted
-                            ? 'bg-white text-black hover:bg-neutral-200 shadow-md shadow-white/10'
-                            : 'border border-white/20 bg-white/5 text-white hover:bg-white hover:text-black',
+                        isLight
+                            ? plan.highlighted
+                                ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'
+                                : 'border border-neutral-300 bg-neutral-100 text-neutral-900 hover:bg-neutral-200'
+                            : plan.highlighted
+                                ? 'bg-white text-black hover:bg-neutral-200 shadow-md'
+                                : 'border border-white/20 bg-white/5 text-white hover:bg-white hover:text-black',
                     )}
                     variant={plan.highlighted ? 'default' : 'outline'}
                     asChild

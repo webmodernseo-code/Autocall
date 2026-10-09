@@ -1,99 +1,94 @@
 'use client';
 
+import React from 'react';
 import { route } from '@/lib/route';
-import InputError from '@/components/InputError';
-import InputLabel from '@/components/InputLabel';
-import PrimaryButton from '@/components/PrimaryButton';
-import TextInput from '@/components/TextInput';
-import GuestLayout from '@/layouts/GuestLayout';
-import { Head, useForm } from '@/lib/page-router';
-import { useTranslation } from 'react-i18next';
+import { Head, Link, useForm } from '@/lib/page-router';
+import AuthShell, { AuthField, SubmitButton, PasswordStrengthMeter } from '@/components/auth/Auth';
+import { Mail, Lock, ArrowRight } from 'lucide-react';
 
 export default function ResetPassword({ token, email }) {
-    const { t } = useTranslation();
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
-        email: email,
+        email: email || '',
         password: '',
         password_confirmation: '',
     });
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('password.store'), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
 
     return (
-        <GuestLayout>
-            <Head title={t('auth.reset_password')} />
-
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value={t('auth.email')} />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
+        <AuthShell
+            eyebrow="Sécurité & Compte"
+            title="Nouveau mot de passe"
+            subtitle="Définissez un nouveau mot de passe fort pour sécuriser l’accès à vos agents AutoCall."
+            footer={
+                <div className="text-xs text-white/60">
+                    Vous souhaitez annuler ?{' '}
+                    <Link href={route('login')} className="font-semibold text-white hover:text-white/80 underline-offset-4 hover:underline transition-colors">
+                        Retour à la connexion
+                    </Link>
                 </div>
+            }
+        >
+            <Head title="Réinitialiser le mot de passe · AutoCall" />
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value={t('auth.password')} />
+            <form onSubmit={submit} className="space-y-4">
+                <AuthField
+                    id="email"
+                    label="Adresse e-mail"
+                    type="email"
+                    name="email"
+                    autoComplete="username"
+                    required
+                    icon={Mail}
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
+                    error={errors.email}
+                />
 
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        isFocused={true}
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
+                <AuthField
+                    id="password"
+                    label="Nouveau mot de passe"
+                    secret
+                    name="password"
+                    autoComplete="new-password"
+                    autoFocus
+                    required
+                    icon={Lock}
+                    placeholder="Minimum 8 caractères"
+                    value={data.password}
+                    onChange={(e) => setData('password', e.target.value)}
+                    error={errors.password}
+                />
 
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
+                <PasswordStrengthMeter password={data.password} />
 
-                <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value={t('auth.confirm_password')}
-                    />
+                <AuthField
+                    id="password_confirmation"
+                    label="Confirmer le nouveau mot de passe"
+                    secret
+                    name="password_confirmation"
+                    autoComplete="new-password"
+                    required
+                    icon={Lock}
+                    placeholder="Répétez le mot de passe"
+                    value={data.password_confirmation}
+                    onChange={(e) => setData('password_confirmation', e.target.value)}
+                    error={errors.password_confirmation}
+                />
 
-                    <TextInput
-                        type="password"
-                        id="password_confirmation"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData('password_confirmation', e.target.value)
-                        }
-                    />
-
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        {t('auth.reset_password')}
-                    </PrimaryButton>
+                <div className="pt-2">
+                    <SubmitButton processing={processing} loadingText="Mise à jour…">
+                        <span>Enregistrer le nouveau mot de passe</span>
+                        <ArrowRight className="h-4 w-4 ml-1" />
+                    </SubmitButton>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthShell>
     );
 }

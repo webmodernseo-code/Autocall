@@ -54,7 +54,7 @@ export default function PlanForm({
                             value={data.description ?? ''}
                             onChange={(e) => setData('description', e.target.value)}
                             rows={2}
-                            className="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                            className="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                             placeholder={translationI18n.t('hardcoded.views_admin_plans_planform_e1e1f0a6ba8b')}
                         />
                         {errors.description && (
@@ -183,7 +183,7 @@ export default function PlanForm({
                 <Button type="button" variant="outline" onClick={onCancel}>
                     <Trans i18nKey="hardcoded.views_admin_plans_planform_09e2d48e036b" />
                 </Button>
-                <Button type="submit" disabled={processing} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-sm">
+                <Button type="submit" disabled={processing} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-sm">
                     {isEdit ? translationI18n.t('hardcoded.views_admin_plans_planform_d5d88f9f1e05') : translationI18n.t('hardcoded.views_admin_plans_planform_b6e5ce2b1447')}
                 </Button>
             </div>

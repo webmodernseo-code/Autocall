@@ -28,23 +28,23 @@ export default function FaqSection() {
     const questions = [
         {
             category: 'phone',
-            q: "Dois-je changer de numéro de téléphone pour utiliser CallMind AI ?",
+            q: "Dois-je changer de numéro de téléphone pour utiliser AutoCall ?",
             a: "Non, absolument pas. Vous conservez votre numéro professionnel habituel (fixe, mobile ou VoIP). Il vous suffit d'activer un simple renvoi d'appel (soit systématique, soit uniquement quand vous êtes déjà en ligne ou ne décrochez pas). La manipulation prend moins de 60 secondes auprès de votre opérateur (Orange, SFR, Bouygues, Free, etc.)."
         },
         {
             category: 'ai',
             q: "Les appelants réalisent-ils qu'ils s'entretiennent avec une IA ?",
-            a: "Les voix de CallMind AI sont ultra-naturelles et intègrent le souffle, les intonations et le rythme d'une véritable conversation humaine. Grâce à une latence imperceptible (< 500 ms), l'échange est fluide, courtois et sans temps mort. L'agent comprend parfaitement les interruptions et s'adapte au vocabulaire spécifique de votre profession."
+            a: "Les voix de AutoCall sont ultra-naturelles et intègrent le souffle, les intonations et le rythme d'une véritable conversation humaine. Grâce à une latence imperceptible (< 500 ms), l'échange est fluide, courtois et sans temps mort. L'agent comprend parfaitement les interruptions et s'adapte au vocabulaire spécifique de votre profession."
         },
         {
             category: 'phone',
             q: "Que se passe-t-il si un appel est particulièrement urgent ?",
-            a: "Vous définissez vos propres règles de criticité (ex: urgence vitale médicale, garde à vue, fuite d'eau continue). Dès qu'un critère d'urgence est détecté, CallMind AI peut soit vous expédier un SMS prioritaire immédiat avec la transcription, soit transférer instantanément la ligne vers votre téléphone personnel."
+            a: "Vous définissez vos propres règles de criticité (ex: urgence vitale médicale, garde à vue, fuite d'eau continue). Dès qu'un critère d'urgence est détecté, AutoCall peut soit vous expédier un SMS prioritaire immédiat avec la transcription, soit transférer instantanément la ligne vers votre téléphone personnel."
         },
         {
             category: 'sync',
             q: "Comment s'effectue la synchronisation avec mon agenda ?",
-            a: "CallMind AI se connecte directement à votre outil d'agenda (Google Calendar, Microsoft Outlook 365, Calendly ou Doctolib). Durant l'appel, il vérifie vos créneaux réellement disponibles en temps réel, propose des options compatibles à l'appelant et bloque le rendez-vous immédiatement pour éliminer tout risque de doublon."
+            a: "AutoCall se connecte directement à votre outil d'agenda (Google Calendar, Microsoft Outlook 365, Calendly ou Doctolib). Durant l'appel, il vérifie vos créneaux réellement disponibles en temps réel, propose des options compatibles à l'appelant et bloque le rendez-vous immédiatement pour éliminer tout risque de doublon."
         },
         {
             category: 'security',
@@ -64,7 +64,7 @@ export default function FaqSection() {
         {
             category: 'ai',
             q: "Que se passe-t-il si un appelant a un accent ou parle une autre langue ?",
-            a: "CallMind AI prend en charge 29 langues et reconnaît les accents régionaux avec une grande précision. Si un client commence à s'exprimer en anglais, espagnol, allemand ou arabe, l'IA détecte la langue et poursuit naturellement l'échange dans la langue de l'interlocuteur."
+            a: "AutoCall prend en charge 29 langues et reconnaît les accents régionaux avec une grande précision. Si un client commence à s'exprimer en anglais, espagnol, allemand ou arabe, l'IA détecte la langue et poursuit naturellement l'échange dans la langue de l'interlocuteur."
         }
     ];
 
@@ -77,7 +77,7 @@ export default function FaqSection() {
     };
 
     return (
-        <section id="faq" className="relative px-6 py-20 sm:py-28 text-white scroll-mt-20">
+        <section id="faq" className="relative px-6 py-20 sm:py-28 bg-[#090A0F] text-white border-y border-white/[0.08] scroll-mt-20">
             {/* Halo lumineux d'ambiance */}
             <div
                 className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[900px] rounded-full blur-[170px] opacity-20"

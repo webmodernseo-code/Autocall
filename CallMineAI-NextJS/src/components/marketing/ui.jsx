@@ -36,7 +36,7 @@ export const MARKETING_STYLES = `
 .sheen::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.25) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s}
 .sheen:hover::after{transform:translateX(120%)}
 html{scroll-behavior:smooth}
-body{transition:background-color .35s ease}
+body{transition:none}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}

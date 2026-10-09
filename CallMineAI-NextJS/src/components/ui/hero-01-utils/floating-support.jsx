@@ -67,7 +67,7 @@ export default function FloatingSupportButton() {
                                     <Headphones className="h-4.5 w-4.5" />
                                 </div>
                                 <div>
-                                    <h4 className="text-sm font-bold text-white">Support CallMind AI</h4>
+                                    <h4 className="text-sm font-bold text-white">Support AutoCall</h4>
                                     <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
                                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                                         <span>En ligne · Réponse &lt; 5 min</span>
@@ -140,7 +140,7 @@ export default function FloatingSupportButton() {
                                     className="flex w-full items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3.5 text-left transition-all hover:bg-white/[0.07] hover:border-white/20 cursor-pointer"
                                 >
                                     <div className="flex items-center gap-3">
-                                        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/15 text-amber-300">
+                                        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-white">
                                             <FileText className="h-4 w-4" />
                                         </div>
                                         <div>

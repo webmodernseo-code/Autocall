@@ -16,8 +16,10 @@ import {
     CheckCircle2,
     SlidersHorizontal,
     PhoneForwarded,
-    Bot
+    Bot,
+    Sparkles
 } from 'lucide-react';
+import { AnimatedAssistantAvatar, AnimatedUserAvatar } from '@/components/ui/chat-messages';
 
 export default function SectorsSection() {
     const sectors = [
@@ -27,9 +29,10 @@ export default function SectorsSection() {
             shortTitle: "Santé",
             icon: Stethoscope,
             headline: "Ne laissez plus le téléphone interrompre vos soins et consultations.",
-            description: "Pendant que vous traitez vos patients, CallMind AI gère le standard avec empathie : qualification du motif, prise de rendez-vous connectée à votre agenda et filtrage des urgences vitales.",
-            badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+            description: "Pendant que vous traitez vos patients, AutoCall gère le standard avec empathie : qualification du motif, prise de rendez-vous connectée à votre agenda et filtrage des urgences vitales.",
+            badgeColor: "text-emerald-800 bg-emerald-100 border-emerald-300",
             accentColor: "emerald",
+            image: '/images/sector-medical.jpg',
             metrics: [
                 { label: "Consultations interrompues", value: "0" },
                 { label: "Appels répétitifs absorbés", value: "-75%" },
@@ -54,9 +57,10 @@ export default function SectorsSection() {
             shortTitle: "Juridique",
             icon: Scale,
             headline: "Confidentialité absolue et qualification immédiate de chaque contentieux.",
-            description: "En audience ou en rédaction d'actes, ne perdez aucun dossier stratégique. CallMind AI qualifie la nature de la demande, détecte les urgences et alerte l'avocat d'astreinte en temps réel.",
-            badgeColor: "text-amber-400 bg-amber-500/10 border-amber-500/20",
-            accentColor: "amber",
+            description: "En audience ou en rédaction d'actes, ne perdez aucun dossier stratégique. AutoCall qualifie la nature de la demande, détecte les urgences et alerte l'avocat d'astreinte en temps réel.",
+            badgeColor: "text-slate-900 bg-slate-100 border-slate-300 font-bold",
+            accentColor: "slate",
+            image: '/images/sector-legal.jpg',
             metrics: [
                 { label: "Délai de qualification", value: "< 2 min" },
                 { label: "Disponibilité d'urgence", value: "24/7" },
@@ -81,9 +85,10 @@ export default function SectorsSection() {
             shortTitle: "Immobilier",
             icon: Building2,
             headline: "Captez 100% des acquéreurs et programmez vos visites sans délai.",
-            description: "45% des acquéreurs appellent le soir et le week-end. CallMind AI répond instantanément, vérifie le budget et le financement, puis planifie la visite directement sur l'agenda du négociateur.",
-            badgeColor: "text-sky-400 bg-sky-500/10 border-sky-500/20",
+            description: "45% des acquéreurs appellent le soir et le week-end. AutoCall répond instantanément, vérifie le budget et le financement, puis planifie la visite directement sur l'agenda du négociateur.",
+            badgeColor: "text-sky-900 bg-sky-100 border-sky-300 font-bold",
             accentColor: "sky",
+            image: '/images/sector-immo.jpg',
             metrics: [
                 { label: "Visites qualifiées", value: "+40%" },
                 { label: "Temps de réponse", value: "< 3 sec" },
@@ -108,9 +113,9 @@ export default function SectorsSection() {
             shortTitle: "Artisans & BTP",
             icon: Wrench,
             headline: "Restez concentré sur vos chantiers, l'IA décroche et prend l'adresse.",
-            description: "Sur un chantier ou les mains prises, impossible de décrocher. Chaque appel manqué est un chantier qui part chez un concurrent. CallMind AI recueille l'urgence et planifie votre tournée.",
-            badgeColor: "text-orange-400 bg-orange-500/10 border-orange-500/20",
-            accentColor: "orange",
+            description: "Sur un chantier ou les mains prises, impossible de décrocher. Chaque appel manqué est un chantier qui part chez un concurrent. AutoCall recueille l'urgence et planifie votre tournée.",
+            badgeColor: "text-amber-900 bg-amber-100 border-amber-300 font-bold",
+            accentColor: "amber",
             metrics: [
                 { label: "Chantiers interrompus", value: "0" },
                 { label: "CA sauvé par an", value: "~25k€" },
@@ -135,8 +140,8 @@ export default function SectorsSection() {
             shortTitle: "Restauration",
             icon: UtensilsCrossed,
             headline: "Gérez vos réservations de tables et privatisations en plein coup de feu.",
-            description: "En plein service ou en préparation, le bruit et le rythme rendent impossible la prise d'appel. CallMind AI réserve les tables en direct selon votre jauge et répond aux questions fréquentes.",
-            badgeColor: "text-rose-400 bg-rose-500/10 border-rose-500/20",
+            description: "En plein service ou en préparation, le bruit et le rythme rendent impossible la prise d'appel. AutoCall réserve les tables en direct selon votre jauge et répond aux questions fréquentes.",
+            badgeColor: "text-rose-900 bg-rose-100 border-rose-300 font-bold",
             accentColor: "rose",
             metrics: [
                 { label: "Couverts additionnels", value: "+18/sem" },
@@ -162,9 +167,9 @@ export default function SectorsSection() {
             shortTitle: "PME & Conseil",
             icon: Briefcase,
             headline: "Un accueil digne des plus grands groupes pour votre cabinet ou PME.",
-            description: "Finis les transferts perdus et les messages approximatifs sur post-it. CallMind AI oriente précisément les interlocuteurs vers le bon collaborateur et rédige des synthèses claires dans votre CRM.",
-            badgeColor: "text-purple-400 bg-purple-500/10 border-purple-500/20",
-            accentColor: "purple",
+            description: "Finis les transferts perdus et les messages approximatifs sur post-it. AutoCall oriente précisément les interlocuteurs vers le bon collaborateur et rédige des synthèses claires dans votre CRM.",
+            badgeColor: "text-blue-900 bg-blue-100 border-blue-300 font-bold",
+            accentColor: "blue",
             metrics: [
                 { label: "Interruptions inutiles", value: "-80%" },
                 { label: "Précision des synthèses", value: "100%" },
@@ -190,12 +195,12 @@ export default function SectorsSection() {
     const ActiveIcon = activeSector.icon;
 
     return (
-        <section id="secteurs" className="relative px-6 py-20 sm:py-28 text-white scroll-mt-20">
-            {/* LUEUR RADIALE D'ARRIÈRE-PLAN */}
+        <section id="secteurs" className="relative px-6 py-20 sm:py-28 bg-[#F8F9FA] text-neutral-900 border-y border-neutral-200/90 scroll-mt-20">
+            {/* LUEUR RADIALE D'ARRIÈRE-PLAN SUBTILE */}
             <div
                 className="pointer-events-none absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 h-[650px] w-[1000px] rounded-full blur-[170px] opacity-20"
                 style={{
-                    background: 'radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(16, 185, 129, 0.15) 50%, transparent 70%)',
+                    background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(16, 185, 129, 0.1) 50%, transparent 70%)',
                 }}
                 aria-hidden="true"
             />
@@ -203,24 +208,24 @@ export default function SectorsSection() {
             <div className="relative mx-auto max-w-6xl">
                 {/* 1. ENTÊTE DE SECTION */}
                 <div className="text-center max-w-3xl mx-auto mb-14">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold text-white/80 backdrop-blur-md mb-4 shadow-xs">
-                        <SlidersHorizontal className="h-3.5 w-3.5 text-white/60" />
+                    <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-xs font-semibold text-neutral-800 shadow-2xs mb-4">
+                        <SlidersHorizontal className="h-3.5 w-3.5 text-neutral-600" />
                         <span>Secteurs d&apos;activité & Métiers</span>
                     </div>
 
-                    <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.18]">
+                    <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 leading-[1.18]">
                         Une intelligence vocale qui parle le langage de{' '}
-                        <span className="font-hero-serif italic text-white/95">
+                        <span className="font-hero-serif italic text-neutral-950">
                             votre profession.
                         </span>
                     </h2>
 
-                    <p className="mt-4 text-sm sm:text-base text-white/60 leading-relaxed">
-                        Chaque métier a son vocabulaire, ses urgences et ses habitudes. CallMind AI est préconfiguré pour adopter les protocoles spécifiques à votre domaine sans nécessiter de formation complexe.
+                    <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed">
+                        Chaque métier a son vocabulaire, ses urgences et ses habitudes. AutoCall est préconfiguré pour adopter les protocoles spécifiques à votre domaine sans nécessiter de formation complexe.
                     </p>
 
                     {/* 2. ONGLETS DE SÉLECTION RAPIDE DES SECTEURS */}
-                    <div className="mt-9 flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md max-w-3xl mx-auto">
+                    <div className="mt-9 flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-neutral-200/50 border border-neutral-300/80 max-w-3xl mx-auto">
                         {sectors.map((sector) => {
                             const isSelected = sector.id === activeSectorId;
                             const IconComponent = sector.icon;
@@ -231,11 +236,11 @@ export default function SectorsSection() {
                                     onClick={() => setActiveSectorId(sector.id)}
                                     className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-medium transition-all duration-200 cursor-pointer ${
                                         isSelected
-                                            ? 'bg-white text-black shadow-md font-semibold scale-[1.02]'
-                                            : 'text-white/70 hover:text-white hover:bg-white/5'
+                                            ? 'bg-white text-neutral-900 shadow-xs font-bold scale-[1.02]'
+                                            : 'text-neutral-700 hover:text-neutral-900 hover:bg-white/80'
                                     }`}
                                 >
-                                    <IconComponent className={`h-3.5 w-3.5 ${isSelected ? 'text-black' : 'text-white/60'}`} />
+                                    <IconComponent className={`h-3.5 w-3.5 ${isSelected ? 'text-neutral-900' : 'text-neutral-500'}`} />
                                     <span>{sector.shortTitle}</span>
                                 </button>
                             );
@@ -244,7 +249,7 @@ export default function SectorsSection() {
                 </div>
 
                 {/* 3. VITRINE BENTO DU SECTEUR SÉLECTIONNÉ */}
-                <div className="rounded-3xl border border-white/10 bg-[#0E1015]/90 p-6 sm:p-10 shadow-2xl backdrop-blur-2xl transition-all duration-300">
+                <div className="rounded-3xl border border-neutral-200/90 bg-white p-6 sm:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.06)] transition-all duration-300">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
                         
                         {/* COLONNE GAUCHE : PRÉSENTATION & MÉTRIQUES CLÉS (7 colonnes) */}
@@ -255,16 +260,16 @@ export default function SectorsSection() {
                                         <ActiveIcon className="h-3.5 w-3.5" />
                                         <span>{activeSector.name}</span>
                                     </span>
-                                    <span className="text-xs text-white/40 font-mono">
+                                    <span className="text-xs text-neutral-600 font-mono font-medium">
                                         Protocole Métier Actif
                                     </span>
                                 </div>
 
-                                <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug">
+                                <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight leading-snug">
                                     {activeSector.headline}
                                 </h3>
 
-                                <p className="mt-4 text-sm text-white/70 leading-relaxed">
+                                <p className="mt-4 text-sm text-neutral-800 leading-relaxed font-normal">
                                     {activeSector.description}
                                 </p>
 
@@ -272,8 +277,8 @@ export default function SectorsSection() {
                                 <div className="mt-6 space-y-3">
                                     {activeSector.keyPoints.map((point, idx) => (
                                         <div key={idx} className="flex items-start gap-3">
-                                            <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                                            <span className="text-xs sm:text-sm text-white/80 leading-relaxed">
+                                            <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                                            <span className="text-xs sm:text-sm text-neutral-900 leading-relaxed font-medium">
                                                 {point}
                                             </span>
                                         </div>
@@ -282,13 +287,13 @@ export default function SectorsSection() {
                             </div>
 
                             {/* 3 Métriques percutantes en bas de colonne */}
-                            <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-3 gap-4">
+                            <div className="mt-8 pt-6 border-t border-neutral-200 grid grid-cols-3 gap-4">
                                 {activeSector.metrics.map((metric, idx) => (
                                     <div key={idx} className="space-y-1">
-                                        <div className="text-xl sm:text-2xl font-bold tabular-nums text-white tracking-tight">
+                                        <div className="text-xl sm:text-2xl font-extrabold tabular-nums text-neutral-900 tracking-tight">
                                             {metric.value}
                                         </div>
-                                        <div className="text-[11px] sm:text-xs text-white/50 leading-tight">
+                                        <div className="text-[11px] sm:text-xs text-neutral-600 font-medium leading-tight">
                                             {metric.label}
                                         </div>
                                     </div>
@@ -297,66 +302,87 @@ export default function SectorsSection() {
                         </div>
 
                         {/* COLONNE DROITE : SIMULATION DE SCÉNARIO EN SITUATION (5 colonnes) */}
-                        <div className="lg:col-span-5 flex flex-col justify-between bg-black/40 border border-white/10 rounded-2xl p-6 sm:p-7">
+                        <div className="lg:col-span-5 flex flex-col justify-between bg-neutral-50/80 border border-neutral-200/80 rounded-2xl p-6 sm:p-7">
                             <div>
-                                <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                                <div className="flex items-center justify-between pb-4 border-b border-neutral-200 mb-5">
                                     <div className="flex items-center gap-2">
-                                        <Bot className="h-4 w-4 text-white/70" />
-                                        <span className="text-xs font-semibold uppercase tracking-wider text-white/70">
+                                        <Bot className="h-4 w-4 text-neutral-700" />
+                                        <span className="text-xs font-bold uppercase tracking-wider text-neutral-800">
                                             Exemple d&apos;appel traité
                                         </span>
                                     </div>
-                                    <span className="inline-flex items-center gap-1 text-[11px] text-emerald-400 font-mono">
-                                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <span className="inline-flex items-center gap-1 text-[11px] text-emerald-800 font-mono font-bold bg-emerald-100/80 px-2 py-0.5 rounded-full border border-emerald-300">
+                                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
                                         En direct
                                     </span>
                                 </div>
 
-                                {/* Profil de l'appelant */}
-                                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5 mb-4">
-                                    <div className="flex items-center justify-between text-xs">
-                                        <div className="font-semibold text-white">
-                                            {activeSector.callSimulation.caller}
+                                {/* Image d'illustration du secteur d'activité */}
+                                {activeSector.image && (
+                                    <div className="relative mb-4 overflow-hidden rounded-xl border border-neutral-200 h-32 group shadow-2xs">
+                                        <img
+                                            src={activeSector.image}
+                                            alt={activeSector.name}
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                            loading="lazy"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                                        <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-xs">
+                                            <span className="font-semibold text-white drop-shadow-sm flex items-center gap-1.5">
+                                                <ActiveIcon className="h-3.5 w-3.5 text-blue-400" />
+                                                <span>{activeSector.name} · Environnement Pro</span>
+                                            </span>
+                                            <span className="text-[10px] text-white/90 font-mono bg-black/60 px-2 py-0.5 rounded-md backdrop-blur-xs">
+                                                Standard actif
+                                            </span>
                                         </div>
-                                        <span className="text-[11px] font-mono text-white/40">
+                                    </div>
+                                )}
+
+                                {/* Profil de l'appelant */}
+                                <div className="rounded-xl border border-neutral-200 bg-white p-3.5 mb-4 shadow-2xs">
+                                    <div className="flex items-center justify-between text-xs">
+                                        <div className="flex items-center gap-2.5 font-bold text-neutral-900">
+                                            <AnimatedUserAvatar size="sm" src="/images/avatar-client.jpg" />
+                                            <span>{activeSector.callSimulation.caller}</span>
+                                        </div>
+                                        <span className="text-[11px] font-mono text-neutral-500 font-medium">
                                             Aujourd&apos;hui
                                         </span>
                                     </div>
-                                    <div className="text-xs text-white/50 mt-1">
-                                        Motif : <span className="text-white/80 font-medium">{activeSector.callSimulation.callerType}</span>
+                                    <div className="text-xs text-neutral-600 mt-1 pl-8.5 font-medium">
+                                        Motif : <span className="text-neutral-900 font-bold">{activeSector.callSimulation.callerType}</span>
                                     </div>
                                 </div>
 
                                 {/* Réponse vocale de l'IA */}
-                                <div className="rounded-xl border border-white/15 bg-white/[0.07] p-4 mb-4">
-                                    <div className="flex items-center gap-2 text-xs font-semibold text-white/90 mb-1.5">
-                                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">
-                                            IA
-                                        </span>
-                                        <span>Réponse vocale de CallMind</span>
+                                <div className="rounded-xl border border-blue-200/80 bg-blue-50/60 p-4 mb-4">
+                                    <div className="flex items-center gap-2.5 text-xs font-bold text-neutral-900 mb-1.5">
+                                        <AnimatedAssistantAvatar size="sm" isSpeaking={true} />
+                                        <span>Réponse vocale de AutoCall</span>
                                     </div>
-                                    <p className="text-xs sm:text-sm text-white/90 italic leading-relaxed pl-7">
+                                    <p className="text-xs sm:text-sm text-neutral-900 italic leading-relaxed pl-7 font-medium">
                                         {activeSector.callSimulation.aiResponse}
                                     </p>
                                 </div>
 
                                 {/* Action automatique déclenchée */}
-                                <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] p-3.5">
-                                    <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold mb-1">
-                                        <Zap className="h-3.5 w-3.5" />
+                                <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-3.5">
+                                    <div className="flex items-center gap-2 text-emerald-900 text-xs font-bold mb-1">
+                                        <Zap className="h-3.5 w-3.5 text-emerald-600" />
                                         <span>Action automatique exécutée :</span>
                                     </div>
-                                    <p className="text-xs text-white/80 pl-5.5">
+                                    <p className="text-xs text-neutral-800 pl-5.5 font-medium">
                                         {activeSector.callSimulation.action}
                                     </p>
                                 </div>
                             </div>
 
                             {/* Bouton de configuration directe */}
-                            <div className="mt-6 pt-4 border-t border-white/10">
+                            <div className="mt-6 pt-4 border-t border-neutral-200">
                                 <a
                                     href="/register"
-                                    className="inline-flex w-full h-10 items-center justify-center gap-2 rounded-xl bg-white px-4 text-xs font-semibold text-black transition-all hover:bg-neutral-200 active:scale-[0.99]"
+                                    className="inline-flex w-full h-10 items-center justify-center gap-2 rounded-xl bg-neutral-900 px-4 text-xs font-semibold text-white transition-all hover:bg-black shadow-sm"
                                 >
                                     <span>Activer ce modèle pour mon activité</span>
                                     <ArrowRight className="h-3.5 w-3.5" />
@@ -369,32 +395,32 @@ export default function SectorsSection() {
 
                 {/* 4. TROIS GARANTIES ESSENTIELLES POUR TOUS LES MÉTIERS */}
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-md">
-                        <div className="flex items-center gap-2.5 mb-2 text-white font-semibold text-sm">
-                            <Clock className="h-4 w-4 text-white/70" />
+                    <div className="rounded-2xl border border-neutral-200/80 bg-white p-5 shadow-2xs">
+                        <div className="flex items-center gap-2.5 mb-2 text-neutral-900 font-bold text-sm">
+                            <Clock className="h-4 w-4 text-neutral-700" />
                             <span>Déploiement en 5 minutes</span>
                         </div>
-                        <p className="text-xs text-white/60 leading-relaxed">
+                        <p className="text-xs text-neutral-600 leading-relaxed">
                             Activez le renvoi d&apos;appel depuis votre ligne actuelle (Orange, SFR, Bouygues, Free ou VoIP) sans changer de numéro.
                         </p>
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-md">
-                        <div className="flex items-center gap-2.5 mb-2 text-white font-semibold text-sm">
-                            <ShieldCheck className="h-4 w-4 text-white/70" />
+                    <div className="rounded-2xl border border-neutral-200/80 bg-white p-5 shadow-2xs">
+                        <div className="flex items-center gap-2.5 mb-2 text-neutral-900 font-bold text-sm">
+                            <ShieldCheck className="h-4 w-4 text-neutral-700" />
                             <span>Confidentialité & RGPD</span>
                         </div>
-                        <p className="text-xs text-white/60 leading-relaxed">
+                        <p className="text-xs text-neutral-600 leading-relaxed">
                             Données hébergées en Europe, chiffrées de bout en bout et conformes aux obligations de secret professionnel.
                         </p>
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-md">
-                        <div className="flex items-center gap-2.5 mb-2 text-white font-semibold text-sm">
-                            <PhoneForwarded className="h-4 w-4 text-white/70" />
+                    <div className="rounded-2xl border border-neutral-200/80 bg-white p-5 shadow-2xs">
+                        <div className="flex items-center gap-2.5 mb-2 text-neutral-900 font-bold text-sm">
+                            <PhoneForwarded className="h-4 w-4 text-neutral-700" />
                             <span>Reprise en direct à tout moment</span>
                         </div>
-                        <p className="text-xs text-white/60 leading-relaxed">
+                        <p className="text-xs text-neutral-600 leading-relaxed">
                             Transférez l&apos;appel en un clic vers votre mobile si vous souhaitez intervenir personnellement sur une conversation.
                         </p>
                     </div>

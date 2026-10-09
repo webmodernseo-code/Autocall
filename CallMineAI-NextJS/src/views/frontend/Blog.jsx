@@ -8,7 +8,7 @@ import { Eyebrow } from '@/components/marketing/ui';
 
 export default function Blog() {
     return (
-        <MarketingLayout title="Blog — CallMindAI" description="Guides, actualités et bonnes pratiques pour déployer des campagnes d'appels IA performantes.">
+        <MarketingLayout title="Blog — AutoCall" description="Guides, actualités et bonnes pratiques pour déployer des campagnes d'appels IA performantes.">
             <section className="relative overflow-hidden pt-32 pb-16 sm:pt-40">
                 <div className="grid-field grid-mask pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
                 <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-80 w-[44rem] -translate-x-1/2 rounded-full bg-brand-500/25 blur-[120px] dark:bg-brand-600/15" aria-hidden="true" />

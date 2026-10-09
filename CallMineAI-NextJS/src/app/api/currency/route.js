@@ -6,8 +6,7 @@ import { putSession } from '@/lib/auth/session';
 
 /** PUT /currency */
 export const PUT = handler(async (request) => {
-    const rows = await prisma.currency.findMany({ where: { enabled: true }, select: { code: true } });
-    const codes = rows.length ? rows.map((r) => r.code) : ['EUR', 'USD', 'XOF'];
+    const codes = ['EUR', 'USD', 'FCFA', 'XOF'];
 
     const data = await validate(await readBody(request), {
         currency: ['required', 'string', `in:${codes.join(',')}`],
@@ -15,11 +14,13 @@ export const PUT = handler(async (request) => {
 
     const user = await currentUser();
 
-    if (user) {
-        await prisma.user.update({
-            where: { id: user.id },
-            data: { display_currency: data.currency, updated_at: new Date() },
-        });
+    if (user?.id) {
+        try {
+            await prisma.user.update({
+                where: { id: user.id },
+                data: { display_currency: data.currency, updated_at: new Date() },
+            });
+        } catch {}
     }
 
     await putSession({ display_currency: data.currency });

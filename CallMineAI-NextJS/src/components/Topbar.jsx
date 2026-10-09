@@ -2,7 +2,7 @@
 
 import { route } from '@/lib/route';
 import { Link, router, usePage } from '@/lib/page-router';
-import { Bell, BadgeCheck } from 'lucide-react';
+import { Bell, BadgeCheck, Sun, Moon, Layers, Globe, Coins, ChevronDown, Check } from 'lucide-react';
 import DemoBadge from '@/components/DemoBadge';
 import { useTranslation } from 'react-i18next';
 import ApplicationLogo from '@/components/ApplicationLogo';
@@ -14,13 +14,103 @@ import { useLocale } from '@/hooks/useLocale';
  * Topbar with language switcher, currency switcher, and account menu.
  * Locale/currency from shared page props; updates via PUT /locale and PUT /currency.
  */
-const FALLBACK_CURRENCIES = [
-    { code: 'USD', symbol: '$', decimals: 2 },
-    { code: 'EUR', symbol: '€', decimals: 2 },
-    { code: 'GBP', symbol: '£', decimals: 2 },
-    { code: 'INR', symbol: '₹', decimals: 2 },
-    { code: 'BDT', symbol: '৳', decimals: 2 },
+// 100% Vector SVG Premium Currency Icons (Euro, Dollar, FCFA)
+export function EuroSvg({ className = 'h-3.5 w-3.5' }) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+            <circle cx="12" cy="12" r="9.5" strokeWidth="1.25" className="opacity-25" />
+            <path d="M15.5 8a5.2 5.2 0 0 0-7 4 5.2 5.2 0 0 0 7 4" />
+            <path d="M6 10.5h6.5" />
+            <path d="M6 13.5h6.5" />
+        </svg>
+    );
+}
+
+export function DollarSvg({ className = 'h-3.5 w-3.5' }) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+            <circle cx="12" cy="12" r="9.5" strokeWidth="1.25" className="opacity-25" />
+            <line x1="12" y1="5.5" x2="12" y2="18.5" strokeWidth="1.75" />
+            <path d="M15 9a2.8 2.8 0 0 0-3-2H10.5a2.4 2.4 0 0 0 0 4.8h3a2.4 2.4 0 0 1 0 4.8H9.5a2.8 2.8 0 0 1-3-2" />
+        </svg>
+    );
+}
+
+export function FcfaSvg({ className = 'h-3.5 w-3.5' }) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+            <circle cx="12" cy="12" r="9.5" strokeWidth="1.25" className="opacity-25" />
+            {/* Monogramme vectoriel CFA de haute précision */}
+            <path d="M7.5 8.5h4.5M7.5 8.5v7M7.5 12h3.5" strokeWidth="1.6" />
+            <path d="M16.5 9.5a2.8 2.8 0 0 0-2.8-1.5 2.8 2.8 0 0 0-2.8 3v2a2.8 2.8 0 0 0 2.8 3 2.8 2.8 0 0 0 2.8-1.5" strokeWidth="1.6" />
+        </svg>
+    );
+}
+
+export function CurrencyIcon({ code, className = 'h-3.5 w-3.5' }) {
+    const c = String(code || 'EUR').toUpperCase();
+    if (c === 'USD') return <DollarSvg className={className} />;
+    if (c === 'FCFA' || c === 'XOF') return <FcfaSvg className={className} />;
+    return <EuroSvg className={className} />;
+}
+
+const SUPPORTED_CURRENCIES = [
+    { code: 'EUR', name: 'Euro', symbol: '€' },
+    { code: 'USD', name: 'Dollar US', symbol: '$' },
+    { code: 'FCFA', name: 'Franc CFA', symbol: 'FCFA' },
 ];
+
+// 100% Pure Vector SVG Premium Flags (Zero Emojis, crisp Retina rendering)
+export function FlagFrSvg({ className = 'h-3.5 w-5' }) {
+    return (
+        <svg viewBox="0 0 24 16" className={`${className} rounded-[3px] overflow-hidden shadow-2xs border border-black/10 dark:border-white/15 shrink-0`} aria-label="Français">
+            <rect width="8" height="16" fill="#002654" />
+            <rect x="8" width="8" height="16" fill="#FFFFFF" />
+            <rect x="16" width="8" height="16" fill="#ED2939" />
+        </svg>
+    );
+}
+
+export function FlagEnSvg({ className = 'h-3.5 w-5' }) {
+    return (
+        <svg viewBox="0 0 24 16" className={`${className} rounded-[3px] overflow-hidden shadow-2xs border border-black/10 dark:border-white/15 shrink-0`} aria-label="English">
+            <rect width="24" height="16" fill="#012169" />
+            <path d="M0 0 L24 16 M24 0 L0 16" stroke="#FFFFFF" strokeWidth="3" />
+            <path d="M0 0 L24 16 M24 0 L0 16" stroke="#C8102E" strokeWidth="1.5" />
+            <path d="M12 0 v16 M0 8 h24" stroke="#FFFFFF" strokeWidth="5" />
+            <path d="M12 0 v16 M0 8 h24" stroke="#C8102E" strokeWidth="3" />
+        </svg>
+    );
+}
+
+export function FlagEsSvg({ className = 'h-3.5 w-5' }) {
+    return (
+        <svg viewBox="0 0 24 16" className={`${className} rounded-[3px] overflow-hidden shadow-2xs border border-black/10 dark:border-white/15 shrink-0`} aria-label="Español">
+            <rect width="24" height="4" fill="#AA151B" />
+            <rect y="4" width="24" height="8" fill="#F1BF00" />
+            <rect y="12" width="24" height="4" fill="#AA151B" />
+        </svg>
+    );
+}
+
+export function FlagDeSvg({ className = 'h-3.5 w-5' }) {
+    return (
+        <svg viewBox="0 0 24 16" className={`${className} rounded-[3px] overflow-hidden shadow-2xs border border-black/10 dark:border-white/15 shrink-0`} aria-label="Deutsch">
+            <rect width="24" height="5.33" fill="#000000" />
+            <rect y="5.33" width="24" height="5.33" fill="#DD0000" />
+            <rect y="10.66" width="24" height="5.34" fill="#FFCC00" />
+        </svg>
+    );
+}
+
+export function FlagIcon({ code, className = 'h-3.5 w-5' }) {
+    const c = String(code || 'fr').toLowerCase();
+    if (c === 'fr') return <FlagFrSvg className={className} />;
+    if (c === 'en' || c === 'au') return <FlagEnSvg className={className} />;
+    if (c === 'es') return <FlagEsSvg className={className} />;
+    if (c === 'de') return <FlagDeSvg className={className} />;
+    return <FlagFrSvg className={className} />;
+}
 
 export default function Topbar({
     showLogo = true,
@@ -34,22 +124,18 @@ export default function Topbar({
     const page = usePage();
     const user = page.props.auth?.user;
     const kycVerified = page.props.auth?.customer?.kyc_verified === true;
-    // The customer notifications bell must never point into the client panel while
-    // the admin panel is being viewed (Topbar is shared by both layouts).
     const isAdminArea = (() => { try { return route().current('admin.*'); } catch { return false; } })();
     const { theme, setTheme } = useTheme();
 
-    const { locale: currentLocale, isRtl: currentIsRtl, locales: i18nLocales, setLocale: setLocaleCode } = useLocale();
-    const localeEntries = i18nLocales.length
+    const { locale: currentLocale, isRtl: currentIsRtl, locales: i18nLocales = [], setLocale: setLocaleCode } = useLocale();
+    const defaultSupportedLocales = { fr: 'Français', en: 'English', es: 'Español', de: 'Deutsch' };
+    const localeEntries = i18nLocales?.length
         ? i18nLocales.map((l) => [l.code, l.native_name || l.name])
-        : Object.entries(page.props.supportedLocales ?? { en: 'English' });
+        : Object.entries(page.props.supportedLocales ?? defaultSupportedLocales);
 
     const handleThemeToggle = () => {
         const next = theme === 'dark' ? 'light' : 'dark';
         setTheme(next);
-        if (user) {
-            router.post(route('theme.update'), { theme: next }, { preserveScroll: true });
-        }
     };
 
     const currencies = page.props.currencies?.length ? page.props.currencies : FALLBACK_CURRENCIES;
@@ -86,7 +172,7 @@ export default function Topbar({
     };
 
     return (
-        <header className="topbar sticky top-0 z-30 flex h-16 items-center justify-between border-b border-neutral-200/80 dark:border-ink-800 bg-white/70 dark:bg-ink-950/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-ink-950/60 px-4 sm:px-6">
+        <header className="topbar sticky top-0 z-30 flex h-16 items-center justify-between border-b border-neutral-200/80 dark:border-white/10 bg-white/80 dark:bg-[#08090C]/80 backdrop-blur-xl px-4 sm:px-6 transition-colors duration-200">
             <div className="flex min-w-0 flex-1 items-center gap-4">
                 {showLogo && (
                     <Link href={logoHref} className="shrink-0">
@@ -94,37 +180,41 @@ export default function Topbar({
                     </Link>
                 )}
                 {title && (
-                    <h1 className="truncate text-sm font-semibold text-gray-900 dark:text-neutral-100">{title}</h1>
+                    <h1 className="truncate text-sm font-bold tracking-tight text-neutral-900 dark:text-white font-hero-sans">{title}</h1>
                 )}
                 <DemoBadge />
             </div>
 
-            <div className="flex shrink-0 items-center gap-1">
+            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
                 {extra}
+
                 {user && !isAdminArea && page.props.notificationsUnread !== undefined && (
-                    <Link href={route('client.alerts.notifications')} className="relative rounded-soft p-2 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700 dark:text-neutral-400 dark:hover:bg-ink-800 dark:hover:text-neutral-200 transition" aria-label="Notifications">
-                        <Bell className="h-5 w-5" />
+                    <Link
+                        href={route('client.alerts.notifications')}
+                        className="relative rounded-xl p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-white/70 dark:hover:bg-white/[0.06] dark:hover:text-white transition duration-150"
+                        aria-label="Notifications"
+                    >
+                        <Bell className="h-4.5 w-4.5" />
                         {page.props.notificationsUnread > 0 && (
-                            <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-brand-600 px-1 text-[10px] font-bold text-white">{page.props.notificationsUnread > 9 ? '9+' : page.props.notificationsUnread}</span>
+                            <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-neutral-900 dark:bg-white px-1 text-[10px] font-bold text-white dark:text-black">
+                                {page.props.notificationsUnread > 9 ? '9+' : page.props.notificationsUnread}
+                            </span>
                         )}
                     </Link>
                 )}
-                {/* Theme toggle */}
+
+                {/* Theme toggle — Clean Apple/Stripe Vector SVG */}
                 <button
                     type="button"
                     onClick={handleThemeToggle}
-                    className="flex items-center justify-center rounded-soft p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100 transition duration-200"
-                    aria-label={t('topbar.switch_theme')}
-                    title={t('topbar.switch_theme')}
+                    className="flex h-8 w-8 items-center justify-center rounded-xl border border-neutral-200/80 bg-white/70 text-neutral-700 shadow-2xs backdrop-blur-md transition-all duration-150 hover:border-neutral-300 hover:bg-neutral-100/80 dark:border-white/10 dark:bg-white/[0.04] dark:text-neutral-300 dark:hover:border-white/20 dark:hover:bg-white/[0.08] dark:hover:text-white cursor-pointer"
+                    aria-label={t('topbar.switch_theme', 'Basculer le thème')}
+                    title={theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'}
                 >
                     {theme === 'dark' ? (
-                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-                        </svg>
+                        <Sun className="h-4 w-4 text-amber-300 transition-transform duration-200 hover:rotate-45" />
                     ) : (
-                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-                        </svg>
+                        <Moon className="h-4 w-4 text-neutral-700 transition-transform duration-200 hover:-rotate-12" />
                     )}
                 </button>
 
@@ -134,23 +224,21 @@ export default function Topbar({
                         <Dropdown.Trigger>
                             <button
                                 type="button"
-                                className="flex items-center gap-1.5 rounded-soft px-2.5 py-1.5 text-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100 transition duration-150"
+                                className="flex items-center gap-1.5 rounded-xl border border-transparent hover:border-neutral-200 dark:hover:border-white/10 px-2.5 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-100 dark:text-white/80 dark:hover:bg-white/[0.05] transition duration-150 cursor-pointer"
                                 aria-label={t('topbar.workspace')}
                             >
-                                <span className="text-base" aria-hidden>◫</span>
-                                <span className="hidden max-w-[140px] truncate sm:inline">
+                                <Layers className="h-3.5 w-3.5 text-neutral-500 dark:text-white/60 shrink-0" />
+                                <span className="hidden max-w-[130px] truncate sm:inline">
                                     {currentTenant?.name ?? t('topbar.no_workspace')}
                                 </span>
-                                <svg className="h-4 w-4 text-neutral-400 dark:text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
+                                <ChevronDown className="h-3.5 w-3.5 text-neutral-400 dark:text-white/40 shrink-0" />
                             </button>
                         </Dropdown.Trigger>
-                        <Dropdown.Content align="right" width="56">
+                        <Dropdown.Content align="right" width="56" className="bg-white dark:bg-[#0E1015] border border-neutral-200 dark:border-white/10 shadow-xl rounded-2xl p-1">
                             {tenants.length === 0 ? (
                                 <Link
                                     href={route('client.tenants.index')}
-                                    className="block px-4 py-2.5 text-sm text-brand-600 hover:bg-brand-50 dark:text-brand-400 dark:hover:bg-brand-900/30"
+                                    className="block px-3.5 py-2 text-xs font-medium text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-white/5 rounded-xl"
                                 >
                                     {t('topbar.create_workspace')}
                                 </Link>
@@ -160,7 +248,7 @@ export default function Topbar({
                                         key={t.id}
                                         as="button"
                                         onClick={() => handleTenantSwitch(t.id)}
-                                        className={currentTenant?.id === t.id ? 'bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300 font-medium' : ''}
+                                        className={currentTenant?.id === t.id ? 'bg-neutral-100 dark:bg-white/10 text-neutral-900 dark:text-white font-semibold' : 'text-neutral-700 dark:text-white/70'}
                                     >
                                         {t.name}
                                     </Dropdown.Item>
@@ -169,7 +257,7 @@ export default function Topbar({
                             <Dropdown.Divider />
                             <Link
                                 href={route('client.tenants.index')}
-                                className="block px-4 py-2.5 text-sm text-neutral-600 hover:bg-neutral-50 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                                className="block px-3.5 py-2 text-xs text-neutral-500 hover:text-neutral-900 dark:text-white/60 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-white/5 rounded-xl"
                             >
                                 {t('topbar.manage_workspaces')}
                             </Link>
@@ -177,70 +265,112 @@ export default function Topbar({
                     </Dropdown>
                 )}
 
-                {/* Language switcher */}
+                {/* Language switcher - Pure Vector SVG Flags (Zero Emojis) */}
                 <Dropdown>
                     <Dropdown.Trigger>
                         <button
                             type="button"
-                            className="flex items-center gap-1.5 rounded-soft px-2.5 py-1.5 text-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100 transition duration-150"
-                            aria-label={t('topbar.language')}
+                            className="group flex items-center gap-2 rounded-xl border border-neutral-200/80 bg-white/70 px-2.5 py-1.5 text-xs font-medium text-neutral-700 shadow-2xs backdrop-blur-md transition-all duration-150 hover:border-neutral-300 hover:bg-neutral-100/80 dark:border-white/10 dark:bg-white/[0.04] dark:text-white/80 dark:hover:border-white/20 dark:hover:bg-white/[0.08] cursor-pointer"
+                            aria-label={t('topbar.language', 'Langue')}
+                            title={t('topbar.language', 'Changer la langue')}
                         >
-                            <span className="text-base" aria-hidden>🌐</span>
-                            <span className="hidden sm:inline">
-                                {i18nLocales.find((l) => l.code === currentLocale)?.native_name ?? currentLocale.toUpperCase()}
+                            <FlagIcon code={currentLocale} className="h-3.5 w-5 shadow-xs" />
+                            <span className="font-semibold text-neutral-800 dark:text-white/90 text-xs tracking-wider">
+                                {currentLocale ? currentLocale.toUpperCase() : 'FR'}
                             </span>
-                            {currentIsRtl && <span className="rounded bg-neutral-200 dark:bg-neutral-700 px-1 text-[10px] font-medium text-neutral-600 dark:text-neutral-300">RTL</span>}
-                            <svg className="h-4 w-4 text-neutral-400 dark:text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
+                            <ChevronDown className="h-3 w-3 text-neutral-400 transition-transform duration-150 group-hover:text-neutral-600 dark:text-white/40 dark:group-hover:text-white/70 shrink-0" />
                         </button>
                     </Dropdown.Trigger>
-                    <Dropdown.Content align="right" width="48">
+                    <Dropdown.Content align="right" width="56" className="bg-white/95 dark:bg-[#0E1015]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-white/10 shadow-2xl rounded-2xl p-1.5 min-w-[210px]">
+                        <div className="px-2.5 py-1.5 text-[10px] font-semibold tracking-wider text-neutral-400 dark:text-neutral-500 uppercase">
+                            {t('topbar.language', 'Langue du système')}
+                        </div>
                         {localeEntries.map(([code, label]) => {
-                            const isRtl = i18nLocales.find((l) => l.code === code)?.is_rtl ?? false;
+                            const isSelected = currentLocale === code;
                             return (
-                                <Dropdown.Item
+                                <button
                                     key={code}
-                                    as="button"
+                                    type="button"
                                     onClick={() => handleLocale(code)}
-                                    className={currentLocale === code ? 'bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300 font-medium' : ''}
+                                    className={`w-full flex items-center justify-between gap-3 px-2.5 py-2 text-xs rounded-xl transition-colors cursor-pointer ${
+                                        isSelected
+                                            ? 'bg-blue-50/90 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 font-semibold'
+                                            : 'text-neutral-700 hover:bg-neutral-100/80 dark:text-neutral-300 dark:hover:bg-white/[0.06]'
+                                    }`}
                                 >
-                                    <span>{label}</span>
-                                    {isRtl && <span className="ms-1.5 rounded bg-neutral-200 dark:bg-neutral-700 px-1 text-[10px]">RTL</span>}
-                                </Dropdown.Item>
+                                    <span className="flex items-center gap-2.5 min-w-0">
+                                        <FlagIcon code={code} className="h-3.5 w-5 shrink-0 shadow-xs" />
+                                        <span className="truncate">{label}</span>
+                                    </span>
+                                    <div className="flex items-center gap-1.5 shrink-0">
+                                        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
+                                            isSelected
+                                                ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-200 font-bold'
+                                                : 'bg-neutral-100 text-neutral-500 dark:bg-white/5 dark:text-neutral-400'
+                                        }`}>
+                                            {code.toUpperCase()}
+                                        </span>
+                                        {isSelected && (
+                                            <Check className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                                        )}
+                                    </div>
+                                </button>
                             );
                         })}
                     </Dropdown.Content>
                 </Dropdown>
 
-                {/* Currency switcher */}
+                {/* Currency switcher - Strictly EUR, USD, FCFA with premium SVG vectors */}
                 <Dropdown>
                     <Dropdown.Trigger>
                         <button
                             type="button"
-                            className="flex items-center gap-1.5 rounded-soft px-2.5 py-1.5 text-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100 transition duration-150"
+                            className="flex items-center gap-1.5 rounded-xl border border-transparent hover:border-neutral-200 dark:hover:border-white/10 px-2.5 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-100 dark:text-white/80 dark:hover:bg-white/[0.05] transition duration-150 cursor-pointer"
                             aria-label={t('topbar.currency')}
                         >
-                            <span className="hidden sm:inline">
-                                {currencies.find((c) => c.code === currentCurrency)?.symbol ?? '$'}
+                            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-blue-50 text-blue-600 dark:bg-white/[0.08] dark:text-blue-300">
+                                <CurrencyIcon code={currentCurrency} className="h-3.5 w-3.5" />
                             </span>
-                            <span>{currentCurrency}</span>
-                            <svg className="h-4 w-4 text-neutral-400 dark:text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
+                            <span className="font-semibold">{currentCurrency === 'XOF' ? 'FCFA' : currentCurrency}</span>
+                            <ChevronDown className="h-3.5 w-3.5 text-neutral-400 dark:text-white/40 shrink-0" />
                         </button>
                     </Dropdown.Trigger>
-                    <Dropdown.Content align="right" width="48">
-                        {currencies.map((c) => (
-                            <Dropdown.Item
-                                key={c.code}
-                                as="button"
-                                onClick={() => handleCurrency(c.code)}
-                                className={currentCurrency === c.code ? 'bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300 font-medium' : ''}
-                            >
-                                {c.symbol} {c.code}
-                            </Dropdown.Item>
-                        ))}
+                    <Dropdown.Content align="right" width="48" className="bg-white dark:bg-[#0E1015] border border-neutral-200 dark:border-white/10 shadow-xl rounded-2xl p-1.5 min-w-[200px]">
+                        <div className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-neutral-400 dark:text-white/40 select-none">
+                            {t('topbar.currency', 'Devise')}
+                        </div>
+                        {SUPPORTED_CURRENCIES.map((c) => {
+                            const isSelected = (currentCurrency === c.code) || (currentCurrency === 'XOF' && c.code === 'FCFA');
+                            return (
+                                <Dropdown.Item
+                                    key={c.code}
+                                    as="button"
+                                    onClick={() => handleCurrency(c.code)}
+                                    className={[
+                                        'flex items-center justify-between w-full px-2.5 py-2 rounded-xl transition-colors cursor-pointer text-xs',
+                                        isSelected
+                                            ? 'bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 font-semibold'
+                                            : 'text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-white/[0.06]'
+                                    ].join(' ')}
+                                >
+                                    <span className="flex items-center gap-2.5">
+                                        <span className={[
+                                            'flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border transition-colors',
+                                            isSelected
+                                                ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
+                                                : 'bg-neutral-100 dark:bg-white/[0.06] border-neutral-200/80 dark:border-white/10 text-neutral-600 dark:text-neutral-300'
+                                        ].join(' ')}>
+                                            <CurrencyIcon code={c.code} className="h-3.5 w-3.5" />
+                                        </span>
+                                        <span className="flex flex-col text-left">
+                                            <span className="font-medium text-neutral-900 dark:text-white">{c.name}</span>
+                                            <span className="text-[10px] text-neutral-400 dark:text-neutral-500">{c.code} ({c.symbol})</span>
+                                        </span>
+                                    </span>
+                                    {isSelected && <Check className="h-4 w-4 text-blue-600 dark:text-blue-400 shrink-0" />}
+                                </Dropdown.Item>
+                            );
+                        })}
                     </Dropdown.Content>
                 </Dropdown>
 
@@ -250,23 +380,23 @@ export default function Topbar({
                         <Dropdown.Trigger>
                             <button
                                 type="button"
-                                className="flex items-center gap-2 rounded-soft px-2.5 py-1.5 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800 transition duration-150"
+                                className="flex items-center gap-2 rounded-xl border border-transparent hover:border-neutral-200 dark:hover:border-white/10 px-2.5 py-1.5 text-xs font-medium text-neutral-800 dark:text-white hover:bg-neutral-100 dark:hover:bg-white/[0.05] transition duration-150 cursor-pointer"
                                 aria-label={t('topbar.account')}
                             >
-                                <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-brand-100 text-brand-600 dark:bg-brand-900/40 dark:text-brand-300 text-xs font-medium">
+                                <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-neutral-900 text-white dark:bg-white dark:text-black text-xs font-bold shadow-xs">
                                     {(user.name || user.email || 'U').charAt(0).toUpperCase()}
-                                    {kycVerified && <BadgeCheck className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full bg-white text-signal-500 dark:bg-ink-950 dark:text-signal-400" strokeWidth={2.5} aria-label="Verified" />}
+                                    {kycVerified && (
+                                        <BadgeCheck className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full bg-white text-emerald-500 dark:bg-black dark:text-emerald-400" strokeWidth={2.5} aria-label="Verified" />
+                                    )}
                                 </span>
-                                <span className="hidden max-w-[120px] truncate md:inline">{user.name || user.email}</span>
-                                <svg className="h-4 w-4 text-neutral-400 dark:text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
+                                <span className="hidden max-w-[120px] truncate md:inline font-semibold">{user.name || user.email}</span>
+                                <ChevronDown className="h-3.5 w-3.5 text-neutral-400 dark:text-white/40 shrink-0" />
                             </button>
                         </Dropdown.Trigger>
-                        <Dropdown.Content align="right" width="56">
-                            <div className="px-4 py-2 border-b border-soft border-gray-200 dark:border-neutral-700">
-                                <p className="text-sm font-medium text-gray-900 dark:text-neutral-100 truncate">{user.name}</p>
-                                <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate">{user.email}</p>
+                        <Dropdown.Content align="right" width="56" className="bg-white dark:bg-[#0E1015] border border-neutral-200 dark:border-white/10 shadow-xl rounded-2xl p-1.5">
+                            <div className="px-3 py-2 border-b border-neutral-100 dark:border-white/10 mb-1">
+                                <p className="text-xs font-bold text-neutral-900 dark:text-white truncate">{user.name}</p>
+                                <p className="text-[11px] text-neutral-500 dark:text-white/50 truncate mt-0.5">{user.email}</p>
                             </div>
                             {accountItems.map((item, i) =>
                                 item.type === 'divider' ? (
@@ -277,7 +407,7 @@ export default function Topbar({
                                         href={item.href}
                                         method={item.method || 'get'}
                                         as="button"
-                                        className="block w-full px-4 py-2.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition duration-150"
+                                        className="block w-full px-3 py-2 text-left text-xs text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100 dark:text-white/70 dark:hover:text-white dark:hover:bg-white/5 rounded-xl transition duration-150"
                                     >
                                         {item.label}
                                     </Link>

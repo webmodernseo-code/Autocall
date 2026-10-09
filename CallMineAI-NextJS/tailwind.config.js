@@ -5,8 +5,7 @@ import forms from '@tailwindcss/forms';
 const config = {
     darkMode: 'class',
     content: [
-        './src/**/*.{js,jsx,mjs}',
-        
+        './src/**/*.{js,jsx,ts,tsx,mjs}',
     ],
 
     theme: {
@@ -22,17 +21,17 @@ const config = {
                 black: '#0c0c1c',
                 // Iris / violet — primary, AI intelligence
                 brand: {
-                    50: '#f1eefe',
-                    100: '#e4ddfd',
-                    200: '#cabbfb',
-                    300: '#a890f7',
-                    400: '#8a67f2',
-                    500: '#6d3fea',
-                    600: '#5a28d6',
-                    700: '#4a1fb0',
-                    800: '#3c1c8c',
-                    900: '#321a71',
-                    950: '#1f0f4a',
+                    50: '#eff6ff',
+                    100: '#dbeafe',
+                    200: '#bfdbfe',
+                    300: '#93c5fd',
+                    400: '#60a5fa',
+                    500: '#3b82f6',
+                    600: '#2563eb',
+                    700: '#1d4ed8',
+                    800: '#1e40af',
+                    900: '#1e3a8a',
+                    950: '#172554',
                 },
                 // Electric teal — "live call / connected", pulses
                 signal: {
@@ -48,19 +47,19 @@ const config = {
                     900: '#0a4d3f',
                     950: '#00302a',
                 },
-                // Ink — sidebar / dark surfaces (cool near-black, violet tint)
+                // Ink — sidebar / dark surfaces (clean obsidian & slate-navy, zero violet slop)
                 ink: {
-                    50: '#f6f6fa',
-                    100: '#ececf3',
-                    200: '#d6d6e3',
-                    300: '#b2b2c9',
-                    400: '#8888a8',
-                    500: '#666688',
-                    600: '#4d4d6b',
-                    700: '#3a3a54',
-                    800: '#222238',
-                    900: '#15152a',
-                    950: '#0c0c1c',
+                    50: '#f8fafc',
+                    100: '#f1f5f9',
+                    200: '#e2e8f0',
+                    300: '#cbd5e1',
+                    400: '#94a3b8',
+                    500: '#64748b',
+                    600: '#475569',
+                    700: '#334155',
+                    800: '#1e293b',
+                    900: '#0f172a',
+                    950: '#080c14',
                 },
                 // Lead-temperature semantics (fixed)
                 hot: '#fb5e5e',
@@ -92,6 +91,24 @@ const config = {
                     800: '#27272a',
                     900: '#18181b',
                     950: '#0a0a0b',
+                },
+                forest: {
+                    DEFAULT: '#16382b',
+                    deep: '#16382b',
+                    pine: '#276251',
+                    gold: '#c59341',
+                    cream: '#eee4cf',
+                    50: '#FAF8F3',
+                    100: '#EEE4CF',
+                    200: '#DFD1B3',
+                    300: '#D5A758',
+                    400: '#C59341',
+                    500: '#276251',
+                    600: '#1F5042',
+                    700: '#16382B',
+                    800: '#102A20',
+                    900: '#0B1D16',
+                    950: '#06120E',
                 },
             },
             // Soft borders

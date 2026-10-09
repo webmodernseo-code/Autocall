@@ -27,7 +27,7 @@ const ACC = {
 /* ---------- hero signature (kept dark: product panel) ---------- */
 function CallConsole() {
     const turns = [
-        { who: 'agent', text: 'Bonjour Marcus — ici Ava de CallMindAI. Avez-vous 30 secondes ?' },
+        { who: 'agent', text: 'Bonjour Marcus — ici Ava de AutoCall. Avez-vous 30 secondes ?' },
         { who: 'caller', text: 'Bonjour, oui bien sûr, de quoi s\'agit-il ?' },
         { who: 'agent', text: 'Vous avez consulté notre plateforme la semaine dernière. Évaluez-vous la solution pour votre équipe ?' },
     ];
@@ -295,7 +295,7 @@ function FaqPreview() {
 export default function Welcome() {
     const page = usePage().props;
     const user = page?.auth?.user;
-    const brand = page?.branding?.system_title || 'CallMindAI';
+    const brand = page?.branding?.system_title || 'AutoCall';
     const primaryHref = user ? route('client.dashboard') : route('register');
     const primaryLabel = user ? 'Accéder au tableau de bord' : 'Démarrer gratuitement';
     const [annual, setAnnual] = useState(false);
@@ -352,7 +352,7 @@ export default function Welcome() {
             <section className="py-24">
                 <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                     <Reveal className="mx-auto max-w-2xl text-center">
-                        <Eyebrow className="justify-center">Pourquoi CallMindAI</Eyebrow>
+                        <Eyebrow className="justify-center">Pourquoi AutoCall</Eyebrow>
                         <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">La majorité des prospects s'évaporent en attendant un rappel.</h2>
                         <p className="mt-4 text-neutral-600 dark:text-neutral-400">Vos équipes commerciales ne peuvent pas composer assez vite. Les relances prennent du retard, les fuseaux horaires se chevauchent et les meilleurs leads refroidissent. Recruter coûte cher — et ne couvre ni les soirs ni les week-ends.</p>
                     </Reveal>
@@ -469,7 +469,7 @@ export default function Welcome() {
             {/* ===== Comparison ===== */}
             <section className="border-y border-neutral-200 mk-wash py-24 dark:border-white/5">
                 <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-                    <Reveal><SectionHead center eyebrow="Pourquoi choisir CallMindAI" title="La voie royale vers un véritable produit d'appels IA." /></Reveal>
+                    <Reveal><SectionHead center eyebrow="Pourquoi choisir AutoCall" title="La voie royale vers un véritable produit d'appels IA." /></Reveal>
                     <Reveal delay={100}>
                         <div className={`mt-12 overflow-hidden ${CARD}`}>
                             <table className="w-full text-sm">

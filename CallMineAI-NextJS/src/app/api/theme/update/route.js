@@ -12,14 +12,13 @@ export const POST = handler(async (request) => {
 
     const user = await currentUser();
 
-    // A guest's theme lives only in localStorage (ThemeContext handles it).
     if (user) {
         await prisma.user.update({
             where: { id: user.id },
             data: { theme: data.theme, updated_at: new Date() },
         });
-        await putSession({ theme: data.theme });
     }
+    await putSession({ theme: data.theme });
 
     return back();
 });

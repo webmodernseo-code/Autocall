@@ -11,7 +11,7 @@ export function GET() {
     return NextResponse.json(
         {
             status: 'ok',
-            service: 'callmindai-web',
+            service: 'autocall-web',
             timestamp: new Date().toISOString(),
         },
         {

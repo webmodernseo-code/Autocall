@@ -11,18 +11,24 @@ export const dynamic = 'force-dynamic';
 export default async function Page() {
     const { user } = await requireClientPage();
 
-    let supportedLocales = await prisma.locale.findMany({
-        where: { enabled: true },
-        orderBy: [{ is_default: 'desc' }, { sort_order: 'asc' }],
-        select: { code: true, name: true },
-    });
-    if (!supportedLocales.length) supportedLocales = [{ code: 'en', name: 'English' }];
-
-    const supportedCurrencies = await prisma.currency.findMany({
-        where: { enabled: true },
-        orderBy: { code: 'asc' },
-        select: { code: true, symbol: true },
-    });
+    let supportedLocales = [{ code: 'fr', name: 'Français' }, { code: 'en', name: 'English' }, { code: 'es', name: 'Español' }, { code: 'de', name: 'Deutsch' }];
+    let supportedCurrencies = [{ code: 'EUR', symbol: '€' }, { code: 'USD', symbol: '$' }, { code: 'FCFA', symbol: 'FCFA' }];
+    try {
+        const [locs, currs] = await Promise.all([
+            prisma.locale.findMany({
+                where: { enabled: true },
+                orderBy: [{ is_default: 'desc' }, { sort_order: 'asc' }],
+                select: { code: true, name: true },
+            }),
+            prisma.currency.findMany({
+                where: { enabled: true },
+                orderBy: { code: 'asc' },
+                select: { code: true, symbol: true },
+            }),
+        ]);
+        if (locs?.length) supportedLocales = locs;
+        if (currs?.length) supportedCurrencies = currs;
+    } catch {}
 
     let client = null;
     if (user.client_id && user.client_role === 'administrator' && user.clients) {

@@ -5,6 +5,7 @@ import HeroSection from "@/components/ui/hero-01-utils/hero";
 import Header from "@/components/ui/hero-01-utils/header";
 import BrandSlider from "@/components/ui/hero-01-utils/brand-slider";
 import VoiceDemoSection from "@/components/ui/hero-01-utils/voice-demo";
+import CapabilitiesSection from "@/components/ui/hero-01-utils/capabilities-section";
 import SectorsSection from "@/components/ui/hero-01-utils/sectors-section";
 import IntegrationsSection from "@/components/ui/hero-01-utils/integrations-section";
 import PricingSection from "@/components/ui/hero-01-utils/pricing-section";
@@ -39,8 +40,8 @@ export default function AgencyHeroSection() {
       isActive: true,
     },
     {
-      title: "Produit",
-      href: "#produit",
+      title: "Fonctionnalités",
+      href: "#fonctionnalites",
     },
     {
       title: "Secteurs",
@@ -95,9 +96,9 @@ export default function AgencyHeroSection() {
   ];
 
   return (
-    <div className="relative min-h-screen bg-[#08090C] font-sans text-white overflow-x-clip selection:bg-white selection:text-black">
-      {/* HALOS CLIPPÉS DANS LEUR CONTENEUR SANS BLOQUER LE STICKY */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div className="relative min-h-screen bg-[#08090C] font-sans overflow-x-clip selection:bg-neutral-900 selection:text-white">
+      {/* HALOS CLIPPÉS STRICTEMENT SUR LA ZONE DU HERO (Ne bavent pas sur les sections suivantes) */}
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-[950px] overflow-hidden" aria-hidden="true">
         {/* 1. HALO BLEU OCÉANIQUE PROFOND À GAUCHE */}
         <div
           className="absolute -left-48 top-1/4 h-[750px] w-[750px] rounded-full blur-[140px] opacity-70"
@@ -106,11 +107,11 @@ export default function AgencyHeroSection() {
           }}
         />
 
-        {/* 2. HALO AMBRÉ / COUCHER DE SOLEIL CHAUD À DROITE */}
+        {/* 2. HALO SAPHIR NOCTURNE DISCRET À DROITE */}
         <div
-          className="absolute -right-48 top-1/4 h-[750px] w-[750px] rounded-full blur-[140px] opacity-65"
+          className="absolute -right-48 top-1/4 h-[750px] w-[750px] rounded-full blur-[150px] opacity-40"
           style={{
-            background: 'radial-gradient(circle, rgba(145, 92, 45, 0.42) 0%, rgba(85, 50, 22, 0.18) 45%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(30, 50, 85, 0.35) 0%, rgba(15, 25, 45, 0.12) 45%, transparent 70%)',
           }}
         />
 
@@ -123,17 +124,35 @@ export default function AgencyHeroSection() {
         />
       </div>
 
-      {/* CONTENU PRINCIPAL */}
+      {/* CONTENU PRINCIPAL AVEC RYTHME ALTERNÉ (DARK / LIGHT / DARK / LIGHT...) */}
       <div className="relative z-10">
         <Header navigationData={navigationData} />
         <main>
-          <HeroSection avatarList={avatarList} />
-          <BrandSlider brandList={brandList} />
+          {/* BANDE 1 : SOMBRE (HERO & BRANDS) - Reste exactement tel quel */}
+          <div className="text-white">
+            <HeroSection avatarList={avatarList} />
+            <BrandSlider brandList={brandList} />
+          </div>
+
+          {/* BANDE 2 : CLAIRE (DÉMO VOCALE AUDIO INTERACTIVE) */}
           <VoiceDemoSection />
+
+          {/* BANDE 3 : SOMBRE (PLATEFORME TÉLÉPHONIQUE COMPLÈTE & ÉCRANS HD) */}
+          <CapabilitiesSection />
+
+          {/* BANDE 4 : CLAIRE (SECTEURS D'ACTIVITÉ & PHOTOS MÉTIERS) */}
           <SectorsSection />
+
+          {/* BANDE 5 : SOMBRE (INTÉGRATIONS & ÉCOSYSTÈME) */}
           <IntegrationsSection />
+
+          {/* BANDE 6 : CLAIRE (TARIFS & TRANSPARENCE) */}
           <PricingSection />
+
+          {/* BANDE 7 : SOMBRE (FAQ & ACCOMPAGNEMENT) */}
           <FaqSection />
+
+          {/* BANDE 8 : CLAIRE AVEC CARTE CTA SOMBRE CENTRALE & FOOTER SOMBRE */}
           <CtaSection />
         </main>
       </div>

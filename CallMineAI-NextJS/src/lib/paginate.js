@@ -88,17 +88,22 @@ function pageWindow(current, lastPage, onEachSide) {
 export async function paginate(model, { where, orderBy, include, select, perPage = 20, page = 1, path, query = {}, transform = null }) {
     const current = Math.max(1, parseInt(page, 10) || 1);
 
-    const [total, items] = await Promise.all([
-        model.count({ where }),
-        model.findMany({
-            where,
-            orderBy,
-            ...(include ? { include } : {}),
-            ...(select ? { select } : {}),
-            skip: (current - 1) * perPage,
-            take: perPage,
-        }),
-    ]);
+    try {
+        const [total, items] = await Promise.all([
+            model.count({ where }),
+            model.findMany({
+                where,
+                orderBy,
+                ...(include ? { include } : {}),
+                ...(select ? { select } : {}),
+                skip: (current - 1) * perPage,
+                take: perPage,
+            }),
+        ]);
 
-    return paginator({ items, total, perPage, page: current, path, query, transform });
+        return paginator({ items, total, perPage, page: current, path, query, transform });
+    } catch (e) {
+        // En cas d'erreur réseau/BDD (ex: pare-feu distant), fallback propre avec données vides
+        return paginator({ items: [], total: 0, perPage, page: current, path, query, transform });
+    }
 }

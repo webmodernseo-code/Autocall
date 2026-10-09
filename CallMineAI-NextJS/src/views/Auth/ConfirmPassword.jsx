@@ -1,59 +1,54 @@
 'use client';
 
+import React from 'react';
 import { route } from '@/lib/route';
-import InputError from '@/components/InputError';
-import InputLabel from '@/components/InputLabel';
-import PrimaryButton from '@/components/PrimaryButton';
-import TextInput from '@/components/TextInput';
-import GuestLayout from '@/layouts/GuestLayout';
 import { Head, useForm } from '@/lib/page-router';
-import { useTranslation } from 'react-i18next';
+import AuthShell, { AuthField, SubmitButton } from '@/components/auth/Auth';
+import { Lock, ArrowRight } from 'lucide-react';
 
 export default function ConfirmPassword() {
-    const { t } = useTranslation();
     const { data, setData, post, processing, errors, reset } = useForm({
         password: '',
     });
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('password.confirm'), {
             onFinish: () => reset('password'),
         });
     };
 
     return (
-        <GuestLayout>
-            <Head title={t('auth.confirm_password_title')} />
+        <AuthShell
+            eyebrow="Sécurité renforcée"
+            title="Confirmez votre mot de passe"
+            subtitle="Cette zone est sécurisée. Veuillez confirmer votre mot de passe actuel avant de continuer."
+        >
+            <Head title="Confirmer le mot de passe · AutoCall" />
 
-            <div className="mb-4 text-sm text-gray-600">
-                {t('auth.confirm_password_intro')}
-            </div>
+            <form onSubmit={submit} className="space-y-4">
+                <AuthField
+                    id="password"
+                    label="Mot de passe actuel"
+                    secret
+                    name="password"
+                    autoComplete="current-password"
+                    autoFocus
+                    required
+                    icon={Lock}
+                    placeholder="Votre mot de passe"
+                    value={data.password}
+                    onChange={(e) => setData('password', e.target.value)}
+                    error={errors.password}
+                />
 
-            <form onSubmit={submit}>
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value={t('auth.password')} />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        isFocused={true}
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        {t('auth.confirm')}
-                    </PrimaryButton>
+                <div className="pt-2">
+                    <SubmitButton processing={processing} loadingText="Vérification…">
+                        <span>Confirmer l’accès</span>
+                        <ArrowRight className="h-4 w-4 ml-1" />
+                    </SubmitButton>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthShell>
     );
 }

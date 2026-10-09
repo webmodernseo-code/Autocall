@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { ArrowUpRight, Star } from 'lucide-react';
 
 export default function HeroSection({ avatarList = [] }) {
@@ -40,7 +41,7 @@ export default function HeroSection({ avatarList = [] }) {
                 </h1>
 
                 {/* 2. Sous-titre */}
-                <p className="mx-auto mt-7 max-w-2xl text-sm sm:text-base leading-relaxed text-white/60">
+                <p className="mx-auto mt-7 max-w-2xl text-sm sm:text-base leading-relaxed text-neutral-300 font-normal">
                     Votre standard téléphonique IA répond 24h/24, filtre les demandes urgentes et réserve vos rendez-vous directement dans votre agenda.
                 </p>
 
@@ -49,7 +50,7 @@ export default function HeroSection({ avatarList = [] }) {
                     {["Immobilier", "Cabinets d'avocats", "Habitat & Devis", "Santé & Cliniques"].map((sector, idx) => (
                         <span
                             key={idx}
-                            className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1 text-xs font-medium text-white/75 backdrop-blur-sm transition-colors hover:border-white/20 hover:text-white"
+                            className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1 text-xs font-semibold text-white/90 backdrop-blur-sm transition-colors hover:border-white/30 hover:text-white"
                         >
                             {sector}
                         </span>
@@ -59,15 +60,15 @@ export default function HeroSection({ avatarList = [] }) {
                 {/* 4. Groupe CTA : Bouton + Avatars superposés + Étoiles */}
                 <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-8">
                     {/* Bouton blanc Commencer maintenant avec pastille flèche noire */}
-                    <a
+                    <Link
                         href="/register"
-                        className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-white px-6 text-sm font-semibold text-black transition-all hover:bg-neutral-200 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-white/5"
+                        className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-white px-6 text-sm font-semibold text-black transition-all hover:bg-neutral-200 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-white/5 cursor-pointer"
                     >
                         <span>Commencer maintenant</span>
                         <div className="flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-[11px]">
                             <ArrowUpRight className="h-3 w-3" />
                         </div>
-                    </a>
+                    </Link>
 
                     {/* Groupe de réassurance : Avatars + Note 5 étoiles */}
                     <div className="flex items-center gap-3">
@@ -85,14 +86,14 @@ export default function HeroSection({ avatarList = [] }) {
                             </div>
                         )}
 
-                        {/* 5 Étoiles orange + label */}
+                        {/* 5 Étoiles blanches officielles du design + label */}
                         <div className="flex flex-col items-start text-left">
-                            <div className="flex items-center gap-0.5 text-[#F59E0B]">
+                            <div className="flex items-center gap-1 text-[#F59E0B]">
                                 {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                                    <Star key={i} className="h-4 w-4 fill-[#F59E0B] text-[#F59E0B]" />
                                 ))}
                             </div>
-                            <span className="text-[11px] font-medium text-white/70 mt-0.5">
+                            <span className="text-xs font-medium text-neutral-400 mt-1">
                                 +1 000 professionnels conquis
                             </span>
                         </div>

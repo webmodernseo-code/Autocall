@@ -1,57 +1,76 @@
 'use client';
 
-const PALETTES = {
-    light: { irisA: '#8a67f2', irisB: '#5a28d6', signal: '#06b88c' },
-    dark: { irisA: '#a890f7', irisB: '#6d3fea', signal: '#16d9a8' },
-};
+/**
+ * AutoCall Official Emblem & Wordmark
+ */
+export default function BrandMark({ className = '', variant = 'auto', ...props }) {
+    // Strip legacy square width classes (like w-7, w-9) so the wide wordmark retains its proper aspect ratio
+    const cleanClass = className.replace(/\bw-(?:[0-9]+|px)\b/g, '').trim();
+    const resolvedClass = cleanClass || 'h-4 sm:h-[18px]';
+
+    if (variant === 'light') {
+        return (
+            <img
+                src="/images/autocall-logo-dark.png"
+                alt="AutoCall"
+                className={`w-auto max-h-5 object-contain ${resolvedClass}`}
+                {...props}
+            />
+        );
+    }
+
+    if (variant === 'dark') {
+        return (
+            <img
+                src="/images/autocall-logo.png"
+                alt="AutoCall"
+                className={`w-auto max-h-5 object-contain ${resolvedClass}`}
+                {...props}
+            />
+        );
+    }
+
+    return (
+        <>
+            <img
+                src="/images/autocall-logo-dark.png"
+                alt="AutoCall"
+                className={`w-auto max-h-5 object-contain dark:hidden ${resolvedClass}`}
+                {...props}
+            />
+            <img
+                src="/images/autocall-logo.png"
+                alt="AutoCall"
+                className={`w-auto max-h-5 object-contain hidden dark:block ${resolvedClass}`}
+                {...props}
+            />
+        </>
+    );
+}
 
 /**
- * CallMineAI "Pulse C" mark — open C ring (iris gradient) with an asymmetric
- * voice-pulse (signal teal) exiting through the aperture.
- *
- * @param {{ variant?: 'light' | 'dark', mono?: string, className?: string }} props
- *   variant — palette tuned for light or dark backgrounds.
- *   mono — single color override (e.g. 'currentColor') for monochrome contexts.
+ * Vector Waveform Emblem (5 electric blue pills) from the official AutoCall identity
  */
-export default function BrandMark({ variant = 'light', mono = null, className, ...props }) {
-    const p = PALETTES[variant] || PALETTES.light;
-    const gradId = `cmai-iris-${variant}`;
+export function AutoCallWaveIcon({ className = 'h-5 w-5', ...props }) {
     return (
-        <svg
-            viewBox="0 0 48 48"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-hidden="true"
-            className={className}
-            {...props}
-        >
-            {!mono && (
-                <defs>
-                    <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stopColor={p.irisA} />
-                        <stop offset="1" stopColor={p.irisB} />
-                    </linearGradient>
-                </defs>
-            )}
-            <g fill="none" strokeLinecap="round">
-                <path d="M37.023 34.927A17 17 0 1 1 37.023 13.073" stroke={mono || `url(#${gradId})`} strokeWidth="7" />
-                <path d="M18 21v6M24 16.5v15M30 19v10" stroke={mono || p.signal} strokeWidth="4.5" />
-            </g>
+        <svg viewBox="0 0 24 24" fill="none" className={className} {...props}>
+            <rect x="2" y="9" width="2.5" height="6" rx="1.25" fill="#3B82F6" />
+            <rect x="6.5" y="6" width="2.5" height="12" rx="1.25" fill="#2563EB" />
+            <rect x="11" y="3" width="2.5" height="18" rx="1.25" fill="#1D4ED8" />
+            <rect x="15.5" y="6" width="2.5" height="12" rx="1.25" fill="#2563EB" />
+            <rect x="20" y="9" width="2.5" height="6" rx="1.25" fill="#3B82F6" />
         </svg>
     );
 }
 
 /**
- * Brand name with the trailing "AI" set in signal teal. Falls back to plain
- * text for custom (admin-configured) names that don't end in "AI".
+ * Official Brand Name Component
  */
-export function BrandName({ brand = 'CallMineAI' }) {
-    const match = /^(.*?)(AI)$/.exec(brand.trim());
-    if (!match) return brand;
+export function BrandName({ brand = 'AutoCall' }) {
+    const text = brand && brand.toLowerCase().includes('callmind') ? 'AutoCall' : (brand || 'AutoCall');
     return (
-        <>
-            {match[1]}
-            <span className="text-signal-500 dark:text-signal-400">{match[2]}</span>
-        </>
+        <span className="font-hero-sans font-extrabold tracking-tight">
+            {text}
+        </span>
     );
 }

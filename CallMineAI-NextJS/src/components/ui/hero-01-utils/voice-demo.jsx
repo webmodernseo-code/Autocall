@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Volume2, VolumeX, Sparkles, PhoneCall, Calendar, CheckCircle2, MessageSquare, ArrowRight, Clock, ShieldCheck } from 'lucide-react';
+import { ChatMessages } from '@/components/ui/chat-messages';
 
 export default function VoiceDemoSection() {
     // 4 Scénarios réalistes B2B
@@ -243,12 +244,12 @@ export default function VoiceDemoSection() {
     };
 
     return (
-        <section id="produit" className="relative px-6 py-20 sm:py-28 text-white scroll-mt-20">
-            {/* LUEUR RADIALE D'ARRIÈRE-PLAN SOUS LA DÉMO */}
+        <section id="produit" className="relative px-6 py-20 sm:py-28 bg-[#F8F9FA] text-neutral-900 border-y border-neutral-200/90 scroll-mt-20">
+            {/* LUEUR RADIALE D'ARRIÈRE-PLAN SUBTILE */}
             <div
-                className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[900px] rounded-full blur-[160px] opacity-25"
+                className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[900px] rounded-full blur-[160px] opacity-20"
                 style={{
-                    background: 'radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(59, 130, 246, 0.15) 50%, transparent 70%)',
+                    background: 'radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(16, 185, 129, 0.1) 50%, transparent 70%)',
                 }}
                 aria-hidden="true"
             />
@@ -256,22 +257,22 @@ export default function VoiceDemoSection() {
             <div className="relative mx-auto max-w-6xl">
                 {/* 1. ENTÊTE DE SECTION */}
                 <div className="text-center max-w-3xl mx-auto mb-14">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold text-emerald-300 backdrop-blur-md mb-4 shadow-xs">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-50 px-4 py-1.5 text-xs font-semibold text-emerald-800 shadow-2xs mb-4">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                         </span>
                         <span>Démonstration Audio Interactive</span>
                     </div>
 
-                    <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.15]">
+                    <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 leading-[1.15]">
                         Une voix naturelle. <br className="hidden sm:inline" />
-                        <span className="bg-gradient-to-r from-white via-white/90 to-white/60 bg-clip-text text-transparent">
+                        <span className="text-neutral-900 font-extrabold">
                             Zéro latence. Une vraie conversation.
                         </span>
                     </h2>
 
-                    <p className="mt-4 text-sm sm:text-base text-white/60 leading-relaxed">
+                    <p className="mt-4 text-sm sm:text-base text-neutral-700 leading-relaxed font-normal">
                         Écoutez comment notre standard téléphonique IA répond en direct, pose les questions adaptées à votre métier et synchronise votre agenda en temps réel.
                     </p>
 
@@ -285,8 +286,8 @@ export default function VoiceDemoSection() {
                                     onClick={() => handleSelectScenario(sc.id)}
                                     className={`rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
                                         isSelected
-                                            ? 'bg-white text-black font-semibold shadow-lg shadow-white/10 scale-[1.02]'
-                                            : 'border border-white/10 bg-white/[0.03] text-white/70 hover:bg-white/[0.08] hover:text-white'
+                                            ? 'bg-neutral-900 text-white font-semibold shadow-sm scale-[1.02]'
+                                            : 'border border-neutral-200/90 bg-white text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 shadow-2xs'
                                     }`}
                                 >
                                     {sc.tabTitle}
@@ -297,38 +298,38 @@ export default function VoiceDemoSection() {
                 </div>
 
                 {/* 3. LE LECTEUR / SIMULATEUR D'APPEL INTERACTIF */}
-                <div className="rounded-3xl border border-white/10 bg-[#0F1117]/80 backdrop-blur-2xl p-6 sm:p-10 shadow-2xl">
+                <div className="rounded-3xl border border-neutral-200/90 bg-white p-6 sm:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.06)]">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                         
                         {/* COLONNE GAUCHE : LECTEUR ET CONTRÔLES (5 colonnes) */}
                         <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-6">
                             {/* Entête de l'appel */}
-                            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
-                                <div className="flex items-center justify-between text-xs text-white/50 mb-3">
-                                    <span className="inline-flex items-center gap-1.5 font-medium text-emerald-400">
-                                        <PhoneCall className="h-3.5 w-3.5" />
+                            <div className="rounded-2xl border border-neutral-200/80 bg-neutral-50/70 p-5">
+                                <div className="flex items-center justify-between text-xs mb-3">
+                                    <span className="inline-flex items-center gap-1.5 font-semibold text-emerald-700">
+                                        <PhoneCall className="h-3.5 w-3.5 text-emerald-600" />
                                         Appel entrant à {activeScenario.time}
                                     </span>
-                                    <span className="rounded-md border border-white/10 px-2 py-0.5 text-[11px] font-mono text-white/70">
+                                    <span className="rounded-md border border-neutral-300 bg-white px-2 py-0.5 text-[11px] font-mono text-neutral-800 font-semibold shadow-2xs">
                                         Latence ~410ms
                                     </span>
                                 </div>
-                                <div className="text-base font-semibold text-white">
+                                <div className="text-base font-bold text-neutral-900">
                                     {activeScenario.callerName}
                                 </div>
-                                <div className="text-xs font-mono text-white/50 mt-0.5">
+                                <div className="text-xs font-mono text-neutral-600 font-medium mt-0.5">
                                     {activeScenario.callerPhone}
                                 </div>
-                                <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-between text-xs">
-                                    <span className="text-white/60">Motif détecté :</span>
-                                    <span className="font-medium text-white/90 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">
+                                <div className="mt-3 pt-3 border-t border-neutral-200/80 flex items-center justify-between text-xs">
+                                    <span className="text-neutral-600 font-medium">Motif détecté :</span>
+                                    <span className="font-bold text-neutral-900 bg-white px-2.5 py-0.5 rounded-full border border-neutral-300 shadow-2xs">
                                         {activeScenario.badge}
                                     </span>
                                 </div>
                             </div>
 
                             {/* Onde sonore animée */}
-                            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-center">
+                            <div className="rounded-2xl border border-neutral-200/80 bg-neutral-50/70 p-6 text-center">
                                 <div className="flex items-center justify-center gap-1 h-14 mb-4">
                                     {[...Array(28)].map((_, i) => {
                                         // Barres d'égaliseur animées quand la lecture est en cours
@@ -343,8 +344,8 @@ export default function VoiceDemoSection() {
                                                 }}
                                                 className={`w-1 rounded-full ${
                                                     isPlaying
-                                                        ? 'bg-gradient-to-t from-emerald-400 to-sky-400'
-                                                        : 'bg-white/20'
+                                                        ? 'bg-gradient-to-t from-emerald-600 to-sky-600'
+                                                        : 'bg-neutral-300'
                                                 }`}
                                             />
                                         );
@@ -352,11 +353,11 @@ export default function VoiceDemoSection() {
                                 </div>
 
                                 {/* Temps et Contrôles */}
-                                <div className="flex items-center justify-between text-xs font-mono text-white/50 px-2 mb-4">
+                                <div className="flex items-center justify-between text-xs font-mono text-neutral-700 font-semibold px-2 mb-4">
                                     <span>{formatTime(currentTime)}</span>
-                                    <div className="flex-1 mx-3 h-1 bg-white/10 rounded-full overflow-hidden">
+                                    <div className="flex-1 mx-3 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
                                         <div
-                                            className="h-full bg-white transition-all duration-300"
+                                            className="h-full bg-neutral-900 transition-all duration-300"
                                             style={{ width: `${(currentTime / activeScenario.duration) * 100}%` }}
                                         />
                                     </div>
@@ -367,11 +368,11 @@ export default function VoiceDemoSection() {
                                 <div className="flex items-center justify-center gap-4">
                                     <button
                                         onClick={togglePlay}
-                                        className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-black transition-all hover:bg-neutral-200 hover:scale-105 active:scale-95 shadow-xl shadow-white/10 cursor-pointer"
+                                        className="flex h-14 w-14 items-center justify-center rounded-full bg-neutral-900 text-white transition-all hover:bg-black hover:scale-105 active:scale-95 shadow-md cursor-pointer"
                                         aria-label={isPlaying ? "Pause" : "Play"}
                                     >
                                         {isPlaying ? (
-                                            <Pause className="h-6 w-6 fill-current" />
+                                             <Pause className="h-6 w-6 fill-current" />
                                         ) : (
                                             <Play className="h-6 w-6 fill-current ml-0.5" />
                                         )}
@@ -379,7 +380,7 @@ export default function VoiceDemoSection() {
 
                                     <button
                                         onClick={() => setIsMuted(!isMuted)}
-                                        className="rounded-full border border-white/10 bg-white/5 p-3 text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                                        className="rounded-full border border-neutral-200 bg-white p-3 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100 shadow-2xs transition-colors cursor-pointer"
                                         aria-label={isMuted ? "Activer le son" : "Couper le son"}
                                         title={isMuted ? "Son coupé" : "Son activé"}
                                     >
@@ -387,96 +388,57 @@ export default function VoiceDemoSection() {
                                     </button>
                                 </div>
 
-                                <div className="mt-3 text-[11px] text-white/40">
-                                    {isPlaying ? "Lecture de la conversation..." : "Cliquez sur Play pour écouter l'échange"}
+                                <div className="mt-3 text-[11px] text-neutral-600 font-medium">
+                                    {isPlaying ? "Lecture de la conversation en cours..." : "Cliquez sur Play pour écouter l'échange"}
                                 </div>
                             </div>
 
                             {/* Résultat & Action automatique */}
-                            <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.04] p-4 text-xs">
-                                <div className="flex items-center gap-2 text-emerald-400 font-semibold mb-1">
-                                    <CheckCircle2 className="h-4 w-4" />
+                            <div className="rounded-2xl border border-emerald-500/25 bg-emerald-50/70 p-4 text-xs">
+                                <div className="flex items-center gap-2 text-emerald-900 font-bold mb-1">
+                                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
                                     <span>Action déclenchée automatiquement :</span>
                                 </div>
-                                <p className="text-white/80 pl-6">
+                                <p className="text-neutral-800 pl-6 font-medium">
                                     {activeScenario.actionTaken}
                                 </p>
                             </div>
                         </div>
 
-                        {/* COLONNE DROITE : TRANSCRIPTION EN DIRECT DE L'ÉCHANGE (7 colonnes) */}
-                        <div className="lg:col-span-7 flex flex-col justify-between h-full bg-black/40 border border-white/10 rounded-2xl p-6 sm:p-7">
-                            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
-                                <div className="flex items-center gap-2">
-                                    <MessageSquare className="h-4 w-4 text-white/60" />
-                                    <span className="text-xs font-semibold uppercase tracking-wider text-white/70">
-                                        Transcription en temps réel
-                                    </span>
-                                </div>
-                                <span className="text-[11px] text-white/40 font-mono">
-                                    Synchronisé à la voix
-                                </span>
-                            </div>
-
-                            {/* Bulles de dialogue interactives */}
-                            <div className="space-y-4">
-                                {activeScenario.dialogue.map((item, idx) => {
-                                    const isCurrent = activeDialogueIndex === idx;
-                                    const isAi = item.speaker === 'ai';
-
-                                    return (
-                                        <div
-                                            key={idx}
-                                            className={`rounded-2xl p-4 transition-all duration-300 ${
-                                                isAi
-                                                    ? isCurrent
-                                                        ? 'bg-white/[0.09] border border-white/20 shadow-lg'
-                                                        : 'bg-white/[0.03] border border-white/5 opacity-80'
-                                                    : isCurrent
-                                                    ? 'bg-sky-500/10 border border-sky-400/20'
-                                                    : 'bg-white/[0.02] border border-white/5 opacity-70'
-                                            }`}
-                                        >
-                                            <div className="flex items-center justify-between text-xs mb-1.5">
-                                                <div className="flex items-center gap-2">
-                                                    {isAi ? (
-                                                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">
-                                                            IA
-                                                        </span>
-                                                    ) : (
-                                                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500/20 text-sky-300 text-[10px] font-bold">
-                                                            PRO
-                                                        </span>
-                                                    )}
-                                                    <span className={`font-semibold ${isAi ? 'text-white' : 'text-sky-200'}`}>
-                                                        {item.name}
-                                                    </span>
-                                                </div>
-                                                <span className="text-[11px] font-mono text-white/40">
-                                                    {item.timestamp}
-                                                </span>
-                                            </div>
-
-                                            <p className="text-xs sm:text-sm text-white/85 leading-relaxed pl-7">
-                                                {item.text}
-                                            </p>
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                        {/* COLONNE DROITE : TRANSCRIPTION EN DIRECT DE L'ÉCHANGE */}
+                        <div className="lg:col-span-7 flex flex-col justify-between h-full space-y-4">
+                            <ChatMessages
+                                key={activeScenario.id}
+                                messages={activeScenario.dialogue.map((item, idx) => ({
+                                    id: `${activeScenario.id}-${idx}`,
+                                    sender: item.speaker === 'client' ? 'user' : 'assistant',
+                                    content: item.text,
+                                    timestamp: item.timestamp,
+                                }))}
+                                title="Assistant Vocal AutoCall"
+                                subtitle={`${activeScenario.tabTitle} • ${activeScenario.badge}`}
+                                aiAvatar="/images/avatar-ai.jpg"
+                                userAvatar="/images/avatar-client.jpg"
+                                autoPlay={true}
+                                autoPlayDelay={1800}
+                                typingDuration={1100}
+                                showReplay={true}
+                                interactive={true}
+                                className="h-[490px] w-full"
+                            />
 
                             {/* Garanties en bas de la boîte */}
-                            <div className="mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-[11px] text-white/50">
-                                <span className="inline-flex items-center gap-1.5">
-                                    <Clock className="h-3.5 w-3.5 text-white/70" />
+                            <div className="pt-2 px-1 flex flex-wrap items-center justify-between gap-3 text-[11px] text-neutral-700">
+                                <span className="inline-flex items-center gap-1.5 font-semibold text-neutral-800">
+                                    <Clock className="h-3.5 w-3.5 text-neutral-800" />
                                     Prise en charge en 1 sonnerie
                                 </span>
-                                <span className="inline-flex items-center gap-1.5">
-                                    <Calendar className="h-3.5 w-3.5 text-white/70" />
+                                <span className="inline-flex items-center gap-1.5 font-semibold text-neutral-800">
+                                    <Calendar className="h-3.5 w-3.5 text-neutral-800" />
                                     Synchronisation Google & Outlook
                                 </span>
-                                <span className="inline-flex items-center gap-1.5">
-                                    <ShieldCheck className="h-3.5 w-3.5 text-white/70" />
+                                <span className="inline-flex items-center gap-1.5 font-semibold text-neutral-800">
+                                    <ShieldCheck className="h-3.5 w-3.5 text-neutral-800" />
                                     Données confidentielles RGPD
                                 </span>
                             </div>
@@ -487,12 +449,12 @@ export default function VoiceDemoSection() {
 
                 {/* 4. APPEL À L'ACTION SOUS LA DÉMO */}
                 <div className="mt-12 text-center">
-                    <p className="text-sm text-white/70 mb-4">
+                    <p className="text-sm text-neutral-700 font-medium mb-4">
                         Vous souhaitez tester la voix en direct sur votre propre téléphone ?
                     </p>
                     <a
                         href="/register"
-                        className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 text-xs font-semibold text-white backdrop-blur-md transition-all hover:bg-white hover:text-black hover:border-white hover:scale-105"
+                        className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-neutral-300 bg-neutral-900 px-6 text-xs font-semibold text-white transition-all hover:bg-black hover:scale-105 shadow-sm"
                     >
                         <span>Créer mon numéro test gratuit</span>
                         <ArrowRight className="h-3.5 w-3.5" />

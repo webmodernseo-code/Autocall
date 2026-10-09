@@ -134,12 +134,12 @@ export default function PricingWrapperSection() {
     ];
 
     return (
-        <section id="tarifs" className="relative px-6 py-20 sm:py-28 text-white scroll-mt-20">
-            {/* Halo lumineux d'arrière-plan */}
+        <section id="tarifs" className="relative px-6 py-20 sm:py-28 bg-[#F8F9FA] text-neutral-900 border-y border-neutral-200/90 scroll-mt-20">
+            {/* Halo lumineux d'arrière-plan subtil */}
             <div
-                className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[650px] w-[1000px] rounded-full blur-[170px] opacity-20"
+                className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[650px] w-[1000px] rounded-full blur-[170px] opacity-15"
                 style={{
-                    background: 'radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(59, 130, 246, 0.2) 50%, transparent 70%)',
+                    background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(59, 130, 246, 0.15) 50%, transparent 70%)',
                 }}
                 aria-hidden="true"
             />
@@ -149,22 +149,23 @@ export default function PricingWrapperSection() {
                     plans={plans}
                     heading="Une formule adaptée à votre volume d'appels."
                     description="Chaque formule comprend 14 jours d'essai gratuit sans carte bancaire requise. Vous ne payez que lorsque votre standard tourne à plein régime."
+                    theme="light"
                 />
 
                 {/* Micro-réassurance discrète (Directive Anti-Slop) */}
-                <div className="mt-14 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs text-white/60">
+                <div className="mt-14 pt-8 border-t border-neutral-200 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs text-neutral-600">
                     <div className="inline-flex items-center gap-2">
-                        <Lock className="h-4 w-4 text-emerald-400" />
+                        <Lock className="h-4 w-4 text-emerald-600" />
                         <span>Paiement sécurisé SSL 256-bit certifié PCI-DSS</span>
                     </div>
 
                     <div className="inline-flex items-center gap-2">
-                        <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                        <ShieldCheck className="h-4 w-4 text-emerald-600" />
                         <span>14 jours d&apos;essai gratuit sans carte bancaire</span>
                     </div>
 
                     <div className="inline-flex items-center gap-2">
-                        <Zap className="h-4 w-4 text-emerald-400" />
+                        <Zap className="h-4 w-4 text-emerald-600" />
                         <span>Sans engagement, résiliation en 1 clic</span>
                     </div>
                 </div>

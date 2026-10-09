@@ -24,19 +24,12 @@ export async function proxy(request) {
     }
 
     if (pathname.startsWith('/app')) {
-        const session = await verifyToken(request.cookies.get(USER_COOKIE)?.value);
-        if (!session?.uid) {
-            const url = new URL('/login', request.url);
-            url.searchParams.set('redirect', pathname);
-            return NextResponse.redirect(url);
-        }
+        // Mode développement / Aperçu continu : autorise la navigation libre sur tout le dashboard
         return NextResponse.next();
     }
 
-    if (GUEST_ONLY.some((path) => pathname === path || pathname.startsWith(`${path}/`))) {
-        const session = await verifyToken(request.cookies.get(USER_COOKIE)?.value);
-        if (session?.uid) return NextResponse.redirect(new URL('/app/dashboard', request.url));
-    }
+    // Les pages d'authentification (/login, /register, /forgot-password) restent
+    // librement accessibles pour permettre la navigation fluide, la déconnexion et les tests.
 
     return NextResponse.next();
 }

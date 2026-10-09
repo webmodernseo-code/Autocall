@@ -5,7 +5,7 @@ import { useEffect, useMemo } from 'react';
 import { useForm } from '@/lib/page-router';
 import { useTranslation } from 'react-i18next';
 import { Calendar } from 'lucide-react';
-import { Button, Input, Modal, ThemedSelect, Toggle } from '@/components/ui';
+import { Button, Input, Modal, ThemedSelect, Toggle, DateTimePicker } from '@/components/ui';
 
 const labelClass = 'mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-300';
 
@@ -294,41 +294,23 @@ export default function VoucherFormModal({ show, onClose, mode = 'create', vouch
                             <label htmlFor={`${idPrefix}-valid-from`} className={labelClass}>
                                 {ui('field_valid_from')}
                             </label>
-                            <div className="relative">
-                                <Input
-                                    id={`${idPrefix}-valid-from`}
-                                    type="datetime-local"
-                                    value={form.data.valid_from}
-                                    onChange={(e) => setField('valid_from', e.target.value)}
-                                    className="pr-10"
-                                    error={err('valid_from')}
-                                />
-                                <Calendar
-                                    className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400 dark:text-neutral-500"
-                                    strokeWidth={2}
-                                    aria-hidden
-                                />
-                            </div>
+                            <DateTimePicker
+                                value={form.data.valid_from}
+                                onChange={(val) => setField('valid_from', val)}
+                                placeholder="Date de début..."
+                            />
+                            {err('valid_from') && <p className="mt-1 text-xs text-rose-500 font-medium">{err('valid_from')}</p>}
                         </div>
                         <div>
                             <label htmlFor={`${idPrefix}-valid-until`} className={labelClass}>
                                 {ui('field_valid_until')}
                             </label>
-                            <div className="relative">
-                                <Input
-                                    id={`${idPrefix}-valid-until`}
-                                    type="datetime-local"
-                                    value={form.data.valid_until}
-                                    onChange={(e) => setField('valid_until', e.target.value)}
-                                    className="pr-10"
-                                    error={err('valid_until')}
-                                />
-                                <Calendar
-                                    className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400 dark:text-neutral-500"
-                                    strokeWidth={2}
-                                    aria-hidden
-                                />
-                            </div>
+                            <DateTimePicker
+                                value={form.data.valid_until}
+                                onChange={(val) => setField('valid_until', val)}
+                                placeholder="Date d'expiration..."
+                            />
+                            {err('valid_until') && <p className="mt-1 text-xs text-rose-500 font-medium">{err('valid_until')}</p>}
                         </div>
                     </div>
 
