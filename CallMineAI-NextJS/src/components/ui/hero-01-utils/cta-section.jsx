@@ -172,8 +172,8 @@ export default function CtaSection() {
                         <div className="pt-2 space-y-1.5 text-xs text-white/50">
                             <div className="flex items-center gap-2">
                                 <Mail className="h-3.5 w-3.5 text-sky-400 shrink-0" />
-                                <a href="mailto:contact@autocall.co" className="hover:text-white transition-colors">
-                                    contact@autocall.co
+                                <a href="mailto:contact@getautocall.fr" className="hover:text-white transition-colors">
+                                    contact@getautocall.fr
                                 </a>
                             </div>
                             <div className="flex items-center gap-2">
@@ -236,6 +236,18 @@ export default function CtaSection() {
                                 </a>
                             </li>
                             <li>
+                                <Link href="/docs" className="hover:text-white transition-colors flex items-center justify-between group">
+                                    <span>Documentation & API</span>
+                                    <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity text-sky-400" />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/status" className="hover:text-white transition-colors flex items-center justify-between group">
+                                    <span>État des services (Status)</span>
+                                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                                </Link>
+                            </li>
+                            <li>
                                 <a href="#secteurs" className="hover:text-white transition-colors">
                                     Cas d&apos;usage métiers
                                 </a>
@@ -248,11 +260,6 @@ export default function CtaSection() {
                             <li>
                                 <a href="#tarifs" className="hover:text-white transition-colors">
                                     Grille tarifaire
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#faq" className="hover:text-white transition-colors">
-                                    Foire aux questions
                                 </a>
                             </li>
                         </ul>

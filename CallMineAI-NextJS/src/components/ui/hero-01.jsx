@@ -55,6 +55,10 @@ export default function AgencyHeroSection() {
       title: "Tarifs",
       href: "#tarifs",
     },
+    {
+      title: "Documentation",
+      href: "/docs",
+    },
   ];
 
   const brandList = [
