@@ -35,9 +35,9 @@ export async function balance(clientId) {
             orderBy: { id: 'desc' },
             select: { balance_after: true },
         });
-        return Number(row?.balance_after ?? 250);
+        return Number(row?.balance_after ?? 0);
     } catch {
-        return 250;
+        return 0;
     }
 }
 

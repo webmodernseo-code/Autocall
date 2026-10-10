@@ -40,23 +40,17 @@ export { HttpError };
 
 /* ---------------------------------------------------------- page contexts */
 
-/** `['auth','role:client','client.scope','verified']` for a client-portal page. */
 export async function requireClientPage({ allowUnsubscribed = false } = {}) {
-    let user = await currentUser();
+    const user = await currentUser();
     if (!user) {
-        user = {
-            id: 1n,
-            name: 'Client Démo',
-            email: 'demo@autocall.co',
-            role: 'client',
-            client_role: 'administrator',
-            email_verified_at: new Date(),
-            status: 'active',
-            clients: { id: 1n, name: 'AutoCall Démo' },
-        };
+        redirect('/login');
     }
 
-    const clientId = (await resolveClientId(user)) || 1n;
+    const clientId = await resolveClientId(user);
+    if (!clientId) {
+        redirect('/login');
+    }
+
     return { user, clientId };
 }
 
@@ -200,7 +194,7 @@ export function demoBlocked(routeName = '') {
 
 /** EnsureClientScope — falls back to the impersonated client id or auto-heals workspace. */
 export async function resolveClientId(user) {
-    if (user?.client_id) return user.client_id;
+    if (user?.client_id) return BigInt(user.client_id);
 
     const session = await getSession();
     if (session?.impersonating && session?.impersonated_client_id) {
@@ -210,13 +204,13 @@ export async function resolveClientId(user) {
     if (user && user.role === 'client') {
         try {
             const autoId = await ensureClientWorkspace(user);
-            if (autoId) return autoId;
+            if (autoId) return BigInt(autoId);
         } catch {}
         if (user.clients?.id) return BigInt(user.clients.id);
-        return 1n;
+        return null;
     }
 
-    return 1n;
+    return null;
 }
 
 /** Fail a request when a record belongs to a different client (abort_unless(...403)). */

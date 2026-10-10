@@ -27,28 +27,6 @@ function getFallback(model, operation, args) {
         return [];
     }
     if (operation === 'findFirst' || operation === 'findUnique') {
-        if (m === 'user') {
-            return {
-                id: 1n,
-                name: 'Client Démo',
-                email: 'demo@autocall.co',
-                role: 'client',
-                client_role: 'administrator',
-                status: 'active',
-                client_id: 1n,
-                locale: 'fr',
-                display_currency: 'EUR',
-                clients: { id: 1n, name: 'AutoCall Démo' },
-            };
-        }
-        if (m === 'client') {
-            return {
-                id: 1n,
-                name: 'AutoCall Démo',
-                status: 'active',
-                credits: 250,
-            };
-        }
         return null;
     }
     if (operation === 'aggregate' || operation === 'groupBy') return { _count: 0, _sum: {}, _avg: {} };

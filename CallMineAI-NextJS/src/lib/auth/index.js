@@ -35,21 +35,12 @@ export async function currentUser() {
             });
             if (user && (user.status ?? 'active') === 'active') return user;
         } catch (e) {
-            // Silently fallback without triggering Turbopack development modal
+            console.error('[auth] currentUser lookup error:', e?.message || e);
         }
     }
 
-    // Mode développement & aperçu continu : compte démo automatique
-    return {
-        id: 1n,
-        name: 'Client Démo',
-        email: 'demo@autocall.co',
-        role: 'client',
-        client_role: 'administrator',
-        email_verified_at: new Date(),
-        status: 'active',
-        clients: { id: 1n, name: 'AutoCall Démo' },
-    };
+    // Return null if not authenticated
+    return null;
 }
 
 /** `$request->user('admin')` — the admin guard. */

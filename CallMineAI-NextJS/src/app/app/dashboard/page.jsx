@@ -10,26 +10,7 @@ export const dynamic = 'force-dynamic';
 
 /** GET /app/dashboard */
 export default async function Page({ searchParams }) {
-    let user = null;
-    let clientId = null;
-
-    try {
-        const auth = await requireClientPage();
-        user = auth.user;
-        clientId = auth.clientId;
-    } catch {
-        // Mode développement / Démo directe sans redirection vers login
-        user = {
-            id: 1,
-            name: 'Client Démo',
-            email: 'demo@autocall.co',
-            role: 'client',
-            client_role: 'administrator',
-            email_verified_at: new Date().toISOString(),
-        };
-        clientId = 1;
-    }
-
+    const { user, clientId } = await requireClientPage();
     const props = await buildProps(user, clientId);
     const params = await searchParams;
     if (params?.verified === '1') {
