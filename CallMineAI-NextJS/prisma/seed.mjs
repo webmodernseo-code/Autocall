@@ -467,7 +467,7 @@ async function seedGeneralSettings() {
     if (!existing) {
         await prisma.generalSetting.create({
             data: {
-                system_title: process.env.APP_NAME || 'CallMineAI',
+                system_title: process.env.APP_NAME || 'AutoCall',
                 company_name: '',
                 primary_color: '#6d3fea',
                 timezone: 'Europe/Paris',
@@ -482,7 +482,7 @@ async function seedGeneralSettings() {
 }
 
 async function main() {
-    console.log('Seeding CallMineAI…');
+    console.log('Seeding AutoCall…');
     // APP_KEY encrypts stored provider credentials — a fresh install must have
     // one before the admin panel can save anything.
     ensureAppKey({ quiet: false });

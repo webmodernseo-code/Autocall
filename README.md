@@ -1,4 +1,4 @@
-# 📞 CallMindAI — AI Voice Calling & Lead Qualification SaaS
+# 📞 AutoCall — AI Voice Calling & Lead Qualification SaaS
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.0-blue?style=flat&logo=react)](https://react.dev/)
@@ -17,7 +17,7 @@
 ## 🇫🇷 Version Française
 
 ### 🌟 Présentation
-**CallMindAI** est une plateforme SaaS tout-en-un de télé-prospection, service client et qualification d'appels téléphoniques propulsée par l'Intelligence Artificielle. Elle permet aux entreprises et aux agences de déployer des agents vocaux autonomes capables :
+**AutoCall** est une plateforme SaaS tout-en-un de télé-prospection, service client et qualification d'appels téléphoniques propulsée par l'Intelligence Artificielle. Elle permet aux entreprises et aux agences de déployer des agents vocaux autonomes capables :
 * **D'émettre des appels sortants (Outbound)** à grande échelle pour prospecter, qualifier et relancer des listes de contacts.
 * **De recevoir des appels entrants (Inbound)** 24h/24 et 7j/7 pour accueillir les clients, répondre aux questions, transférer vers des humains ou prendre des messages vocaux.
 * **De tenir des conversations 100% autonomes** et fluides avec adaptation en temps réel aux objections.
@@ -88,7 +88,7 @@ Le projet est entièrement **auto-hébergé**, prêt pour la commercialisation e
 
 1. **Accédez au répertoire de l'application** :
    ```bash
-   cd CallMineAI-NextJS
+   cd AutoCall-NextJS
    ```
 
 2. **Installez les dépendances** :
@@ -129,7 +129,7 @@ Définissez `ADMIN_SEED_*` et, uniquement pour une démo locale, `CLIENT_SEED_*`
 ## 🇬🇧 English Version
 
 ### 🌟 Overview
-**CallMindAI** is an all-in-one AI Voice Calling, Customer Service & Lead Qualification SaaS platform. It enables businesses and agencies to deploy autonomous voice agents capable of:
+**AutoCall** is an all-in-one AI Voice Calling, Customer Service & Lead Qualification SaaS platform. It enables businesses and agencies to deploy autonomous voice agents capable of:
 * **Handling Inbound Calls (24/7)**: Answering inquiries, resolving customer questions, forwarding calls to human reps, or recording AI-transcribed voicemails.
 * **Placing Bulk Outbound Calls**: Running cold calling campaigns at scale, following up on leads, and handling automated retries.
 * **Conducting 100% Autonomous Conversations**: Natural bidirectional dialogues, intelligent objection handling, and smart appointment setting.
@@ -200,7 +200,7 @@ The codebase is **100% self-hosted**, white-label ready, and engineered with a r
 
 1. **Navigate to the application folder**:
    ```bash
-   cd CallMineAI-NextJS
+   cd AutoCall-NextJS
    ```
 
 2. **Install dependencies**:
@@ -240,8 +240,8 @@ Set `ADMIN_SEED_*` and, for local demo mode only, `CLIENT_SEED_*`. No public or 
 ### 📁 Repository Structure / Structure du Dépôt
 
 ```
-CallMindAI/
-├── CallMineAI-NextJS/        # Application Source Code (Next.js 15 + Prisma + Tailwind)
+AutoCall/
+├── AutoCall-NextJS/        # Application Source Code (Next.js 15 + Prisma + Tailwind)
 │   ├── prisma/               # Database Schema (schema.prisma) & Seeders
 │   ├── scripts/              # Background Dialer Worker & Utilities
 │   ├── src/

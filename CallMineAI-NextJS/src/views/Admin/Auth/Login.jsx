@@ -11,7 +11,7 @@ import AuthShell, { AuthField, SubmitButton, DemoLoginCard } from '@/components/
 
 export default function AdminLogin({ status, error }) {
     const { props } = usePage();
-    const brand = props.branding?.company_name || props.branding?.system_title || 'CallMineAI';
+    const brand = props.branding?.company_name || props.branding?.system_title || 'AutoCall';
     const logoUrl = props.branding?.site_logo_url ?? null;
 
     const demoCred = props.demo_mode ? props.demo_credentials?.admin : null;

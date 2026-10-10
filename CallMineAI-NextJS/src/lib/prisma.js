@@ -80,10 +80,10 @@ function createPrismaClient() {
     });
 }
 
-export const prisma = globalForPrisma.__callmine_prisma ?? createPrismaClient();
+export const prisma = globalForPrisma.__autocall_prisma ?? createPrismaClient();
 
 if (process.env.NODE_ENV !== 'production') {
-    globalForPrisma.__callmine_prisma = prisma;
+    globalForPrisma.__autocall_prisma = prisma;
 }
 
 export default prisma;

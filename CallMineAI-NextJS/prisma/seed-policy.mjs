@@ -5,7 +5,7 @@ const DEFAULT_CLIENT_PASSWORD = 'Local-Demo-Client-2026!';
 
 const LOCAL_ENVIRONMENTS = new Set(['local', 'development', 'dev', 'test']);
 const FORBIDDEN_PASSWORDS = new Set([
-    '12345678', 'password', 'password123', 'admin123', 'changeme', 'callmindai', 'callmineai',
+    '12345678', 'password', 'password123', 'admin123', 'changeme', 'autocall', 'autocall',
 ]);
 
 const enabled = (value) => ['1', 'true', 'yes', 'on'].includes(String(value ?? '').toLowerCase());

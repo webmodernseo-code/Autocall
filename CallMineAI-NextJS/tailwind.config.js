@@ -15,7 +15,7 @@ const config = {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
                 mono: ['"JetBrains Mono"', ...defaultTheme.fontFamily.mono],
             },
-            // Brand & neutrals — CallMineAI: iris (brand) + electric "signal" + ink shell
+            // Brand & neutrals — AutoCall: iris (brand) + electric "signal" + ink shell
             colors: {
                 white: '#F7F7FB',
                 black: '#0c0c1c',

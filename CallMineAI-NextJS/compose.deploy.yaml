@@ -1,4 +1,4 @@
-name: callmindai
+name: autocall
 
 x-app-common: &app-common
   image: ${GHCR_IMAGE:?GHCR_IMAGE is required}:${IMAGE_TAG:?IMAGE_TAG is required}

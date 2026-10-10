@@ -16,7 +16,7 @@ export const POST = handler(async (request, { params }) => {
     deliverWebhook(webhook.id, WEBHOOK_EVENTS.CALL_COMPLETED, {
         test: true,
         call_id: 0,
-        message: 'This is a test event from CallMineAI.',
+        message: 'This is a test event from AutoCall.',
     }).catch((e) => console.error('[webhook] test delivery failed:', e?.message));
 
     return back({ success: 'Test event sent.' });

@@ -11,7 +11,7 @@ RUN --mount=type=cache,target=/root/.npm \
     npm ci --no-audit --no-fund
 
 FROM dependencies AS builder
-ARG NEXT_PUBLIC_APP_NAME=CallMindAI
+ARG NEXT_PUBLIC_APP_NAME=AutoCall
 ARG NEXT_PUBLIC_APP_URL=http://127.0.0.1:3000
 ENV NODE_ENV=production \
     NEXT_PUBLIC_APP_NAME=${NEXT_PUBLIC_APP_NAME} \

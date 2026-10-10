@@ -24,14 +24,14 @@ export default async function Page() {
         cron_scheduler: `* * * * * cd ${appPath} && ${nodeBinary} scripts/worker.mjs >> /dev/null 2>&1`,
         cron_worker: `curl -fsS -X POST -H "X-Cron-Secret: $CRON_SECRET" ${config.app.url}/api/cron/dispatch`,
         supervisor: [
-            '[program:callmineai-worker]',
+            '[program:autocall-worker]',
             'process_name=%(program_name)s_%(process_num)02d',
             `command=${nodeBinary} ${appPath}/scripts/worker.mjs`,
             'autostart=true',
             'autorestart=true',
             'numprocs=1',
             `directory=${appPath}`,
-            `stdout_logfile=/var/log/callmineai-worker.log`,
+            `stdout_logfile=/var/log/autocall-worker.log`,
             'redirect_stderr=true',
         ].join('\n'),
     };

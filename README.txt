@@ -1,5 +1,5 @@
 ================================================================================
-  CallMindAI | AI Voice Calling SaaS With Lead Qualification & Sales Automation
+  AutoCall | AI Voice Calling SaaS With Lead Qualification & Sales Automation
   Plateforme SaaS d'Appels Vocaux IA & Qualification de Leads
   Version 1.0.1
 ================================================================================
@@ -16,7 +16,7 @@ FONCTIONNALITÉS MAJEURES :
   - Constructeur de flux (Flows) pour automatiser SMS, WhatsApp, emails et webhooks CRM.
 
 CONTENU DU PACKAGE :
-  CallMineAI-NextJS/    Code source de l'application Next.js (prêt à déployer).
+  AutoCall-NextJS/    Code source de l'application Next.js (prêt à déployer).
   Documentation/        Documentation complète consultable hors-ligne (index.html).
   Licensing/            Licences logicielles et licences tierces.
   README.md             Documentation bilingue complète avec instructions détaillées.
@@ -27,7 +27,7 @@ PRÉREQUIS SERVEUR :
   - Un worker d'appels (npm run worker) gère le dialer en continu via PM2 ou systemd.
 
 INSTALLATION RAPIDE :
-  1. cd CallMineAI-NextJS
+  1. cd AutoCall-NextJS
   2. npm install
   3. cp .env.example .env
      (Renseignez DATABASE_URL, AUTH_SECRET et APP_KEY dans votre fichier .env)
@@ -56,7 +56,7 @@ KEY CAPABILITIES:
   - Visual Flow Builder to automate follow-up SMS, WhatsApp, emails, and CRM webhooks.
 
 PACKAGE CONTENTS:
-  CallMineAI-NextJS/    Next.js application source code (ready to deploy).
+  AutoCall-NextJS/    Next.js application source code (ready to deploy).
   Documentation/        Complete offline documentation (open index.html in browser).
   Licensing/            Item license and third-party open-source licenses.
   README.md             Comprehensive bilingual documentation and architecture guide.
@@ -67,7 +67,7 @@ SERVER REQUIREMENTS:
   - The dialer runs in a background worker (npm run worker) kept alive by PM2 or systemd.
 
 QUICK INSTALLATION:
-  1. cd CallMineAI-NextJS
+  1. cd AutoCall-NextJS
   2. npm install
   3. cp .env.example .env
      (Edit .env with your DATABASE_URL, AUTH_SECRET, and APP_KEY)

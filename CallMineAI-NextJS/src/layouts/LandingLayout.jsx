@@ -9,7 +9,7 @@ export default function LandingLayout({ children }) {
     const { t } = useTranslation();
     const page = usePage().props;
     const user = page?.auth?.user;
-    const brand = page?.branding?.system_title || page?.system_title || 'CallMineAI';
+    const brand = page?.branding?.system_title || page?.system_title || 'AutoCall';
     const year = new Date().getFullYear();
 
     return (

@@ -22,11 +22,11 @@ Dans chaque environnement, définir :
 
 | Type | Nom | Exemple |
 |---|---|---|
-| Variable | `APP_URL` | `https://staging-callmindai.webmodernseo.co` |
+| Variable | `APP_URL` | `https://staging-autocall.webmodernseo.co` |
 | Secret | `DEPLOY_HOST` | IP ou nom DNS du VPS |
 | Secret | `DEPLOY_USER` | `deploy` |
 | Secret | `DEPLOY_PORT` | `22` |
-| Secret | `DEPLOY_PATH` | `/opt/callmindai-staging` |
+| Secret | `DEPLOY_PATH` | `/opt/autocall-staging` |
 | Secret | `DEPLOY_SSH_KEY` | clé privée dédiée sans phrase secrète |
 | Secret | `DEPLOY_KNOWN_HOSTS` | ligne `ssh-keyscan` vérifiée hors CI |
 

@@ -77,6 +77,6 @@ sequenceDiagram
 - **Serveur** : VPS OVH `57.129.173.31` (Ubuntu 24.04 LTS).
 - **Gestionnaire** : Coolify v4.3.23 (Docker autonome, healthcheck `/api/health`, rolling updates zéro interruption).
 - **Conteneurs** :
-  1. `callmindai-web` : Next.js 16 Standalone (App Router, Proxy multi-domaines).
-  2. `callmindai-worker` : Worker de télécommunication autonome 24/7 (`scripts/worker.mjs`).
+  1. `autocall-web` : Next.js 16 Standalone (App Router, Proxy multi-domaines).
+  2. `autocall-worker` : Worker de télécommunication autonome 24/7 (`scripts/worker.mjs`).
 - **Base de Données** : Cluster TiDB Cloud MySQL managé avec chiffrement TLS et sauvegardes automatiques.

@@ -52,22 +52,22 @@ jobs:
       - name: Build and publish runtime image
         uses: docker/build-push-action@v6
         with:
-          context: CallMineAI-NextJS
-          file: CallMineAI-NextJS/Dockerfile
+          context: AutoCall-NextJS
+          file: AutoCall-NextJS/Dockerfile
           target: runtime
           push: true
           tags: ${{ steps.names.outputs.image }}:${{ steps.names.outputs.tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            NEXT_PUBLIC_APP_NAME=${{ vars.NEXT_PUBLIC_APP_NAME || 'CallMindAI' }}
+            NEXT_PUBLIC_APP_NAME=${{ vars.NEXT_PUBLIC_APP_NAME || 'AutoCall' }}
             NEXT_PUBLIC_APP_URL=${{ vars.STAGING_APP_URL }}
 
       - name: Build and publish migration image
         uses: docker/build-push-action@v6
         with:
-          context: CallMineAI-NextJS
-          file: CallMineAI-NextJS/Dockerfile
+          context: AutoCall-NextJS
+          file: AutoCall-NextJS/Dockerfile
           target: migration
           push: true
           tags: ${{ steps.names.outputs.image }}-migration:${{ steps.names.outputs.tag }}
@@ -113,9 +113,9 @@ jobs:
           [[ "$APP_DIR" =~ ^/[A-Za-z0-9._/-]+$ ]] || { echo "Invalid DEPLOY_PATH" >&2; exit 2; }
           ssh -i ~/.ssh/deploy_key -p "${PORT:-22}" "$USER@$HOST" "mkdir -p '$APP_DIR'"
           scp -i ~/.ssh/deploy_key -P "${PORT:-22}" \
-            CallMineAI-NextJS/compose.deploy.yaml "$USER@$HOST:$APP_DIR/compose.deploy.yaml"
+            AutoCall-NextJS/compose.deploy.yaml "$USER@$HOST:$APP_DIR/compose.deploy.yaml"
           scp -i ~/.ssh/deploy_key -P "${PORT:-22}" \
-            CallMineAI-NextJS/scripts/deploy.sh "$USER@$HOST:$APP_DIR/deploy.sh"
+            AutoCall-NextJS/scripts/deploy.sh "$USER@$HOST:$APP_DIR/deploy.sh"
 
       - name: Authenticate server and deploy
         env:

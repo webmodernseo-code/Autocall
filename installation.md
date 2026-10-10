@@ -1,8 +1,8 @@
-# Mise en production et commercialisation de CallMindAI
+# Mise en production et commercialisation de AutoCall
 
 > Guide d'installation, d'exploitation et de lancement commercial  
-> Cible initiale : `https://callmindai.webmodernseo.co`  
-> Application : `CallMineAI-NextJS` — Next.js 16.3.8, React 19.3, Prisma 6 et MySQL  
+> Cible initiale : `https://autocall.webmodernseo.co`  
+> Application : `AutoCall-NextJS` — Next.js 16.3.8, React 19.3, Prisma 6 et MySQL  
 > Version du guide : 1.0 — 4 octobre 2026
 
 ## 1. Objet du document
@@ -130,15 +130,15 @@ Ne pas ouvrir Plivo si Twilio est retenu, ni PayPal/Paddle tant que Stripe n'est
 ### 4.3 Cloudflare : DNS du sous-domaine temporaire
 
 1. Ajouter `webmodernseo.co` à Cloudflare et conserver les serveurs DNS fournis.
-2. Dans `DNS`, créer un enregistrement `A` nommé `callmindai` vers l'IPv4 du VPS ; activer le proxy orange.
-3. Créer `staging-callmindai` vers le serveur de staging.
+2. Dans `DNS`, créer un enregistrement `A` nommé `autocall` vers l'IPv4 du VPS ; activer le proxy orange.
+3. Créer `staging-autocall` vers le serveur de staging.
 4. Dans `SSL/TLS`, choisir `Full (strict)` après émission du certificat d'origine par Coolify.
 5. Ne jamais mettre en cache `/api/*`, `/webhooks/*`, `/admin/*` ni `/app/*`.
-6. Vérifier que `https://callmindai.webmodernseo.co` répond avant de connecter les webhooks.
+6. Vérifier que `https://autocall.webmodernseo.co` répond avant de connecter les webhooks.
 
 ### 4.4 TiDB Cloud : base de données
 
-1. Créer l'organisation TiDB Cloud et deux projets ou instances séparés : `callmindai-staging` et `callmindai-production`.
+1. Créer l'organisation TiDB Cloud et deux projets ou instances séparés : `autocall-staging` et `autocall-production`.
 2. Choisir **Starter** au début, une région européenne proche du VPS, puis définir un plafond de dépenses et des alertes.
 3. Ouvrir l'instance — cela signifie simplement **cliquer sur son nom dans la console TiDB Cloud** — puis `Connect`.
 4. Créer un utilisateur SQL propre à chaque environnement avec un mot de passe généré ; ne pas employer `root` dans l'application.
@@ -176,7 +176,7 @@ Le quota Starter officiel comprend jusqu'à 5 Gio de données ligne, 5 Gio colon
 
 1. Créer et vérifier le compte entreprise Stripe ; commencer en mode test.
 2. Créer les produits/prix récurrents en EUR. Pour USD/XOF, vérifier les devises réellement acceptées par le compte et la banque de règlement ; l'affichage régional ne garantit pas qu'une passerelle accepte XOF.
-3. Créer le webhook `https://callmindai.webmodernseo.co/webhooks/stripe` et sélectionner les événements d'abonnement, facture et paiement utilisés par l'application.
+3. Créer le webhook `https://autocall.webmodernseo.co/webhooks/stripe` et sélectionner les événements d'abonnement, facture et paiement utilisés par l'application.
 4. Copier la clé secrète et le secret de signature : `STRIPE_SECRET`, `STRIPE_WEBHOOK_SECRET`, puis activer `BILLING_STRIPE_ENABLED=true`.
 5. Tester succès, refus, 3-D Secure, renouvellement, annulation, remboursement et rejeu de webhook.
 6. Refaire l'étape avec les clés live seulement après validation et ne jamais mélanger test/live.
@@ -192,7 +192,7 @@ Le quota Starter officiel comprend jusqu'à 5 Gio de données ligne, 5 Gio colon
 
 1. Dans Better Stack, créer un moniteur HTTPS sur `/`, un heartbeat pour le worker et des alertes e-mail/SMS. Ne jamais envoyer de transcript, numéro complet ou secret dans les logs.
 2. Créer un bucket R2/S3 privé séparé pour production, activer chiffrement, versioning/rétention et clés limitées au bucket. Tester restauration et expiration automatique des enregistrements.
-3. Pour Meta WhatsApp, vérifier Meta Business, créer l'application, ajouter WhatsApp, configurer `https://callmindai.webmodernseo.co/webhooks/whatsapp/meta`, le token de vérification et le secret, puis faire approuver les modèles.
+3. Pour Meta WhatsApp, vérifier Meta Business, créer l'application, ajouter WhatsApp, configurer `https://autocall.webmodernseo.co/webhooks/whatsapp/meta`, le token de vérification et le secret, puis faire approuver les modèles.
 4. PayPal ou Paddle ne doivent être ajoutés qu'en second temps, avec leur propre webhook `/webhooks/paypal` ou `/webhooks/paddle` et des tests sandbox complets.
 
 ### 4.10 Registre des comptes
@@ -206,8 +206,8 @@ Maintenir trois environnements isolés :
 | Environnement | Domaine conseillé | Données | Paiements |
 |---|---|---|---|
 | Local | `localhost:3000` | fictives | sandbox |
-| Staging | `staging-callmindai.webmodernseo.co` | fictives/anonymisées | sandbox |
-| Production | `callmindai.webmodernseo.co` | réelles | live |
+| Staging | `staging-autocall.webmodernseo.co` | fictives/anonymisées | sandbox |
+| Production | `autocall.webmodernseo.co` | réelles | live |
 
 Chaque environnement doit avoir sa propre base, ses secrets, ses clés API, ses webhooks et, idéalement, ses sous-comptes téléphoniques. Ne jamais copier la base de production vers un poste local sans anonymisation.
 
@@ -215,8 +215,8 @@ Chaque environnement doit avoir sa propre base, ses secrets, ses clés API, ses 
 
 Dans Cloudflare :
 
-1. créer un enregistrement `A` pour `callmindai.webmodernseo.co` vers l'IPv4 publique du serveur ;
-2. créer `staging-callmindai.webmodernseo.co` vers le staging ;
+1. créer un enregistrement `A` pour `autocall.webmodernseo.co` vers l'IPv4 publique du serveur ;
+2. créer `staging-autocall.webmodernseo.co` vers le staging ;
 3. activer le proxy Cloudflare après validation directe du certificat ;
 4. utiliser le mode TLS **Full (strict)** ;
 5. activer HSTS seulement après confirmation que tous les sous-domaines concernés fonctionnent en HTTPS ;
@@ -225,10 +225,10 @@ Dans Cloudflare :
 Valeurs publiques de production :
 
 ```dotenv
-APP_NAME="CallMindAI"
-APP_URL="https://callmindai.webmodernseo.co"
-NEXT_PUBLIC_APP_NAME="CallMindAI"
-NEXT_PUBLIC_APP_URL="https://callmindai.webmodernseo.co"
+APP_NAME="AutoCall"
+APP_URL="https://autocall.webmodernseo.co"
+NEXT_PUBLIC_APP_NAME="AutoCall"
+NEXT_PUBLIC_APP_URL="https://autocall.webmodernseo.co"
 APP_ENV="production"
 APP_DEBUG="false"
 APP_DEMO_MODE="false"
@@ -301,7 +301,7 @@ Créer une base et un utilisateur dédiés, avec TLS obligatoire, jeu de caract�
 Sur une base locale vide :
 
 ```bash
-cd CallMineAI-NextJS
+cd AutoCall-NextJS
 npm ci
 npx prisma generate
 npx prisma migrate dev --name init
@@ -406,7 +406,7 @@ MAIL_USERNAME="..."
 MAIL_PASSWORD="..."
 MAIL_ENCRYPTION="tls"
 MAIL_FROM_ADDRESS="support@webmodernseo.co"
-MAIL_FROM_NAME="CallMindAI"
+MAIL_FROM_NAME="AutoCall"
 MAIL_ALLOW_SELF_SIGNED="false"
 ```
 
@@ -462,9 +462,9 @@ OPENAI_MODEL="MODELE_VALIDE_TESTE"
 Configurer les callbacks à partir du domaine public :
 
 ```text
-https://callmindai.webmodernseo.co/webhooks/twilio/voice
-https://callmindai.webmodernseo.co/webhooks/twilio/status
-https://callmindai.webmodernseo.co/webhooks/twilio/recording
+https://autocall.webmodernseo.co/webhooks/twilio/voice
+https://autocall.webmodernseo.co/webhooks/twilio/status
+https://autocall.webmodernseo.co/webhooks/twilio/recording
 ```
 
 Vérifier les chemins exacts dans les consoles fournisseurs et dans le code avant enregistrement. Les signatures Twilio/Plivo et plusieurs signatures de paiement sont déjà vérifiées dans le dépôt ; les tests doivent prouver qu'une signature invalide reçoit bien un rejet.
@@ -500,7 +500,7 @@ META_GRAPH_VERSION="VERSION_ACTUELLEMENT_SUPPORTEE"
 Webhook :
 
 ```text
-https://callmindai.webmodernseo.co/webhooks/whatsapp/meta
+https://autocall.webmodernseo.co/webhooks/whatsapp/meta
 ```
 
 Faire approuver les modèles avant lancement. Vérifier opt-in, fenêtre de conversation, statuts envoyé/livré/lu et signature Meta.
@@ -583,7 +583,7 @@ scan de l'image et génération SBOM
 
 ESLint 9 utilise une configuration plate compatible Next.js 16. Les erreurs pertinentes font échouer la CI ; les nouvelles alertes de dette React 19 restent visibles dans `npm run lint:report` sans bloquer une livraison sans rapport avec leur correction.
 
-Dependabot vérifie les dépendances npm chaque semaine. La politique détaillée se trouve dans `CallMineAI-NextJS/UPGRADES.md` : versions stables uniquement, aucune fusion automatique, validation CI obligatoire, passage en staging puis promotion du même artefact en production.
+Dependabot vérifie les dépendances npm chaque semaine. La politique détaillée se trouve dans `AutoCall-NextJS/UPGRADES.md` : versions stables uniquement, aucune fusion automatique, validation CI obligatoire, passage en staging puis promotion du même artefact en production.
 
 Avant fusion : revue obligatoire pour authentification, facturation, crédits, webhooks, isolation tenant et migrations. Activer Dependabot/Renovate, protection de branche, commits signés si possible et déploiement uniquement depuis une branche protégée.
 
@@ -743,12 +743,12 @@ Le nom de code ne doit jamais piloter le métier. Utiliser `APP_NAME` pour l'aff
 - nom des apps OAuth et WhatsApp ;
 - descripteurs Stripe et libellés de facture ;
 - noms des buckets, projets Sentry et pages de statut ;
-- textes vocaux qui prononcent « CallMindAI ».
+- textes vocaux qui prononcent « AutoCall ».
 
 Rechercher les chaînes codées en dur avant migration :
 
 ```bash
-rg -ni "callmindai|callmineai|ancienne-marque|webmodernseo" CallMineAI-NextJS
+rg -ni "autocall|autocall|ancienne-marque|webmodernseo" AutoCall-NextJS
 ```
 
 ### Plan de migration de domaine sans interruption
@@ -801,7 +801,7 @@ Déclencher une alerte quand la marge d'un client passe sous un seuil défini. L
 
 ```bash
 # application
-curl -I https://callmindai.webmodernseo.co
+curl -I https://autocall.webmodernseo.co
 
 # état des conteneurs
 docker compose ps

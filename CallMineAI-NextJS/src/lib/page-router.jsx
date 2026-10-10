@@ -99,7 +99,7 @@ export function usePage() {
 export function Head({ title, children }) {
     useEffect(() => {
         if (!title) return;
-        const appName = process.env.NEXT_PUBLIC_APP_NAME || 'CallMineAI';
+        const appName = process.env.NEXT_PUBLIC_APP_NAME || 'AutoCall';
         const previous = document.title;
         document.title = `${title} - ${appName}`;
         return () => {

@@ -1,4 +1,4 @@
-# CallMindAI — Next.js Application
+# AutoCall — Next.js Application
 
 > 🌐 **Navigation / Langue** :  
 > 🇫🇷 [Version Française](#-version-française) | 🇬🇧 [English Version](#-english-version)
@@ -12,7 +12,7 @@
 
 ```bash
 # 1. Accédez au répertoire
-cd CallMineAI-NextJS
+cd AutoCall-NextJS
 
 # 2. Configurez le fichier .env (DATABASE_URL, AUTH_SECRET, APP_KEY)
 cp .env.example .env
@@ -57,7 +57,7 @@ Les comptes sont créés par le seed à partir des variables `ADMIN_SEED_*` et, 
 
 ```bash
 # 1. Navigate to directory
-cd CallMineAI-NextJS
+cd AutoCall-NextJS
 
 # 2. Setup your .env file (DATABASE_URL, AUTH_SECRET, APP_KEY)
 cp .env.example .env

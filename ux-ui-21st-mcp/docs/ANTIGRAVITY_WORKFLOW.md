@@ -18,7 +18,7 @@ Lorsque tu ouvres ou références ce dépôt dans Antigravity :
 
 ### 🔹 Étape 1 : Demander la conception à Antigravity
 Formule ta demande en décrivant ton besoin métier :
-> *"Je veux créer une page de tableau de bord pour CallMindAI avec suivi des appels entrants, taux de conversion des leads et graphique de volume d'appels. Utilise le kit UX.UI-21ST-MCP pour définir la charte et trouver les composants."*
+> *"Je veux créer une page de tableau de bord pour AutoCall avec suivi des appels entrants, taux de conversion des leads et graphique de volume d'appels. Utilise le kit UX.UI-21ST-MCP pour définir la charte et trouver les composants."*
 
 ### 🔹 Étape 2 : Antigravity explore et prépare le Design System
 L'agent va :

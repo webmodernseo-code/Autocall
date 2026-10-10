@@ -54,8 +54,8 @@ export async function deliverWebhook(webhookId, event, payload) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CallMineAI-Event': event,
-                'X-CallMineAI-Signature': signature,
+                'X-AutoCall-Event': event,
+                'X-AutoCall-Signature': signature,
             },
             body,
             signal: AbortSignal.timeout(15000),

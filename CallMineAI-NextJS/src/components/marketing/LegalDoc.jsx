@@ -14,7 +14,7 @@ const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)
  */
 export default function LegalDoc({ eyebrow, title, updated, intro, sections = [], metaTitle, description }) {
     return (
-        <MarketingLayout title={metaTitle || `${title} — CallMineAI`} description={description}>
+        <MarketingLayout title={metaTitle || `${title} — AutoCall`} description={description}>
             <section className="relative overflow-hidden pt-32 pb-12 sm:pt-40">
                 <div className="grid-field grid-mask pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
                 <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-80 w-[44rem] -translate-x-1/2 rounded-full bg-brand-600/15 blur-[120px]" aria-hidden="true" />

@@ -123,7 +123,7 @@ export default function SystemIndex({ env, commands, health }) {
                     <CopyBox
                         label="Supervisor (recommended for production, instead of cron #2)"
                         value={commands.supervisor}
-                        hint="Save as /etc/supervisor/conf.d/callmineai-worker.conf, then: supervisorctl reread && supervisorctl update && supervisorctl start callmineai-worker:*  — an always-on worker with auto-restart. Requires SSH/root."
+                        hint="Save as /etc/supervisor/conf.d/autocall-worker.conf, then: supervisorctl reread && supervisorctl update && supervisorctl start autocall-worker:*  — an always-on worker with auto-restart. Requires SSH/root."
                     />
                 </div>
 

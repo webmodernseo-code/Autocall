@@ -1,12 +1,12 @@
-name: callmindai
+name: autocall
 
 x-app-common: &app-common
-  image: callmindai:${IMAGE_TAG:-local}
+  image: autocall:${IMAGE_TAG:-local}
   build:
     context: .
     target: runtime
     args:
-      NEXT_PUBLIC_APP_NAME: ${NEXT_PUBLIC_APP_NAME:-CallMindAI}
+      NEXT_PUBLIC_APP_NAME: ${NEXT_PUBLIC_APP_NAME:-AutoCall}
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://127.0.0.1:3000}
   env_file:
     - .env
@@ -54,7 +54,7 @@ services:
           memory: 256M
 
   migrate:
-    image: callmindai-migration:${IMAGE_TAG:-local}
+    image: autocall-migration:${IMAGE_TAG:-local}
     build:
       context: .
       target: migration

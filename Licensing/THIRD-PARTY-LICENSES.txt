@@ -1,4 +1,4 @@
-CallMineAI 1.0.1 — Third-Party Components and Licenses
+AutoCall 1.0.1 — Third-Party Components and Licenses
 ================================================================================
 
 Nothing in this list is redistributed inside the package. Node.js dependencies
@@ -96,7 +96,7 @@ To self-host the fonts instead, replace the <link> tags in
 6. ORIGINAL ASSETS
 --------------------------------------------------------------------------------
 
-The CallMineAI logo, favicon, colour system, UI layouts and all screenshots in
+The AutoCall logo, favicon, colour system, UI layouts and all screenshots in
 the bundled documentation are original works by the author and are covered by the
 item license in LICENSE.txt. They are not licensed for use outside this item.
 

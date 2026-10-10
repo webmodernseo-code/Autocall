@@ -33,7 +33,7 @@ function Modal({ initial, events, campaigns, onClose }) {
                 <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">{editing ? translationI18n.t('hardcoded.views_client_integrations_index_fa23131ec62a') : translationI18n.t('hardcoded.views_client_integrations_index_a19c3370606d')}</h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
                 <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_integrations_index_bd659a71cc35')} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
                 {form.errors.name && <p className="text-xs text-danger">{form.errors.name}</p>}
-                <input className={inputCls} placeholder="https://your-app.com/webhooks/callmineai" value={form.data.target_url} onChange={(e) => form.setData('target_url', e.target.value)} />
+                <input className={inputCls} placeholder="https://your-app.com/webhooks/autocall" value={form.data.target_url} onChange={(e) => form.setData('target_url', e.target.value)} />
                 {form.errors.target_url && <p className="text-xs text-danger">{form.errors.target_url}</p>}
                 <div>
                     <p className="mb-1 text-xs font-medium uppercase text-neutral-500">Events</p>

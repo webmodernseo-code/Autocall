@@ -67,7 +67,7 @@ export function AutoCallWaveIcon({ className = 'h-5 w-5', ...props }) {
  * Official Brand Name Component
  */
 export function BrandName({ brand = 'AutoCall' }) {
-    const text = brand && brand.toLowerCase().includes('callmind') ? 'AutoCall' : (brand || 'AutoCall');
+    const text = brand && brand.toLowerCase().includes('autocall') ? 'AutoCall' : (brand || 'AutoCall');
     return (
         <span className="font-hero-sans font-extrabold tracking-tight">
             {text}

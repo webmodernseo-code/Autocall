@@ -1386,7 +1386,7 @@
     },
     "open_menu": "Open menu",
     "app": {
-        "name": "CallMineAI"
+        "name": "AutoCall"
     },
     "landing": {
         "footer": "© {{year}} {{app}}. AI voice calling agents & lead intelligence."

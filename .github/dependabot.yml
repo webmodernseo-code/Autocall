@@ -2,7 +2,7 @@ version: 2
 
 updates:
   - package-ecosystem: npm
-    directory: /CallMineAI-NextJS
+    directory: /AutoCall-NextJS
     schedule:
       interval: weekly
       day: monday

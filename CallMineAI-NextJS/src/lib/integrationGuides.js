@@ -237,7 +237,7 @@ export const INTEGRATION_GUIDES = {
         steps: [
             { text: 'Create an endpoint on your server that accepts POST JSON.' },
             { text: 'Add the endpoint URL here and pick the events to send.' },
-            { text: 'Copy the signing secret (whsec_…) and verify the X-CallMineAI-Signature HMAC on your side.' },
+            { text: 'Copy the signing secret (whsec_…) and verify the X-AutoCall-Signature HMAC on your side.' },
             { text: 'Use Test to send a sample payload.' },
         ],
         notes: ['Non-2xx responses are retried. Always return 200 quickly and process asynchronously.'],

@@ -1,4 +1,4 @@
-CallMineAI | AI Voice Calling SaaS With Lead Qualification and Sales Automation
+AutoCall | AI Voice Calling SaaS With Lead Qualification and Sales Automation
 Version 1.0.1
 
 ================================================================================
@@ -16,7 +16,7 @@ following, according to the license you bought:
 
   Extended License
     Use the item in a single end product that end users MAY be charged for.
-    Required if you operate CallMineAI as a paid SaaS, sell subscriptions, or
+    Required if you operate AutoCall as a paid SaaS, sell subscriptions, or
     otherwise charge your end users for access.
 
 BOTH LICENSES INCLUDE THE SAME SOFTWARE
@@ -26,7 +26,7 @@ BOTH LICENSES INCLUDE THE SAME SOFTWARE
     The licenses differ only in how you may use the end product you build, as
     described above.
 
-Because CallMineAI is a subscription/SaaS application intended to bill your own
+Because AutoCall is a subscription/SaaS application intended to bill your own
 customers, the Extended License is normally the applicable one. Please confirm
 your intended use against the current terms.
 
@@ -48,7 +48,7 @@ COPYRIGHT
 
 Copyright (c) 2025 SpaGreen. All rights reserved.
 
-The application source code in the CallMineAI-NextJS folder, the bundled
+The application source code in the AutoCall-NextJS folder, the bundled
 documentation, and all original design assets are the property of the author and
 are licensed, not sold, under the Envato Market License above.
 
@@ -56,7 +56,7 @@ are licensed, not sold, under the Envato Market License above.
 THIRD-PARTY COMPONENTS
 ================================================================================
 
-CallMineAI is built on open-source components, each retaining its own license.
+AutoCall is built on open-source components, each retaining its own license.
 See THIRD-PARTY-LICENSES.txt in this folder for the complete list.
 
 No third-party binaries, fonts, icons, photographs or illustrations are bundled
@@ -77,7 +77,7 @@ CONNECTION WITH THE SOFTWARE OR ITS USE.
 THIRD-PARTY SERVICES
 ================================================================================
 
-CallMineAI integrates with external providers. You are responsible for holding
+AutoCall integrates with external providers. You are responsible for holding
 your own accounts with them and for complying with their terms, pricing and
 acceptable-use policies. No provider account, credit or API key is included with
 this item.

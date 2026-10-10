@@ -145,7 +145,7 @@ export const config = {
             app_id: str(process.env.META_APP_ID),
             app_secret: str(process.env.META_APP_SECRET),
             config_id: str(process.env.META_CONFIG_ID),
-            verify_token: process.env.META_VERIFY_TOKEN || 'callmineai',
+            verify_token: process.env.META_VERIFY_TOKEN || 'autocall',
             graph_version: process.env.META_GRAPH_VERSION || 'v21.0',
         },
         whatsway: {
@@ -185,7 +185,7 @@ export const config = {
 
     mail: {
         from_address: process.env.MAIL_FROM_ADDRESS || 'hello@example.com',
-        from_name: process.env.MAIL_FROM_NAME || process.env.APP_NAME || 'CallMineAI',
+        from_name: process.env.MAIL_FROM_NAME || process.env.APP_NAME || 'AutoCall',
         host: str(process.env.MAIL_HOST),
         port: int(process.env.MAIL_PORT, 587),
         username: str(process.env.MAIL_USERNAME),

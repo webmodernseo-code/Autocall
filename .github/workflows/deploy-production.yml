@@ -64,9 +64,9 @@ jobs:
           [[ "$APP_DIR" =~ ^/[A-Za-z0-9._/-]+$ ]] || { echo "Invalid DEPLOY_PATH" >&2; exit 2; }
           ssh -i ~/.ssh/deploy_key -p "${PORT:-22}" "$USER@$HOST" "mkdir -p '$APP_DIR'"
           scp -i ~/.ssh/deploy_key -P "${PORT:-22}" \
-            CallMineAI-NextJS/compose.deploy.yaml "$USER@$HOST:$APP_DIR/compose.deploy.yaml"
+            AutoCall-NextJS/compose.deploy.yaml "$USER@$HOST:$APP_DIR/compose.deploy.yaml"
           scp -i ~/.ssh/deploy_key -P "${PORT:-22}" \
-            CallMineAI-NextJS/scripts/deploy.sh "$USER@$HOST:$APP_DIR/deploy.sh"
+            AutoCall-NextJS/scripts/deploy.sh "$USER@$HOST:$APP_DIR/deploy.sh"
 
       - name: Authenticate server and deploy
         env:

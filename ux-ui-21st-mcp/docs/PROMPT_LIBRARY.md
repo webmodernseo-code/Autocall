@@ -4,9 +4,9 @@ Voici une sélection de prompts ultra-optimisés à copier-coller pour demander 
 
 ---
 
-### 1. Dashboard SaaS & IA (ex: CallMindAI)
+### 1. Dashboard SaaS & IA (ex: AutoCall)
 ```text
-Agis en tant que Lead Frontend Designer. Conçois le Dashboard principal de CallMindAI en Next.js (App Router), Tailwind CSS et TypeScript.
+Agis en tant que Lead Frontend Designer. Conçois le Dashboard principal de AutoCall en Next.js (App Router), Tailwind CSS et TypeScript.
 Consulte les compétences de UX.UI-21ST-MCP pour :
 1. Sélectionner un style 'Executive Analytics / Bento Grid' avec une palette Slate/Indigo/Emerald.
 2. Intégrer :
