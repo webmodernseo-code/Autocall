@@ -5,13 +5,17 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-function IconChevronLeft(props: React.SVGProps<SVGSVGElement>) {
+interface IconProps extends React.SVGProps<SVGSVGElement> {
+  stroke?: string | number;
+}
+
+function IconChevronLeft({ stroke, ...props }: IconProps) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={typeof stroke === 'number' ? stroke : 2}
       strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
@@ -21,13 +25,13 @@ function IconChevronLeft(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-function IconChevronRight(props: React.SVGProps<SVGSVGElement>) {
+function IconChevronRight({ stroke, ...props }: IconProps) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={typeof stroke === 'number' ? stroke : 2}
       strokeLinecap="round"
       strokeLinejoin="round"
       {...props}

@@ -5,7 +5,12 @@ import { usePage } from '@/lib/page-router';
 
 const STORAGE_KEY = 'theme';
 
-export const ThemeContext = createContext({
+export interface ThemeContextType {
+    theme: string;
+    setTheme: (next?: any) => void;
+}
+
+export const ThemeContext = createContext<ThemeContextType>({
     theme: 'dark',
     setTheme: () => {},
 });
