@@ -50,7 +50,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build and publish runtime image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: AutoCall-NextJS
           file: AutoCall-NextJS/Dockerfile
@@ -64,7 +64,7 @@ jobs:
             NEXT_PUBLIC_APP_URL=${{ vars.STAGING_APP_URL }}
 
       - name: Build and publish migration image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: AutoCall-NextJS
           file: AutoCall-NextJS/Dockerfile
