@@ -179,6 +179,7 @@ export const routes = {
     "client.crm.board": { uri: "/app/crm", methods: ["GET"] },
     "client.crm.update-stage": { uri: "/app/crm/{contact}/stage", methods: ["PUT"] },
     "client.dashboard": { uri: "/app/dashboard", methods: ["GET"] },
+    "client.onboarding": { uri: "/app/onboarding", methods: ["GET","POST"] },
     "client.flows.create": { uri: "/app/flows/create", methods: ["GET"] },
     "client.flows.destroy": { uri: "/app/flows/{flow}", methods: ["DELETE"] },
     "client.flows.edit": { uri: "/app/flows/{flow}/edit", methods: ["GET"] },

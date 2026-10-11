@@ -42,7 +42,7 @@ export const GET = handler(async (request, { params }) => {
         return NextResponse.redirect(new URL('/app/dashboard', config.app.url));
     }
 
-    return redirectWithFlash(new URL('/app/dashboard?verified=1', config.app.url), {
+    return redirectWithFlash(new URL('/app/onboarding?verified=1', config.app.url), {
         success: 'Votre adresse e-mail a été vérifiée avec succès !',
     });
 });

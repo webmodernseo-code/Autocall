@@ -131,8 +131,18 @@ export const POST = handler(async (request) => {
 
     const url = new URL(request.url);
     const intended = url.searchParams.get('redirect');
+    const firstAgent = effectiveClientId
+        ? await prisma.agent.findFirst({
+            where: { client_id: BigInt(effectiveClientId) },
+            orderBy: { id: 'asc' },
+            select: { meta: true },
+        })
+        : null;
+    const defaultTarget = !firstAgent || (firstAgent.meta?.onboarding && !firstAgent.meta.onboarding.completed_at)
+        ? '/app/onboarding'
+        : '/app/dashboard';
 
     return NextResponse.json({
-        redirect: safeRedirectPath(intended),
+        redirect: safeRedirectPath(intended, defaultTarget),
     });
 });

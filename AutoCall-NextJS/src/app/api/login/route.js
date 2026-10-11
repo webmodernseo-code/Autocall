@@ -69,6 +69,25 @@ export const POST = handler(async (request) => {
         effectiveClientId = await ensureClientWorkspace(user);
     }
 
+    if (user.role === 'client' && effectiveClientId) {
+        const firstAgent = await prisma.agent.findFirst({
+            where: { client_id: BigInt(effectiveClientId) },
+            orderBy: { id: 'asc' },
+            select: { meta: true },
+        });
+        if (!firstAgent || (firstAgent.meta?.onboarding && !firstAgent.meta.onboarding.completed_at)) {
+            await writeSession({
+                uid: Number(user.id),
+                client_id: Number(effectiveClientId),
+                current_tenant_id: user.tenant_id ? Number(user.tenant_id) : null,
+                locale: user.locale ?? null,
+                display_currency: user.display_currency ?? detected.currency,
+                theme: user.theme ?? 'light',
+            });
+            return NextResponse.json({ redirect: '/app/onboarding' });
+        }
+    }
+
     await writeSession({
         uid: Number(user.id),
         client_id: effectiveClientId ? Number(effectiveClientId) : null,
