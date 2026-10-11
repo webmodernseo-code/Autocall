@@ -5,6 +5,7 @@ import { effectiveSubscription, subscriptionIsActive } from '@/lib/auth';
 import { balance } from '@/lib/services/credits';
 import prisma from '@/lib/prisma';
 import { iso } from '@/lib/serialize';
+import config from '@/lib/config';
 
 export const dynamic = 'force-dynamic';
 
@@ -161,6 +162,8 @@ async function buildProps(user, clientId) {
             isClientAdministrator,
         };
     } catch (e) {
+        if (config.app.env === 'production') throw e;
+
         // Rich Demo Dataset when database is not connected
         return {
             currentPlan: { id: 1, name: 'Professionnel', slug: 'pro', status: 'active' },

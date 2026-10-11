@@ -26,6 +26,7 @@
     "test:regional-preferences": "node --test src/lib/regional-preferences.test.mjs",
     "test:safe-redirect": "node --test src/lib/safe-redirect.test.mjs",
     "test:locales": "node --test src/locales/locales.test.mjs",
+    "test:e2e:smoke": "node --test tests/e2e/production-smoke.test.mjs",
     "key:generate": "node scripts/generate-key.mjs",
     "worker": "node scripts/worker.mjs"
   },
