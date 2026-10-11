@@ -195,11 +195,21 @@ export async function syncVoices() {
             updated_at: new Date(),
         };
 
-        await prisma.voice.upsert({
+        // `external_id` is indexed but intentionally not unique in the legacy
+        // schema. Prisma therefore cannot use it in an upsert `where` clause.
+        // Resolve the existing row first and update it by its primary key.
+        const existing = await prisma.voice.findFirst({
             where: { external_id },
-            create: { external_id, ...data, created_at: new Date() },
-            update: data,
+            select: { id: true },
         });
+
+        if (existing) {
+            await prisma.voice.update({ where: { id: existing.id }, data });
+        } else {
+            await prisma.voice.create({
+                data: { external_id, ...data, created_at: new Date() },
+            });
+        }
         synced++;
     }
 
