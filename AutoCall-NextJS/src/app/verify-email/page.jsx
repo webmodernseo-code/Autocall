@@ -2,6 +2,9 @@ import { redirect } from 'next/navigation';
 import VerifyEmail from '@/views/Auth/VerifyEmail';
 import { renderPage } from '@/lib/render';
 import { requireUserPage } from '@/lib/guards';
+import { pageMetadata } from '@/lib/seo';
+
+export const metadata = pageMetadata({ title: "Vérification de l'adresse e-mail", path: '/verify-email', noIndex: true });
 
 export const dynamic = 'force-dynamic';
 

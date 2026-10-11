@@ -166,6 +166,13 @@ export default function VoiceDemoSection() {
     const activeScenario = scenarios.find(s => s.id === activeScenarioId) || scenarios[0];
     const timerRef = useRef(null);
 
+    const stopPlayback = () => {
+        setIsPlaying(false);
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+    };
+
     // Changement de scénario
     const handleSelectScenario = (id) => {
         if (isPlaying) {
@@ -227,13 +234,6 @@ export default function VoiceDemoSection() {
             const frVoice = voices.find(v => v.lang.startsWith('fr'));
             if (frVoice) utterance.voice = frVoice;
             window.speechSynthesis.speak(utterance);
-        }
-    };
-
-    const stopPlayback = () => {
-        setIsPlaying(false);
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
         }
     };
 

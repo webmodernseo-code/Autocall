@@ -1,5 +1,8 @@
 import Login from '@/views/Auth/Login';
 import { renderPage } from '@/lib/render';
+import { pageMetadata } from '@/lib/seo';
+
+export const metadata = pageMetadata({ title: 'Connexion', path: '/login', noIndex: true });
 
 export const dynamic = 'force-dynamic';
 

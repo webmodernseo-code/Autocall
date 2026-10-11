@@ -2,6 +2,9 @@ import LandingDemo from '@/views/landing-demo/LandingDemo';
 import { renderPage } from '@/lib/render';
 import prisma from '@/lib/prisma';
 import { plain } from '@/lib/serialize';
+import { pageMetadata } from '@/lib/seo';
+
+export const metadata = pageMetadata({ title: 'Démonstration', path: '/landing-demo', noIndex: true });
 
 export const dynamic = 'force-dynamic';
 

@@ -1,5 +1,8 @@
 import ForgotPassword from '@/views/Auth/ForgotPassword';
 import { renderPage } from '@/lib/render';
+import { pageMetadata } from '@/lib/seo';
+
+export const metadata = pageMetadata({ title: 'Mot de passe oublié', path: '/forgot-password', noIndex: true });
 
 export const dynamic = 'force-dynamic';
 

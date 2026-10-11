@@ -1,5 +1,8 @@
 import Dashboard from '@/views/client/Dashboard';
 import { renderPage } from '@/lib/render';
+import { pageMetadata } from '@/lib/seo';
+
+export const metadata = pageMetadata({ title: 'Démonstration du tableau de bord', path: '/dashboard-demo', noIndex: true });
 
 export const dynamic = 'force-dynamic';
 

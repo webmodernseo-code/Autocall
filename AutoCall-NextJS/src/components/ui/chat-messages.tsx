@@ -297,7 +297,7 @@ export function ChatMessages({
   }, []);
 
   const revealNext = useCallback(
-    async (index: number) => {
+    async function reveal(index: number) {
       if (index >= chatMessages.length) {
         if (loop && isAutoPlaying.current) {
           // Pause de lecture à la fin avant de reboucler
@@ -305,7 +305,7 @@ export function ChatMessages({
           if (isAutoPlaying.current) {
             setVisibleCount(0);
             await new Promise((r) => setTimeout(r, 400));
-            revealNext(0);
+            reveal(0);
           }
         } else {
           isAutoPlaying.current = false;
@@ -338,7 +338,7 @@ export function ChatMessages({
       );
 
       if (isAutoPlaying.current) {
-        revealNext(index + 1);
+        reveal(index + 1);
       }
     },
     [chatMessages, autoPlayDelay, typingDuration, scrollToBottom, loop, loopDelay],
