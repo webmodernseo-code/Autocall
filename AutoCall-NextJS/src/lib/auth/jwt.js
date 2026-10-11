@@ -39,11 +39,13 @@ export async function verifyToken(token) {
 
 export function cookieOptions(maxAge = LIFETIME) {
     const isHttps = process.env.APP_URL?.startsWith('https://') || process.env.NEXT_PUBLIC_APP_URL?.startsWith('https://');
+    const domain = process.env.SESSION_DOMAIN?.trim();
     return {
         httpOnly: true,
         sameSite: 'lax',
         secure: process.env.NODE_ENV === 'production' || isHttps,
         path: '/',
         maxAge,
+        ...(domain ? { domain } : {}),
     };
 }

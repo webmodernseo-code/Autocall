@@ -58,7 +58,7 @@ export default function FaqSection() {
         },
         {
             category: 'security',
-            q: "Comment fonctionne l'essai gratuit de 14 jours ?",
+            q: "Comment fonctionne l'essai gratuit ?",
             a: "L'essai gratuit est sans aucun engagement et ne requiert aucune carte bancaire. Vous bénéficiez de minutes d'appels offertes pour configurer votre assistant, le tester sur votre propre numéro et valider son efficacité en conditions réelles avant de choisir une formule."
         },
         {

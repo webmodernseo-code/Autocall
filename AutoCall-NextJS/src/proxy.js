@@ -12,6 +12,13 @@ export async function proxy(request) {
     const { pathname } = request.nextUrl;
     const hostname = request.headers.get('host') || '';
 
+    // Keep the public site on the apex domain and the authenticated product on app.*.
+    if (process.env.APP_CLIENT_URL && pathname.startsWith('/app') && !hostname.startsWith('app.')) {
+        const url = new URL(pathname.replace(/^\/app/, '') || '/dashboard', process.env.APP_CLIENT_URL);
+        url.search = request.nextUrl.search;
+        return NextResponse.redirect(url);
+    }
+
     // Gestion intelligente des sous-domaines (app, docs, status, api)
     if (hostname.startsWith('docs.') && !pathname.startsWith('/docs') && !pathname.startsWith('/_next') && !pathname.startsWith('/api')) {
         const url = request.nextUrl.clone();
@@ -65,4 +72,3 @@ export const config = {
         '/((?!_next/static|_next/image|favicon.ico|storage|images|fonts|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp|mp3|css|js|map)$).*)',
     ],
 };
-

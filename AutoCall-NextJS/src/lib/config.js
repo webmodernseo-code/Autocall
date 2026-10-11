@@ -21,6 +21,8 @@ export const config = {
         env: process.env.APP_ENV || process.env.NODE_ENV || 'production',
         debug: bool(process.env.APP_DEBUG),
         url: APP_URL,
+        client_url: process.env.APP_CLIENT_URL || APP_URL,
+        session_domain: str(process.env.SESSION_DOMAIN),
         demo_mode: bool(process.env.APP_DEMO_MODE ?? process.env.DEMO_MODE),
         installed: bool(process.env.APP_INSTALLED, true),
         timezone: process.env.APP_TIMEZONE || 'Europe/Paris',

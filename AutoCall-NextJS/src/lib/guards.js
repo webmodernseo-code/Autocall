@@ -45,6 +45,9 @@ export async function requireClientPage({ allowUnsubscribed = false } = {}) {
     if (!user) {
         redirect('/login');
     }
+    if (!user.email_verified_at) {
+        redirect('/verify-email');
+    }
 
     const clientId = await resolveClientId(user);
     if (!clientId) {
@@ -85,6 +88,9 @@ export async function gateClient({ permission = null, routeName = 'client.' } = 
     const user = await currentUser();
     if (!user) return { response: abort(401) };
     if (user.role !== 'client') return { response: abort(403) };
+    if (!user.email_verified_at) {
+        return { response: abort(403, 'Vérifiez votre adresse e-mail pour continuer.') };
+    }
 
     // Fall back to the permission the route name implies, so a write endpoint is
     // covered by team RBAC without every handler having to name its own key.

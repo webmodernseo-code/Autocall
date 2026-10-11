@@ -26,7 +26,7 @@ export const POST = handler(async (request) => {
         const seconds = await availableIn(key);
         return validationError({
             email: [
-                `Too many login attempts. Please try again in ${seconds} seconds.`,
+                `Trop de tentatives de connexion. Réessayez dans ${seconds} secondes.`,
             ],
         });
     }
@@ -50,6 +50,18 @@ export const POST = handler(async (request) => {
     }
 
     await clear(key);
+
+    if (!user.email_verified_at) {
+        await writeSession({
+            uid: Number(user.id),
+            client_id: user.client_id ? Number(user.client_id) : null,
+            current_tenant_id: user.tenant_id ? Number(user.tenant_id) : null,
+            locale: user.locale ?? null,
+            display_currency: user.display_currency ?? detected.currency,
+            theme: user.theme ?? 'light',
+        });
+        return NextResponse.json({ redirect: '/verify-email' });
+    }
 
     let effectiveClientId = user.client_id;
     if (user.role === 'client' && !effectiveClientId) {

@@ -246,7 +246,7 @@ export default function DocsView() {
                                             <span>Créer votre compte et configurer votre entreprise</span>
                                         </div>
                                         <p className="text-xs text-neutral-400 pl-8">
-                                            Rendez-vous sur <Link href="/register" className="text-sky-400 hover:underline">/register</Link> pour activer vos 14 jours d&apos;essai gratuit. Renseignez le nom de votre société et vos horaires de standard.
+                                            Rendez-vous sur <Link href="/register" className="text-sky-400 hover:underline">/register</Link> pour activer vos 100 minutes d&apos;appels offertes. Renseignez le nom de votre société et vos horaires de standard.
                                         </p>
                                     </div>
 

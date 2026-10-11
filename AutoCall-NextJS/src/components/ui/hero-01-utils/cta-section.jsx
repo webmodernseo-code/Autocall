@@ -93,7 +93,7 @@ export default function CtaSection() {
                             </h2>
 
                             <p className="mt-3.5 text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-lg mx-auto">
-                                Mise en service en 3 minutes. Aucun matériel requis, 14 jours d&apos;essai gratuit sans engagement et sans carte bancaire.
+                                Mise en service en 3 minutes. Aucun matériel requis, 100 minutes d&apos;appels offertes, sans engagement et sans carte bancaire.
                             </p>
 
                             {/* Boutons d'action compacts */}
@@ -102,7 +102,7 @@ export default function CtaSection() {
                                     href="/register"
                                     className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white px-6 text-xs sm:text-sm font-bold text-neutral-950 transition-all hover:bg-neutral-100 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-black/30 cursor-pointer"
                                 >
-                                    <span>Démarrer l&apos;essai gratuit (14j)</span>
+                                    <span>Essayer gratuitement — 100 minutes</span>
                                     <ArrowRight className="h-3.5 w-3.5" />
                                 </Link>
 

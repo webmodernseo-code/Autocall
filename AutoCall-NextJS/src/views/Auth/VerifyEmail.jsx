@@ -60,6 +60,18 @@ export default function VerifyEmail({ status }) {
                 </div>
             )}
 
+            {status === 'delivery-failed' && (
+                <div className="mb-5 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs text-amber-200">
+                    <div className="flex items-center gap-2 font-semibold mb-1">
+                        <AlertCircle className="h-4 w-4 text-amber-300" />
+                        <span>Envoi temporairement indisponible</span>
+                    </div>
+                    <p className="text-white/80 pl-6 leading-relaxed">
+                        Votre compte est bien créé. Réessayez dans quelques instants pour recevoir le lien de vérification.
+                    </p>
+                </div>
+            )}
+
             <form onSubmit={submit} className="space-y-4 pt-2">
                 <SubmitButton processing={processing} loadingText="Envoi en cours…">
                     <Mail className="h-4 w-4 mr-1.5" />

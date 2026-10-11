@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { route } from '@/lib/route';
 import { Head, Link, router, useForm, usePage } from '@/lib/page-router';
 import { signInWithGoogle } from '@/lib/firebaseAuth';
-import AuthShell, { AuthField, GoogleButton, AppleButton, OrDivider, SubmitButton, DemoLoginCard } from '@/components/auth/Auth';
+import AuthShell, { AuthField, GoogleButton, OrDivider, SubmitButton, DemoLoginCard } from '@/components/auth/Auth';
 import { Mail, Lock, ArrowRight } from 'lucide-react';
 
 export default function Login({ status, canResetPassword = true }) {
@@ -65,7 +65,7 @@ export default function Login({ status, canResetPassword = true }) {
                 <div className="text-xs text-neutral-400">
                     Pas encore de compte ?{' '}
                     <Link href={route('register')} className="font-semibold text-white hover:underline underline-offset-4 transition-colors">
-                        Créer un compte (14 jours offerts)
+                        Créer un compte — 100 minutes offertes
                     </Link>
                 </div>
             }
@@ -81,9 +81,8 @@ export default function Login({ status, canResetPassword = true }) {
             <DemoLoginCard cred={demoCred} onOneClick={oneClickLogin} loading={demoLoading} hint="Tester avec les accès de démonstration" />
 
             <div className="mb-2">
-                <div className="grid gap-3 sm:grid-cols-2">
+                <div>
                     <GoogleButton onClick={loginWithGoogle} loading={googleLoading} label="Continuer avec Google" />
-                    <AppleButton label="Continuer avec Apple" />
                 </div>
                 {googleError && <p className="mt-2 text-xs text-red-400">{googleError}</p>}
                 <OrDivider label="ou avec votre adresse e-mail" />

@@ -22,7 +22,7 @@ export async function ensureClientWorkspace(user) {
                 name: workspaceName,
                 email: user.email ?? null,
                 status: 'active',
-                kyc_status: 'verified',
+                kyc_status: 'pending',
                 base_currency: user.display_currency || 'EUR',
                 currency_symbol: user.display_currency === 'USD' ? '$' : '€',
                 currency_position: user.display_currency === 'USD' ? 'before' : 'after',

@@ -86,7 +86,7 @@ export default function PricingWrapperSection() {
                 },
             ],
             btn: {
-                text: "Essai gratuit 14 jours",
+                text: "100 minutes offertes",
                 href: "/register",
             },
             highlighted: true,
@@ -148,7 +148,7 @@ export default function PricingWrapperSection() {
                 <PricingSection
                     plans={plans}
                     heading="Une formule adaptée à votre volume d'appels."
-                    description="Chaque formule comprend 14 jours d'essai gratuit sans carte bancaire requise. Vous ne payez que lorsque votre standard tourne à plein régime."
+                    description="Créez votre compte sans carte bancaire et profitez de 100 minutes d'appels offertes. Vous choisissez ensuite votre formule, sans engagement."
                     theme="light"
                 />
 
@@ -161,7 +161,7 @@ export default function PricingWrapperSection() {
 
                     <div className="inline-flex items-center gap-2">
                         <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                        <span>14 jours d&apos;essai gratuit sans carte bancaire</span>
+                        <span>100 minutes offertes sans carte bancaire</span>
                     </div>
 
                     <div className="inline-flex items-center gap-2">

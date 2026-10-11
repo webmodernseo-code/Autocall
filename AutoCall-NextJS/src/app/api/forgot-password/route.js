@@ -3,9 +3,12 @@ import crypto from 'node:crypto';
 import prisma from '@/lib/prisma';
 import config from '@/lib/config';
 import { handler } from '@/lib/guards';
-import { readBody, validate, validationError } from '@/lib/http';
+import { readBody, validate } from '@/lib/http';
 import { hashPassword } from '@/lib/auth';
 import { sendTemplateMail } from '@/lib/services/mail';
+import { hit, throttleKey, tooManyAttempts } from '@/lib/rate-limit';
+
+const GENERIC_MESSAGE = 'Si un compte correspond à cette adresse, un lien de réinitialisation vient de lui être envoyé.';
 
 /**
  * POST /forgot-password.
@@ -14,13 +17,26 @@ import { sendTemplateMail } from '@/lib/services/mail';
  */
 export const POST = handler(async (request) => {
     const body = await readBody(request);
-    const data = await validate(body, { email: ['required', 'email'] });
+    const data = await validate(
+        body,
+        { email: ['required', 'email'] },
+        { messages: {
+            'email.required': 'Indiquez votre adresse e-mail.',
+            'email.email': 'Indiquez une adresse e-mail valide.',
+        } },
+    );
 
     const email = String(data.email).toLowerCase();
+    const key = `forgot|${throttleKey(email, request)}`;
+    if (await tooManyAttempts(key, 3)) {
+        return NextResponse.json({ flash: { success: GENERIC_MESSAGE }, status: GENERIC_MESSAGE });
+    }
+    await hit(key, 15 * 60);
+
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
-        return validationError({ email: ["We can't find a user with that email address."] });
+        return NextResponse.json({ flash: { success: GENERIC_MESSAGE }, status: GENERIC_MESSAGE });
     }
 
     const token = crypto.randomBytes(32).toString('hex');
@@ -43,7 +59,7 @@ export const POST = handler(async (request) => {
     }
 
     return NextResponse.json({
-        flash: { success: 'We have emailed your password reset link.' },
-        status: 'We have emailed your password reset link.',
+        flash: { success: GENERIC_MESSAGE },
+        status: GENERIC_MESSAGE,
     });
 });

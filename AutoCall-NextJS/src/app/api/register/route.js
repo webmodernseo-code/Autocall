@@ -8,6 +8,7 @@ import { sendTemplateMail } from '@/lib/services/mail';
 import { verificationUrl } from '@/lib/auth/verification';
 import config from '@/lib/config';
 import { detectRegionalPreferences } from '@/lib/regional-preferences.mjs';
+import { hit, throttleKey, tooManyAttempts } from '@/lib/rate-limit';
 
 import { ensureClientWorkspace } from '@/lib/domain/clients';
 
@@ -19,6 +20,14 @@ import { ensureClientWorkspace } from '@/lib/domain/clients';
 export const POST = handler(async (request) => {
     const body = await readBody(request);
     const detected = detectRegionalPreferences(request.headers);
+    const key = `register|${throttleKey('', request)}`;
+
+    if (await tooManyAttempts(key, 5)) {
+        return NextResponse.json(
+            { errors: { email: ['Trop de tentatives. Réessayez dans une heure.'] } },
+            { status: 429 },
+        );
+    }
 
     const data = await validate(
         body,
@@ -27,8 +36,20 @@ export const POST = handler(async (request) => {
             email: ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             password: ['required', 'string', 'min:8', 'confirmed'],
         },
-        { prisma },
+        {
+            prisma,
+            messages: {
+                'name.required': 'Indiquez votre nom ou votre raison sociale.',
+                'email.required': 'Indiquez votre adresse e-mail.',
+                'email.email': 'Indiquez une adresse e-mail valide.',
+                'email.unique': 'Un compte existe déjà avec cette adresse e-mail.',
+                'password.required': 'Choisissez un mot de passe.',
+                'password.min': 'Le mot de passe doit contenir au moins 8 caractères.',
+                'password.confirmed': 'La confirmation du mot de passe ne correspond pas.',
+            },
+        },
     );
+    await hit(key, 60 * 60);
 
     const user = await prisma.user.create({
         data: {
@@ -48,8 +69,9 @@ export const POST = handler(async (request) => {
     const clientId = await ensureClientWorkspace(user);
 
     // event(new Registered($user)) -> SendEmailVerificationNotification
+    let emailSent = false;
     try {
-        await sendTemplateMail('email_verification', user.email, {
+        emailSent = await sendTemplateMail('email_verification', user.email, {
             app_name: config.app.name,
             verification_url: await verificationUrl(user),
         });
@@ -66,5 +88,7 @@ export const POST = handler(async (request) => {
         theme: 'light',
     });
 
-    return NextResponse.json({ redirect: '/app/pricing?onboarding=1' });
+    return NextResponse.json({
+        redirect: emailSent ? '/verify-email' : '/verify-email?status=delivery-failed',
+    });
 });

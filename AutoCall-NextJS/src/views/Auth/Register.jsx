@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { route } from '@/lib/route';
 import { Head, Link, router, useForm, usePage } from '@/lib/page-router';
 import { signInWithGoogle } from '@/lib/firebaseAuth';
-import AuthShell, { AuthField, GoogleButton, AppleButton, OrDivider, SubmitButton, PasswordStrengthMeter } from '@/components/auth/Auth';
+import AuthShell, { AuthField, GoogleButton, OrDivider, SubmitButton, PasswordStrengthMeter } from '@/components/auth/Auth';
 import { User, Mail, Lock, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function Register() {
@@ -48,7 +48,7 @@ export default function Register() {
 
     return (
         <AuthShell
-            eyebrow="Essai Gratuit 14 Jours"
+            eyebrow="100 minutes offertes"
             title="Activez votre standard IA"
             subtitle="Configurez vos agents vocaux en 3 minutes. Aucun numéro à modifier et aucune carte bancaire requise."
             footer={
@@ -70,18 +70,17 @@ export default function Register() {
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                    14 jours d&apos;essai complet
+                    100 minutes d&apos;appels offertes
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                    500 minutes offertes
+                    Sans engagement
                 </span>
             </div>
 
             <div className="mb-2">
-                <div className="grid gap-3 sm:grid-cols-2">
+                <div>
                     <GoogleButton onClick={registerWithGoogle} loading={googleLoading} label="S'inscrire avec Google" />
-                    <AppleButton label="S'inscrire avec Apple" />
                 </div>
                 {googleError && <p className="mt-2 text-xs text-red-400">{googleError}</p>}
                 <OrDivider label="ou inscription par e-mail" />
@@ -160,7 +159,7 @@ export default function Register() {
 
                 <div className="pt-2">
                     <SubmitButton processing={processing} loadingText="Création du compte…">
-                        <span>Démarrer l&apos;essai gratuit (14j)</span>
+                        <span>Créer mon compte gratuitement</span>
                         <ArrowRight className="h-4 w-4 ml-1" />
                     </SubmitButton>
                 </div>

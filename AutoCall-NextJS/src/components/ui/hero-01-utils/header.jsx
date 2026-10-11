@@ -122,7 +122,7 @@ export default function Header({ navigationData = [], isDark = true, onToggleThe
                                 onClick={() => setMobileOpen(false)}
                                 className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-full bg-white text-xs font-semibold text-black hover:bg-neutral-200"
                             >
-                                <span>Essai gratuit (14 jours)</span>
+                                <span>Essai gratuit — 100 minutes</span>
                                 <ArrowUpRight className="h-3.5 w-3.5" />
                             </Link>
                             <Link
