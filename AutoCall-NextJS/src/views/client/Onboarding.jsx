@@ -2,6 +2,7 @@
 
 import { Head, Link, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
+import { useEffect } from 'react';
 import {
     ArrowLeft,
     ArrowRight,
@@ -102,6 +103,14 @@ export default function Onboarding({ step = 1, totalSteps = 4, client, agent, sa
         transfer_phone: saved.transfer_phone || '',
         transfer_rule: saved.transfer_rule || 'requested',
     });
+
+    // Query-string navigation keeps this client component mounted. Keep the
+    // submitted step aligned with the step currently displayed; otherwise the
+    // next screen can silently resubmit the previous step and redirect back to
+    // itself.
+    useEffect(() => {
+        setData('step', step);
+    }, [step, setData]);
 
     const submit = (event) => {
         event.preventDefault();
