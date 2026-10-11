@@ -10,7 +10,7 @@ export function pageMetadata({ title, description = DEFAULT_DESCRIPTION, path = 
     const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} | Agents vocaux IA pour vos appels`;
 
     return {
-        title,
+        ...(title ? { title } : {}),
         description,
         alternates: { canonical },
         robots: noIndex ? { index: false, follow: false, nocache: true } : { index: true, follow: true },
