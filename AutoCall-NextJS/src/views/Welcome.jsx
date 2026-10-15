@@ -188,9 +188,10 @@ const TESTIMONIALS = [
 ];
 
 const PLANS = [
-    { name: 'Starter', m: 29, a: 24, blurb: 'Idéal pour démarrer et tester vos premières campagnes.', features: ['1 agent IA dédié', '500 crédits d\'appels', '2 langues supportées', 'Enregistrements & transcriptions'], cta: 'Commencer gratuitement', highlight: false },
-    { name: 'Growth', m: 79, a: 66, blurb: 'Pour les équipes en croissance qui prospectent activement.', features: ['5 agents IA configurables', '5 000 crédits d\'appels', 'Les 29 langues incluses', 'Scoring des leads & sync CRM', 'Flux automatisés & webhooks'], cta: 'Essai gratuit', highlight: true },
-    { name: 'Scale', m: 199, a: 166, blurb: 'Pour les entreprises et agences à fort volume d\'appels.', features: ['Agents IA illimités', '25 000 crédits d\'appels', 'Dialer prioritaire haute cadence', 'Support SIP & Trunk personnalisé', 'Rôles d\'équipe & journal d\'audit'], cta: 'Nous contacter', highlight: false },
+    { name: 'Découverte', m: 0, a: 0, blurb: "Testez la voix IA en direct sans carte bancaire.", features: ["10 min d'appels offertes", "1 agent IA personnalisable", "Simulateur web micro direct", "Appel test sur votre mobile", "Transcriptions & audio", "Sans engagement ni CB"], cta: "Tester gratuitement", highlight: false },
+    { name: 'Starter', m: 39, a: 32, blurb: "Idéal pour indépendants, artisans & praticiens solos.", features: ["1 agent IA dédié 24h/24", "80 min d'appels / mois", "1 numéro français 09 dédié", "Renvoi d'appel mobile vers l'IA", "Alertes par Email & SMS", "Filtrage 100% des spams"], cta: "Choisir Starter", highlight: false },
+    { name: 'Pro', m: 89, a: 74, blurb: "Pour cabinets, PME, commerces & agences.", features: ["3 agents IA configurables", "250 min d'appels / mois", "2 numéros français 09 dédiés", "Agent autonome WhatsApp", "Prise de RDV synchronisée", "Campagnes d'appels sortants", "Scénarios & Flows avancés", "Support prioritaire 7j/7"], cta: "Choisir Pro", highlight: true },
+    { name: 'Scale', m: 199, a: 166, blurb: "Pour agences, réseaux d'entreprises & centres d'appels.", features: ["Agents IA illimités", "750 min d'appels / mois", "5 numéros français 09 dédiés", "Multi-comptes WhatsApp & API", "Marque blanche complète", "Gestion multi-entreprises", "Trunk SIP & VoIP personnalisé", "Account Manager dédié"], cta: "Choisir l'Agence", highlight: false },
 ];
 
 /* ---------- interactive: module explorer ---------- */
@@ -648,14 +649,14 @@ export default function Welcome() {
                             <span className={`text-sm ${annual ? 'font-semibold text-neutral-900 dark:text-white' : 'text-neutral-500'}`}>Annuel <span className="ml-1 rounded-full bg-signal-500/15 px-2 py-0.5 font-mono text-[10px] font-semibold text-signal-600 dark:text-signal-300">2 mois offerts</span></span>
                         </div>
                     </Reveal>
-                    <div className="mx-auto mt-12 grid max-w-5xl items-start gap-5 lg:grid-cols-3">
+                    <div className="mx-auto mt-12 grid max-w-7xl items-start gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                         {PLANS.map((p, i) => (
                             <Reveal key={p.name} delay={i * 100}>
                                 <div className={`relative flex h-full flex-col rounded-3xl border p-7 ${p.highlight ? 'border-brand-500/50 bg-gradient-to-b from-brand-500/[0.06] to-white shadow-[0_30px_80px_-30px_rgba(109,63,234,0.35)] dark:from-brand-500/10 dark:to-ink-900/60 dark:shadow-[0_30px_80px_-30px_rgba(109,63,234,0.6)]' : `${CARD}`}`}>
                                     {p.highlight && <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-500 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-white">Le plus populaire</span>}
                                     <p className="font-display text-lg font-semibold text-neutral-900 dark:text-white">{p.name}</p>
                                     <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{p.blurb}</p>
-                                    <p className="mt-5 flex items-baseline gap-1"><span className="font-display text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">${annual ? p.a : p.m}</span><span className="font-mono text-sm text-neutral-500">/mois</span></p>
+                                    <p className="mt-5 flex items-baseline gap-1"><span className="font-display text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">{annual ? p.a : p.m}€</span><span className="font-mono text-sm text-neutral-500">/mois</span></p>
                                     {annual && <p className="mt-1 font-mono text-[11px] text-signal-600 dark:text-signal-300">facturé annuellement</p>}
                                     <ul className="mt-6 space-y-2.5 text-sm">{p.features.map((f) => <li key={f} className="flex items-start gap-2 text-neutral-700 dark:text-neutral-300"><Check className="mt-0.5 h-4 w-4 shrink-0 text-signal-500 dark:text-signal-400" />{f}</li>)}</ul>
                                     <Link href={user ? route('client.dashboard') : route('register')} className={`mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition ${p.highlight ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/40 hover:bg-brand-500' : 'border border-neutral-200 bg-white text-neutral-900 hover:bg-neutral-50 dark:border-white/15 dark:bg-white/[0.04] dark:text-white dark:hover:bg-white/[0.08]'}`}>{p.cta}</Link>

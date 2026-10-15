@@ -70,6 +70,8 @@ export default async function Page({ searchParams }) {
             export_enabled: plan.export_enabled,
             custom_domain_enabled: plan.custom_domain_enabled,
             white_label_enabled: plan.white_label_enabled,
+            whatsapp_enabled: plan.whatsapp_enabled,
+            messaging_enabled: plan.messaging_enabled,
             is_free: false,
         });
     }

@@ -54,9 +54,14 @@ export function PricingSection({
                 setFrequency={setFrequency}
                 isLight={isLight}
             />
-            <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-3 items-stretch">
+            <div className={cn(
+                "mx-auto grid w-full items-stretch gap-5",
+                plans.length >= 4 
+                    ? "max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" 
+                    : "max-w-5xl grid-cols-1 md:grid-cols-3"
+            )}>
                 {plans.map((plan) => (
-                    <PricingCard plan={plan} key={plan.name} frequency={frequency} isLight={isLight} />
+                    <PricingCard plan={plan} key={plan.name} frequency={frequency} isLight={isLight} isFourColumns={plans.length >= 4} />
                 ))}
             </div>
         </div>
@@ -129,14 +134,15 @@ export function PricingCard({
     className,
     frequency = frequencies[0],
     isLight = true,
+    isFourColumns = false,
     ...props
 }) {
-    const discountPercent = Math.round(
-        ((plan.price.monthly * 12 - plan.price.yearly) /
-            plan.price.monthly /
-            12) *
-            100,
-    );
+    const discountPercent =
+        plan.price?.monthly > 0 && plan.price?.yearly !== undefined
+            ? Math.round(
+                  ((plan.price.monthly - plan.price.yearly) / plan.price.monthly) * 100,
+              )
+            : 0;
 
     return (
         <div
@@ -157,7 +163,8 @@ export function PricingCard({
             <div>
                 <div
                     className={cn(
-                        'p-6 relative border-b',
+                        'relative border-b',
+                        isFourColumns ? 'p-5' : 'p-6',
                         isLight
                             ? plan.highlighted ? 'bg-blue-50/30 border-neutral-200/80' : 'bg-neutral-50/50 border-neutral-200/80'
                             : plan.highlighted ? 'bg-white/[0.05] border-white/10' : 'bg-white/[0.02] border-white/10',
@@ -188,19 +195,22 @@ export function PricingCard({
                     </p>
                     <h3 className="mt-3 flex items-baseline gap-1">
                         <span className={cn(
-                            "text-4xl font-extrabold tracking-tight tabular-nums",
+                            "text-3xl sm:text-4xl font-extrabold tracking-tight tabular-nums",
                             isLight ? "text-neutral-900" : "text-white"
                         )}>
                             {plan.price[frequency]}€
                         </span>
                         <span className={cn("text-xs font-mono", isLight ? "text-neutral-600 font-medium" : "text-white/60")}>
-                            {plan.name !== 'Free'
-                                ? '/' + (frequency === 'monthly' ? 'mois' : 'mois (annuel)')
-                                : ''}
+                            {plan.price[frequency] === 0
+                                ? ' (gratuit à vie)'
+                                : '/' + (frequency === 'monthly' ? 'mois' : 'mois (annuel)')}
                         </span>
                     </h3>
                 </div>
-                <div className="space-y-3.5 px-6 py-6 text-xs sm:text-sm">
+                <div className={cn(
+                    "space-y-3",
+                    isFourColumns ? "px-5 py-5 text-xs" : "px-6 py-6 text-xs sm:text-sm"
+                )}>
                     <div className={cn(
                         "text-[11px] font-bold uppercase tracking-wider mb-2",
                         isLight ? "text-neutral-700" : "text-white/70"
@@ -238,12 +248,13 @@ export function PricingCard({
                 </div>
             </div>
             <div className={cn(
-                'mt-auto w-full p-5 border-t',
+                'mt-auto w-full border-t',
+                isFourColumns ? 'p-4' : 'p-5',
                 isLight ? 'border-neutral-200/80 bg-neutral-50/30' : 'border-white/10 bg-white/[0.03]',
             )}>
                 <Button
                     className={cn(
-                        'w-full h-11 text-xs font-semibold rounded-xl transition-all cursor-pointer',
+                        'w-full h-10 text-xs font-semibold rounded-xl transition-all cursor-pointer',
                         isLight
                             ? plan.highlighted
                                 ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'

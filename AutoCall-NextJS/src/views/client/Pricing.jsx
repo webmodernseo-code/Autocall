@@ -142,6 +142,18 @@ export default function Pricing({ plans = [], gateways = [], flash = {}, isRequi
                                                     <span>Export des débriefings & webhooks</span>
                                                 </li>
                                             )}
+                                            {plan.whatsapp_enabled && (
+                                                <li className="flex items-center gap-2">
+                                                    <Check className="h-4 w-4 text-emerald-600 shrink-0" />
+                                                    <span>Agent WhatsApp autonome & Relances</span>
+                                                </li>
+                                            )}
+                                            {plan.messaging_enabled && (
+                                                <li className="flex items-center gap-2">
+                                                    <Check className="h-4 w-4 text-emerald-600 shrink-0" />
+                                                    <span>Messagerie & Modèles multi-canaux</span>
+                                                </li>
+                                            )}
                                             {plan.custom_domain_enabled && (
                                                 <li className="flex items-center gap-2">
                                                     <Check className="h-4 w-4 text-emerald-600 shrink-0" />
