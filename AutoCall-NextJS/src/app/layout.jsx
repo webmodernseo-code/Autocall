@@ -19,7 +19,16 @@ export const metadata = {
     publisher: SITE_NAME,
     category: 'technology',
     formatDetection: { email: false, address: false, telephone: false },
-    icons: { icon: '/icon.png', apple: '/icon.png' },
+    icons: {
+        icon: [
+            { url: '/favicon.ico', sizes: 'any' },
+            { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+            { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+        ],
+        apple: [
+            { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+        ],
+    },
     manifest: '/manifest.webmanifest',
     openGraph: {
         type: 'website', locale: 'fr_FR', url: '/', siteName: SITE_NAME,
