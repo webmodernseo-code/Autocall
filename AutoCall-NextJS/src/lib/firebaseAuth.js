@@ -27,17 +27,19 @@ function friendlyMessage(err) {
     const code = err?.code || '';
     switch (code) {
         case 'auth/internal-error':
-            return 'Google sign-in failed. In the Firebase project: enable the Google sign-in provider, add this site to Authorized domains, and make sure the Web API key is not restricted (Identity Toolkit API enabled).';
+            return 'La connexion Google a échoué (délai de synchronisation Firebase/Google Cloud en cours). Veuillez patienter 2 minutes et réessayer, ou désactiver puis réactiver Google dans la console Firebase.';
         case 'auth/operation-not-allowed':
-            return 'Google sign-in is not enabled for this Firebase project. Enable it under Authentication → Sign-in method.';
+            return 'La connexion Google n’est pas activée sur ce projet Firebase. Activez-la sous Authentication → Fournisseurs de connexion.';
         case 'auth/unauthorized-domain':
-            return "This site's domain is not authorised in Firebase. Add it under Authentication → Settings → Authorized domains.";
+            return 'Ce domaine n’est pas autorisé dans Firebase. Ajoutez-le sous Authentication → Paramètres → Domaines autorisés.';
         case 'auth/invalid-api-key':
-            return 'The Firebase API key is invalid. Re-check the value in the admin Social Login settings.';
+            return 'La clé API Firebase est invalide. Vérifiez les paramètres de connexion sociale.';
         case 'auth/popup-blocked':
-            return 'The sign-in popup was blocked by the browser. Allow popups for this site and try again.';
+            return 'La fenêtre contextuelle Google a été bloquée par le navigateur. Autorisez les pop-ups pour ce site et réessayez.';
+        case 'auth/popup-closed-by-user':
+            return 'La fenêtre de connexion a été fermée avant la fin.';
         default:
-            return err?.message || 'Google sign-in failed. Please try again.';
+            return err?.message || 'La connexion Google a échoué. Veuillez réessayer.';
     }
 }
 
@@ -49,7 +51,7 @@ function friendlyMessage(err) {
  */
 export async function signInWithGoogle(config) {
     if (!config || !config.apiKey || !config.authDomain || !config.projectId || !config.appId) {
-        throw new Error('Firebase is not fully configured. Set the API key, auth domain, project ID and app ID in the admin panel.');
+        throw new Error('Firebase n’est pas entièrement configuré. Vérifiez les clés dans le panneau d’administration.');
     }
 
     // Normalise a mistakenly pasted authDomain (e.g. with a scheme or trailing slash).
@@ -66,6 +68,11 @@ export async function signInWithGoogle(config) {
         const result = await signInWithPopup(auth, provider);
         return result.user.getIdToken();
     } catch (err) {
+        console.error('[Firebase Auth Error Details]', {
+            code: err?.code,
+            message: err?.message,
+            customData: err?.customData,
+        });
         // Preserve the code for callers that special-case cancellations.
         const wrapped = new Error(friendlyMessage(err));
         wrapped.code = err?.code;
