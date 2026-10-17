@@ -5,15 +5,30 @@ import { effectiveSubscription, subscriptionIsActive } from '@/lib/auth';
 import { balance } from '@/lib/services/credits';
 import prisma from '@/lib/prisma';
 import { iso } from '@/lib/serialize';
-import config from '@/lib/config';
 
 export const dynamic = 'force-dynamic';
+
+function calculateTrend(currentVal, previousVal) {
+    if (previousVal == null || previousVal === 0) {
+        return null;
+    }
+    const diff = ((currentVal - previousVal) / previousVal) * 100;
+    const rounded = Math.round(diff * 10) / 10;
+    return {
+        pct: `${rounded >= 0 ? '+' : ''}${rounded}%`,
+        isPositive: rounded >= 0,
+        diff: rounded,
+        prevValue: previousVal,
+    };
+}
 
 /** GET /app/dashboard */
 export default async function Page({ searchParams }) {
     const { user, clientId } = await requireClientPage();
-    const props = await buildProps(user, clientId);
     const params = await searchParams;
+    const period = ['7d', '30d', '90d'].includes(params?.period) ? params.period : '30d';
+    const props = await buildProps(user, clientId, period);
+
     if (params?.verified === '1') {
         props.flash = {
             ...(props.flash ?? {}),
@@ -23,7 +38,7 @@ export default async function Page({ searchParams }) {
     return renderPage(Dashboard, 'client/Dashboard', props, { url: '/app/dashboard', user });
 }
 
-async function buildProps(user, clientId) {
+async function buildProps(user, clientId, period = '30d') {
     const effective = await effectiveSubscription(user);
 
     let currentPlan = null;
@@ -45,6 +60,10 @@ async function buildProps(user, clientId) {
     }
 
     const isClientAdministrator = user.client_role === 'administrator';
+    const periodDays = period === '7d' ? 7 : period === '90d' ? 90 : 30;
+    const now = new Date();
+    const start = new Date(now.getTime() - periodDays * 24 * 60 * 60 * 1000);
+    const prevStart = new Date(start.getTime() - periodDays * 24 * 60 * 60 * 1000);
 
     if (!clientId) {
         return {
@@ -52,6 +71,9 @@ async function buildProps(user, clientId) {
             renewsAt,
             managedByAdmin,
             creditBalance: 0,
+            selectedPeriod: period,
+            startDate: start.toISOString(),
+            endDate: now.toISOString(),
             kpis: null,
             onboarding: null,
             isClientAdministrator,
@@ -59,14 +81,34 @@ async function buildProps(user, clientId) {
     }
 
     const client_id = BigInt(clientId);
-    const start = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
     try {
-        const calls = await prisma.call.findMany({
-            where: { client_id, created_at: { gte: start } },
-            select: { status: true, sentiment: true, qualification: true, duration_seconds: true, created_at: true },
-        });
+        const [calls, prevCalls] = await Promise.all([
+            prisma.call.findMany({
+                where: { client_id, created_at: { gte: start } },
+                select: { id: true, status: true, sentiment: true, qualification: true, duration_seconds: true, created_at: true },
+            }),
+            prisma.call.findMany({
+                where: { client_id, created_at: { gte: prevStart, lt: start } },
+                select: { id: true, status: true, qualification: true, duration_seconds: true },
+            }),
+        ]);
+
         const completed = calls.filter((c) => c.status === 'completed');
+        const prevCompleted = prevCalls.filter((c) => c.status === 'completed');
+
+        const successRate = calls.length ? Math.round((completed.length / calls.length) * 1000) / 10 : 0;
+        const prevSuccessRate = prevCalls.length ? Math.round((prevCompleted.length / prevCalls.length) * 1000) / 10 : 0;
+
+        const qualifiedLeads = calls.filter((c) => ['hot', 'warm'].includes(c.qualification)).length;
+        const prevQualifiedLeads = prevCalls.filter((c) => ['hot', 'warm'].includes(c.qualification)).length;
+
+        const avgDuration = completed.length
+            ? Math.round(completed.reduce((sum, c) => sum + Number(c.duration_seconds ?? 0), 0) / completed.length)
+            : 0;
+        const prevAvgDuration = prevCompleted.length
+            ? Math.round(prevCompleted.reduce((sum, c) => sum + Number(c.duration_seconds ?? 0), 0) / prevCompleted.length)
+            : 0;
 
         const callsByDay = [];
         for (let offset = 6; offset >= 0; offset--) {
@@ -92,7 +134,7 @@ async function buildProps(user, clientId) {
             take: 6,
         });
 
-        const [agentsCount, numbersCount, contactsCount, activeCampaignCount, anyCampaign, creditBalance] =
+        const [agentsCount, numbersCount, contactsCount, activeCampaignCount, anyCampaign, creditBalance, totalCallsCount] =
             await Promise.all([
                 prisma.agent.count({ where: { client_id } }),
                 prisma.phoneNumber.count({ where: { client_id, status: 'active' } }),
@@ -100,6 +142,7 @@ async function buildProps(user, clientId) {
                 prisma.campaign.count({ where: { client_id, status: 'active' } }),
                 prisma.campaign.count({ where: { client_id } }),
                 balance(clientId),
+                prisma.call.count({ where: { client_id } }),
             ]);
 
         const activeCampaigns = await prisma.campaign.findMany({
@@ -116,20 +159,26 @@ async function buildProps(user, clientId) {
             renewsAt,
             managedByAdmin,
             creditBalance,
+            selectedPeriod: period,
+            startDate: start.toISOString(),
+            endDate: now.toISOString(),
             kpis: {
-                total_calls: await prisma.call.count({ where: { client_id } }),
+                total_calls: totalCallsCount,
                 calls_30d: calls.length,
-                success_rate: calls.length ? Math.round((completed.length / calls.length) * 1000) / 10 : 0,
-                qualified_leads: calls.filter((c) => ['hot', 'warm'].includes(c.qualification)).length,
-                avg_duration: completed.length
-                    ? Math.round(
-                          completed.reduce((sum, c) => sum + Number(c.duration_seconds ?? 0), 0) / completed.length,
-                      )
-                    : 0,
+                success_rate: successRate,
+                qualified_leads: qualifiedLeads,
+                avg_duration: avgDuration,
                 agents: agentsCount,
                 numbers: numbersCount,
                 contacts: contactsCount,
                 active_campaigns: activeCampaignCount,
+                trends: {
+                    calls: calculateTrend(calls.length, prevCalls.length),
+                    success_rate: calculateTrend(successRate, prevSuccessRate),
+                    qualified: calculateTrend(qualifiedLeads, prevQualifiedLeads),
+                    duration: calculateTrend(avgDuration, prevAvgDuration),
+                },
+                prev_calls_count: prevCalls.length,
             },
             callsByDay,
             leadDistribution: [
@@ -139,11 +188,12 @@ async function buildProps(user, clientId) {
             ],
             recentCalls: recent.map((c) => ({
                 id: Number(c.id),
-                contact: c.contacts?.name ?? c.contacts?.phone ?? '—',
-                status: c.status,
-                sentiment: c.sentiment,
-                qualification: c.qualification,
-                duration_seconds: c.duration_seconds,
+                contact: c.contacts?.name || c.contacts?.phone || 'Inconnu',
+                direction: c.direction || 'outbound',
+                status: c.status || 'completed',
+                sentiment: c.sentiment || 'neutral',
+                qualification: c.qualification || 'unqualified',
+                duration_seconds: Number(c.duration_seconds ?? 0),
                 created_at: iso(c.created_at),
             })),
             activeCampaigns: activeCampaigns.map((c) => ({
@@ -162,55 +212,51 @@ async function buildProps(user, clientId) {
             isClientAdministrator,
         };
     } catch (e) {
-        if (config.app.env === 'production') throw e;
-
-        // Rich Demo Dataset when database is not connected
+        console.error('Error fetching client dashboard data from DB:', e);
         return {
-            currentPlan: { id: 1, name: 'Professionnel', slug: 'pro', status: 'active' },
-            renewsAt: '2028-01-01T00:00:00.000Z',
-            managedByAdmin: true,
-            creditBalance: 250,
+            currentPlan,
+            renewsAt,
+            managedByAdmin,
+            creditBalance: 0,
+            selectedPeriod: period,
+            startDate: start.toISOString(),
+            endDate: now.toISOString(),
             kpis: {
-                total_calls: 1240,
-                calls_30d: 480,
-                success_rate: 94.2,
-                qualified_leads: 184,
-                avg_duration: 114,
-                agents: 3,
-                numbers: 2,
-                contacts: 850,
-                active_campaigns: 2,
+                total_calls: 0,
+                calls_30d: 0,
+                success_rate: 0,
+                qualified_leads: 0,
+                avg_duration: 0,
+                agents: 0,
+                numbers: 0,
+                contacts: 0,
+                active_campaigns: 0,
+                trends: {
+                    calls: null,
+                    success_rate: null,
+                    qualified: null,
+                    duration: null,
+                },
+                prev_calls_count: 0,
             },
-            callsByDay: [
-                { day: 'Lun', calls: 64 },
-                { day: 'Mar', calls: 82 },
-                { day: 'Mer', calls: 95 },
-                { day: 'Jeu', calls: 78 },
-                { day: 'Ven', calls: 110 },
-                { day: 'Sam', calls: 32 },
-                { day: 'Dim', calls: 19 },
-            ],
+            callsByDay: Array.from({ length: 7 }, (_, i) => {
+                const d = new Date();
+                d.setDate(d.getDate() - (6 - i));
+                return { day: d.toLocaleDateString('fr-FR', { weekday: 'short' }), calls: 0 };
+            }),
             leadDistribution: [
-                { name: 'Hot', value: 92 },
-                { name: 'Warm', value: 92 },
-                { name: 'Cold', value: 45 },
+                { name: 'Hot', value: 0 },
+                { name: 'Warm', value: 0 },
+                { name: 'Cold', value: 0 },
             ],
-            recentCalls: [
-                { id: 1, contact: 'Alexandre Renard (Nova SAS)', status: 'completed', sentiment: 'positive', qualification: 'hot', duration_seconds: 142, created_at: new Date().toISOString() },
-                { id: 2, contact: 'Marc Vasseur', status: 'completed', sentiment: 'positive', qualification: 'hot', duration_seconds: 128, created_at: new Date().toISOString() },
-                { id: 3, contact: 'Éléonore Mercier', status: 'completed', sentiment: 'neutral', qualification: 'warm', duration_seconds: 75, created_at: new Date().toISOString() },
-                { id: 4, contact: '+33 6 12 34 56 78', status: 'completed', sentiment: 'positive', qualification: 'warm', duration_seconds: 90, created_at: new Date().toISOString() },
-            ],
-            activeCampaigns: [
-                { id: 1, name: 'Campagne Qualification B2B Q4', type: 'outbound', contacts_count: 450 },
-                { id: 2, name: 'Relance Leads Inactifs', type: 'outbound', contacts_count: 220 },
-            ],
+            recentCalls: [],
+            activeCampaigns: [],
             onboarding: {
-                has_agent: true,
-                has_number: true,
-                has_contacts: true,
-                has_campaign: true,
-                has_credits: true,
+                has_agent: false,
+                has_number: false,
+                has_contacts: false,
+                has_campaign: false,
+                has_credits: false,
             },
             isClientAdministrator,
         };
