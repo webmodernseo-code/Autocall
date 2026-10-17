@@ -31,7 +31,7 @@ const elevenlabsEngine = {
     // needs ElevenLabs SIP credentials; otherwise the number is recorded locally.
     provisionNumber: async () => ({ ok: true }),
     // ElevenLabs inbound is trunk-scoped; there is no shared HMAC to verify.
-    verifyWebhook: async () => true,
+    verifyWebhook: async () => false,
 };
 
 /** OpenAiSipEngine */
@@ -41,7 +41,9 @@ const openaiEngine = {
     supportsOutbound: () => false,
     supportsRecording: () => false,
     provisionNumber: async () => ({ ok: true }),
-    verifyWebhook: async () => true,
+    // No provider signature verification is implemented yet. Fail closed so a
+    // public caller cannot forge SIP lifecycle events.
+    verifyWebhook: async () => false,
 };
 
 const ENGINES = { elevenlabs: elevenlabsEngine, openai: openaiEngine };

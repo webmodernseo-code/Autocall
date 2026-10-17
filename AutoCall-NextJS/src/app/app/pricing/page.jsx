@@ -22,7 +22,7 @@ export default async function Page({ searchParams }) {
         const registry = await billingRegistry();
         const stripe = registry.get('stripe');
         if (stripe) {
-            const fulfilled = await stripe.fulfillCheckoutSession(String(params.session_id)).catch(() => ({ ok: false }));
+            const fulfilled = await stripe.fulfillCheckoutSession(String(params.session_id), user.id).catch(() => ({ ok: false }));
             if (fulfilled?.ok) {
                 if (clientId) await monthlyGrantForPlan(clientId).catch(() => {});
                 redirect('/app/dashboard?activated=1');
@@ -78,6 +78,8 @@ export default async function Page({ searchParams }) {
 
     const registry = await billingRegistry();
     const isRequired = Boolean(params?.required || params?.onboarding);
+    const selectedPlanSlug = plans.some((plan) => plan.slug === params?.plan) ? String(params.plan) : null;
+    const billingCycle = params?.billing === 'year' ? 'year' : 'month';
 
     return renderPage(
         Pricing,
@@ -86,6 +88,8 @@ export default async function Page({ searchParams }) {
             plans,
             gateways: registry.listForFrontend(),
             isRequired,
+            selectedPlanSlug,
+            billingCycle,
             flash: { error: null, success: null },
         },
         { url: '/app/pricing' },

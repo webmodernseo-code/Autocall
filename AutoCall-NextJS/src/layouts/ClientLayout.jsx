@@ -107,7 +107,7 @@ function useClientNav() {
                 { label: tr('nav.phone_numbers', 'Numéros de téléphone'), href: route('client.phone-numbers.index'), icon: <Phone className={iconClass} />, route: 'client.phone-numbers.*' },
                 { label: tr('nav.calls', 'Historique des appels'), href: route('client.calls.index'), icon: <PhoneCall className={iconClass} />, route: 'client.calls.*' },
                 { label: tr('nav.analytics', 'Analytique & Stats'), href: route('client.analytics.index'), icon: <BarChart3 className={iconClass} />, route: 'client.analytics.*' },
-                { label: tr('nav.knowledge_base', 'Base de connaissances'), href: route('client.knowledge-base.index'), icon: <BookOpen className={iconClass} />, route: 'client.knowledge-base.*' },
+                { label: tr('nav.knowledge_base', 'Connaissances'), href: route('client.knowledge-base.index'), icon: <BookOpen className={iconClass} />, route: 'client.knowledge-base.*' },
             ],
         },
         {

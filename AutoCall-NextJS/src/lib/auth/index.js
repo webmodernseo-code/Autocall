@@ -166,20 +166,38 @@ export async function accessibleTenants(user) {
 
 export async function tenantAccessibleBy(tenant, user) {
     if (!tenant || !user) return false;
-    return true;
+    if (String(tenant.owner_id) === String(user.id)) return true;
+
+    try {
+        const membership = await prisma.tenantUser.findFirst({
+            where: { tenant_id: tenant.id, user_id: user.id },
+            select: { id: true },
+        });
+        return !!membership;
+    } catch (e) {
+        console.error('[auth] tenant access lookup failed:', e?.message || e);
+        return false;
+    }
 }
 
 export async function effectiveSubscription(user) {
     if (!user) return null;
 
     try {
+        let clientSubscription = null;
         if (user.client_id) {
-            const cs = await prisma.clientSubscription.findFirst({
+            clientSubscription = await prisma.clientSubscription.findFirst({
                 where: { client_id: user.client_id, status: 'active' },
                 orderBy: { id: 'desc' },
                 include: { plans: true },
             });
-            if (cs && subscriptionIsActive(cs)) return { ...cs, __kind: 'client' };
+            if (
+                clientSubscription
+                && subscriptionIsActive(clientSubscription)
+                && Number(clientSubscription.plans?.monthly_price_cents ?? clientSubscription.plans?.price_cents ?? 0) > 0
+            ) {
+                return { ...clientSubscription, __kind: 'client' };
+            }
         }
 
         const sub = await prisma.subscription.findFirst({
@@ -188,18 +206,14 @@ export async function effectiveSubscription(user) {
             include: { plans: true },
         });
         if (sub) return { ...sub, __kind: 'user' };
-    } catch {
-        // En cas d'erreur DB, fallback démo actif
+        if (clientSubscription && subscriptionIsActive(clientSubscription)) {
+            return { ...clientSubscription, __kind: 'client' };
+        }
+    } catch (e) {
+        console.error('[auth] subscription lookup failed:', e?.message || e);
     }
 
-    // Fallback abonnement Pro actif pour démo & prévisualisation sans restriction
-    return {
-        id: 1,
-        status: 'active',
-        __kind: 'client',
-        plans: { id: 1, name: 'Professionnel', slug: 'pro' },
-        ends_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
-    };
+    return null;
 }
 
 export function subscriptionIsActive(sub) {

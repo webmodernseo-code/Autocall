@@ -6,7 +6,7 @@ import { forgetSession } from '@/lib/auth/session';
 
 /** PATCH /app/profile */
 export const PATCH = handler(async (request) => {
-    const gate = await gateClient({ routeName: 'client.profile.update' });
+    const gate = await gateClient({ routeName: 'client.profile.update', allowUnsubscribed: true });
     if (gate.response) return gate.response;
 
     const data = await validate(await readBody(request), {
@@ -37,7 +37,7 @@ export const PATCH = handler(async (request) => {
 
 /** DELETE /app/profile */
 export const DELETE = handler(async (request) => {
-    const gate = await gateClient({ routeName: 'client.profile.destroy' });
+    const gate = await gateClient({ routeName: 'client.profile.destroy', allowUnsubscribed: true });
     if (gate.response) return gate.response;
 
     const body = await readBody(request);

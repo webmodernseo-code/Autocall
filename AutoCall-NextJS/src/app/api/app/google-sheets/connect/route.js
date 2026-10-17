@@ -1,32 +1,14 @@
-import prisma from '@/lib/prisma';
 import { gateClient, handler } from '@/lib/guards';
-import { back } from '@/lib/http';
-import { firstOrCreateSheetConnection } from '@/lib/domain/google-sheets';
-import { randomToken } from '@/lib/domain/widget';
+import { abort } from '@/lib/http';
 
 /**
  * POST /app/google-sheets/connect.
- * The handshake is simulated locally; wire in real Google OAuth credentials to
- * connect a live account.
+ * OAuth is intentionally unavailable until a real Google authorization flow is
+ * configured. Never mark a synthetic spreadsheet as connected.
  */
 export const POST = handler(async () => {
     const gate = await gateClient({ routeName: 'client.google-sheets.connect' });
     if (gate.response) return gate.response;
 
-    const config = await firstOrCreateSheetConnection(gate.clientId);
-    const spreadsheetId = `sim_${randomToken(10)}`;
-
-    await prisma.googleSheetConnection.update({
-        where: { id: config.id },
-        data: {
-            connected: true,
-            account_email: gate.user.email,
-            spreadsheet_id: spreadsheetId,
-            spreadsheet_url: `https://docs.google.com/spreadsheets/d/${spreadsheetId}`,
-            last_synced_at: new Date(),
-            updated_at: new Date(),
-        },
-    });
-
-    return back({ success: 'Google Sheets connected.' });
+    return abort(501, 'La connexion Google Sheets sera disponible après configuration OAuth Google.');
 });

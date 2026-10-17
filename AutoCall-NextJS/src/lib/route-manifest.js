@@ -198,7 +198,7 @@ export const routes = {
     "client.forms.store": { uri: "/app/forms", methods: ["POST"] },
     "client.forms.submissions": { uri: "/app/forms/{form}/submissions", methods: ["GET"] },
     "client.forms.update": { uri: "/app/forms/{form}", methods: ["PUT"] },
-    "client.google-sheets.connect": { uri: "/app/google-sheets/connect", methods: ["POST"] },
+    "client.google-sheets.connect": { uri: "/app/google-sheets/connect", methods: ["GET"] },
     "client.google-sheets.disconnect": { uri: "/app/google-sheets/disconnect", methods: ["POST"] },
     "client.google-sheets.index": { uri: "/app/google-sheets", methods: ["GET"] },
     "client.google-sheets.update": { uri: "/app/google-sheets", methods: ["PUT"] },

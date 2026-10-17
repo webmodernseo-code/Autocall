@@ -9,7 +9,7 @@ export function definitions() {
             fields: [
                 { key: 'publishable_key', label: 'Publishable Key', type: 'text', required: false, help: 'pk_live_… / pk_test_…' },
                 { key: 'secret_key', label: 'Secret Key', type: 'password', required: true, help: 'sk_live_… / sk_test_…' },
-                { key: 'webhook_secret', label: 'Webhook Signing Secret', type: 'password', required: false, help: 'whsec_… (from the webhook endpoint you add below)' },
+                { key: 'webhook_secret', label: 'Webhook Signing Secret', type: 'password', required: true, help: 'whsec_… (from the webhook endpoint you add below)' },
             ],
         },
         paypal: {
@@ -137,7 +137,7 @@ export function secretField(gateway) {
  * field is present and non-empty.
  */
 export function credsConfigured(gateway, creds) {
-    const field = secretField(gateway);
-    if (!field) return false;
-    return !!creds?.[field];
+    const required = gatewayFields(gateway).filter((field) => field.required);
+    if (required.length === 0) return false;
+    return required.every((field) => !!String(creds?.[field.key] ?? '').trim());
 }

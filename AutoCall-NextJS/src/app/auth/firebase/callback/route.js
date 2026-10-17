@@ -9,6 +9,12 @@ import { readBody, validate, validationError } from '@/lib/http';
 import { hashPassword } from '@/lib/auth';
 import { writeSession } from '@/lib/auth/session';
 import { socialLoginPayload } from '@/lib/settings';
+import {
+    activateFreePlan,
+    normalizeBillingCycle,
+    postRegistrationTarget,
+    resolveRegistrationPlan,
+} from '@/lib/registration-plan';
 
 /**
  * POST /auth/firebase/callback — completes a Google sign-in.
@@ -53,7 +59,11 @@ const rejected = (message) => validationError({ social_login: [message] });
 
 export const POST = handler(async (request) => {
     const body = await readBody(request);
-    await validate(body, { id_token: ['required', 'string'] });
+    await validate(body, {
+        id_token: ['required', 'string'],
+        plan_slug: ['nullable', 'string', 'in:free,starter,pro,agency'],
+        billing_cycle: ['nullable', 'string', 'in:month,year'],
+    });
 
     const social = await socialLoginPayload();
     if (!social.enabled || !social.google) {
@@ -78,7 +88,14 @@ export const POST = handler(async (request) => {
         return rejected('Verify your email address with Google before signing in.');
     }
 
+    const requestedPlan = body.plan_slug ? await resolveRegistrationPlan(body.plan_slug) : null;
+    if (body.plan_slug && !requestedPlan) {
+        return rejected('Le forfait choisi n’est plus disponible. Sélectionnez une autre offre.');
+    }
+    const freePlan = body.plan_slug ? null : await resolveRegistrationPlan('free');
+
     let user = await prisma.user.findUnique({ where: { email } });
+    let created = false;
 
     if (!user) {
         // First sign-in: create the account. The password column is required, so
@@ -97,6 +114,7 @@ export const POST = handler(async (request) => {
                 updated_at: new Date(),
             },
         });
+        created = true;
     }
 
     if (user.role !== 'client') {
@@ -121,12 +139,20 @@ export const POST = handler(async (request) => {
         effectiveClientId = await ensureClientWorkspace(user);
     }
 
+    const selectedPlan = requestedPlan ?? (created ? freePlan : null);
+    const billingCycle = normalizeBillingCycle(body.billing_cycle);
+    if (selectedPlan) await activateFreePlan(user.id, effectiveClientId, selectedPlan);
+
     await writeSession({
         uid: Number(user.id),
         client_id: effectiveClientId ? Number(effectiveClientId) : null,
         current_tenant_id: user.tenant_id ? Number(user.tenant_id) : null,
         locale: user.locale ?? null,
         theme: user.theme ?? 'light',
+        ...(selectedPlan ? {
+            pending_plan_slug: selectedPlan.slug,
+            pending_billing_cycle: billingCycle,
+        } : {}),
     });
 
     const url = new URL(request.url);
@@ -138,7 +164,9 @@ export const POST = handler(async (request) => {
             select: { meta: true },
         })
         : null;
-    const defaultTarget = !firstAgent || (firstAgent.meta?.onboarding && !firstAgent.meta.onboarding.completed_at)
+    const defaultTarget = selectedPlan
+        ? postRegistrationTarget(selectedPlan.slug, billingCycle)
+        : !firstAgent || (firstAgent.meta?.onboarding && !firstAgent.meta.onboarding.completed_at)
         ? '/app/onboarding'
         : '/app/dashboard';
 

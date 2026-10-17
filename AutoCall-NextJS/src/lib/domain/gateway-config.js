@@ -9,7 +9,6 @@ import {
     gatewayFields,
     gatewayLabel,
     isRecurring,
-    secretField,
 } from '@/lib/services/billing/catalog';
 
 /** Port of App\Http\Controllers\Concerns\InteractsWithPaymentGatewayConfig. */
@@ -123,12 +122,12 @@ export async function persistGateway(gateway, input) {
     const testMode = !!input.test_mode;
 
     if (enabled) {
-        const field = secretField(gateway);
         const bag = testMode ? test : live;
-        if (field && !bag[field]) {
+        const missing = fields.find((field) => field.required && !String(bag[field.key] ?? '').trim());
+        if (missing) {
             return {
                 error: {
-                    [`${testMode ? 'test' : 'live'}_${field}`]: [
+                    [`${testMode ? 'test' : 'live'}_${missing.key}`]: [
                         'This credential is required before the gateway can be enabled.',
                     ],
                 },

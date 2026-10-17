@@ -5,9 +5,23 @@ import { route } from '@/lib/route';
 import { Head, Link, router, useForm, usePage } from '@/lib/page-router';
 import { signInWithGoogle } from '@/lib/firebaseAuth';
 import AuthShell, { AuthField, GoogleButton, OrDivider, SubmitButton, PasswordStrengthMeter } from '@/components/auth/Auth';
-import { User, Mail, Lock, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { User, Mail, Lock, ArrowRight, CheckCircle2, Check } from 'lucide-react';
 
-export default function Register() {
+const PLAN_COPY = {
+    free: { name: 'Découverte', description: 'Pour tester AutoCall sans carte bancaire.' },
+    starter: { name: 'Starter', description: 'Pour indépendants et petites structures.' },
+    pro: { name: 'Pro', description: 'Pour équipes et entreprises en croissance.' },
+    agency: { name: 'Agency', description: 'Pour agences et volumes importants.' },
+};
+
+function planPrice(plan, cycle) {
+    const cents = cycle === 'year' ? plan.yearly_price_cents : plan.monthly_price_cents;
+    if (!cents) return 'Gratuit';
+    const monthlyCents = cycle === 'year' ? Math.round(cents / 12) : cents;
+    return `${new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(monthlyCents / 100)} €/mois`;
+}
+
+export default function Register({ plans = [], selectedPlan = 'free', billingCycle = 'month' }) {
     const { props } = usePage();
     const socialLogin = props.socialLogin ?? {};
 
@@ -19,6 +33,8 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        plan_slug: selectedPlan,
+        billing_cycle: billingCycle,
     });
 
     const submit = (e) => {
@@ -33,7 +49,11 @@ export default function Register() {
         setGoogleLoading(true);
         try {
             const idToken = await signInWithGoogle(socialLogin.firebase);
-            router.post(route('auth.firebase.callback'), { id_token: idToken }, {
+            router.post(route('auth.firebase.callback'), {
+                id_token: idToken,
+                plan_slug: data.plan_slug,
+                billing_cycle: data.billing_cycle,
+            }, {
                 onError: (errs) => setGoogleError(errs.social_login || 'L’inscription avec Google a échoué. Veuillez réessayer.'),
                 onFinish: () => setGoogleLoading(false),
             });
@@ -87,6 +107,62 @@ export default function Register() {
             </div>
 
             <form onSubmit={submit} className="space-y-4">
+                {plans.length > 0 && (
+                    <fieldset className="space-y-3">
+                        <div className="flex items-center justify-between gap-3">
+                            <legend className="text-sm font-semibold text-white">Votre forfait</legend>
+                            <div className="flex rounded-lg border border-white/10 bg-white/[0.04] p-0.5 text-[11px]">
+                                <button
+                                    type="button"
+                                    onClick={() => setData('billing_cycle', 'month')}
+                                    className={`rounded-md px-2.5 py-1.5 transition ${data.billing_cycle === 'month' ? 'bg-white text-neutral-900 shadow-xs' : 'text-neutral-400 hover:text-white'}`}
+                                >
+                                    Mensuel
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setData('billing_cycle', 'year')}
+                                    className={`rounded-md px-2.5 py-1.5 transition ${data.billing_cycle === 'year' ? 'bg-white text-neutral-900 shadow-xs' : 'text-neutral-400 hover:text-white'}`}
+                                >
+                                    Annuel
+                                </button>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                            {plans.map((plan) => {
+                                const selected = data.plan_slug === plan.slug;
+                                const copy = PLAN_COPY[plan.slug] ?? {};
+                                return (
+                                    <button
+                                        key={plan.slug}
+                                        type="button"
+                                        onClick={() => setData('plan_slug', plan.slug)}
+                                        aria-pressed={selected}
+                                        className={`relative min-h-20 rounded-xl border p-3 text-left transition focus:outline-none focus:ring-2 focus:ring-sky-400/70 ${selected ? 'border-sky-400/70 bg-sky-400/10 shadow-sm' : 'border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.05]'}`}
+                                    >
+                                        <span className="flex items-start justify-between gap-2">
+                                            <span>
+                                                <span className="block text-sm font-semibold text-white">{copy.name ?? plan.name}</span>
+                                                <span className="mt-0.5 block text-[11px] leading-4 text-neutral-400">{copy.description ?? plan.description}</span>
+                                            </span>
+                                            <span className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${selected ? 'border-sky-400 bg-sky-400 text-slate-950' : 'border-white/25 text-transparent'}`}>
+                                                <Check className="h-2.5 w-2.5" strokeWidth={3} />
+                                            </span>
+                                        </span>
+                                        <span className="mt-2 block text-xs font-semibold tabular-nums text-sky-300">
+                                            {planPrice(plan, data.billing_cycle)}
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        {errors.plan_slug && <p className="text-xs text-red-400">{errors.plan_slug}</p>}
+                        <p className="text-[11px] leading-4 text-neutral-500">
+                            Aucun paiement maintenant. Les offres payantes seront confirmées après la création du compte.
+                        </p>
+                    </fieldset>
+                )}
+
                 <AuthField
                     id="name"
                     label="Nom complet ou raison sociale"
@@ -159,7 +235,7 @@ export default function Register() {
 
                 <div className="pt-2">
                     <SubmitButton processing={processing} loadingText="Création du compte…">
-                        <span>Créer mon compte gratuitement</span>
+                        <span>{data.plan_slug === 'free' ? 'Créer mon compte gratuitement' : 'Continuer avec ce forfait'}</span>
                         <ArrowRight className="h-4 w-4 ml-1" />
                     </SubmitButton>
                 </div>

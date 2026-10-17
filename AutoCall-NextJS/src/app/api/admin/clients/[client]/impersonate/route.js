@@ -7,7 +7,7 @@ import { logAdminAudit } from '@/lib/services/audit-log';
 
 /** POST /admin/clients/{client}/impersonate */
 export const POST = handler(async (request, { params }) => {
-    const gate = await gateAdminPermissions('admin.clients.impersonate', 'view_clients');
+    const gate = await gateAdminPermissions('admin.clients.impersonate', 'update_clients');
     if (gate.response) return gate.response;
 
     const session = await getSession();

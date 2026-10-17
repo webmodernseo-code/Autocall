@@ -42,7 +42,7 @@ export default function PricingWrapperSection() {
             ],
             btn: {
                 text: "Tester gratuitement",
-                href: "/register",
+                href: "/register?plan=free",
             },
             highlighted: false,
         },
@@ -82,7 +82,7 @@ export default function PricingWrapperSection() {
             ],
             btn: {
                 text: "Choisir Starter",
-                href: "/register",
+                href: "/register?plan=starter",
             },
             highlighted: false,
         },
@@ -131,7 +131,7 @@ export default function PricingWrapperSection() {
             ],
             btn: {
                 text: "Choisir Pro",
-                href: "/register",
+                href: "/register?plan=pro",
             },
             highlighted: true,
         },
@@ -179,7 +179,7 @@ export default function PricingWrapperSection() {
             ],
             btn: {
                 text: "Choisir l'Agence",
-                href: "/register",
+                href: "/register?plan=agency",
             },
             highlighted: false,
         },

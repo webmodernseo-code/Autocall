@@ -25,7 +25,7 @@ export default async function Page({ searchParams }) {
     if (params?.session_id) {
         const stripe = registry.get('stripe');
         if (stripe) {
-            const res = await stripe.fulfillCheckoutSession(String(params.session_id)).catch(() => ({ ok: false }));
+            const res = await stripe.fulfillCheckoutSession(String(params.session_id), user.id).catch(() => ({ ok: false }));
             if (res?.ok) {
                 if (clientId) await monthlyGrantForPlan(clientId).catch(() => {});
                 redirect('/app/dashboard?activated=1');

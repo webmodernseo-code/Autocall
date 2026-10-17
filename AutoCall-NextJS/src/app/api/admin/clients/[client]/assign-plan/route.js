@@ -8,7 +8,7 @@ import { logAdminAudit } from '@/lib/services/audit-log';
 
 /** POST /admin/clients/{client}/assign-plan */
 export const POST = handler(async (request, { params }) => {
-    const gate = await gateAdminPermissions('admin.clients.assign-plan', 'view_clients');
+    const gate = await gateAdminPermissions('admin.clients.assign-plan', 'update_clients');
     if (gate.response) return gate.response;
 
     const { client: id } = await params;

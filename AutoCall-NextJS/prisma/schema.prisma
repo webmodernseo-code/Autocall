@@ -837,6 +837,10 @@ model GoogleSheetConnection {
   account_email     String?   @db.VarChar(255)
   spreadsheet_id    String?   @db.VarChar(255)
   spreadsheet_url   String?   @db.VarChar(255)
+  access_token      String?   @db.Text
+  refresh_token     String?   @db.Text
+  token_expires_at  DateTime? @db.Timestamp(0)
+  scopes            String?   @db.Text
   sync_forms        Boolean   @default(false)
   sync_appointments Boolean   @default(false)
   rows_synced       Int       @default(0) @db.UnsignedInt
@@ -1208,7 +1212,7 @@ model PaymentTransaction {
   subscriptions          Subscription? @relation(fields: [subscription_id], references: [id], onUpdate: NoAction, map: "payment_transactions_subscription_id_foreign")
   users                  User?         @relation(fields: [user_id], references: [id], onUpdate: NoAction, map: "payment_transactions_user_id_foreign")
 
-  @@index([gateway, gateway_transaction_id], map: "payment_transactions_gateway_gateway_transaction_id_index")
+  @@unique([gateway, gateway_transaction_id], map: "payment_transactions_gateway_gateway_transaction_id_unique")
   @@index([gateway_transaction_id], map: "payment_transactions_gateway_transaction_id_index")
   @@index([subscription_id], map: "payment_transactions_subscription_id_foreign")
   @@index([user_id], map: "payment_transactions_user_id_foreign")

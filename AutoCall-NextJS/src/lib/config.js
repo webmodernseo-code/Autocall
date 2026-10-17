@@ -156,6 +156,14 @@ export const config = {
         },
     },
 
+    google_sheets: {
+        client_id: str(process.env.GOOGLE_SHEETS_CLIENT_ID),
+        client_secret: str(process.env.GOOGLE_SHEETS_CLIENT_SECRET),
+        redirect_uri:
+            str(process.env.GOOGLE_SHEETS_REDIRECT_URI) ||
+            `${APP_URL.replace(/\/+$/, '')}/api/app/google-sheets/callback`,
+    },
+
     billing: {
         gateways: {
             stripe: {

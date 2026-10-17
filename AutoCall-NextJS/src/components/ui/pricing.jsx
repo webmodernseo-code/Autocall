@@ -266,7 +266,7 @@ export function PricingCard({
                     variant={plan.highlighted ? 'default' : 'outline'}
                     asChild
                 >
-                    <Link href={plan.btn.href}>{plan.btn.text}</Link>
+                    <Link href={`${plan.btn.href}${plan.btn.href.includes('?') ? '&' : '?'}billing=${frequency === 'yearly' ? 'year' : 'month'}`}>{plan.btn.text}</Link>
                 </Button>
             </div>
         </div>

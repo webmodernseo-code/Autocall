@@ -1,11 +1,11 @@
 import 'server-only';
 
-import crypto from 'node:crypto';
 import prisma from '@/lib/prisma';
 import config from '@/lib/config';
 import { priceCentsForCycle } from '@/lib/plans';
 import { sendTemplateMail } from '@/lib/services/mail';
 import { notify, okResponse, recordTransaction } from './base';
+import { verifyStripeSignature } from './stripe-signature.mjs';
 
 /**
  * Port of App\Services\Billing\StripeGateway, using the Stripe REST API directly
@@ -236,7 +236,7 @@ export function createStripeGateway(creds, testMode, successUrl, cancelUrl) {
  * — the billing page calls this on
          * return from Checkout so the subscription exists even if the webhook is late.
          */
-        async fulfillCheckoutSession(sessionId) {
+        async fulfillCheckoutSession(sessionId, expectedUserId = null) {
             if (!isConfigured()) return { ok: false, error: 'Stripe not configured.' };
 
             let session;
@@ -259,6 +259,9 @@ export function createStripeGateway(creds, testMode, successUrl, cancelUrl) {
             const planId = Number(session.metadata?.plan_id ?? 0);
             if (!userId || !planId) {
                 return { ok: false, error: 'Missing user_id or plan_id in session.' };
+            }
+            if (expectedUserId && String(userId) !== String(expectedUserId)) {
+                return { ok: false, error: 'Checkout session does not belong to this account.' };
             }
 
             const subObject = typeof session.subscription === 'object' ? session.subscription : null;
@@ -384,34 +387,4 @@ async function handleInvoicePaid(invoice) {
  * — verifies the `t=…,v1=…` header against
  * HMAC-SHA256 of `${timestamp}.${payload}` and rejects stale timestamps.
  */
-export function verifyStripeSignature(payload, header, secret, toleranceSeconds = 300) {
-    if (!header) throw new Error('No signature header');
-
-    const parts = Object.fromEntries(
-        String(header)
-            .split(',')
-            .map((p) => p.split('=', 2))
-            .filter((p) => p.length === 2),
-    );
-
-    const timestamp = parts.t;
-    const signature = parts.v1;
-    if (!timestamp || !signature) throw new Error('Malformed signature header');
-
-    if (Math.abs(Date.now() / 1000 - Number(timestamp)) > toleranceSeconds) {
-        throw new Error('Timestamp outside tolerance');
-    }
-
-    const expected = crypto
-        .createHmac('sha256', secret)
-        .update(`${timestamp}.${payload}`)
-        .digest('hex');
-
-    const a = Buffer.from(expected);
-    const b = Buffer.from(signature);
-    if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) {
-        throw new Error('Signature mismatch');
-    }
-
-    return JSON.parse(payload);
-}
+export { verifyStripeSignature } from './stripe-signature.mjs';

@@ -92,20 +92,25 @@ export async function recordTransaction(
         if (exists) return;
     }
 
-    await prisma.paymentTransaction.create({
-        data: {
-            user_id: subscription?.user_id ?? null,
-            subscription_id: subscription?.id ?? null,
-            gateway: gatewayKey,
-            gateway_transaction_id: txnId ? String(txnId) : null,
-            amount_cents: BigInt(Math.round(amountCents)),
-            currency_code: String(currency).toUpperCase(),
-            status,
-            payload,
-            created_at: new Date(),
-            updated_at: new Date(),
-        },
-    });
+    try {
+        await prisma.paymentTransaction.create({
+            data: {
+                user_id: subscription?.user_id ?? null,
+                subscription_id: subscription?.id ?? null,
+                gateway: gatewayKey,
+                gateway_transaction_id: txnId ? String(txnId) : null,
+                amount_cents: BigInt(Math.round(amountCents)),
+                currency_code: String(currency).toUpperCase(),
+                status,
+                payload,
+                created_at: new Date(),
+                updated_at: new Date(),
+            },
+        });
+    } catch (e) {
+        if (e?.code === 'P2002' && txnId) return;
+        throw e;
+    }
 
     if (status === 'paid' && subscription?.user_id) {
         await notify('payment_success', subscription.user_id);

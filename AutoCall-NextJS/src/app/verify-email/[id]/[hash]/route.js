@@ -5,6 +5,8 @@ import { currentUser } from '@/lib/auth';
 import { emailVerificationHash, hasValidSignature } from '@/lib/auth/verification';
 import { redirectWithFlash } from '@/lib/http';
 import config from '@/lib/config';
+import { getSession } from '@/lib/auth/session';
+import { postRegistrationTarget } from '@/lib/registration-plan';
 
 /** GET /verify-email/{id}/{hash} (signed). */
 export const GET = handler(async (request, { params }) => {
@@ -42,7 +44,12 @@ export const GET = handler(async (request, { params }) => {
         return NextResponse.redirect(new URL('/app/dashboard', config.app.url));
     }
 
-    return redirectWithFlash(new URL('/app/onboarding?verified=1', config.app.url), {
+    const session = await getSession();
+    const target = postRegistrationTarget(session?.pending_plan_slug, session?.pending_billing_cycle);
+    const targetUrl = new URL(target, config.app.url);
+    targetUrl.searchParams.set('verified', '1');
+
+    return redirectWithFlash(targetUrl, {
         success: 'Votre adresse e-mail a été vérifiée avec succès !',
     });
 });

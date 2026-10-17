@@ -70,6 +70,20 @@ export const POST = handler(async (request) => {
     }
 
     if (user.role === 'client' && effectiveClientId) {
+        const { effectiveSubscription, subscriptionIsActive } = await import('@/lib/auth');
+        const sub = await effectiveSubscription(user);
+        if (!sub || !subscriptionIsActive(sub)) {
+            await writeSession({
+                uid: Number(user.id),
+                client_id: Number(effectiveClientId),
+                current_tenant_id: user.tenant_id ? Number(user.tenant_id) : null,
+                locale: user.locale ?? null,
+                display_currency: user.display_currency ?? detected.currency,
+                theme: user.theme ?? 'light',
+            });
+            return NextResponse.json({ redirect: '/app/pricing?required=1' });
+        }
+
         const firstAgent = await prisma.agent.findFirst({
             where: { client_id: BigInt(effectiveClientId) },
             orderBy: { id: 'asc' },

@@ -54,6 +54,11 @@ export async function requireClientPage({ allowUnsubscribed = false } = {}) {
         redirect('/login');
     }
 
+    if (!allowUnsubscribed) {
+        const subscription = await effectiveSubscription(user);
+        if (!subscription || !subscriptionIsActive(subscription)) redirect('/app/pricing?required=1');
+    }
+
     return { user, clientId };
 }
 
@@ -81,7 +86,7 @@ export async function requireAdminPermissionPage(permission) {
 /* ----------------------------------------------------------- API contexts */
 
 /** Client-portal write endpoint: auth + role + demo-mode + client scope. */
-export async function gateClient({ permission = null, routeName = 'client.' } = {}) {
+export async function gateClient({ permission = null, routeName = 'client.', allowUnsubscribed = false } = {}) {
     const demo = demoBlocked(routeName);
     if (demo) return { response: demo };
 
@@ -90,6 +95,13 @@ export async function gateClient({ permission = null, routeName = 'client.' } = 
     if (user.role !== 'client') return { response: abort(403) };
     if (!user.email_verified_at) {
         return { response: abort(403, 'Vérifiez votre adresse e-mail pour continuer.') };
+    }
+
+    if (!allowUnsubscribed) {
+        const subscription = await effectiveSubscription(user);
+        if (!subscription || !subscriptionIsActive(subscription)) {
+            return { response: abort(403, 'Un forfait actif est requis pour continuer.') };
+        }
     }
 
     // Fall back to the permission the route name implies, so a write endpoint is

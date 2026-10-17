@@ -10,8 +10,8 @@ import { Check, CreditCard, Lock, ShieldCheck } from 'lucide-react';
 /**
  * Pricing page: monthly/yearly toggle, payable plans, Stripe checkout, paywall alert.
  */
-export default function Pricing({ plans = [], gateways = [], flash = {}, isRequired = false }) {
-    const [billingCycle, setBillingCycle] = useState('month');
+export default function Pricing({ plans = [], gateways = [], flash = {}, isRequired = false, selectedPlanSlug = null, billingCycle: initialBillingCycle = 'month' }) {
+    const [billingCycle, setBillingCycle] = useState(initialBillingCycle);
     const [loadingGateway, setLoadingGateway] = useState(null);
     const { url } = usePage();
 
@@ -94,19 +94,20 @@ export default function Pricing({ plans = [], gateways = [], flash = {}, isRequi
                 )}
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {plans.map((plan) => {
+                    {[...plans].sort((a, b) => Number(b.slug === selectedPlanSlug) - Number(a.slug === selectedPlanSlug)).map((plan) => {
                         const priceDisplay = billingCycle === 'year' ? plan.yearly_price_display : plan.monthly_price_display;
+                        const isSelected = plan.slug === selectedPlanSlug;
 
                         return (
-                            <Card key={plan.id} className="flex flex-col border border-neutral-200/90 bg-white shadow-xs transition hover:border-brand-500/50 hover:shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+                            <Card key={plan.id} className={`flex flex-col bg-white shadow-xs transition hover:shadow-sm dark:bg-neutral-900 ${isSelected ? 'border-2 border-brand-500 ring-4 ring-brand-500/10' : 'border border-neutral-200/90 hover:border-brand-500/50 dark:border-neutral-800'}`}>
                                 <Card.Body className="flex flex-1 flex-col p-6">
                                     <div className="flex items-center justify-between">
                                         <h3 className="text-lg font-bold tracking-tight text-neutral-900 dark:text-white">
                                             {plan.name}
                                         </h3>
-                                        {plan.slug === 'pro' && (
+                                        {(isSelected || plan.slug === 'pro') && (
                                             <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-[11px] font-semibold text-brand-600 dark:bg-brand-950/50 dark:text-brand-300 border border-brand-200/60 dark:border-brand-800/40">
-                                                Populaire
+                                                {isSelected ? 'Votre choix' : 'Populaire'}
                                             </span>
                                         )}
                                     </div>
@@ -207,5 +208,4 @@ export default function Pricing({ plans = [], gateways = [], flash = {}, isRequi
         </ClientLayout>
     );
 }
-
 

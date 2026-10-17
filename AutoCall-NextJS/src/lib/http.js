@@ -174,7 +174,7 @@ export async function validate(data, rules, { prisma = null, messages = {} } = {
             }
             const [name, argString] = String(rule).split(':');
             const args = argString ? argString.split(',') : [];
-            const message = await checkRule(name, args, value, field, data, prisma);
+            const message = await checkRule(name, args, value, field, data, prisma, list);
             if (message) {
                 push(errors, field, messages[`${field}.${name}`] ?? message);
                 failed = true;
@@ -189,7 +189,7 @@ export async function validate(data, rules, { prisma = null, messages = {} } = {
     return validated;
 }
 
-async function checkRule(name, args, value, field, data, prisma) {
+async function checkRule(name, args, value, field, data, prisma, rules = []) {
     const name_ = label(field);
 
     switch (name) {
@@ -257,20 +257,20 @@ async function checkRule(name, args, value, field, data, prisma) {
             return args.includes(String(value)) ? `The selected ${name_} is invalid.` : null;
 
         case 'min':
-            return sizeOf(value) >= Number(args[0])
+            return measure(value, rules) >= Number(args[0])
                 ? null
                 : `The ${name_} must be at least ${args[0]}.`;
 
         case 'max':
-            return sizeOf(value) <= Number(args[0])
+            return measure(value, rules) <= Number(args[0])
                 ? null
                 : `The ${name_} may not be greater than ${args[0]}.`;
 
         case 'size':
-            return sizeOf(value) === Number(args[0]) ? null : `The ${name_} must be ${args[0]}.`;
+            return measure(value, rules) === Number(args[0]) ? null : `The ${name_} must be ${args[0]}.`;
 
         case 'between': {
-            const size = sizeOf(value);
+            const size = measure(value, rules);
             return size >= Number(args[0]) && size <= Number(args[1])
                 ? null
                 : `The ${name_} must be between ${args[0]} and ${args[1]}.`;
@@ -340,6 +340,11 @@ function sizeOf(value) {
     if (Array.isArray(value)) return value.length;
     if (value?.size !== undefined) return value.size / 1024; // File size is measured in KB
     return String(value ?? '').length;
+}
+
+function measure(value, rules) {
+    if (rules.includes('numeric') || rules.includes('integer')) return Number(value);
+    return sizeOf(value);
 }
 
 function cast(rules, value) {

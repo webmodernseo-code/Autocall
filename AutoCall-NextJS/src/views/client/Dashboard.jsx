@@ -144,6 +144,8 @@ function SplineAreaChart({ data = [] }) {
     const areaPath = `${linePath} L ${points[points.length - 1].x} ${paddingTop + plotH} L ${points[0].x} ${paddingTop + plotH} Z`;
     const activePoint = hoveredIdx !== null ? points[hoveredIdx] : null;
 
+    const totalCalls = data.reduce((acc, d) => acc + (d.calls || 0), 0);
+
     return (
         <div className="relative w-full h-[220px]">
             <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full overflow-visible">
@@ -207,6 +209,18 @@ function SplineAreaChart({ data = [] }) {
                 })}
             </svg>
 
+            {/* Indication sobre lorsque la semaine est sans appels */}
+            {totalCalls === 0 && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none pb-4">
+                    <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                        Aucun appel sur cette semaine
+                    </span>
+                    <span className="text-[11px] text-neutral-400/80 dark:text-neutral-500 mt-0.5">
+                        La courbe d&apos;activité se dessinera dès vos premiers échanges
+                    </span>
+                </div>
+            )}
+
             {/* Tooltip interactif positionné */}
             {activePoint && (
                 <div
@@ -257,10 +271,11 @@ function InteractiveChartTooltip({ active, payload, label }) {
 }
 
 /** 3. JAUGE CIRCULAIRE DE SATISFACTION (Exact Shopeers "Repeat Customer Rate") */
-function SatisfactionRadialGauge({ percentage = 68 }) {
+function SatisfactionRadialGauge({ percentage = 0, hasData = true }) {
+    const safePct = Math.max(0, Math.min(100, Math.round(percentage)));
     const radius = 64;
     const circumference = Math.PI * radius;
-    const strokeDashoffset = circumference - (percentage / 100) * circumference;
+    const strokeDashoffset = circumference - (safePct / 100) * circumference;
 
     return (
         <div className="relative flex flex-col items-center justify-center pt-2">
@@ -276,24 +291,26 @@ function SatisfactionRadialGauge({ percentage = 68 }) {
                     className="text-neutral-100 dark:text-white/[0.08]"
                 />
                 {/* Arc avant-plan vert émeraude */}
-                <path
-                    d="M 25 95 A 70 70 0 0 1 165 95"
-                    fill="none"
-                    stroke="#10B981"
-                    strokeWidth="9"
-                    strokeLinecap="round"
-                    strokeDasharray="4 6"
-                    strokeDashoffset={strokeDashoffset}
-                    className="transition-all duration-1000 ease-out"
-                />
+                {safePct > 0 && (
+                    <path
+                        d="M 25 95 A 70 70 0 0 1 165 95"
+                        fill="none"
+                        stroke="#10B981"
+                        strokeWidth="9"
+                        strokeLinecap="round"
+                        strokeDasharray="4 6"
+                        strokeDashoffset={strokeDashoffset}
+                        className="transition-all duration-1000 ease-out"
+                    />
+                )}
             </svg>
 
             <div className="text-center -mt-6">
                 <span className="font-hero-sans text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
-                    {percentage}%
+                    {safePct}%
                 </span>
                 <p className="mt-0.5 text-[11px] text-neutral-500 dark:text-[#8E95A5]">
-                    Objectif de 80% en cours
+                    {hasData ? 'Objectif de 80% en cours' : 'En attente de vos premiers appels qualifiés'}
                 </p>
             </div>
 
@@ -311,20 +328,30 @@ function SatisfactionRadialGauge({ percentage = 68 }) {
 function VoiceAiAssistantWidget() {
     const [query, setQuery] = useState('');
     const [simulating, setSimulating] = useState(false);
+    const [responseMsg, setResponseMsg] = useState(null);
 
-    const handleSend = (e) => {
-        e.preventDefault();
-        if (!query.trim()) return;
+    const quickPrompts = [
+        { label: 'Créer un agent', prompt: 'Comment créer un agent vocal ?', reply: 'Rendez-vous dans "Agents IA" pour choisir une voix et personnaliser votre prompt.' },
+        { label: 'Importer contacts', prompt: 'Comment importer mes contacts ?', reply: 'Dans "Contacts", cliquez sur "Importer CSV" pour charger votre fichier de prospection.' },
+        { label: 'Lancer un test', prompt: 'Comment tester un premier appel ?', reply: 'Liez un numéro actif dans "Numéros", puis lancez une campagne d\'essai vers votre mobile.' },
+    ];
+
+    const handleSend = (text) => {
+        const q = text || query;
+        if (!q.trim()) return;
         setSimulating(true);
+        setResponseMsg(null);
         setTimeout(() => {
             setSimulating(false);
+            const matched = quickPrompts.find((p) => p.prompt.toLowerCase() === q.toLowerCase());
+            setResponseMsg(matched ? matched.reply : 'Consigne enregistrée ! Vos agents sont prêts à appliquer ces paramètres.');
             setQuery('');
-        }, 1200);
+        }, 900);
     };
 
     return (
         <div className="flex flex-col justify-between h-full">
-            <div className="flex items-center justify-between pb-2">
+            <div className="flex items-center justify-between pb-1">
                 <span className="text-xs font-bold text-neutral-900 dark:text-white font-hero-sans">Assistant IA</span>
                 <Link href={route('client.agents.index')} className="text-neutral-400 hover:text-neutral-700 dark:hover:text-white" title="Plein écran">
                     <Maximize2 className="h-3.5 w-3.5" />
@@ -332,8 +359,8 @@ function VoiceAiAssistantWidget() {
             </div>
 
             {/* Sphère bleue 3D volumétrique lumineuse */}
-            <div className="relative py-4 flex items-center justify-center">
-                <div className="relative h-20 w-20 rounded-full bg-gradient-to-tr from-blue-700 via-blue-500 to-sky-300 p-0.5 shadow-xl shadow-blue-500/30 flex items-center justify-center group cursor-pointer transition-transform duration-300 hover:scale-105">
+            <div className="relative py-2.5 flex items-center justify-center">
+                <div className="relative h-18 w-18 rounded-full bg-gradient-to-tr from-blue-700 via-blue-500 to-sky-300 p-0.5 shadow-xl shadow-blue-500/30 flex items-center justify-center group cursor-pointer transition-transform duration-300 hover:scale-105">
                     <div className="h-full w-full rounded-full bg-radial from-sky-400 via-blue-600 to-indigo-900 flex items-center justify-center relative overflow-hidden">
                         {/* Reflet spéculaire 3D haut gauche */}
                         <div className="absolute top-1.5 left-2.5 h-6 w-7 rounded-full bg-white/50 blur-[2px]" />
@@ -343,12 +370,36 @@ function VoiceAiAssistantWidget() {
                 </div>
             </div>
 
-            <p className="text-center text-[11px] text-neutral-500 dark:text-[#8E95A5] mb-3">
-                {simulating ? 'L&apos;IA analyse votre consigne vocale…' : 'Posez une question ou pilotez vos agents.'}
-            </p>
+            {responseMsg ? (
+                <div className="rounded-xl border border-blue-500/20 bg-blue-50/50 dark:bg-blue-500/10 p-2.5 mb-2 text-left text-[11px] text-blue-700 dark:text-blue-300">
+                    <p className="font-semibold mb-0.5">💡 Réponse rapide :</p>
+                    <p>{responseMsg}</p>
+                </div>
+            ) : (
+                <p className="text-center text-[11px] text-neutral-500 dark:text-[#8E95A5] mb-2">
+                    {simulating ? 'L\'IA analyse votre consigne vocale…' : 'Posez une question ou pilotez vos agents.'}
+                </p>
+            )}
+
+            {/* Suggestions d'actions en pilules cliquables */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 mb-2.5">
+                {quickPrompts.map((qp) => (
+                    <button
+                        key={qp.label}
+                        type="button"
+                        onClick={() => {
+                            setQuery(qp.prompt);
+                            handleSend(qp.prompt);
+                        }}
+                        className="rounded-lg border border-neutral-200/80 dark:border-white/10 bg-neutral-100/60 dark:bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-neutral-600 dark:text-neutral-300 hover:border-blue-500/40 hover:text-blue-600 dark:hover:text-blue-400 transition cursor-pointer"
+                    >
+                        {qp.label}
+                    </button>
+                ))}
+            </div>
 
             {/* Input pill avec micro et envoi */}
-            <form onSubmit={handleSend} className="relative flex items-center rounded-xl border border-neutral-200/80 dark:border-white/10 bg-neutral-50/80 dark:bg-white/[0.04] px-3 py-1.5 focus-within:border-blue-500 transition-colors">
+            <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="relative flex items-center rounded-xl border border-neutral-200/80 dark:border-white/10 bg-neutral-50/80 dark:bg-white/[0.04] px-3 py-1.5 focus-within:border-blue-500 transition-colors">
                 <input
                     type="text"
                     value={query}
@@ -498,6 +549,161 @@ function AddWidgetModal({ isOpen, onClose, onAddWidget, activeWidgets }) {
     );
 }
 
+/** 6. BANDEAU ONBOARDING / GUIDE DE DÉMARRAGE RAPIDE (Style Linear / Stripe) */
+function OnboardingQuickStartBanner({ onboarding }) {
+    const [dismissed, setDismissed] = useState(false);
+    if (!onboarding || dismissed) return null;
+
+    const steps = [
+        {
+            id: 'agent',
+            title: '1. Créer un agent IA',
+            desc: 'Définir la voix et le scénario',
+            done: Boolean(onboarding.has_agent),
+            href: route('client.agents.index'),
+            btnText: 'Créer un agent',
+            icon: Bot,
+        },
+        {
+            id: 'number',
+            title: '2. Lier une ligne',
+            desc: 'Numéro entrant ou sortant',
+            done: Boolean(onboarding.has_number),
+            href: route('client.phone-numbers.index'),
+            btnText: 'Gérer les numéros',
+            icon: Phone,
+        },
+        {
+            id: 'contacts',
+            title: '3. Importer des contacts',
+            desc: 'Prospects à qualifier en masse',
+            done: Boolean(onboarding.has_contacts),
+            href: route('client.contacts.index'),
+            btnText: 'Ajouter contacts',
+            icon: Users,
+        },
+        {
+            id: 'campaign',
+            title: '4. Lancer une campagne',
+            desc: 'Déclencher vos premiers appels',
+            done: Boolean(onboarding.has_campaign),
+            href: route('client.campaigns.index'),
+            btnText: 'Démarrer',
+            icon: Megaphone,
+        },
+    ];
+
+    const completedCount = steps.filter((s) => s.done).length;
+    if (completedCount === steps.length) return null;
+
+    const progressPct = Math.round((completedCount / steps.length) * 100);
+
+    return (
+        <div className="relative overflow-hidden rounded-[20px] border border-blue-200/90 dark:border-white/[0.08] bg-gradient-to-r from-blue-50/60 via-white to-sky-50/30 dark:from-blue-950/20 dark:via-[#131622] dark:to-[#131622] p-5 shadow-[0_2px_12px_rgba(16,24,40,0.04)] transition-all">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-blue-100 dark:border-white/[0.06]">
+                <div className="flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white shadow-xs">
+                        <Sparkles className="h-4.5 w-4.5" />
+                    </div>
+                    <div>
+                        <div className="flex items-center gap-2">
+                            <h3 className="font-hero-sans text-sm font-bold text-neutral-900 dark:text-white">
+                                Guide de démarrage rapide AutoCall
+                            </h3>
+                            <span className="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-500/20 px-2 py-0.5 text-[10px] font-semibold text-blue-700 dark:text-blue-300">
+                                {completedCount} sur {steps.length} étapes
+                            </span>
+                        </div>
+                        <p className="text-xs text-neutral-500 dark:text-[#8E95A5] mt-0.5">
+                            Complétez ces étapes pour lancer votre premier agent vocal en production.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                    <div className="hidden sm:flex flex-col items-end gap-1">
+                        <span className="text-[11px] font-semibold text-neutral-700 dark:text-neutral-300 tabular-nums">
+                            {progressPct}% complété
+                        </span>
+                        <div className="h-1.5 w-28 rounded-full bg-neutral-200 dark:bg-white/10 overflow-hidden">
+                            <div
+                                style={{ width: `${progressPct}%` }}
+                                className="h-full rounded-full bg-blue-600 dark:bg-blue-500 transition-all duration-500"
+                            />
+                        </div>
+                    </div>
+                    <button
+                        type="button"
+                        onClick={() => setDismissed(true)}
+                        className="rounded-lg p-1 text-neutral-400 hover:text-neutral-700 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-white/[0.06] transition cursor-pointer"
+                        title="Masquer le guide"
+                    >
+                        <X className="h-4 w-4" />
+                    </button>
+                </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {steps.map((st) => {
+                    const StepIcon = st.icon;
+                    return (
+                        <div
+                            key={st.id}
+                            className={`flex flex-col justify-between rounded-xl border p-3.5 transition-all ${
+                                st.done
+                                    ? 'border-emerald-200/80 bg-emerald-50/40 dark:border-emerald-500/20 dark:bg-emerald-500/[0.04]'
+                                    : 'border-neutral-200/80 bg-white dark:border-white/[0.07] dark:bg-white/[0.02] hover:border-neutral-300 dark:hover:border-white/15 shadow-2xs'
+                            }`}
+                        >
+                            <div>
+                                <div className="flex items-center justify-between mb-2">
+                                    <div className={`flex h-7 w-7 items-center justify-center rounded-lg ${
+                                        st.done
+                                            ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400'
+                                            : 'bg-neutral-100 dark:bg-white/[0.06] text-neutral-600 dark:text-neutral-300'
+                                    }`}>
+                                        <StepIcon className="h-3.5 w-3.5" />
+                                    </div>
+                                    {st.done ? (
+                                        <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                                            <CheckCircle2 className="h-3.5 w-3.5" />
+                                            <span>Prêt</span>
+                                        </span>
+                                    ) : (
+                                        <span className="h-2 w-2 rounded-full bg-amber-400" />
+                                    )}
+                                </div>
+                                <h4 className="text-xs font-bold text-neutral-900 dark:text-white">{st.title}</h4>
+                                <p className="text-[11px] text-neutral-500 dark:text-[#8E95A5] mt-0.5 line-clamp-1">{st.desc}</p>
+                            </div>
+
+                            <div className="mt-3 pt-2.5 border-t border-neutral-100 dark:border-white/[0.05]">
+                                {st.done ? (
+                                    <Link
+                                        href={st.href}
+                                        className="inline-flex items-center gap-1 text-[11px] font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition"
+                                    >
+                                        <span>Gérer</span>
+                                        <ArrowRight className="h-3 w-3" />
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        href={st.href}
+                                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-500 transition"
+                                    >
+                                        <span>{st.btnText}</span>
+                                        <ArrowRight className="h-3 w-3" />
+                                    </Link>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+}
+
 export default function Dashboard({
     currentPlan,
     renewsAt,
@@ -523,8 +729,12 @@ export default function Dashboard({
         );
     };
 
+    const hasCalls = Boolean((kpis?.calls_30d || 0) > 0);
+    const hasTotalCalls = Boolean((kpis?.total_calls || 0) > 0);
+    const hasWeeklyActivity = callsByDay.some((d) => (d.calls || 0) > 0);
+
     // Trouver le jour avec le pic d'appels pour la mise en surbrillance bleue exacte de Shopeers
-    const maxDay = callsByDay.reduce((max, d) => (d.calls > (max?.calls || 0) ? d : max), callsByDay[0] || { day: 'Mar', calls: 0 });
+    const maxDay = callsByDay.reduce((max, d) => (d.calls > (max?.calls || 0) ? d : max), callsByDay[0] || { day: 'dim.', calls: 0 });
 
     const totalLeads = leadDistribution.reduce((acc, l) => acc + (l.value || 0), 0);
     const hotLeads = leadDistribution.find((l) => l.name === 'Hot')?.value || 0;
@@ -583,7 +793,7 @@ export default function Dashboard({
                             )}
                         </div>
 
-                        {/* Bouton Ajouter un Widget (Exactement comme dans la maquette) */}
+                        {/* Bouton Ajouter un Widget */}
                         <button
                             type="button"
                             onClick={() => setIsAddWidgetOpen(true)}
@@ -604,47 +814,50 @@ export default function Dashboard({
                     </div>
                 </div>
 
+                {/* ONBOARDING DISCRET & ÉLÉGANT (Affiché tant que les 4 étapes ne sont pas prêtes) */}
+                <OnboardingQuickStartBanner onboarding={onboarding} />
+
                 {/* 1. TOP ROW : LES 4 KPIS EN TÊTE (Design Shopeers) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <MetricKpiCard
                         label="Volume d'appels (30j)"
                         value={Number(kpis?.calls_30d ?? 0).toLocaleString()}
-                        trend="+15.6%"
+                        trend={hasCalls ? '+15.6%' : null}
                         isPositive={true}
-                        sub="vs. 14,483 période précédente"
+                        sub={hasCalls ? 'vs. période précédente' : 'Aucun appel sur cette période'}
                         icon={PhoneCall}
                         iconColor="text-blue-500"
                     />
                     <MetricKpiCard
                         label="Taux de Qualification"
                         value={`${kpis?.success_rate ?? 0}%`}
-                        trend="+8.4%"
+                        trend={hasCalls ? '+8.4%' : null}
                         isPositive={true}
-                        sub="vs. 6,732 période précédente"
+                        sub={hasCalls ? 'vs. période précédente' : 'En attente des premiers résultats'}
                         icon={Target}
                         iconColor="text-emerald-500"
                     />
                     <MetricKpiCard
                         label="Prospects Qualifiés"
                         value={Number(kpis?.qualified_leads ?? 0).toLocaleString()}
-                        trend="-2.1%"
+                        trend={hasCalls ? '-2.1%' : null}
                         isPositive={false}
-                        sub="vs. 3,194 période précédente"
+                        sub={hasCalls ? 'vs. période précédente' : 'Prospects chauds et tièdes détectés'}
                         icon={Users}
                         iconColor="text-indigo-500"
                     />
                     <MetricKpiCard
                         label="Durée Moyenne d'Appel"
                         value={fmtDur(kpis?.avg_duration)}
-                        trend="+4.4%"
+                        trend={hasCalls ? '+4.4%' : null}
                         isPositive={true}
-                        sub="vs. 1,186 période précédente"
+                        sub={hasCalls ? 'vs. période précédente' : 'Calculée sur les appels complétés'}
                         icon={Clock}
                         iconColor="text-amber-500"
                     />
                 </div>
 
-                {/* 2. RESSOURCES RAPIDES : AGENTS, NUMÉROS, CONTACTS, CAMPAGNES (Placées juste après les stats) */}
+                {/* 2. RESSOURCES RAPIDES : AGENTS, NUMÉROS, CONTACTS, CAMPAGNES */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
                     <Link
                         href={route('client.agents.index')}
@@ -725,10 +938,12 @@ export default function Dashboard({
                                         <span className="font-hero-sans text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
                                             {Number(kpis?.total_calls ?? 0).toLocaleString()} appels
                                         </span>
-                                        <span className="inline-flex items-center gap-0.5 rounded-md bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 px-2 py-0.5 text-xs font-semibold">
-                                            <TrendingUp className="h-3 w-3" />
-                                            <span>+24.4% vs. last period</span>
-                                        </span>
+                                        {hasTotalCalls && (
+                                            <span className="inline-flex items-center gap-0.5 rounded-md bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 px-2 py-0.5 text-xs font-semibold">
+                                                <TrendingUp className="h-3 w-3" />
+                                                <span>+24.4% vs période précédente</span>
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
 
@@ -745,7 +960,7 @@ export default function Dashboard({
                                 <SplineAreaChart data={callsByDay} />
                             </div>
 
-                            {/* CARTES SEGMENTÉES EN DESSOUS (Inspiré des 3 blocs Customers Shopeers) */}
+                            {/* CARTES SEGMENTÉES EN DESSOUS */}
                             <div className="mt-5 pt-5 border-t border-neutral-100 dark:border-white/[0.06] grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 {/* Segment 1 : Chauds */}
                                 <div className="rounded-xl border border-neutral-200/80 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-3.5 border-t-2 border-t-emerald-500 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
@@ -785,7 +1000,7 @@ export default function Dashboard({
                             </div>
                         </div>
 
-                        {/* TABLEAU DES APPELS RÉCENTS (Inspiré de "Best Selling Products" Shopeers) */}
+                        {/* TABLEAU DES APPELS RÉCENTS */}
                         <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-6 shadow-[0_4px_24px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="font-hero-sans text-sm font-bold text-neutral-900 dark:text-white">
@@ -856,8 +1071,23 @@ export default function Dashboard({
                                     </table>
                                 </div>
                             ) : (
-                                <div className="py-10 text-center text-xs text-neutral-400">
-                                    Aucun appel enregistré pour le moment.
+                                <div className="py-12 flex flex-col items-center justify-center text-center px-4">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-100 dark:bg-white/[0.04] text-neutral-400 dark:text-neutral-500 mb-3 border border-neutral-200/60 dark:border-white/[0.06]">
+                                        <PhoneCall className="h-5 w-5 text-blue-500" />
+                                    </div>
+                                    <h4 className="text-xs font-bold text-neutral-900 dark:text-white">
+                                        Aucun appel enregistré pour le moment
+                                    </h4>
+                                    <p className="mt-1 text-[11px] text-neutral-500 dark:text-[#8E95A5] max-w-sm">
+                                        Tous les appels entrants et sortants traités par vos agents IA s&apos;afficheront ici en direct avec transcription et analyse du sentiment.
+                                    </p>
+                                    <Link
+                                        href={route('client.campaigns.index')}
+                                        className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-1.5 text-xs font-semibold shadow-xs transition"
+                                    >
+                                        <Plus className="h-3.5 w-3.5" />
+                                        <span>Lancer un premier appel</span>
+                                    </Link>
                                 </div>
                             )}
                         </div>
@@ -866,21 +1096,21 @@ export default function Dashboard({
                     {/* COLONNE DROITE (1/3) : 3 WIDGETS SPÉCIFIQUES ISSUS DE SHOPEERS */}
                     <div className="space-y-5">
 
-                        {/* WIDGET 1 : PIC D'ACTIVITÉ (Most Day Active avec barre bleue Shopeers) */}
+                        {/* WIDGET 1 : PIC D'ACTIVITÉ */}
                         <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_4px_20px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none">
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-xs font-bold text-neutral-900 dark:text-white font-hero-sans">Pic d&apos;Activité Hebdomadaire</span>
                                 <MoreHorizontal className="h-4 w-4 text-neutral-400" />
                             </div>
                             <p className="text-[11px] text-neutral-500 dark:text-[#8E95A5] mb-4">
-                                {maxDay.day ? `Pic enregistré le ${maxDay.day}` : 'Activité répartie sur 7 jours'}
+                                {hasWeeklyActivity && maxDay?.day ? `Pic enregistré le ${maxDay.day}` : 'Aucune activité sur les 7 derniers jours'}
                             </p>
 
                             {/* Barres verticales avec badge flottant et barre bleue franche */}
                             <div className="flex items-end justify-between gap-2 h-32 pt-6 px-1">
                                 {callsByDay.map((d) => {
-                                    const isPeak = d.day === maxDay.day && d.calls > 0;
-                                    const heightPct = maxDay.calls > 0 ? Math.max(14, (d.calls / maxDay.calls) * 100) : 20;
+                                    const isPeak = hasWeeklyActivity && d.day === maxDay.day && d.calls > 0;
+                                    const heightPct = hasWeeklyActivity && maxDay.calls > 0 ? Math.max(14, (d.calls / maxDay.calls) * 100) : 16;
 
                                     return (
                                         <div key={d.day} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
@@ -906,17 +1136,20 @@ export default function Dashboard({
                             </div>
                         </div>
 
-                        {/* WIDGET 2 : JAUGE CIRCULAIRE (Repeat Customer Rate) */}
+                        {/* WIDGET 2 : JAUGE CIRCULAIRE */}
                         <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_4px_20px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none">
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-xs font-bold text-neutral-900 dark:text-white font-hero-sans">Taux de Conversion Télécom</span>
                                 <MoreHorizontal className="h-4 w-4 text-neutral-400" />
                             </div>
 
-                            <SatisfactionRadialGauge percentage={kpis?.success_rate ? Math.min(100, Math.round(kpis.success_rate)) : 68} />
+                            <SatisfactionRadialGauge
+                                percentage={hasCalls ? (kpis?.success_rate ?? 0) : 0}
+                                hasData={hasCalls}
+                            />
                         </div>
 
-                        {/* WIDGET 3 : ASSISTANT IA (AI Assistant avec sphère 3D) */}
+                        {/* WIDGET 3 : ASSISTANT IA */}
                         <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_4px_20px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none">
                             <VoiceAiAssistantWidget />
                         </div>

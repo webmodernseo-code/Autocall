@@ -38,7 +38,12 @@ export async function planFor(clientId) {
         orderBy: { id: 'desc' },
         include: { plans: true },
     });
-    if (cs && subscriptionIsActive(cs) && cs.plans) return cs.plans;
+    if (
+        cs
+        && subscriptionIsActive(cs)
+        && cs.plans
+        && Number(cs.plans.monthly_price_cents ?? cs.plans.price_cents ?? 0) > 0
+    ) return cs.plans;
 
     const userSub = await prisma.subscription.findFirst({
         where: { status: { in: ['active', 'trialing'] }, users: { client_id: BigInt(clientId) } },
@@ -46,6 +51,7 @@ export async function planFor(clientId) {
         include: { plans: true },
     });
     if (userSub?.plans) return userSub.plans;
+    if (cs && subscriptionIsActive(cs) && cs.plans) return cs.plans;
 
     return prisma.plan.findFirst({ where: { slug: 'free' } });
 }

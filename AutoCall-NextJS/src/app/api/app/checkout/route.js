@@ -6,7 +6,7 @@ import { billingRegistry, definitions } from '@/lib/services/billing';
 
 /** POST /app/checkout */
 export const POST = handler(async (request) => {
-    const gate = await gateClient({ routeName: 'client.checkout.store' });
+    const gate = await gateClient({ routeName: 'client.checkout.store', allowUnsubscribed: true });
     if (gate.response) return gate.response;
 
     const data = await validate(await readBody(request), {
