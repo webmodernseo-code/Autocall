@@ -822,36 +822,36 @@ export default function Dashboard({
                     <MetricKpiCard
                         label="Volume d'appels (30j)"
                         value={Number(kpis?.calls_30d ?? 0).toLocaleString()}
-                        trend={hasCalls ? '+15.6%' : null}
+                        trend={null}
                         isPositive={true}
-                        sub={hasCalls ? 'vs. période précédente' : 'Aucun appel sur cette période'}
+                        sub={hasCalls ? 'Sur les 30 derniers jours' : 'Aucun appel sur cette période'}
                         icon={PhoneCall}
                         iconColor="text-blue-500"
                     />
                     <MetricKpiCard
                         label="Taux de Qualification"
                         value={`${kpis?.success_rate ?? 0}%`}
-                        trend={hasCalls ? '+8.4%' : null}
+                        trend={null}
                         isPositive={true}
-                        sub={hasCalls ? 'vs. période précédente' : 'En attente des premiers résultats'}
+                        sub={hasCalls ? 'Appels répondus avec succès' : 'En attente des premiers résultats'}
                         icon={Target}
                         iconColor="text-emerald-500"
                     />
                     <MetricKpiCard
                         label="Prospects Qualifiés"
                         value={Number(kpis?.qualified_leads ?? 0).toLocaleString()}
-                        trend={hasCalls ? '-2.1%' : null}
+                        trend={null}
                         isPositive={false}
-                        sub={hasCalls ? 'vs. période précédente' : 'Prospects chauds et tièdes détectés'}
+                        sub={hasCalls ? 'Prospects chauds et tièdes' : 'Prospects chauds et tièdes détectés'}
                         icon={Users}
                         iconColor="text-indigo-500"
                     />
                     <MetricKpiCard
                         label="Durée Moyenne d'Appel"
                         value={fmtDur(kpis?.avg_duration)}
-                        trend={hasCalls ? '+4.4%' : null}
+                        trend={null}
                         isPositive={true}
-                        sub={hasCalls ? 'vs. période précédente' : 'Calculée sur les appels complétés'}
+                        sub={hasCalls ? 'Moyenne des appels complétés' : 'Calculée sur les appels complétés'}
                         icon={Clock}
                         iconColor="text-amber-500"
                     />
@@ -938,12 +938,6 @@ export default function Dashboard({
                                         <span className="font-hero-sans text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
                                             {Number(kpis?.total_calls ?? 0).toLocaleString()} appels
                                         </span>
-                                        {hasTotalCalls && (
-                                            <span className="inline-flex items-center gap-0.5 rounded-md bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 px-2 py-0.5 text-xs font-semibold">
-                                                <TrendingUp className="h-3 w-3" />
-                                                <span>+24.4% vs période précédente</span>
-                                            </span>
-                                        )}
                                     </div>
                                 </div>
 
