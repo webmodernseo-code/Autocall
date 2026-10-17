@@ -61,10 +61,10 @@ export default async function Page({ searchParams }) {
             ...(params?.status ? { status: String(params.status) } : {}),
         },
         stats: [
-            { label: 'Total campaigns', value: String(total), icon: 'megaphone', accent: 'brand' },
-            { label: 'Running', value: String(running), icon: 'activity', accent: 'signal' },
-            { label: 'Completed', value: String(completed), icon: 'check', accent: 'cold' },
-            { label: 'Contacts', value: String(totalContacts), icon: 'users', accent: 'warm' },
+            { label: 'Total campagnes', value: String(total), icon: 'megaphone', accent: 'brand' },
+            { label: 'En cours', value: String(running), icon: 'activity', accent: 'signal' },
+            { label: 'Terminées', value: String(completed), icon: 'check', accent: 'cold' },
+            { label: 'Contacts ciblés', value: String(totalContacts), icon: 'users', accent: 'warm' },
         ],
     };
 
