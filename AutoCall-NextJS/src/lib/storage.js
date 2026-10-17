@@ -18,8 +18,15 @@ function diskRoot(disk) {
 }
 
 export function diskPath(relative, disk = 'local') {
-    const safe = String(relative).replace(/\.\./g, '').replace(/^\/+/, '');
-    return path.join(diskRoot(disk), safe);
+    const root = path.resolve(diskRoot(disk));
+    const candidate = path.resolve(root, String(relative ?? '').replace(/^[\\/]+/, ''));
+    const relativeToRoot = path.relative(root, candidate);
+
+    if (relativeToRoot === '' || (!relativeToRoot.startsWith(`..${path.sep}`) && relativeToRoot !== '..' && !path.isAbsolute(relativeToRoot))) {
+        return candidate;
+    }
+
+    throw new Error('Storage path escapes the configured disk root.');
 }
 
 /** `$file->store($directory, $disk)` — random filename, returns the relative path. */
@@ -46,7 +53,7 @@ export async function storeFileAs(file, directory, name, disk = 'local') {
 
 export async function readFile(relative, disk = 'local') {
     try {
-        return await fs.readFile(diskPath(relative, disk));
+        return await fs.readFile(/* turbopackIgnore: true */ diskPath(relative, disk));
     } catch {
         return null;
     }

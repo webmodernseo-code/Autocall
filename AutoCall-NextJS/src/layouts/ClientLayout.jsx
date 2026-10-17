@@ -227,6 +227,7 @@ export default function ClientLayout({ title = 'Dashboard', header, children }) 
                 title={t('client.panel')}
                 logo={<SidebarBrandLink href={route('client.dashboard')} ariaLabel={t('client.panel')} />}
                 showCreateButton={false}
+                navigationMode="drilldown"
                 navGroups={clientNavGroups.map(group => ({
                     ...group,
                     items: group.items.map(item => ({

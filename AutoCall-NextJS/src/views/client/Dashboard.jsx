@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import ClientLayout from '@/layouts/ClientLayout';
-import { Head, Link } from '@/lib/page-router';
+import { Head, Link, router } from '@/lib/page-router';
 import { useTranslation, Trans } from 'react-i18next';
 import {
     PhoneCall,
@@ -715,21 +715,14 @@ export default function Dashboard({
     recentCalls = [],
     activeCampaigns = [],
     onboarding,
-    isClientAdministrator
+    isClientAdministrator,
+    selectedPeriod = '30d',
+    periodStart,
+    periodEnd,
 }) {
     const { t } = useTranslation();
-    const [selectedPeriod, setSelectedPeriod] = useState('30d');
     const [periodMenuOpen, setPeriodMenuOpen] = useState(false);
-    const [isAddWidgetOpen, setIsAddWidgetOpen] = useState(false);
-    const [activeWidgets, setActiveWidgets] = useState(['channel_split']);
-
-    const toggleWidget = (id) => {
-        setActiveWidgets((prev) =>
-            prev.includes(id) ? prev.filter((w) => w !== id) : [...prev, id]
-        );
-    };
-
-    const hasCalls = Boolean((kpis?.calls_30d || 0) > 0);
+    const hasCalls = Boolean((kpis?.calls_period || 0) > 0);
     const hasTotalCalls = Boolean((kpis?.total_calls || 0) > 0);
     const hasWeeklyActivity = callsByDay.some((d) => (d.calls || 0) > 0);
 
@@ -740,6 +733,10 @@ export default function Dashboard({
     const hotLeads = leadDistribution.find((l) => l.name === 'Hot')?.value || 0;
     const warmLeads = leadDistribution.find((l) => l.name === 'Warm')?.value || 0;
     const coldLeads = leadDistribution.find((l) => l.name === 'Cold')?.value || 0;
+    const periodDays = selectedPeriod === '7d' ? 7 : selectedPeriod === '90d' ? 90 : 30;
+    const formatPeriodDate = (value) => value
+        ? new Date(value).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })
+        : '—';
 
     return (
         <ClientLayout title={t('client.dashboard') || 'Tableau de bord'}>
@@ -761,7 +758,7 @@ export default function Dashboard({
                         {/* Date Range Selector Pill */}
                         <div className="inline-flex items-center gap-2 rounded-xl border border-neutral-200/90 dark:border-white/10 bg-white dark:bg-[#131622] px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-300 shadow-[0_2px_8px_rgba(16,24,40,0.06)]">
                             <Calendar className="h-3.5 w-3.5 text-neutral-400" />
-                            <span>1 Jan, 2026 – {new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
+                            <span>{formatPeriodDate(periodStart)} – {formatPeriodDate(periodEnd)}</span>
                         </div>
 
                         {/* Dropdown Filtre de Période */}
@@ -781,8 +778,8 @@ export default function Dashboard({
                                             key={p}
                                             type="button"
                                             onClick={() => {
-                                                setSelectedPeriod(p);
                                                 setPeriodMenuOpen(false);
+                                                router.get(route('client.dashboard'), { period: p }, { preserveState: true, replace: true });
                                             }}
                                             className="w-full text-left px-3 py-1.5 hover:bg-neutral-50 dark:hover:bg-white/[0.04] text-neutral-700 dark:text-neutral-200"
                                         >
@@ -793,24 +790,14 @@ export default function Dashboard({
                             )}
                         </div>
 
-                        {/* Bouton Ajouter un Widget */}
-                        <button
-                            type="button"
-                            onClick={() => setIsAddWidgetOpen(true)}
-                            className="inline-flex items-center gap-1.5 rounded-xl border border-neutral-200/90 dark:border-white/10 bg-white dark:bg-[#131622] px-3 py-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/[0.04] transition shadow-[0_2px_8px_rgba(16,24,40,0.06)] hover:shadow-[0_4px_14px_rgba(16,24,40,0.09)] cursor-pointer"
-                        >
-                            <Plus className="h-3.5 w-3.5 text-neutral-500" />
-                            <span>Ajouter un widget</span>
-                        </button>
-
                         {/* Bouton Exporter */}
-                        <Link
-                            href={route('client.calls.index')}
+                        <a
+                            href={route('client.calls.export')}
                             className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-1.5 text-xs shadow-[0_2px_8px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_14px_rgba(37,99,235,0.35)] transition-all cursor-pointer"
                         >
                             <Download className="h-3.5 w-3.5" />
                             <span>Exporter</span>
-                        </Link>
+                        </a>
                     </div>
                 </div>
 
@@ -820,16 +807,16 @@ export default function Dashboard({
                 {/* 1. TOP ROW : LES 4 KPIS EN TÊTE (Design Shopeers) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <MetricKpiCard
-                        label="Volume d'appels (30j)"
-                        value={Number(kpis?.calls_30d ?? 0).toLocaleString()}
+                        label={`Volume d'appels (${periodDays}j)`}
+                        value={Number(kpis?.calls_period ?? 0).toLocaleString()}
                         trend={null}
                         isPositive={true}
-                        sub={hasCalls ? 'Sur les 30 derniers jours' : 'Aucun appel sur cette période'}
+                        sub={hasCalls ? `Sur les ${periodDays} derniers jours` : 'Aucun appel sur cette période'}
                         icon={PhoneCall}
                         iconColor="text-blue-500"
                     />
                     <MetricKpiCard
-                        label="Taux de Qualification"
+                        label="Taux d'appels complétés"
                         value={`${kpis?.success_rate ?? 0}%`}
                         trend={null}
                         isPositive={true}
@@ -1019,19 +1006,17 @@ export default function Dashboard({
                                                 <th className="pb-3 px-3">Statut</th>
                                                 <th className="pb-3 px-3">Sentiment</th>
                                                 <th className="pb-3 px-3 text-right">Durée</th>
-                                                <th className="pb-3 pl-3 text-right">Score IA</th>
+                                                <th className="pb-3 pl-3 text-right">Qualification</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-neutral-100 dark:divide-white/[0.05]">
-                                            {recentCalls.map((c, idx) => {
+                                            {recentCalls.map((c) => {
                                                 const st = STATUS_CONFIG[c.status] || STATUS_CONFIG.no_answer;
-                                                const callId = `#${83000 + (c.id || idx + 1)}`;
-                                                const rating = (4.7 + ((c.id || 1) % 4) * 0.1).toFixed(1);
 
                                                 return (
                                                     <tr key={c.id} className="transition hover:bg-neutral-50/70 dark:hover:bg-white/[0.02]">
                                                         <td className="py-3 pr-3 font-mono text-[11px] text-neutral-500 dark:text-neutral-400">
-                                                            {callId}
+                                                            #{c.id}
                                                         </td>
                                                         <td className="py-3 px-3">
                                                             <div className="flex items-center gap-2.5">
@@ -1050,12 +1035,11 @@ export default function Dashboard({
                                                             {c.sentiment || 'Neutre'}
                                                         </td>
                                                         <td className="py-3 px-3 text-right font-mono text-neutral-700 dark:text-neutral-300 tabular-nums">
-                                                            {fmtDur(c.duration)}
+                                                            {fmtDur(c.duration_seconds)}
                                                         </td>
                                                         <td className="py-3 pl-3 text-right">
-                                                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-500">
-                                                                <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-                                                                <span>{rating}</span>
+                                                            <span className="inline-flex rounded-md border border-neutral-200 px-2 py-0.5 text-[10px] font-medium capitalize text-neutral-600 dark:border-white/10 dark:text-neutral-300">
+                                                                {c.qualification || 'Non qualifié'}
                                                             </span>
                                                         </td>
                                                     </tr>
@@ -1143,21 +1127,41 @@ export default function Dashboard({
                             />
                         </div>
 
-                        {/* WIDGET 3 : ASSISTANT IA */}
+                        {/* WIDGET 3 : CAMPAGNES ACTIVES */}
                         <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_4px_20px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none">
-                            <VoiceAiAssistantWidget />
+                            <div className="flex items-center justify-between gap-3">
+                                <div>
+                                    <h3 className="font-hero-sans text-sm font-bold text-neutral-900 dark:text-white">Campagnes actives</h3>
+                                    <p className="mt-0.5 text-[11px] text-neutral-500 dark:text-[#8E95A5]">Données synchronisées avec vos campagnes</p>
+                                </div>
+                                <Megaphone className="h-4 w-4 text-blue-500" />
+                            </div>
+                            {activeCampaigns.length > 0 ? (
+                                <div className="mt-4 space-y-2">
+                                    {activeCampaigns.map((campaign) => (
+                                        <Link
+                                            key={campaign.id}
+                                            href={route('client.campaigns.show', campaign.id)}
+                                            className="flex items-center justify-between gap-3 rounded-xl border border-neutral-200/80 px-3 py-2.5 transition hover:bg-neutral-50 dark:border-white/[0.07] dark:hover:bg-white/[0.03]"
+                                        >
+                                            <span className="min-w-0 truncate text-xs font-semibold text-neutral-800 dark:text-neutral-100">{campaign.name}</span>
+                                            <span className="shrink-0 text-[10px] tabular-nums text-neutral-500 dark:text-neutral-400">{campaign.contacts_count} contacts</span>
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="mt-4 rounded-xl border border-dashed border-neutral-200 px-3 py-5 text-center dark:border-white/10">
+                                    <p className="text-xs text-neutral-500 dark:text-neutral-400">Aucune campagne active</p>
+                                    <Link href={route('client.campaigns.index')} className="mt-2 inline-flex text-xs font-semibold text-blue-600 hover:text-blue-500 dark:text-blue-400">
+                                        Gérer les campagnes
+                                    </Link>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* MODAL AJOUTER UN WIDGET (Shopeers "Add Widget" Dialog) */}
-            <AddWidgetModal
-                isOpen={isAddWidgetOpen}
-                onClose={() => setIsAddWidgetOpen(false)}
-                onAddWidget={toggleWidget}
-                activeWidgets={activeWidgets}
-            />
         </ClientLayout>
     );
 }

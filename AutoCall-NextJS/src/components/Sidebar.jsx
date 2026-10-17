@@ -4,7 +4,8 @@ import { route } from '@/lib/route';
 import { Link, usePage } from '@/lib/page-router';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDown } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 function itemIsActive(item) {
     if (typeof item.active === 'function') return item.active();
@@ -29,6 +30,29 @@ function NavIcon({ icon, isActive }) {
         >
             {icon}
         </span>
+    );
+}
+
+function NavItemLink({ item, onClose, className }) {
+    const isActive = itemIsActive(item);
+
+    return (
+        <Link
+            href={item.href ?? (item.route ? route(item.route) : '#')}
+            onClick={onClose}
+            aria-current={isActive ? 'page' : undefined}
+            className={cn(
+                'group relative flex items-center gap-3 overflow-hidden rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm transition duration-150',
+                isActive ? ACTIVE : INACTIVE,
+                className,
+            )}
+        >
+            {isActive && (
+                <span className="absolute inset-y-0 left-0 w-[3.5px] rounded-l-2xl bg-blue-600 dark:bg-blue-400" />
+            )}
+            <NavIcon icon={item.icon} isActive={isActive} />
+            <span className="truncate">{item.label}</span>
+        </Link>
     );
 }
 
@@ -95,13 +119,31 @@ function NavGroup({ label, items, onClose, icon, variant = 'default', alwaysActi
     );
 }
 
-export default function Sidebar({ navItems = [], navGroups = [], open = false, onClose, footer, title, logo }) {
+export default function Sidebar({ navItems = [], navGroups = [], open = false, onClose, footer, title, logo, navigationMode = 'accordion' }) {
     const { t } = useTranslation();
     const { url } = usePage();
     const [manualOpenKey, setManualOpenKey] = useState(null);
+    const [selectedGroupKey, setSelectedGroupKey] = useState(null);
     const menuTitle = title ?? t('sidebar.menu');
 
     useEffect(() => { setManualOpenKey(null); }, [url]);
+
+    const isDrilldown = navigationMode === 'drilldown' && navGroups.length > 0;
+    const pinnedGroup = isDrilldown ? navGroups[0] : null;
+    const drilldownGroups = isDrilldown ? navGroups.slice(1) : [];
+    const activeDrilldownGroupIndex = drilldownGroups.findIndex((group) => group.items?.some(itemIsActive));
+    const activeDrilldownGroupKey = activeDrilldownGroupIndex >= 0 ? `drilldown-g-${activeDrilldownGroupIndex}` : null;
+    const visibleGroupKey = selectedGroupKey;
+    const selectedGroupIndex = visibleGroupKey?.startsWith('drilldown-g-')
+        ? Number(visibleGroupKey.replace('drilldown-g-', ''))
+        : -1;
+    const selectedGroup = selectedGroupIndex >= 0 ? drilldownGroups[selectedGroupIndex] : null;
+
+    useEffect(() => {
+        if (!isDrilldown) return;
+        if (activeDrilldownGroupKey) setSelectedGroupKey(activeDrilldownGroupKey);
+        else setSelectedGroupKey(null);
+    }, [url, isDrilldown, activeDrilldownGroupKey]);
 
     const content = (
         <aside className="sidebar flex h-full w-64 flex-col bg-[#F8F9FC] dark:bg-[#0E1017] border-r border-neutral-200/90 dark:border-white/[0.07] shadow-[1px_0_8px_rgba(0,0,0,0.03)] dark:shadow-none transition-colors duration-200">
@@ -112,7 +154,73 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
 
             {/* Navigation scrollable */}
             <nav className="sidebar-scroll sidebar-fade flex-1 overflow-y-auto px-3 py-3 space-y-1">
-                {navGroups.length > 0 && navGroups.map((group, gi) => {
+                {isDrilldown && (
+                    <div className="space-y-3">
+                        <div className="space-y-1">
+                            {(pinnedGroup?.items ?? []).map((item, index) => (
+                                <NavItemLink
+                                    key={item.key ?? item.route ?? item.href ?? index}
+                                    item={item}
+                                    onClose={onClose}
+                                />
+                            ))}
+                        </div>
+
+                        <div className="border-t border-neutral-200/80 pt-3 dark:border-white/[0.07]">
+                            {selectedGroup ? (
+                                <div className="space-y-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedGroupKey(null)}
+                                        className="group flex min-h-11 w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-sm font-semibold text-neutral-900 transition hover:bg-neutral-100/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-white dark:hover:bg-white/[0.05]"
+                                        aria-label={t('sidebar.back_to_sections', 'Retour aux rubriques')}
+                                    >
+                                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-500 shadow-2xs transition group-hover:text-neutral-900 dark:border-white/10 dark:bg-white/[0.04] dark:text-neutral-400 dark:group-hover:text-white">
+                                            <ArrowLeft className="h-4 w-4" />
+                                        </span>
+                                        <span className="min-w-0 truncate">{selectedGroup.label}</span>
+                                    </button>
+
+                                    <div className="space-y-1" aria-label={selectedGroup.label}>
+                                        {(selectedGroup.items ?? []).map((item, index) => (
+                                            <NavItemLink
+                                                key={item.key ?? item.route ?? item.href ?? index}
+                                                item={item}
+                                                onClose={onClose}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="space-y-1" aria-label={t('sidebar.sections', 'Rubriques')}>
+                                    <p className="px-3.5 pb-1 text-[11px] font-semibold tracking-wide text-neutral-400 dark:text-white/40">
+                                        {t('sidebar.sections', 'Rubriques')}
+                                    </p>
+                                    {drilldownGroups.map((group, index) => {
+                                        const groupKey = `drilldown-g-${index}`;
+                                        return (
+                                            <button
+                                                key={groupKey}
+                                                type="button"
+                                                onClick={() => setSelectedGroupKey(groupKey)}
+                                                className="group flex min-h-11 w-full items-center gap-3 rounded-2xl border border-transparent px-3.5 py-2.5 text-left text-sm font-medium text-neutral-600 transition hover:border-neutral-200/80 hover:bg-white hover:text-neutral-900 hover:shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-[#A4AABA] dark:hover:border-white/[0.08] dark:hover:bg-white/[0.04] dark:hover:text-white"
+                                                aria-label={`${group.label}, ${(group.items ?? []).length} options`}
+                                            >
+                                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-neutral-100 text-neutral-500 transition group-hover:bg-blue-50 group-hover:text-blue-600 dark:bg-white/[0.05] dark:text-neutral-400 dark:group-hover:bg-blue-500/10 dark:group-hover:text-blue-400">
+                                                    {group.icon}
+                                                </span>
+                                                <span className="min-w-0 flex-1 truncate">{group.label}</span>
+                                                <ChevronRight className="h-4 w-4 shrink-0 text-neutral-300 transition-transform group-hover:translate-x-0.5 group-hover:text-neutral-500 dark:text-white/20 dark:group-hover:text-white/50" />
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {!isDrilldown && navGroups.length > 0 && navGroups.map((group, gi) => {
                     const groupKey = `nav-g-${gi}`;
                     return (
                         <NavGroup
@@ -135,10 +243,11 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
                     if (item.type === 'divider') return <hr key={`div-${i}`} className="my-2 border-neutral-200/70 dark:border-white/[0.07]" />;
                     const isActive = typeof item.active === 'function' ? item.active() : item.active ?? (item.route && route().current(item.route));
                     return (
-                        <Link
-                            key={item.key ?? item.route ?? item.href ?? i}
+                    <Link
+                        key={item.key ?? item.route ?? item.href ?? i}
                             href={item.href ?? (item.route ? route(item.route) : '#')}
-                            onClick={onClose}
+                        onClick={onClose}
+                        aria-current={isActive ? 'page' : undefined}
                             className={[
                                 'group relative flex items-center gap-3 overflow-hidden rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm transition duration-150 mb-0.5',
                                 isActive ? ACTIVE : INACTIVE

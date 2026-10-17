@@ -4,6 +4,7 @@ import { handler, resolveClientId } from '@/lib/guards';
 import { abort } from '@/lib/http';
 import { currentUser } from '@/lib/auth';
 import { twilio } from '@/lib/services/telephony';
+import { trustedRecordingUrl } from '@/lib/recording-url';
 
 /**
  * GET /app/calls/{call}/recording.
@@ -21,8 +22,11 @@ export const GET = handler(async (request, { params }) => {
     if (String(call.client_id) !== String(clientId)) return abort(403);
     if (!call.recording_url) return abort(404);
 
-    if (!String(call.recording_url).includes('twilio.com')) {
-        return NextResponse.redirect(call.recording_url);
+    const recordingUrl = trustedRecordingUrl(call.recording_url);
+    if (!recordingUrl) return abort(404, 'Recording URL is not trusted.');
+
+    if (!recordingUrl.hostname.endsWith('twilio.com')) {
+        return NextResponse.redirect(recordingUrl);
     }
 
     let sid = call.recording_sid;

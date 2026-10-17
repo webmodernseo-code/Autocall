@@ -2,6 +2,7 @@ import 'server-only';
 
 import prisma from '@/lib/prisma';
 import config from '@/lib/config';
+import { trustedRecordingUrl } from '@/lib/recording-url';
 import { chargeForCall } from '@/lib/services/credits';
 import { releaseKey } from '@/lib/services/elevenlabs';
 import { defaultAiProvider, openAiKey } from '@/lib/services/ai';
@@ -290,7 +291,9 @@ async function transcribe(call) {
 }
 
 async function downloadRecording(call) {
-    const url = String(call.recording_url ?? '');
+    const recordingUrl = trustedRecordingUrl(call.recording_url);
+    if (!recordingUrl) return null;
+    const url = recordingUrl.toString();
 
     if (url.includes('twilio.com')) {
         let sid = call.recording_sid;
