@@ -212,7 +212,7 @@ export default function Topbar({
                     title={theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'}
                 >
                     {theme === 'dark' ? (
-                        <Sun className="h-4 w-4 text-amber-300 transition-transform duration-200 hover:rotate-45" />
+                        <Sun className="h-4 w-4 text-neutral-100 dark:text-neutral-200 transition-transform duration-200 hover:rotate-45" />
                     ) : (
                         <Moon className="h-4 w-4 text-neutral-700 transition-transform duration-200 hover:-rotate-12" />
                     )}

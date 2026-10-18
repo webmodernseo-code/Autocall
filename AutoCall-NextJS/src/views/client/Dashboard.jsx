@@ -54,7 +54,7 @@ const STATUS_CONFIG = {
     },
     no_answer: {
         label: 'Sans réponse',
-        pill: 'bg-neutral-100 text-neutral-600 border-neutral-200/80 dark:bg-white/[0.04] dark:text-neutral-400 dark:border-white/10'
+        pill: 'bg-neutral-100 text-neutral-600 border-slate-200/90 dark:bg-white/[0.04] dark:text-neutral-400 dark:border-white/10'
     }
 };
 
@@ -64,9 +64,9 @@ const initials = (s = '') => s.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).
 /** 1. CARTE KPI SUPÉRIEURE (Inspirée de Shopeers Top Row) */
 function MetricKpiCard({ label, value, trend, isPositive = true, sub, icon: Icon, iconColor = 'text-blue-500' }) {
     return (
-        <div className="relative overflow-hidden rounded-[20px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_4px_20px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none transition-all duration-200 hover:shadow-[0_12px_32px_-4px_rgba(16,24,40,0.12)] hover:border-neutral-300 dark:hover:border-white/[0.12]">
+        <div className="relative overflow-hidden rounded-[20px] border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_6px_16px_rgba(15,23,42,0.04)] dark:shadow-none transition-all duration-200 hover:shadow-[0_12px_32px_-4px_rgba(16,24,40,0.12)] hover:border-neutral-300 dark:hover:border-white/[0.12]">
             <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-neutral-500 dark:text-[#8E95A5]">{label}</span>
+                <span className="text-xs font-medium text-slate-600 dark:text-[#8E95A5]">{label}</span>
                 <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-neutral-100/70 dark:bg-white/[0.05] text-neutral-500 dark:text-neutral-300">
                     <Icon className={`h-4 w-4 ${iconColor}`} />
                 </div>
@@ -90,7 +90,7 @@ function MetricKpiCard({ label, value, trend, isPositive = true, sub, icon: Icon
             </div>
 
             {sub && (
-                <p className="mt-1.5 text-[11px] text-neutral-500 dark:text-[#8E95A5]">
+                <p className="mt-1.5 text-[11px] text-slate-600 dark:text-[#8E95A5]">
                     {sub}
                 </p>
             )}
@@ -251,7 +251,7 @@ function InteractiveChartTooltip({ active, payload, label }) {
     const currentVal = payload[0]?.value || 0;
 
     return (
-        <div className="rounded-xl border border-neutral-200/90 dark:border-white/10 bg-white/95 dark:bg-[#1A1D2D]/95 p-3 shadow-xl backdrop-blur-md min-w-[160px]">
+        <div className="rounded-xl border border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#1A1D2D]/95 p-3 shadow-xl backdrop-blur-md min-w-[160px]">
             <p className="text-[11px] font-semibold text-neutral-800 dark:text-white">{label}</p>
             <div className="mt-2 space-y-1.5 text-xs">
                 <div className="flex items-center justify-between gap-3">
@@ -305,14 +305,14 @@ function SatisfactionRadialGauge({ percentage = 0, hasData = true }) {
                 <span className="font-hero-sans text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
                     {safePct}%
                 </span>
-                <p className="mt-0.5 text-[11px] text-neutral-500 dark:text-[#8E95A5]">
+                <p className="mt-0.5 text-[11px] text-slate-600 dark:text-[#8E95A5]">
                     {hasData ? 'Part des appels terminés avec succès' : 'En attente de vos premiers appels'}
                 </p>
             </div>
 
             <Link
                 href={route('client.analytics.index')}
-                className="mt-4 inline-flex items-center justify-center rounded-xl border border-neutral-200/80 dark:border-white/10 bg-white dark:bg-white/[0.04] px-4 py-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/[0.08] transition shadow-2xs"
+                className="mt-4 inline-flex items-center justify-center rounded-xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-white/[0.04] px-4 py-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/[0.08] transition shadow-2xs"
             >
                 Afficher le détail
             </Link>
@@ -372,7 +372,7 @@ function VoiceAiAssistantWidget() {
                     <p>{responseMsg}</p>
                 </div>
             ) : (
-                <p className="text-center text-[11px] text-neutral-500 dark:text-[#8E95A5] mb-2">
+                <p className="text-center text-[11px] text-slate-600 dark:text-[#8E95A5] mb-2">
                     {simulating ? 'L\'IA analyse votre consigne vocale…' : 'Posez une question ou pilotez vos agents.'}
                 </p>
             )}
@@ -387,7 +387,7 @@ function VoiceAiAssistantWidget() {
                             setQuery(qp.prompt);
                             handleSend(qp.prompt);
                         }}
-                        className="rounded-lg border border-neutral-200/80 dark:border-white/10 bg-neutral-100/60 dark:bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-neutral-600 dark:text-neutral-300 hover:border-blue-500/40 hover:text-blue-600 dark:hover:text-blue-400 transition cursor-pointer"
+                        className="rounded-lg border border-slate-200/90 dark:border-white/10 bg-neutral-100/60 dark:bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-neutral-600 dark:text-neutral-300 hover:border-blue-500/40 hover:text-blue-600 dark:hover:text-blue-400 transition cursor-pointer"
                     >
                         {qp.label}
                     </button>
@@ -395,7 +395,7 @@ function VoiceAiAssistantWidget() {
             </div>
 
             {/* Input pill avec micro et envoi */}
-            <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="relative flex items-center rounded-xl border border-neutral-200/80 dark:border-white/10 bg-neutral-50/80 dark:bg-white/[0.04] px-3 py-1.5 focus-within:border-blue-500 transition-colors">
+            <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="relative flex items-center rounded-xl border border-slate-200/90 dark:border-white/10 bg-neutral-50/80 dark:bg-white/[0.04] px-3 py-1.5 focus-within:border-blue-500 transition-colors">
                 <input
                     type="text"
                     value={query}
@@ -483,7 +483,7 @@ function AddWidgetModal({ isOpen, onClose, onAddWidget, activeWidgets }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs transition-opacity">
             <div className="relative w-full max-w-lg rounded-2xl bg-white dark:bg-[#131622] border border-neutral-200 dark:border-white/10 shadow-2xl p-6 overflow-hidden">
-                <div className="flex items-center justify-between pb-4 border-b border-neutral-100 dark:border-white/[0.06]">
+                <div className="flex items-center justify-between pb-4 border-b border-slate-200/70 dark:border-white/[0.06]">
                     <div>
                         <h3 className="font-hero-sans text-base font-bold text-neutral-900 dark:text-white">
                             Ajouter un widget
@@ -510,7 +510,7 @@ function AddWidgetModal({ isOpen, onClose, onAddWidget, activeWidgets }) {
                                 <div className="shrink-0">{w.preview}</div>
                                 <div className="flex-1 min-w-0">
                                     <h4 className="text-xs font-bold text-neutral-900 dark:text-white truncate">{w.title}</h4>
-                                    <p className="text-[11px] text-neutral-500 dark:text-[#8E95A5] line-clamp-1 mt-0.5">{w.desc}</p>
+                                    <p className="text-[11px] text-slate-600 dark:text-[#8E95A5] line-clamp-1 mt-0.5">{w.desc}</p>
                                     <span className="inline-block mt-1 text-[10px] font-semibold text-neutral-400 dark:text-neutral-400 bg-neutral-100 dark:bg-white/[0.04] px-1.5 py-0.5 rounded">
                                         {w.tag}
                                     </span>
@@ -531,7 +531,7 @@ function AddWidgetModal({ isOpen, onClose, onAddWidget, activeWidgets }) {
                     })}
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-neutral-100 dark:border-white/[0.06] flex justify-end">
+                <div className="mt-5 pt-3 border-t border-slate-200/70 dark:border-white/[0.06] flex justify-end">
                     <button
                         type="button"
                         onClick={onClose}
@@ -610,7 +610,7 @@ function OnboardingQuickStartBanner({ onboarding }) {
                                 {completedCount} sur {steps.length} étapes
                             </span>
                         </div>
-                        <p className="text-xs text-neutral-500 dark:text-[#8E95A5] mt-0.5">
+                        <p className="text-xs text-slate-600 dark:text-[#8E95A5] mt-0.5">
                             Complétez ces étapes pour lancer votre premier agent vocal en production.
                         </p>
                     </div>
@@ -648,7 +648,7 @@ function OnboardingQuickStartBanner({ onboarding }) {
                             className={`flex flex-col justify-between rounded-xl border p-3.5 transition-all ${
                                 st.done
                                     ? 'border-emerald-200/80 bg-emerald-50/40 dark:border-emerald-500/20 dark:bg-emerald-500/[0.04]'
-                                    : 'border-neutral-200/80 bg-white dark:border-white/[0.07] dark:bg-white/[0.02] hover:border-neutral-300 dark:hover:border-white/15 shadow-2xs'
+                                    : 'border-slate-200/90 bg-white dark:border-white/[0.07] dark:bg-white/[0.02] hover:border-neutral-300 dark:hover:border-white/15 shadow-2xs'
                             }`}
                         >
                             <div>
@@ -670,10 +670,10 @@ function OnboardingQuickStartBanner({ onboarding }) {
                                     )}
                                 </div>
                                 <h4 className="text-xs font-bold text-neutral-900 dark:text-white">{st.title}</h4>
-                                <p className="text-[11px] text-neutral-500 dark:text-[#8E95A5] mt-0.5 line-clamp-1">{st.desc}</p>
+                                <p className="text-[11px] text-slate-600 dark:text-[#8E95A5] mt-0.5 line-clamp-1">{st.desc}</p>
                             </div>
 
-                            <div className="mt-3 pt-2.5 border-t border-neutral-100 dark:border-white/[0.05]">
+                            <div className="mt-3 pt-2.5 border-t border-slate-200/70 dark:border-white/[0.05]">
                                 {st.done ? (
                                     <Link
                                         href={st.href}
@@ -739,14 +739,14 @@ export default function Dashboard({
                         <h1 className="font-hero-sans text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
                             Tableau de bord
                         </h1>
-                        <p className="text-xs text-neutral-500 dark:text-[#8E95A5] mt-0.5">
+                        <p className="text-xs text-slate-600 dark:text-[#8E95A5] mt-0.5">
                             Supervision en direct de vos agents vocaux et des volumes téléphoniques.
                         </p>
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
                         {/* Date Range Selector Pill */}
-                        <div className="inline-flex items-center gap-2 rounded-xl border border-neutral-200/90 dark:border-white/10 bg-white dark:bg-[#131622] px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-300 shadow-[0_2px_8px_rgba(16,24,40,0.06)]">
+                        <div className="inline-flex items-center gap-2 rounded-xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#131622] px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-300 shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
                             <Calendar className="h-3.5 w-3.5 text-neutral-400" />
                             <span>{formatPeriodDate(periodStart)} – {formatPeriodDate(periodEnd)}</span>
                         </div>
@@ -756,13 +756,13 @@ export default function Dashboard({
                             <button
                                 type="button"
                                 onClick={() => setPeriodMenuOpen(!periodMenuOpen)}
-                                className="inline-flex items-center gap-1.5 rounded-xl border border-neutral-200/90 dark:border-white/10 bg-white dark:bg-[#131622] px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-300 shadow-[0_2px_8px_rgba(16,24,40,0.06)] cursor-pointer hover:border-neutral-300 dark:hover:border-white/20 transition"
+                                className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#131622] px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-300 shadow-[0_1px_3px_rgba(15,23,42,0.06)] cursor-pointer hover:border-neutral-300 dark:hover:border-white/20 transition"
                             >
                                 <span>{selectedPeriod === '7d' ? '7 derniers jours' : selectedPeriod === '30d' ? '30 derniers jours' : '90 derniers jours'}</span>
                                 <ChevronDown className="h-3 w-3 text-neutral-400" />
                             </button>
                             {periodMenuOpen && (
-                                <div className="absolute right-0 mt-1.5 w-40 rounded-xl border border-neutral-200/90 dark:border-white/10 bg-white dark:bg-[#131622] shadow-xl z-20 py-1 text-xs">
+                                <div className="absolute right-0 mt-1.5 w-40 rounded-xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#131622] shadow-xl z-20 py-1 text-xs">
                                     {['7d', '30d', '90d'].map((p) => (
                                         <button
                                             key={p}
@@ -791,9 +791,7 @@ export default function Dashboard({
                     </div>
                 </div>
 
-                {/* ONBOARDING DISCRET & ÉLÉGANT (Affiché tant que les 4 étapes ne sont pas prêtes) */}
-                <OnboardingQuickStartBanner onboarding={onboarding} />
-
+                
                 {/* 1. TOP ROW : LES 4 KPIS EN TÊTE (Design Shopeers) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <MetricKpiCard
@@ -838,7 +836,7 @@ export default function Dashboard({
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
                     <Link
                         href={route('client.agents.index')}
-                        className="group flex items-center justify-between rounded-xl border border-neutral-200/80 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-4 shadow-[0_2px_10px_rgba(16,24,40,0.06)] hover:shadow-[0_8px_24px_rgba(16,24,40,0.1)] hover:border-neutral-300 dark:hover:border-white/15 transition-all"
+                        className="group flex items-center justify-between rounded-xl border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06)] hover:shadow-[0_8px_24px_rgba(16,24,40,0.1)] hover:border-neutral-300 dark:hover:border-white/15 transition-all"
                     >
                         <div className="flex items-center gap-3">
                             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400">
@@ -854,7 +852,7 @@ export default function Dashboard({
 
                     <Link
                         href={route('client.phone-numbers.index')}
-                        className="group flex items-center justify-between rounded-xl border border-neutral-200/80 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-4 shadow-[0_2px_10px_rgba(16,24,40,0.06)] hover:shadow-[0_8px_24px_rgba(16,24,40,0.1)] hover:border-neutral-300 dark:hover:border-white/15 transition-all"
+                        className="group flex items-center justify-between rounded-xl border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06)] hover:shadow-[0_8px_24px_rgba(16,24,40,0.1)] hover:border-neutral-300 dark:hover:border-white/15 transition-all"
                     >
                         <div className="flex items-center gap-3">
                             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400">
@@ -870,7 +868,7 @@ export default function Dashboard({
 
                     <Link
                         href={route('client.contacts.index')}
-                        className="group flex items-center justify-between rounded-xl border border-neutral-200/80 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-4 shadow-[0_2px_10px_rgba(16,24,40,0.06)] hover:shadow-[0_8px_24px_rgba(16,24,40,0.1)] hover:border-neutral-300 dark:hover:border-white/15 transition-all"
+                        className="group flex items-center justify-between rounded-xl border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06)] hover:shadow-[0_8px_24px_rgba(16,24,40,0.1)] hover:border-neutral-300 dark:hover:border-white/15 transition-all"
                     >
                         <div className="flex items-center gap-3">
                             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
@@ -886,7 +884,7 @@ export default function Dashboard({
 
                     <Link
                         href={route('client.campaigns.index')}
-                        className="group flex items-center justify-between rounded-xl border border-neutral-200/80 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-4 shadow-[0_2px_10px_rgba(16,24,40,0.06)] hover:shadow-[0_8px_24px_rgba(16,24,40,0.1)] hover:border-neutral-300 dark:hover:border-white/15 transition-all"
+                        className="group flex items-center justify-between rounded-xl border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06)] hover:shadow-[0_8px_24px_rgba(16,24,40,0.1)] hover:border-neutral-300 dark:hover:border-white/15 transition-all"
                     >
                         <div className="flex items-center gap-3">
                             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400">
@@ -907,10 +905,10 @@ export default function Dashboard({
                     {/* COLONNE GAUCHE (2/3) : VOLUME PRINCIPAL + SEGMENTS QUALIFICATION */}
                     <div className="lg:col-span-2 space-y-5">
                         {/* Carte Graphique Spline / Area Chart */}
-                        <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-6 shadow-[0_4px_24px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none">
+                        <div className="rounded-[22px] border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-6 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_8px_24px_rgba(15,23,42,0.04)] dark:shadow-none">
                             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
                                 <div>
-                                    <span className="text-xs font-medium text-neutral-500 dark:text-[#8E95A5]">Activité Téléphonique Hebdomadaire</span>
+                                    <span className="text-xs font-medium text-slate-600 dark:text-[#8E95A5]">Activité Téléphonique Hebdomadaire</span>
                                     <div className="flex items-baseline gap-2.5 mt-1">
                                         <span className="font-hero-sans text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
                                             {activityTotal.toLocaleString()} appels
@@ -932,10 +930,10 @@ export default function Dashboard({
                             </div>
 
                             {/* CARTES SEGMENTÉES EN DESSOUS */}
-                            <div className="mt-5 pt-5 border-t border-neutral-100 dark:border-white/[0.06] grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div className="mt-5 pt-5 border-t border-slate-200/70 dark:border-white/[0.06] grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 {/* Segment 1 : Chauds */}
-                                <div className="rounded-xl border border-neutral-200/80 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-3.5 border-t-2 border-t-emerald-500 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
-                                    <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-[#8E95A5]">
+                                <div className="rounded-xl border border-slate-200/90 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-3.5 border-t-2 border-t-emerald-500 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
+                                    <div className="flex items-center justify-between text-xs text-slate-600 dark:text-[#8E95A5]">
                                         <span>Prospects Chauds</span>
                                         <Flame className="h-3.5 w-3.5 text-emerald-500" />
                                     </div>
@@ -946,8 +944,8 @@ export default function Dashboard({
                                 </div>
 
                                 {/* Segment 2 : Tièdes */}
-                                <div className="rounded-xl border border-neutral-200/80 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-3.5 border-t-2 border-t-amber-500 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
-                                    <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-[#8E95A5]">
+                                <div className="rounded-xl border border-slate-200/90 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-3.5 border-t-2 border-t-amber-500 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
+                                    <div className="flex items-center justify-between text-xs text-slate-600 dark:text-[#8E95A5]">
                                         <span>Prospects Tièdes</span>
                                         <Clock className="h-3.5 w-3.5 text-amber-500" />
                                     </div>
@@ -958,8 +956,8 @@ export default function Dashboard({
                                 </div>
 
                                 {/* Segment 3 : Froids */}
-                                <div className="rounded-xl border border-neutral-200/80 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-3.5 border-t-2 border-t-blue-500 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
-                                    <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-[#8E95A5]">
+                                <div className="rounded-xl border border-slate-200/90 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-3.5 border-t-2 border-t-blue-500 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
+                                    <div className="flex items-center justify-between text-xs text-slate-600 dark:text-[#8E95A5]">
                                         <span>Sans Intérêt / Répondeur</span>
                                         <Bot className="h-3.5 w-3.5 text-blue-500" />
                                     </div>
@@ -972,7 +970,7 @@ export default function Dashboard({
                         </div>
 
                         {/* TABLEAU DES APPELS RÉCENTS */}
-                        <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-6 shadow-[0_4px_24px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none">
+                        <div className="rounded-[22px] border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-6 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_8px_24px_rgba(15,23,42,0.04)] dark:shadow-none">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="font-hero-sans text-sm font-bold text-neutral-900 dark:text-white">
                                     Derniers appels traités
@@ -1046,7 +1044,7 @@ export default function Dashboard({
                                     <h4 className="text-xs font-bold text-neutral-900 dark:text-white">
                                         Aucun appel enregistré pour le moment
                                     </h4>
-                                    <p className="mt-1 text-[11px] text-neutral-500 dark:text-[#8E95A5] max-w-sm">
+                                    <p className="mt-1 text-[11px] text-slate-600 dark:text-[#8E95A5] max-w-sm">
                                         Tous les appels entrants et sortants traités par vos agents IA s&apos;afficheront ici en direct avec transcription et analyse du sentiment.
                                     </p>
                                     <Link
@@ -1065,12 +1063,12 @@ export default function Dashboard({
                     <div className="space-y-5">
 
                         {/* WIDGET 1 : PIC D'ACTIVITÉ */}
-                        <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_4px_20px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none">
+                        <div className="rounded-[22px] border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_6px_16px_rgba(15,23,42,0.04)] dark:shadow-none">
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-xs font-bold text-neutral-900 dark:text-white font-hero-sans">Pic d&apos;Activité Hebdomadaire</span>
                                 <MoreHorizontal className="h-4 w-4 text-neutral-400" />
                             </div>
-                            <p className="text-[11px] text-neutral-500 dark:text-[#8E95A5] mb-4">
+                            <p className="text-[11px] text-slate-600 dark:text-[#8E95A5] mb-4">
                                 {hasWeeklyActivity && maxDay?.day ? `Pic enregistré sur ${maxDay.day}` : `Aucune activité sur les ${periodDays} derniers jours`}
                             </p>
 
@@ -1110,7 +1108,7 @@ export default function Dashboard({
                         </div>
 
                         {/* WIDGET 2 : JAUGE CIRCULAIRE */}
-                        <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_4px_20px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none">
+                        <div className="rounded-[22px] border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_6px_16px_rgba(15,23,42,0.04)] dark:shadow-none">
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-xs font-bold text-neutral-900 dark:text-white font-hero-sans">Taux de Conversion Télécom</span>
                                 <MoreHorizontal className="h-4 w-4 text-neutral-400" />
@@ -1123,11 +1121,11 @@ export default function Dashboard({
                         </div>
 
                         {/* WIDGET 3 : CAMPAGNES ACTIVES */}
-                        <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_4px_20px_-2px_rgba(16,24,40,0.08),0_2px_6px_-1px_rgba(16,24,40,0.04)] dark:shadow-none">
+                        <div className="rounded-[22px] border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_6px_16px_rgba(15,23,42,0.04)] dark:shadow-none">
                             <div className="flex items-center justify-between gap-3">
                                 <div>
                                     <h3 className="font-hero-sans text-sm font-bold text-neutral-900 dark:text-white">Campagnes actives</h3>
-                                    <p className="mt-0.5 text-[11px] text-neutral-500 dark:text-[#8E95A5]">Données synchronisées avec vos campagnes</p>
+                                    <p className="mt-0.5 text-[11px] text-slate-600 dark:text-[#8E95A5]">Données synchronisées avec vos campagnes</p>
                                 </div>
                                 <Megaphone className="h-4 w-4 text-blue-500" />
                             </div>
@@ -1137,7 +1135,7 @@ export default function Dashboard({
                                         <Link
                                             key={campaign.id}
                                             href={route('client.campaigns.show', campaign.id)}
-                                            className="flex items-center justify-between gap-3 rounded-xl border border-neutral-200/80 px-3 py-2.5 transition hover:bg-neutral-50 dark:border-white/[0.07] dark:hover:bg-white/[0.03]"
+                                            className="flex items-center justify-between gap-3 rounded-xl border border-slate-200/90 px-3 py-2.5 transition hover:bg-neutral-50 dark:border-white/[0.07] dark:hover:bg-white/[0.03]"
                                         >
                                             <span className="min-w-0 truncate text-xs font-semibold text-neutral-800 dark:text-neutral-100">{campaign.name}</span>
                                             <span className="shrink-0 text-[10px] tabular-nums text-neutral-500 dark:text-neutral-400">{campaign.contacts_count} contacts</span>

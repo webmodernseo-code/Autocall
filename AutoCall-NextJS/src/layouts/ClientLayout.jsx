@@ -207,7 +207,7 @@ export default function ClientLayout({ title = 'Dashboard', header, children }) 
 
 
     return (
-        <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
+        <div className="min-h-screen bg-[#F1F4F9] dark:bg-[#08090C] text-slate-900 dark:text-neutral-100">
             <FlashToast />
             {impersonation?.active && (
                 <div className="flex items-center justify-between gap-4 bg-amber-500/90 text-white px-4 py-2 text-sm font-medium">
