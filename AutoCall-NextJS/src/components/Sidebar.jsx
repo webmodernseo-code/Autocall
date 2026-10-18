@@ -1,7 +1,7 @@
 'use client';
 
 import { route } from '@/lib/route';
-import { Link, usePage } from '@/lib/page-router';
+import { Link, router, usePage } from '@/lib/page-router';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ChevronDown, ChevronRight } from 'lucide-react';
@@ -35,10 +35,14 @@ function NavIcon({ icon, isActive }) {
 
 function NavItemLink({ item, onClose, className }) {
     const isActive = itemIsActive(item);
+    const href = item.href ?? (item.route ? route(item.route) : '#');
 
     return (
         <Link
-            href={item.href ?? (item.route ? route(item.route) : '#')}
+            href={href}
+            prefetch={true}
+            onMouseEnter={() => router.prefetch(href)}
+            onFocus={() => router.prefetch(href)}
             onClick={onClose}
             aria-current={isActive ? 'page' : undefined}
             className={cn(
@@ -138,6 +142,12 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
         ? Number(visibleGroupKey.replace('drilldown-g-', ''))
         : -1;
     const selectedGroup = selectedGroupIndex >= 0 ? drilldownGroups[selectedGroupIndex] : null;
+    const prefetchGroup = (group) => {
+        for (const item of group?.items ?? []) {
+            const href = item.href ?? (item.route ? route(item.route) : null);
+            if (href) router.prefetch(href);
+        }
+    };
 
     useEffect(() => {
         if (!isDrilldown) return;
@@ -202,7 +212,12 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
                                             <button
                                                 key={groupKey}
                                                 type="button"
-                                                onClick={() => setSelectedGroupKey(groupKey)}
+                                                onMouseEnter={() => prefetchGroup(group)}
+                                                onFocus={() => prefetchGroup(group)}
+                                                onClick={() => {
+                                                    prefetchGroup(group);
+                                                    setSelectedGroupKey(groupKey);
+                                                }}
                                                 className="group flex min-h-11 w-full items-center gap-3 rounded-2xl border border-transparent px-3.5 py-2.5 text-left text-sm font-medium text-neutral-600 transition hover:border-neutral-200/80 hover:bg-white hover:text-neutral-900 hover:shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-[#A4AABA] dark:hover:border-white/[0.08] dark:hover:bg-white/[0.04] dark:hover:text-white"
                                                 aria-label={`${group.label}, ${(group.items ?? []).length} options`}
                                             >

@@ -1,5 +1,6 @@
 import 'server-only';
 
+import { cache } from 'react';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/prisma';
 import { getAdminSession, getSession } from './session';
@@ -25,7 +26,7 @@ export async function hashPassword(plain) {
 
 /* ----------------------------------------------------------------- guards */
 
-export async function currentUser() {
+export const currentUser = cache(async function currentUser() {
     const session = await getSession();
     if (session?.uid) {
         try {
@@ -41,10 +42,10 @@ export async function currentUser() {
 
     // Return null if not authenticated
     return null;
-}
+});
 
 /** `$request->user('admin')` — the admin guard. */
-export async function currentAdmin() {
+export const currentAdmin = cache(async function currentAdmin() {
     const session = await getAdminSession();
     if (!session?.uid) return null;
 
@@ -55,7 +56,7 @@ export async function currentAdmin() {
         // Silently fallback
     }
     return null;
-}
+});
 
 /* ------------------------------------------------------------ admin RBAC */
 
@@ -180,32 +181,33 @@ export async function tenantAccessibleBy(tenant, user) {
     }
 }
 
-export async function effectiveSubscription(user) {
+export const effectiveSubscription = cache(async function effectiveSubscription(user) {
     if (!user) return null;
 
     try {
-        let clientSubscription = null;
-        if (user.client_id) {
-            clientSubscription = await prisma.clientSubscription.findFirst({
+        const [clientSubscription, subscription] = await Promise.all([
+            user.client_id
+                ? prisma.clientSubscription.findFirst({
                 where: { client_id: user.client_id, status: 'active' },
                 orderBy: { id: 'desc' },
                 include: { plans: true },
-            });
-            if (
-                clientSubscription
-                && subscriptionIsActive(clientSubscription)
-                && Number(clientSubscription.plans?.monthly_price_cents ?? clientSubscription.plans?.price_cents ?? 0) > 0
-            ) {
-                return { ...clientSubscription, __kind: 'client' };
-            }
-        }
+            })
+                : Promise.resolve(null),
+            prisma.subscription.findFirst({
+                where: { user_id: user.id, status: { in: ['active', 'trialing'] } },
+                orderBy: { id: 'desc' },
+                include: { plans: true },
+            }),
+        ]);
 
-        const sub = await prisma.subscription.findFirst({
-            where: { user_id: user.id, status: { in: ['active', 'trialing'] } },
-            orderBy: { id: 'desc' },
-            include: { plans: true },
-        });
-        if (sub) return { ...sub, __kind: 'user' };
+        if (
+            clientSubscription
+            && subscriptionIsActive(clientSubscription)
+            && Number(clientSubscription.plans?.monthly_price_cents ?? clientSubscription.plans?.price_cents ?? 0) > 0
+        ) {
+            return { ...clientSubscription, __kind: 'client' };
+        }
+        if (subscription) return { ...subscription, __kind: 'user' };
         if (clientSubscription && subscriptionIsActive(clientSubscription)) {
             return { ...clientSubscription, __kind: 'client' };
         }
@@ -214,7 +216,7 @@ export async function effectiveSubscription(user) {
     }
 
     return null;
-}
+});
 
 export function subscriptionIsActive(sub) {
     if (!sub) return false;

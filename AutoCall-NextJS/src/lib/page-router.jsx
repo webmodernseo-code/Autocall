@@ -323,6 +323,7 @@ export const router = {
         options.onSuccess?.({});
         options.onFinish?.();
     },
+    prefetch: (url) => nextRouter?.prefetch?.(String(url)),
     replace: (url, options = {}) => visitGet(url, options.data, { ...options, replace: true }),
     on: () => () => {},
     cancel: () => {},

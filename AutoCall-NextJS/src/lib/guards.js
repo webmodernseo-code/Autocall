@@ -49,13 +49,15 @@ export async function requireClientPage({ allowUnsubscribed = false } = {}) {
         redirect('/verify-email');
     }
 
-    const clientId = await resolveClientId(user);
+    const [clientId, subscription] = await Promise.all([
+        resolveClientId(user),
+        allowUnsubscribed ? Promise.resolve(null) : effectiveSubscription(user),
+    ]);
     if (!clientId) {
         redirect('/login');
     }
 
     if (!allowUnsubscribed) {
-        const subscription = await effectiveSubscription(user);
         if (!subscription || !subscriptionIsActive(subscription)) redirect('/app/pricing?required=1');
     }
 

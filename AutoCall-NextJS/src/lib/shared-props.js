@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { headers } from 'next/headers';
+import { unstable_cache } from 'next/cache';
 import prisma from '@/lib/prisma';
 import config from '@/lib/config';
 import { plain } from '@/lib/serialize';
@@ -18,6 +19,27 @@ import {
 } from '@/lib/auth';
 import { getSession } from '@/lib/auth/session';
 import { detectRegionalPreferences } from '@/lib/regional-preferences.mjs';
+
+const cachedLocalesForSwitcher = unstable_cache(
+    localesForSwitcher,
+    ['shared-locales'],
+    { revalidate: 60 },
+);
+const cachedBrandingPayload = unstable_cache(
+    brandingPayload,
+    ['shared-branding'],
+    { revalidate: 60 },
+);
+const cachedSocialLoginPayload = unstable_cache(
+    socialLoginPayload,
+    ['shared-social-login'],
+    { revalidate: 60 },
+);
+const cachedDefaultCurrencyCode = unstable_cache(
+    defaultCurrencyCode,
+    ['shared-default-currency'],
+    { revalidate: 60 },
+);
 
 /**
  * Port of .
@@ -43,14 +65,11 @@ async function buildShared({ isAdminRoute }) {
 
     const detected = detectRegionalPreferences(requestHeaders);
     const locale = user?.locale || session?.locale || detected.locale || config.app.locale;
-    const i18nLocales = await localesForSwitcher();
-    const rtlCodes = i18nLocales.filter((l) => l.is_rtl).map((l) => l.code);
-    const rtl = rtlCodes.length ? rtlCodes : config.locales.rtl;
-    const isRtl = rtl.includes(locale);
 
     const customer = user?.clients ?? null;
 
     const [
+        i18nLocales,
         branding,
         socialLogin,
         translations,
@@ -62,19 +81,26 @@ async function buildShared({ isAdminRoute }) {
         notificationsUnread,
         tenantBits,
         flash,
+        impersonation,
     ] = await Promise.all([
-        brandingPayload(),
-        socialLoginPayload(),
+        cachedLocalesForSwitcher(),
+        cachedBrandingPayload(),
+        cachedSocialLoginPayload(),
         translationsFor(locale),
         enabledCurrencies(),
-        defaultCurrencyCode(),
+        cachedDefaultCurrencyCode(),
         user ? clientPermissionKeys(user) : Promise.resolve([]),
         isAdminRoute && adminUser ? adminPermissionKeys(adminUser.id) : Promise.resolve([]),
         user?.client_id ? creditBalance(user.client_id) : Promise.resolve(null),
         unreadNotifications(user),
         resolveTenants(user, session),
         takeFlash(),
+        resolveImpersonation(session),
     ]);
+
+    const rtlCodes = i18nLocales.filter((l) => l.is_rtl).map((l) => l.code);
+    const rtl = rtlCodes.length ? rtlCodes : config.locales.rtl;
+    const isRtl = rtl.includes(locale);
 
     const displayCurrency =
         user?.display_currency ??
@@ -133,7 +159,7 @@ async function buildShared({ isAdminRoute }) {
         flash: { success: flash.success ?? null, error: flash.error ?? null, openEditPlanId: flash.openEditPlanId ?? null },
         errors: {},
         auth,
-        impersonation: await resolveImpersonation(session),
+        impersonation,
         theme: user?.theme ?? session?.theme ?? 'light',
         currentTenant: tenantBits.currentTenant,
         tenants: tenantBits.tenants,
