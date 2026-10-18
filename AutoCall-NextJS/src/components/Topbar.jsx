@@ -2,7 +2,7 @@
 
 import { route } from '@/lib/route';
 import { Link, router, usePage } from '@/lib/page-router';
-import { Bell, BadgeCheck, Sun, Moon, Layers, Globe, Coins, ChevronDown, Check } from 'lucide-react';
+import { Bell, BadgeCheck, Sun, Moon, Layers, Globe, Coins, ChevronDown, Check, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import DemoBadge from '@/components/DemoBadge';
 import { useTranslation } from 'react-i18next';
 import ApplicationLogo from '@/components/ApplicationLogo';
@@ -140,7 +140,7 @@ export default function Topbar({
         setTheme(next);
     };
 
-    const currencies = page.props.currencies?.length ? page.props.currencies : FALLBACK_CURRENCIES;
+    const currencies = page.props.currencies?.length ? page.props.currencies : SUPPORTED_CURRENCIES;
     const currentCurrency = page.props.displayCurrency ?? 'EUR';
 
     const handleLocale = (code) => {
