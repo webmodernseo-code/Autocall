@@ -9,31 +9,47 @@ export const dynamic = 'force-dynamic';
 /** GET /app/google-sheets */
 export default async function Page() {
     const { clientId } = await requireClientPage();
-    const config = await firstOrCreateSheetConnection(clientId);
+    let config = null;
+    try {
+        config = await firstOrCreateSheetConnection(clientId);
+    } catch (err) {
+        console.error('[GoogleSheets] Failed to resolve sheet connection:', err);
+    }
+
+    const safeConfig = config || {
+        connected: false,
+        account_email: null,
+        spreadsheet_id: null,
+        spreadsheet_url: null,
+        sync_forms: false,
+        sync_appointments: false,
+        rows_synced: 0,
+        last_synced_at: null,
+    };
 
     const props = {
         config: {
-            connected: config.connected,
-            account_email: config.account_email,
-            spreadsheet_id: config.spreadsheet_id,
-            spreadsheet_url: config.spreadsheet_url,
-            sync_forms: config.sync_forms,
-            sync_appointments: config.sync_appointments,
-            rows_synced: config.rows_synced,
-            last_synced_at: iso(config.last_synced_at),
-            last_synced_human: diffForHumans(config.last_synced_at),
+            connected: safeConfig.connected ?? false,
+            account_email: safeConfig.account_email ?? null,
+            spreadsheet_id: safeConfig.spreadsheet_id ?? null,
+            spreadsheet_url: safeConfig.spreadsheet_url ?? null,
+            sync_forms: safeConfig.sync_forms ?? false,
+            sync_appointments: safeConfig.sync_appointments ?? false,
+            rows_synced: safeConfig.rows_synced ?? 0,
+            last_synced_at: iso(safeConfig.last_synced_at),
+            last_synced_human: diffForHumans(safeConfig.last_synced_at),
         },
         stats: [
             {
                 label: 'Status',
-                value: config.connected ? 'Connected' : 'Not connected',
+                value: safeConfig.connected ? 'Connected' : 'Not connected',
                 icon: 'plug',
-                accent: config.connected ? 'signal' : 'warm',
+                accent: safeConfig.connected ? 'signal' : 'warm',
             },
-            { label: 'Rows synced', value: String(config.rows_synced ?? 0), icon: 'list', accent: 'brand' },
+            { label: 'Rows synced', value: String(safeConfig.rows_synced ?? 0), icon: 'list', accent: 'brand' },
             {
                 label: 'Last sync',
-                value: diffForHumans(config.last_synced_at) ?? 'Never',
+                value: diffForHumans(safeConfig.last_synced_at) ?? 'Never',
                 icon: 'clock',
                 accent: 'cold',
             },
