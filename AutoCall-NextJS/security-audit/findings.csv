@@ -1,0 +1,6 @@
+id,severity,status,title,path,recommendation
+AC-SEC-001,high,fixed,"Validation CSRF incomplète",src/lib/guards.js,"Valider Origin contre les origines applicatives configurées"
+AC-SEC-002,high,fixed,"IP falsifiable via X-Forwarded-For",src/lib/request-security.mjs,"Configurer TRUSTED_PROXY_COUNT et écraser les en-têtes au proxy de bord"
+AC-SEC-003,medium,fixed,"DNS rebinding dans la garde SSRF",src/lib/services/outbound-guard.js,"Épingler la connexion sur l'IP publique validée"
+AC-SEC-004,low,accepted-risk,"CVE dans les dépendances de développement",package-lock.json,"Migrer Tailwind 4 et exclure les devDependencies du runtime"
+AC-SEC-005,medium,open,"Absence de limite uniforme des corps HTTP chunked",src/app/webhooks,"Limiter les corps au reverse proxy et ajouter un lecteur borné commun"

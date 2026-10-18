@@ -1,0 +1,11 @@
+{
+  "audit": { "project": "AutoCall-NextJS", "date": "2026-10-18", "branch": "main", "failOnSeverity": "high" },
+  "summary": { "critical": 0, "high": 2, "medium": 2, "low": 1, "fixed": 3, "open": 2, "productionDependencyVulnerabilities": 0 },
+  "findings": [
+    { "id": "AC-SEC-001", "severity": "high", "status": "fixed", "title": "Validation CSRF incomplète", "path": "src/lib/guards.js", "recommendation": "Valider Origin contre les origines applicatives configurées." },
+    { "id": "AC-SEC-002", "severity": "high", "status": "fixed", "title": "IP falsifiable via X-Forwarded-For", "path": "src/lib/request-security.mjs", "recommendation": "Configurer TRUSTED_PROXY_COUNT et écraser les en-têtes au proxy de bord." },
+    { "id": "AC-SEC-003", "severity": "medium", "status": "fixed", "title": "DNS rebinding dans la garde SSRF", "path": "src/lib/services/outbound-guard.js", "recommendation": "Épingler la connexion sur l'IP publique validée." },
+    { "id": "AC-SEC-004", "severity": "low", "status": "accepted-risk", "title": "CVE dans les dépendances de développement", "path": "package-lock.json", "recommendation": "Migrer Tailwind 4 dans une branche dédiée et exclure les devDependencies du runtime." },
+    { "id": "AC-SEC-005", "severity": "medium", "status": "open", "title": "Absence de limite uniforme des corps HTTP chunked", "path": "src/app/webhooks", "recommendation": "Limiter les corps au reverse proxy et ajouter un lecteur borné commun." }
+  ]
+}

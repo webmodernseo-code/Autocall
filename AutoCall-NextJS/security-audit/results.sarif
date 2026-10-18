@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [{
+    "tool": { "driver": { "name": "AutoCall Local Security Audit", "version": "2026-10-18", "rules": [
+      { "id": "AC-SEC-001", "shortDescription": { "text": "Validation CSRF incomplète" }, "defaultConfiguration": { "level": "error" } },
+      { "id": "AC-SEC-002", "shortDescription": { "text": "IP falsifiable via X-Forwarded-For" }, "defaultConfiguration": { "level": "error" } },
+      { "id": "AC-SEC-003", "shortDescription": { "text": "DNS rebinding dans la garde SSRF" }, "defaultConfiguration": { "level": "warning" } },
+      { "id": "AC-SEC-005", "shortDescription": { "text": "Limite de corps HTTP non uniforme" }, "defaultConfiguration": { "level": "warning" } }
+    ] } },
+    "results": [
+      { "ruleId": "AC-SEC-001", "level": "none", "message": { "text": "Corrigé : validation stricte de l'origine." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/lib/guards.js" } } }], "baselineState": "absent" },
+      { "ruleId": "AC-SEC-002", "level": "none", "message": { "text": "Corrigé : chaîne proxy normalisée depuis la droite." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/lib/request-security.mjs" } } }], "baselineState": "absent" },
+      { "ruleId": "AC-SEC-003", "level": "none", "message": { "text": "Corrigé : connexion épinglée sur l'IP validée." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/lib/services/outbound-guard.js" } } }], "baselineState": "absent" },
+      { "ruleId": "AC-SEC-005", "level": "warning", "message": { "text": "Configurer une limite uniforme des corps HTTP au proxy et côté application." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/app/webhooks" } } }] }
+    ]
+  }]
+}

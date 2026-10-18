@@ -6,6 +6,7 @@ import prisma from '@/lib/prisma';
 import config from '@/lib/config';
 import { findValidApiKey, hasScope } from '@/lib/domain/api-keys';
 import { availableIn, hit, tooManyAttempts } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/request-security.mjs';
 
 /**
  * Port of the API middleware stack: api.log -> api.auth -> api.ratelimit ->
@@ -15,14 +16,6 @@ import { availableIn, hit, tooManyAttempts } from '@/lib/rate-limit';
 
 function json(body, status = 200, headers = {}) {
     return NextResponse.json(body, { status, headers });
-}
-
-function clientIp(request) {
-    return (
-        request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-        request.headers.get('x-real-ip') ||
-        '127.0.0.1'
-    );
 }
 
 /** — an empty whitelist allows every address. */

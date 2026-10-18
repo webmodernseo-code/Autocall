@@ -1,6 +1,7 @@
 import 'server-only';
 
 import prisma from '@/lib/prisma';
+import { clientIp } from '@/lib/request-security.mjs';
 
 /**
  * Fixed-window rate limiter backed by the `cache` table so the
@@ -61,9 +62,5 @@ export async function availableIn(key) {
 
 /** `Str::lower($email).'|'.$request->ip()` */
 export function throttleKey(email, request) {
-    const ip =
-        request?.headers?.get?.('x-forwarded-for')?.split(',')[0]?.trim() ||
-        request?.headers?.get?.('x-real-ip') ||
-        '127.0.0.1';
-    return `${String(email ?? '').toLowerCase()}|${ip}`;
+    return `${String(email ?? '').toLowerCase()}|${clientIp(request)}`;
 }
