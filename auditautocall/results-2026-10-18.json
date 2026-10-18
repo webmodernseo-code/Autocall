@@ -1,0 +1,21 @@
+{
+  "audit": {
+    "project": "AutoCall-NextJS",
+    "date": "2026-10-18",
+    "branch": "main",
+    "failOnSeverity": "high",
+    "verdict": "fail",
+    "summary": { "critical": 0, "high": 2, "medium": 4, "low": 2 },
+    "dependencyAudit": { "productionDependencies": 298, "vulnerabilities": 0 }
+  },
+  "findings": [
+    { "id": "AUTOCALL-SEC-001", "severity": "high", "cwe": ["CWE-918"], "title": "SSRF guard vulnerable to DNS rebinding", "locations": ["src/lib/services/outbound-guard.js", "src/app/api/app/knowledge-base/route.js", "src/lib/services/webhook-dispatcher.js"], "recommendation": "Pin outbound connections to the validated IP while preserving Host/SNI and revalidate every redirect." },
+    { "id": "AUTOCALL-SEC-002", "severity": "high", "cwe": ["CWE-400", "CWE-409"], "title": "Unbounded knowledge-base upload and decompression", "locations": ["src/app/api/app/knowledge-base/route.js", "src/lib/storage.js", "src/lib/services/document-text.js"], "recommendation": "Enforce request and file limits before buffering, validate MIME/magic bytes, and sandbox bounded extraction." },
+    { "id": "AUTOCALL-SEC-003", "severity": "medium", "cwe": ["CWE-307"], "title": "Rate limiter fails open and trusts forwarded IP headers", "locations": ["src/lib/rate-limit.js", "src/lib/api/middleware.js"], "recommendation": "Use an atomic shared limiter and derive client IP only from a trusted proxy chain." },
+    { "id": "AUTOCALL-SEC-004", "severity": "medium", "cwe": ["CWE-352"], "title": "CSRF protection relies primarily on SameSite", "locations": ["src/lib/auth/jwt.js", "src/lib/guards.js"], "recommendation": "Validate Origin and Fetch Metadata for unsafe methods and add a CSRF token." },
+    { "id": "AUTOCALL-SEC-005", "severity": "medium", "cwe": ["CWE-613"], "title": "Long-lived JWT sessions are not revoked after password changes", "locations": ["src/lib/auth/jwt.js", "src/lib/auth/index.js", "src/app/api/reset-password/route.js"], "recommendation": "Include and verify a server-side session version and rotate shorter-lived sessions." },
+    { "id": "AUTOCALL-SEC-006", "severity": "medium", "cwe": ["CWE-693", "CWE-79"], "title": "Content Security Policy allows inline scripts", "locations": ["next.config.mjs"], "recommendation": "Replace unsafe-inline with per-request nonces or hashes." },
+    { "id": "AUTOCALL-SEC-007", "severity": "low", "cwe": ["CWE-434", "CWE-113"], "title": "KYC files validated by extension only", "locations": ["src/app/api/app/verification/route.js", "src/app/admin/kyc/file/[kycDocument]/route.js"], "recommendation": "Validate magic bytes/MIME and sanitize Content-Disposition filenames." },
+    { "id": "AUTOCALL-SEC-008", "severity": "low", "cwe": ["CWE-798"], "title": "Predictable default Meta verification token", "locations": ["src/lib/config.js"], "recommendation": "Remove the default and fail closed until an explicit random token is configured." }
+  ]
+}
