@@ -18,7 +18,7 @@ export default async function Page({ searchParams }) {
     const prevStart = new Date(start.getTime() - days * 86400000);
 
     let propsData = null;
-    try {
+    {
         const [calls, prevCalls] = await Promise.all([
             prisma.call.findMany({
                 where: { client_id, created_at: { gte: start } },
@@ -102,35 +102,6 @@ export default async function Page({ searchParams }) {
                     value: countBy('sentiment', s),
                 })),
                 campaign_success: campaignSuccess,
-            },
-        };
-    } catch {
-        propsData = {
-            days,
-            kpis: {
-                total_calls: 480,
-                success_rate: 94.2,
-                qualified_leads: 184,
-                avg_duration: 114,
-                calls_trend: 12.5,
-                qualified_trend: 8.3,
-            },
-            charts: {
-                calls_by_day: [
-                    { day: 'Lun', calls: 64 }, { day: 'Mar', calls: 82 }, { day: 'Mer', calls: 95 },
-                    { day: 'Jeu', calls: 78 }, { day: 'Ven', calls: 110 }, { day: 'Sam', calls: 32 }, { day: 'Dim', calls: 19 }
-                ],
-                lead_distribution: [
-                    { name: 'Hot', value: 92 }, { name: 'Warm', value: 92 }, { name: 'Cold', value: 45 }
-                ],
-                sentiment: [
-                    { name: 'Positive', value: 290 }, { name: 'Neutral', value: 140 }, { name: 'Negative', value: 50 }
-                ],
-                campaign_success: [
-                    { name: 'Qualification B2B Q4', success: 92 },
-                    { name: 'Relance Leads Inactifs', success: 85 },
-                    { name: 'Support VIP', success: 98 },
-                ],
             },
         };
     }

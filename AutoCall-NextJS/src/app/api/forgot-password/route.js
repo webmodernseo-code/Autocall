@@ -55,7 +55,7 @@ export const POST = handler(async (request) => {
     });
 
     if (!sent && config.app.debug) {
-        console.info('[forgot-password] no mailer configured; reset URL:', resetUrl);
+        console.info('[forgot-password] no mailer configured; reset email was not sent.');
     }
 
     return NextResponse.json({

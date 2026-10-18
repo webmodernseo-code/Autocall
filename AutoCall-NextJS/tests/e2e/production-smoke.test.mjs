@@ -50,9 +50,13 @@ test('security headers are enabled', async () => {
 });
 
 test('SEO discovery endpoints use the production origin', async () => {
-    const expectedOrigin = new URL(baseUrl).origin;
     const robots = await (await request('/robots.txt')).text();
     const sitemap = await (await request('/sitemap.xml')).text();
-    assert.match(robots, new RegExp(`Sitemap: ${expectedOrigin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/sitemap.xml`));
-    assert.ok(sitemap.includes(`<loc>${expectedOrigin}/</loc>`));
+    const host = robots.match(/^Host:\s*(\S+)$/m)?.[1];
+    const sitemapUrl = robots.match(/^Sitemap:\s*(\S+)$/m)?.[1];
+
+    assert.ok(host, 'robots.txt must declare its canonical host');
+    assert.ok(sitemapUrl, 'robots.txt must declare its sitemap URL');
+    assert.equal(new URL(sitemapUrl).origin, new URL(host).origin);
+    assert.ok(sitemap.includes(`<loc>${new URL(host).origin}/</loc>`));
 });

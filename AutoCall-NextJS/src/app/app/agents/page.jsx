@@ -45,19 +45,12 @@ export default async function Page({ searchParams }) {
     });
 
     const base = { client_id, deleted_at: null };
-    let total = 3, active = 3, drafts = 0, archived = 0;
-    try {
-        const [t, act, d, arc] = await Promise.all([
-            prisma.agent.count({ where: base }),
-            prisma.agent.count({ where: { ...base, status: 'active' } }),
-            prisma.agent.count({ where: { ...base, status: 'draft' } }),
-            prisma.agent.count({ where: { ...base, status: 'archived' } }),
-        ]);
-        total = t;
-        active = act;
-        drafts = d;
-        archived = arc;
-    } catch {}
+    const [total, active, drafts, archived] = await Promise.all([
+        prisma.agent.count({ where: base }),
+        prisma.agent.count({ where: { ...base, status: 'active' } }),
+        prisma.agent.count({ where: { ...base, status: 'draft' } }),
+        prisma.agent.count({ where: { ...base, status: 'archived' } }),
+    ]);
 
     const props = {
         agents,

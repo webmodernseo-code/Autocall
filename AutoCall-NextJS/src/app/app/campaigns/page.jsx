@@ -38,21 +38,14 @@ export default async function Page({ searchParams }) {
     });
 
     const base = { client_id, deleted_at: null };
-    let total = 6, running = 2, completed = 4, totalContacts = 1420;
-    try {
-        const [t, r, c, tc] = await Promise.all([
-            prisma.campaign.count({ where: base }),
-            prisma.campaign.count({ where: { ...base, status: 'active' } }),
-            prisma.campaign.count({ where: { ...base, status: 'completed' } }),
-            prisma.contact.count({
-                where: { client_id, campaign_contact: { some: { campaigns: { client_id } } } },
-            }),
-        ]);
-        total = t;
-        running = r;
-        completed = c;
-        totalContacts = tc;
-    } catch {}
+    const [total, running, completed, totalContacts] = await Promise.all([
+        prisma.campaign.count({ where: base }),
+        prisma.campaign.count({ where: { ...base, status: 'active' } }),
+        prisma.campaign.count({ where: { ...base, status: 'completed' } }),
+        prisma.contact.count({
+            where: { client_id, campaign_contact: { some: { campaigns: { client_id } } } },
+        }),
+    ]);
 
     const props = {
         campaigns,

@@ -46,23 +46,14 @@ export default async function Page({ searchParams }) {
     });
 
     const active = { is_active: true };
-    let voicesTotal = 42, languages = [{ language: 'fr' }, { language: 'en' }, { language: 'es' }], accents = [{ accent: 'Français (France)' }, { accent: 'Anglais (US)' }], genderOpts = [{ gender: 'female' }, { gender: 'male' }], ageOpts = [{ age_group: 'adult' }, { age_group: 'young' }], bestForOpts = [{ best_for: 'support' }, { best_for: 'sales' }];
-    try {
-        const [vT, lG, aC, gO, aO, bO] = await Promise.all([
-            prisma.voice.count({ where: active }),
-            prisma.voice.findMany({ where: { ...active, language: { not: null } }, distinct: ['language'], select: { language: true } }),
-            prisma.voice.findMany({ where: { ...active, accent: { not: null } }, distinct: ['accent'], select: { accent: true } }),
-            prisma.voice.findMany({ where: { gender: { not: null } }, distinct: ['gender'], select: { gender: true } }),
-            prisma.voice.findMany({ where: { age_group: { not: null } }, distinct: ['age_group'], select: { age_group: true } }),
-            prisma.voice.findMany({ where: { best_for: { not: null } }, distinct: ['best_for'], select: { best_for: true } }),
-        ]);
-        voicesTotal = vT;
-        languages = lG;
-        accents = aC;
-        genderOpts = gO;
-        ageOpts = aO;
-        bestForOpts = bO;
-    } catch {}
+    const [voicesTotal, languages, accents, genderOpts, ageOpts, bestForOpts] = await Promise.all([
+        prisma.voice.count({ where: active }),
+        prisma.voice.findMany({ where: { ...active, language: { not: null } }, distinct: ['language'], select: { language: true } }),
+        prisma.voice.findMany({ where: { ...active, accent: { not: null } }, distinct: ['accent'], select: { accent: true } }),
+        prisma.voice.findMany({ where: { ...active, gender: { not: null } }, distinct: ['gender'], select: { gender: true } }),
+        prisma.voice.findMany({ where: { ...active, age_group: { not: null } }, distinct: ['age_group'], select: { age_group: true } }),
+        prisma.voice.findMany({ where: { ...active, best_for: { not: null } }, distinct: ['best_for'], select: { best_for: true } }),
+    ]);
 
     const props = {
         voices,

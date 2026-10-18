@@ -57,7 +57,8 @@ export async function proxy(request) {
     }
 
     if (pathname.startsWith('/app')) {
-        // Mode développement / Aperçu continu : autorise la navigation libre sur tout le dashboard
+        const user = await verifyToken(request.cookies.get(USER_COOKIE)?.value);
+        if (!user?.uid) return NextResponse.redirect(new URL('/login', request.url));
         return NextResponse.next();
     }
 

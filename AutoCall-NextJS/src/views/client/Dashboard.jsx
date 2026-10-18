@@ -245,25 +245,17 @@ function SplineAreaChart({ data = [] }) {
 function InteractiveChartTooltip({ active, payload, label }) {
     if (!active || !payload?.length) return null;
     const currentVal = payload[0]?.value || 0;
-    const previousVal = Math.round(currentVal * 0.72);
 
     return (
         <div className="rounded-xl border border-neutral-200/90 dark:border-white/10 bg-white/95 dark:bg-[#1A1D2D]/95 p-3 shadow-xl backdrop-blur-md min-w-[160px]">
-            <p className="text-[11px] font-semibold text-neutral-800 dark:text-white">{label} 2026</p>
+            <p className="text-[11px] font-semibold text-neutral-800 dark:text-white">{label}</p>
             <div className="mt-2 space-y-1.5 text-xs">
                 <div className="flex items-center justify-between gap-3">
                     <span className="flex items-center gap-1.5 text-neutral-600 dark:text-neutral-300">
                         <span className="h-2 w-2 rounded-full bg-blue-600 shrink-0" />
-                        <span>Ce mois</span>
+                        <span>Appels</span>
                     </span>
                     <span className="font-bold text-neutral-900 dark:text-white tabular-nums">{currentVal.toLocaleString()}</span>
-                </div>
-                <div className="flex items-center justify-between gap-3">
-                    <span className="flex items-center gap-1.5 text-neutral-400 dark:text-neutral-400">
-                        <span className="h-2 w-2 rounded-full bg-neutral-300 dark:bg-neutral-600 shrink-0" />
-                        <span>Mois dernier</span>
-                    </span>
-                    <span className="font-medium text-neutral-500 dark:text-neutral-400 tabular-nums">{previousVal.toLocaleString()}</span>
                 </div>
             </div>
         </div>
@@ -310,7 +302,7 @@ function SatisfactionRadialGauge({ percentage = 0, hasData = true }) {
                     {safePct}%
                 </span>
                 <p className="mt-0.5 text-[11px] text-neutral-500 dark:text-[#8E95A5]">
-                    {hasData ? 'Objectif de 80% en cours' : 'En attente de vos premiers appels qualifiés'}
+                    {hasData ? 'Part des appels terminés avec succès' : 'En attente de vos premiers appels'}
                 </p>
             </div>
 
@@ -705,17 +697,12 @@ function OnboardingQuickStartBanner({ onboarding }) {
 }
 
 export default function Dashboard({
-    currentPlan,
-    renewsAt,
-    managedByAdmin,
-    creditBalance = 0,
     kpis,
     callsByDay = [],
     leadDistribution = [],
     recentCalls = [],
     activeCampaigns = [],
     onboarding,
-    isClientAdministrator,
     selectedPeriod = '30d',
     periodStart,
     periodEnd,
@@ -723,13 +710,12 @@ export default function Dashboard({
     const { t } = useTranslation();
     const [periodMenuOpen, setPeriodMenuOpen] = useState(false);
     const hasCalls = Boolean((kpis?.calls_period || 0) > 0);
-    const hasTotalCalls = Boolean((kpis?.total_calls || 0) > 0);
     const hasWeeklyActivity = callsByDay.some((d) => (d.calls || 0) > 0);
 
     // Trouver le jour avec le pic d'appels pour la mise en surbrillance bleue exacte de Shopeers
     const maxDay = callsByDay.reduce((max, d) => (d.calls > (max?.calls || 0) ? d : max), callsByDay[0] || { day: 'dim.', calls: 0 });
 
-    const totalLeads = leadDistribution.reduce((acc, l) => acc + (l.value || 0), 0);
+    const activityTotal = callsByDay.reduce((acc, item) => acc + Number(item.calls || 0), 0);
     const hotLeads = leadDistribution.find((l) => l.name === 'Hot')?.value || 0;
     const warmLeads = leadDistribution.find((l) => l.name === 'Warm')?.value || 0;
     const coldLeads = leadDistribution.find((l) => l.name === 'Cold')?.value || 0;
@@ -923,7 +909,7 @@ export default function Dashboard({
                                     <span className="text-xs font-medium text-neutral-500 dark:text-[#8E95A5]">Activité Téléphonique Hebdomadaire</span>
                                     <div className="flex items-baseline gap-2.5 mt-1">
                                         <span className="font-hero-sans text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
-                                            {Number(kpis?.total_calls ?? 0).toLocaleString()} appels
+                                            {activityTotal.toLocaleString()} appels
                                         </span>
                                     </div>
                                 </div>
@@ -931,7 +917,7 @@ export default function Dashboard({
                                 <div className="flex items-center gap-3">
                                     <span className="flex items-center gap-1.5 text-xs font-medium text-neutral-500 dark:text-neutral-400">
                                         <span className="h-2 w-2 rounded-full bg-blue-500" />
-                                        <span>Ce mois</span>
+                                        <span>{periodDays} derniers jours</span>
                                     </span>
                                 </div>
                             </div>
@@ -1081,7 +1067,7 @@ export default function Dashboard({
                                 <MoreHorizontal className="h-4 w-4 text-neutral-400" />
                             </div>
                             <p className="text-[11px] text-neutral-500 dark:text-[#8E95A5] mb-4">
-                                {hasWeeklyActivity && maxDay?.day ? `Pic enregistré le ${maxDay.day}` : 'Aucune activité sur les 7 derniers jours'}
+                                {hasWeeklyActivity && maxDay?.day ? `Pic enregistré sur ${maxDay.day}` : `Aucune activité sur les ${periodDays} derniers jours`}
                             </p>
 
                             {/* Barres verticales avec badge flottant et barre bleue franche */}

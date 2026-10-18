@@ -45,11 +45,11 @@ export default async function Page({ searchParams }) {
         }),
     });
 
-    let totalContacts = 850, contactsLimit = 1000;
-    try {
-        totalContacts = await prisma.contact.count({ where: { client_id } });
-        contactsLimit = (await limitFor(clientId, 'contacts')) ?? 1000;
-    } catch {}
+    const [totalContacts, planLimit] = await Promise.all([
+        prisma.contact.count({ where: { client_id } }),
+        limitFor(clientId, 'contacts'),
+    ]);
+    const contactsLimit = planLimit ?? 0;
 
     const props = {
         contacts,
