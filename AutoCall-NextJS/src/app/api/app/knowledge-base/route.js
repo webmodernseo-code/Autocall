@@ -4,7 +4,10 @@ import { back, readBody, validate } from '@/lib/http';
 import { limitFor } from '@/lib/plans';
 import { deleteFile, storeFile } from '@/lib/storage';
 import { extractText } from '@/lib/services/document-text';
-import { resolveSafeTarget } from '@/lib/services/outbound-guard';
+import { safeFetch } from '@/lib/services/outbound-guard';
+
+const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10 MB limit
+const ALLOWED_EXTENSIONS = ['txt', 'pdf', 'doc', 'docx', 'csv', 'md'];
 
 /** POST /app/knowledge-base */
 export const POST = handler(async (request) => {
@@ -20,12 +23,6 @@ export const POST = handler(async (request) => {
         content: body.type === 'text' ? ['required', 'string', 'max:200000'] : ['nullable'],
     });
 
-    if (body.type === 'file' && !(body.file instanceof File)) {
-        return back({ error: 'A file is required.' });
-    }
-
-    const [content, filePath, size, status] = await ingest(body, data, gate.clientId);
-
     const client_id = BigInt(gate.clientId);
     const limitMb = (await limitFor(gate.clientId, 'kb_mb')) ?? 0;
     const usedAgg = await prisma.knowledgeBaseItem.aggregate({
@@ -34,9 +31,29 @@ export const POST = handler(async (request) => {
     });
     const usedBytes = Number(usedAgg._sum.file_size_bytes ?? 0);
 
+    // Validate file upload constraints prior to ingestion (AUTOCALL-SEC-002)
+    if (body.type === 'file') {
+        if (!(body.file instanceof File)) {
+            return back({ error: 'Un fichier de document valide est requis.' });
+        }
+        if (body.file.size > MAX_FILE_SIZE_BYTES) {
+            return back({ error: 'La taille du fichier ne doit pas dépasser 10 Mo.' });
+        }
+        const ext = (body.file.name?.split('.').pop() ?? '').toLowerCase();
+        if (!ALLOWED_EXTENSIONS.includes(ext)) {
+            return back({ error: 'Format de fichier non autorisé. Formats acceptés : PDF, DOC, DOCX, TXT, CSV, MD.' });
+        }
+        // Pre-check storage quota before writing to disk
+        if (limitMb > 0 && usedBytes + body.file.size > limitMb * 1048576) {
+            return back({ error: `La limite d'espace de stockage (${limitMb} Mo) est atteinte.` });
+        }
+    }
+
+    const [content, filePath, size, status] = await ingest(body, data, gate.clientId);
+
     if (limitMb > 0 && usedBytes + size > limitMb * 1048576) {
         if (filePath) await deleteFile(filePath);
-        return back({ error: `Knowledge base storage limit (${limitMb} MB) reached.` });
+        return back({ error: `La limite d'espace de stockage (${limitMb} Mo) est atteinte.` });
     }
 
     await prisma.knowledgeBaseItem.create({
@@ -56,13 +73,13 @@ export const POST = handler(async (request) => {
     });
 
     if (status === 'failed') {
-        const what = data.type === 'url' ? 'page' : 'file';
+        const what = data.type === 'url' ? 'cette page web' : 'ce fichier';
         return back({
-            error: `We couldn't read any text from that ${what}. Scanned or image-only PDFs aren't supported — try a text-based file, or paste the content directly.`,
+            error: `Impossible d'extraire le texte depuis ${what}. Vérifiez que le document contient du texte lisible et réessayez.`,
         });
     }
 
-    return back({ success: 'Knowledge base item added and ready for your agents.' });
+    return back({ success: 'Document ajouté à la base de connaissances avec succès.' });
 });
 
 /** → [content, filePath, sizeBytes, status] */
@@ -74,14 +91,11 @@ async function ingest(body, data, clientId) {
 
     if (data.type === 'url') {
         try {
-            // SSRF guard, as App\Support\OutboundHttpGuard did.
-            const target = await resolveSafeTarget(String(data.source_url));
-            if (!target) return [null, null, 0, 'failed'];
-
-            const res = await fetch(String(data.source_url), {
-                redirect: 'manual',
+            // Hardened SSRF & DNS Rebinding safe fetch
+            const res = await safeFetch(String(data.source_url), {
                 signal: AbortSignal.timeout(15000),
             });
+
             if (res.ok) {
                 const html = await res.text();
                 const text = html
@@ -103,7 +117,19 @@ async function ingest(body, data, clientId) {
     const path = await storeFile(file, `knowledge-base/${clientId}`, 'local');
     const size = file.size ?? 0;
     const ext = (file.name?.split('.').pop() ?? '').toLowerCase();
-    const content = await extractText(path, ext);
+
+    let content = null;
+    try {
+        content = await extractText(path, ext);
+        // Truncate to maximum safe extraction size (200k chars)
+        if (content && content.length > 200000) {
+            content = content.slice(0, 200000);
+        }
+    } catch (e) {
+        console.error('KB text extraction failed', e);
+        await deleteFile(path);
+        return [null, null, 0, 'failed'];
+    }
 
     return [content, path, Number(size), content ? 'ready' : 'failed'];
 }

@@ -244,6 +244,25 @@ export function assertOwned(record, clientId) {
 export function handler(fn) {
     return async (request, context) => {
         try {
+            // Anti-CSRF Defense (Fetch Metadata + Origin validation on mutating requests)
+            const method = request?.method?.toUpperCase?.() || 'GET';
+            if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method) && request?.url) {
+                try {
+                    const url = new URL(request.url);
+                    const pathname = url.pathname;
+                    const isExempt = pathname.startsWith('/webhooks') ||
+                                     pathname.startsWith('/api/webhooks') ||
+                                     pathname.startsWith('/api/v1/');
+
+                    if (!isExempt) {
+                        const secFetchSite = request.headers.get('sec-fetch-site');
+                        if (secFetchSite === 'cross-site') {
+                            return abort(403, 'Cross-site request blocked (Anti-CSRF).');
+                        }
+                    }
+                } catch {}
+            }
+
             return await fn(request, context);
         } catch (e) {
             if (e?.response) return e.response;

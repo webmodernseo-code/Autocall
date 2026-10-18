@@ -147,7 +147,7 @@ export const config = {
             app_id: str(process.env.META_APP_ID),
             app_secret: str(process.env.META_APP_SECRET),
             config_id: str(process.env.META_CONFIG_ID),
-            verify_token: process.env.META_VERIFY_TOKEN || 'autocall',
+            verify_token: process.env.META_VERIFY_TOKEN || '',
             graph_version: process.env.META_GRAPH_VERSION || 'v21.0',
         },
         whatsway: {

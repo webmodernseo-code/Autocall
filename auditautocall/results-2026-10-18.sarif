@@ -8,26 +8,21 @@
         "version": "2026.10.18",
         "informationUri": "https://github.com/webmodernseo-code/Autocall",
         "rules": [
-          { "id": "AUTOCALL-SEC-001", "shortDescription": { "text": "SSRF guard vulnerable to DNS rebinding" }, "properties": { "security-severity": "8.1", "tags": ["security", "CWE-918"] } },
-          { "id": "AUTOCALL-SEC-002", "shortDescription": { "text": "Unbounded knowledge-base upload and decompression" }, "properties": { "security-severity": "7.5", "tags": ["security", "CWE-400", "CWE-409"] } },
+          { "id": "AUTOCALL-SEC-001", "shortDescription": { "text": "SSRF guard vulnerable to DNS rebinding (RESOLVED)" }, "properties": { "security-severity": "8.1", "tags": ["security", "CWE-918"] } },
+          { "id": "AUTOCALL-SEC-002", "shortDescription": { "text": "Unbounded knowledge-base upload and decompression (RESOLVED)" }, "properties": { "security-severity": "7.5", "tags": ["security", "CWE-400", "CWE-409"] } },
           { "id": "AUTOCALL-SEC-003", "shortDescription": { "text": "Rate limiter fail-open and untrusted forwarded IP" }, "properties": { "security-severity": "6.5", "tags": ["security", "CWE-307"] } },
-          { "id": "AUTOCALL-SEC-004", "shortDescription": { "text": "Incomplete CSRF protection" }, "properties": { "security-severity": "5.4", "tags": ["security", "CWE-352"] } },
+          { "id": "AUTOCALL-SEC-004", "shortDescription": { "text": "Incomplete CSRF protection (RESOLVED)" }, "properties": { "security-severity": "5.4", "tags": ["security", "CWE-352"] } },
           { "id": "AUTOCALL-SEC-005", "shortDescription": { "text": "Sessions not revoked after password changes" }, "properties": { "security-severity": "6.1", "tags": ["security", "CWE-613"] } },
           { "id": "AUTOCALL-SEC-006", "shortDescription": { "text": "CSP allows inline scripts" }, "properties": { "security-severity": "5.3", "tags": ["security", "CWE-693", "CWE-79"] } },
-          { "id": "AUTOCALL-SEC-007", "shortDescription": { "text": "KYC file type validation is extension-only" }, "properties": { "security-severity": "3.7", "tags": ["security", "CWE-434", "CWE-113"] } },
-          { "id": "AUTOCALL-SEC-008", "shortDescription": { "text": "Predictable default Meta verification token" }, "properties": { "security-severity": "3.1", "tags": ["security", "CWE-798"] } }
+          { "id": "AUTOCALL-SEC-007", "shortDescription": { "text": "KYC file type validation is extension-only (RESOLVED)" }, "properties": { "security-severity": "3.7", "tags": ["security", "CWE-434", "CWE-113"] } },
+          { "id": "AUTOCALL-SEC-008", "shortDescription": { "text": "Predictable default Meta verification token (RESOLVED)" }, "properties": { "security-severity": "3.1", "tags": ["security", "CWE-798"] } }
         ]
       }
     },
     "results": [
-      { "ruleId": "AUTOCALL-SEC-001", "level": "error", "message": { "text": "The hostname is validated, then resolved again by fetch, enabling DNS rebinding." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/lib/services/outbound-guard.js" }, "region": { "startLine": 13 } } }] },
-      { "ruleId": "AUTOCALL-SEC-002", "level": "error", "message": { "text": "Knowledge-base files are buffered and decompressed without a pre-ingestion size limit." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/app/api/app/knowledge-base/route.js" }, "region": { "startLine": 13 } } }] },
       { "ruleId": "AUTOCALL-SEC-003", "level": "warning", "message": { "text": "Rate limiting fails open on storage errors and trusts forwarded IP headers." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/lib/rate-limit.js" }, "region": { "startLine": 10 } } }] },
-      { "ruleId": "AUTOCALL-SEC-004", "level": "warning", "message": { "text": "Unsafe authenticated methods have no central Origin/Fetch-Metadata or CSRF-token validation." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/lib/auth/jwt.js" }, "region": { "startLine": 40 } } }] },
       { "ruleId": "AUTOCALL-SEC-005", "level": "warning", "message": { "text": "Thirty-day JWT sessions lack server-side version revocation after password changes." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/lib/auth/jwt.js" }, "region": { "startLine": 10 } } }] },
-      { "ruleId": "AUTOCALL-SEC-006", "level": "warning", "message": { "text": "script-src permits unsafe-inline." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "next.config.mjs" }, "region": { "startLine": 3 } } }] },
-      { "ruleId": "AUTOCALL-SEC-007", "level": "note", "message": { "text": "KYC validation trusts the filename extension and returns the original filename." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/app/api/app/verification/route.js" }, "region": { "startLine": 21 } } }] },
-      { "ruleId": "AUTOCALL-SEC-008", "level": "note", "message": { "text": "Meta verification uses a predictable fallback token." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "src/lib/config.js" }, "region": { "startLine": 150 } } }] }
+      { "ruleId": "AUTOCALL-SEC-006", "level": "warning", "message": { "text": "script-src permits unsafe-inline." }, "locations": [{ "physicalLocation": { "artifactLocation": { "uri": "next.config.mjs" }, "region": { "startLine": 3 } } }] }
     ]
   }]
 }

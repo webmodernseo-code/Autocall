@@ -2,7 +2,7 @@ import 'server-only';
 
 import crypto from 'node:crypto';
 import prisma from '@/lib/prisma';
-import { resolveSafeTarget } from '@/lib/services/outbound-guard';
+import { resolveSafeTarget, safeFetch } from '@/lib/services/outbound-guard';
 
 /**
  * Port of App\Services\Webhooks\WebhookDispatcher + App\Jobs\DispatchWebhookJob.
@@ -50,7 +50,7 @@ export async function deliverWebhook(webhookId, event, payload) {
 
     let code = 0;
     try {
-        const res = await fetch(webhook.target_url, {
+        const res = await safeFetch(webhook.target_url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
