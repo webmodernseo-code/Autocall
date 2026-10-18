@@ -52,7 +52,7 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
         sync_appointments: config.sync_appointments ?? false,
     });
 
-    const connect = () => window.location.assign(`/api${route('client.google-sheets.connect')}`);
+    const connect = () => router.post(route('client.google-sheets.connect'), {}, { preserveScroll: true });
     const disconnect = () => {
         if (confirm('Disconnect Google Sheets? Sync will stop.')) {
             router.post(route('client.google-sheets.disconnect'), {}, { preserveScroll: true });

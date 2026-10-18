@@ -179,6 +179,8 @@ function SplineAreaChart({ data = [] }) {
                 {/* Points et étiquettes X */}
                 {points.map((pt, i) => {
                     const isHovered = hoveredIdx === i;
+                    const showAxisLabel = data.length <= 7 || i === 0 || i === points.length - 1 || i % 2 === 0;
+                    const shortLabel = String(pt.day).split(/[–-]/)[0].trim();
                     return (
                         <g key={pt.day} onMouseEnter={() => setHoveredIdx(i)} onMouseLeave={() => setHoveredIdx(null)} className="cursor-pointer">
                             <rect
@@ -188,16 +190,18 @@ function SplineAreaChart({ data = [] }) {
                                 height={plotH}
                                 fill="transparent"
                             />
-                            <text
-                                x={pt.x}
-                                y={paddingTop + plotH + 18}
-                                textAnchor="middle"
-                                className={`text-[11px] font-medium transition-colors ${
-                                    isHovered ? 'fill-blue-600 font-bold dark:fill-blue-400' : 'fill-neutral-400 dark:fill-[#8E95A5]'
-                                }`}
-                            >
-                                {pt.day}
-                            </text>
+                            {showAxisLabel && (
+                                <text
+                                    x={pt.x}
+                                    y={paddingTop + plotH + 18}
+                                    textAnchor={i === 0 ? 'start' : i === points.length - 1 ? 'end' : 'middle'}
+                                    className={`text-[10px] font-medium transition-colors ${
+                                        isHovered ? 'fill-blue-600 font-bold dark:fill-blue-400' : 'fill-neutral-400 dark:fill-[#8E95A5]'
+                                    }`}
+                                >
+                                    {shortLabel}
+                                </text>
+                            )}
                             {isHovered && (
                                 <>
                                     <line x1={pt.x} y1={paddingTop} x2={pt.x} y2={paddingTop + plotH} stroke="#3B82F6" strokeDasharray="2 2" strokeOpacity="0.5" />
@@ -1072,9 +1076,11 @@ export default function Dashboard({
 
                             {/* Barres verticales avec badge flottant et barre bleue franche */}
                             <div className="flex items-end justify-between gap-2 h-32 pt-6 px-1">
-                                {callsByDay.map((d) => {
+                                {callsByDay.map((d, index) => {
                                     const isPeak = hasWeeklyActivity && d.day === maxDay.day && d.calls > 0;
                                     const heightPct = hasWeeklyActivity && maxDay.calls > 0 ? Math.max(14, (d.calls / maxDay.calls) * 100) : 16;
+                                    const showLabel = callsByDay.length <= 7 || index === 0 || index === callsByDay.length - 1 || index % 2 === 0;
+                                    const shortLabel = String(d.day).split(/[–-]/)[0].trim();
 
                                     return (
                                         <div key={d.day} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
@@ -1091,8 +1097,11 @@ export default function Dashboard({
                                                         : 'bg-neutral-100 hover:bg-neutral-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.12]'
                                                 }`}
                                             />
-                                            <span className={`text-[10px] font-medium ${isPeak ? 'text-blue-600 font-bold dark:text-blue-400' : 'text-neutral-400'}`}>
-                                                {d.day}
+                                            <span
+                                                className={`h-4 whitespace-nowrap text-[10px] font-medium ${isPeak ? 'text-blue-600 font-bold dark:text-blue-400' : 'text-neutral-400'}`}
+                                                title={d.day}
+                                            >
+                                                {showLabel ? shortLabel : ''}
                                             </span>
                                         </div>
                                     );

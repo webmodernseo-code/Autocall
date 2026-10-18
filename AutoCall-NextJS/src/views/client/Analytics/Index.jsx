@@ -69,7 +69,7 @@ export default function AnalyticsIndex({ days = 30, kpis = {}, charts = {} }) {
                             <ResponsiveContainer width="100%" height={240}>
                                 <BarChart data={charts.calls_by_day || []}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" vertical={false} />
-                                    <XAxis dataKey="day" tick={{ fontSize: 12 }} stroke="#a1a1aa" />
+                                    <XAxis dataKey="day" interval="preserveStartEnd" minTickGap={24} tick={{ fontSize: 11 }} stroke="#a1a1aa" />
                                     <YAxis allowDecimals={false} tick={{ fontSize: 12 }} stroke="#a1a1aa" />
                                     <Tooltip />
                                     <Bar dataKey="calls" fill="#6d3fea" radius={[4, 4, 0, 0]} />

@@ -80,7 +80,7 @@ export default function Analytics({ analytics = {}, advancedAnalytics = {} }) {
                             <AreaChart data={activityTrend} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
                                 <defs><linearGradient id="actGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#3b82f6" stopOpacity={0.35} /><stop offset="95%" stopColor="#3b82f6" stopOpacity={0} /></linearGradient></defs>
                                 <CartesianGrid strokeDasharray="4 4" stroke="#d4d4d8" vertical={false} />
-                                <XAxis dataKey="month" tick={{ fontSize: 12, fill: axisTick }} tickLine={false} />
+                                <XAxis dataKey="month" interval="preserveStartEnd" minTickGap={24} tick={{ fontSize: 11, fill: axisTick }} tickLine={false} />
                                 <YAxis allowDecimals={false} tick={{ fontSize: 12, fill: axisTick }} axisLine={false} tickLine={false} width={36} />
                                 <Tooltip contentStyle={tooltipStyle} />
                                 <Area type="monotone" dataKey="count" stroke="#3b82f6" strokeWidth={2} fill="url(#actGrad)" />
@@ -108,7 +108,7 @@ export default function Analytics({ analytics = {}, advancedAnalytics = {} }) {
                             <AreaChart data={overviewSeries} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
                                 <defs><linearGradient id="advGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.35} /><stop offset="95%" stopColor="#0ea5e9" stopOpacity={0} /></linearGradient></defs>
                                 <CartesianGrid strokeDasharray="4 4" stroke="#d4d4d8" vertical={false} />
-                                <XAxis dataKey="label" tick={{ fontSize: 11, fill: axisTick }} tickLine={false} />
+                                <XAxis dataKey="label" interval="preserveStartEnd" minTickGap={28} tick={{ fontSize: 10, fill: axisTick }} tickLine={false} />
                                 <YAxis allowDecimals={false} tick={{ fontSize: 12, fill: axisTick }} axisLine={false} tickLine={false} width={36} />
                                 <Tooltip contentStyle={tooltipStyle} />
                                 <Area type="monotone" dataKey="value" stroke="#0ea5e9" strokeWidth={2} fill="url(#advGrad)" />
@@ -120,7 +120,7 @@ export default function Analytics({ analytics = {}, advancedAnalytics = {} }) {
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={activityByDay} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
                                 <CartesianGrid strokeDasharray="4 4" stroke="#d4d4d8" vertical={false} />
-                                <XAxis dataKey="name" tick={{ fontSize: 12, fill: axisTick }} tickLine={false} />
+                                <XAxis dataKey="name" interval="preserveStartEnd" minTickGap={20} tick={{ fontSize: 11, fill: axisTick }} tickLine={false} />
                                 <YAxis allowDecimals={false} tick={{ fontSize: 12, fill: axisTick }} axisLine={false} tickLine={false} width={36} />
                                 <Tooltip contentStyle={tooltipStyle} />
                                 <Bar dataKey="events" fill="#0284c7" radius={[4, 4, 0, 0]} />

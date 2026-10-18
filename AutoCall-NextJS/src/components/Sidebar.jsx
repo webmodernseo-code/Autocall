@@ -7,6 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ChevronDown, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+// Client-side memory survives the page-level loading boundary. Without it,
+// remounting the sidebar during a navigation briefly (or permanently for an
+// unrecognised route) sent users back to the list of sections.
+let rememberedDrilldownGroupKey = null;
+
 function itemIsActive(item) {
     if (typeof item.active === 'function') return item.active();
     if (item.route) return route().current(item.route);
@@ -127,7 +132,7 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
     const { t } = useTranslation();
     const { url } = usePage();
     const [manualOpenKey, setManualOpenKey] = useState(null);
-    const [selectedGroupKey, setSelectedGroupKey] = useState(null);
+    const [selectedGroupKey, setSelectedGroupKey] = useState(() => rememberedDrilldownGroupKey);
     const menuTitle = title ?? t('sidebar.menu');
 
     useEffect(() => { setManualOpenKey(null); }, [url]);
@@ -151,8 +156,18 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
 
     useEffect(() => {
         if (!isDrilldown) return;
-        if (activeDrilldownGroupKey) setSelectedGroupKey(activeDrilldownGroupKey);
-        else setSelectedGroupKey(null);
+        if (activeDrilldownGroupKey) {
+            rememberedDrilldownGroupKey = activeDrilldownGroupKey;
+            setSelectedGroupKey(activeDrilldownGroupKey);
+            return;
+        }
+
+        // Only the explicit dashboard destination returns to the section list.
+        // A transient/unknown route must not discard the user's current group.
+        if (route().current('client.dashboard')) {
+            rememberedDrilldownGroupKey = null;
+            setSelectedGroupKey(null);
+        }
     }, [url, isDrilldown, activeDrilldownGroupKey]);
 
     const content = (
@@ -181,7 +196,10 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
                                 <div className="space-y-2">
                                     <button
                                         type="button"
-                                        onClick={() => setSelectedGroupKey(null)}
+                                        onClick={() => {
+                                            rememberedDrilldownGroupKey = null;
+                                            setSelectedGroupKey(null);
+                                        }}
                                         className="group flex min-h-11 w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-sm font-semibold text-neutral-900 transition hover:bg-neutral-100/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-white dark:hover:bg-white/[0.05]"
                                         aria-label={t('sidebar.back_to_sections', 'Retour aux rubriques')}
                                     >
@@ -216,6 +234,7 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
                                                 onFocus={() => prefetchGroup(group)}
                                                 onClick={() => {
                                                     prefetchGroup(group);
+                                                    rememberedDrilldownGroupKey = groupKey;
                                                     setSelectedGroupKey(groupKey);
                                                 }}
                                                 className="group flex min-h-11 w-full items-center gap-3 rounded-2xl border border-transparent px-3.5 py-2.5 text-left text-sm font-medium text-neutral-600 transition hover:border-neutral-200/80 hover:bg-white hover:text-neutral-900 hover:shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-[#A4AABA] dark:hover:border-white/[0.08] dark:hover:bg-white/[0.04] dark:hover:text-white"

@@ -109,7 +109,7 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                                     <linearGradient id="adm-bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#8a67f2" /><stop offset="100%" stopColor="#5a28d6" /></linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="2 6" stroke="#e4e4e7" strokeOpacity={0.5} vertical={false} />
-                                <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#a1a1aa' }} axisLine={false} tickLine={false} />
+                                <XAxis dataKey="day" interval="preserveStartEnd" minTickGap={24} tick={{ fontSize: 11, fill: '#a1a1aa' }} axisLine={false} tickLine={false} />
                                 <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#a1a1aa' }} axisLine={false} tickLine={false} width={28} />
                                 <Tooltip cursor={{ fill: 'rgba(109,63,234,0.06)' }} content={<ChartTip />} />
                                 <Bar dataKey="calls" fill="url(#adm-bar)" radius={[6, 6, 0, 0]} maxBarSize={46} />
