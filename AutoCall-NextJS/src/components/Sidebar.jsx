@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 // remounting the sidebar during a navigation briefly (or permanently for an
 // unrecognised route) sent users back to the list of sections.
 let rememberedDrilldownGroupKey = null;
+let rememberedOptimisticHref = null;
 
 function itemIsActive(item) {
     if (typeof item.active === 'function') return item.active();
@@ -38,9 +39,30 @@ function NavIcon({ icon, isActive }) {
     );
 }
 
-function NavItemLink({ item, onClose, className }) {
-    const isActive = itemIsActive(item);
+function normalizePath(p) {
+    if (!p || typeof p !== 'string') return '';
+    return p.split('?')[0].split('#')[0].replace(/\/+$/, '') || '/';
+}
+
+function checkItemActive(item, optimisticHref) {
     const href = item.href ?? (item.route ? route(item.route) : '#');
+    if (optimisticHref) {
+        if (normalizePath(optimisticHref) === normalizePath(href)) return true;
+        return false;
+    }
+    return itemIsActive(item);
+}
+
+function NavItemLink({ item, onClose, onNavigate, optimisticHref, className }) {
+    const href = item.href ?? (item.route ? route(item.route) : '#');
+    const isActive = checkItemActive(item, optimisticHref);
+
+    const triggerOptimistic = () => {
+        if (href && href !== '#') {
+            onNavigate?.(href);
+            router.prefetch(href);
+        }
+    };
 
     return (
         <Link
@@ -48,10 +70,16 @@ function NavItemLink({ item, onClose, className }) {
             prefetch={true}
             onMouseEnter={() => router.prefetch(href)}
             onFocus={() => router.prefetch(href)}
-            onClick={onClose}
+            onPointerDown={triggerOptimistic}
+            onMouseDown={triggerOptimistic}
+            onTouchStart={triggerOptimistic}
+            onClick={(event) => {
+                triggerOptimistic();
+                onClose?.(event);
+            }}
             aria-current={isActive ? 'page' : undefined}
             className={cn(
-                'group relative flex items-center gap-3 overflow-hidden rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm transition duration-150',
+                'group relative flex items-center gap-3 overflow-hidden rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm transition-colors duration-75',
                 isActive ? ACTIVE : INACTIVE,
                 className,
             )}
@@ -65,9 +93,9 @@ function NavItemLink({ item, onClose, className }) {
     );
 }
 
-function NavGroup({ label, items, onClose, icon, variant = 'default', alwaysActive = false, suppressHeader = false, groupKey, manualOpenKey, setManualOpenKey }) {
+function NavGroup({ label, items, onClose, icon, variant = 'default', alwaysActive = false, suppressHeader = false, groupKey, manualOpenKey, setManualOpenKey, onNavigate, optimisticHref }) {
     const isAccent = variant === 'accent';
-    const hasActiveChild = items.some(itemIsActive);
+    const hasActiveChild = items.some((item) => checkItemActive(item, optimisticHref));
     const open = alwaysActive || hasActiveChild || manualOpenKey === groupKey;
 
     const headerClassName = 'flex w-full items-center justify-between gap-2 px-3.5 py-2 text-[11px] font-bold uppercase tracking-wider transition-colors duration-150 select-none text-neutral-400 hover:text-neutral-700 dark:text-white/40 dark:hover:text-white/70';
@@ -102,26 +130,15 @@ function NavGroup({ label, items, onClose, icon, variant = 'default', alwaysActi
 
             {open && (
                 <div className={[suppressHeader ? 'space-y-1' : 'mt-0.5 space-y-1', isAccent ? 'ml-2 border-l border-neutral-200/80 dark:border-white/[0.08] pl-2.5' : ''].join(' ')}>
-                    {items.map((item, i) => {
-                        const isActive = itemIsActive(item);
-                        return (
-                            <Link
-                                key={item.key ?? item.route ?? item.href ?? i}
-                                href={item.href ?? (item.route ? route(item.route) : '#')}
-                                onClick={onClose}
-                                className={[
-                                    'group relative flex items-center gap-3 overflow-hidden rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm transition duration-150',
-                                    isActive ? ACTIVE : INACTIVE
-                                ].join(' ')}
-                            >
-                                {isActive && (
-                                    <span className="absolute left-0 inset-y-0 w-[3.5px] rounded-l-2xl bg-blue-600 dark:bg-blue-400" />
-                                )}
-                                <NavIcon icon={item.icon} isActive={isActive} />
-                                <span className="truncate">{item.label}</span>
-                            </Link>
-                        );
-                    })}
+                    {items.map((item, i) => (
+                        <NavItemLink
+                            key={item.key ?? item.route ?? item.href ?? i}
+                            item={item}
+                            onClose={onClose}
+                            onNavigate={onNavigate}
+                            optimisticHref={optimisticHref}
+                        />
+                    ))}
                 </div>
             )}
         </div>
@@ -133,9 +150,15 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
     const { url } = usePage();
     const [manualOpenKey, setManualOpenKey] = useState(null);
     const [selectedGroupKey, setSelectedGroupKey] = useState(() => rememberedDrilldownGroupKey);
+    const [optimisticHref, setOptimisticHref] = useState(() => rememberedOptimisticHref);
     const menuTitle = title ?? t('sidebar.menu');
 
     useEffect(() => { setManualOpenKey(null); }, [url]);
+
+    useEffect(() => {
+        rememberedOptimisticHref = null;
+        setOptimisticHref(null);
+    }, [url]);
 
     const isDrilldown = navigationMode === 'drilldown' && navGroups.length > 0;
     const pinnedGroup = isDrilldown ? navGroups[0] : null;
@@ -152,6 +175,10 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
             const href = item.href ?? (item.route ? route(item.route) : null);
             if (href) router.prefetch(href);
         }
+    };
+    const markNavigationActive = (href) => {
+        rememberedOptimisticHref = href;
+        setOptimisticHref(href);
     };
 
     useEffect(() => {
@@ -187,6 +214,8 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
                                     key={item.key ?? item.route ?? item.href ?? index}
                                     item={item}
                                     onClose={onClose}
+                                    onNavigate={markNavigationActive}
+                                    optimisticHref={optimisticHref}
                                 />
                             ))}
                         </div>
@@ -215,6 +244,8 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
                                                 key={item.key ?? item.route ?? item.href ?? index}
                                                 item={item}
                                                 onClose={onClose}
+                                                onNavigate={markNavigationActive}
+                                                optimisticHref={optimisticHref}
                                             />
                                         ))}
                                     </div>
@@ -265,6 +296,8 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
                             label={group.label}
                             items={group.items ?? []}
                             onClose={onClose}
+                            onNavigate={markNavigationActive}
+                            optimisticHref={optimisticHref}
                             icon={group.icon}
                             variant={group.variant ?? 'default'}
                             alwaysActive={group.alwaysActive === true}
@@ -275,24 +308,15 @@ export default function Sidebar({ navItems = [], navGroups = [], open = false, o
 
                 {navGroups.length === 0 && navItems.map((item, i) => {
                     if (item.type === 'divider') return <hr key={`div-${i}`} className="my-2 border-neutral-200/70 dark:border-white/[0.07]" />;
-                    const isActive = typeof item.active === 'function' ? item.active() : item.active ?? (item.route && route().current(item.route));
                     return (
-                    <Link
-                        key={item.key ?? item.route ?? item.href ?? i}
-                            href={item.href ?? (item.route ? route(item.route) : '#')}
-                        onClick={onClose}
-                        aria-current={isActive ? 'page' : undefined}
-                            className={[
-                                'group relative flex items-center gap-3 overflow-hidden rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm transition duration-150 mb-0.5',
-                                isActive ? ACTIVE : INACTIVE
-                            ].join(' ')}
-                        >
-                            {isActive && (
-                                <span className="absolute left-0 inset-y-0 w-[3.5px] rounded-l-2xl bg-blue-600 dark:bg-blue-400" />
-                            )}
-                            <NavIcon icon={item.icon} isActive={isActive} />
-                            <span className="truncate">{item.label}</span>
-                        </Link>
+                        <NavItemLink
+                            key={item.key ?? item.route ?? item.href ?? i}
+                            item={item}
+                            onClose={onClose}
+                            onNavigate={markNavigationActive}
+                            optimisticHref={optimisticHref}
+                            className="mb-0.5"
+                        />
                     );
                 })}
             </nav>
