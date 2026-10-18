@@ -3,7 +3,8 @@
 import { route } from '@/lib/route';
 import { usePage, router } from '@/lib/page-router';
 import SidebarBrandLink from '@/components/SidebarBrandLink';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import Topbar from '@/components/Topbar'; // Will be updated during folder move
 import Sidebar from '@/components/Sidebar';
@@ -197,6 +198,22 @@ function useClientNav() {
 export default function ClientLayout({ title = 'Dashboard', header, children }) {
     const { t } = useTranslation();
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+    useEffect(() => {
+        try {
+            const saved = localStorage.getItem('autocall_sidebar_collapsed');
+            if (saved !== null) setSidebarCollapsed(saved === 'true');
+        } catch {}
+    }, []);
+
+    const toggleSidebarCollapse = () => {
+        setSidebarCollapsed((prev) => {
+            const next = !prev;
+            try { localStorage.setItem('autocall_sidebar_collapsed', String(next)); } catch {}
+            return next;
+        });
+    };
     const { auth, impersonation, credits } = usePage().props;
     const user = auth?.user;
     const clientNavGroups = useClientNav();
@@ -227,6 +244,8 @@ export default function ClientLayout({ title = 'Dashboard', header, children }) 
                 title={t('client.panel')}
                 logo={<SidebarBrandLink href={route('client.dashboard')} ariaLabel={t('client.panel')} />}
                 showCreateButton={false}
+                collapsed={sidebarCollapsed}
+                onToggleCollapse={toggleSidebarCollapse}
                 navigationMode="drilldown"
                 navGroups={clientNavGroups.map(group => ({
                     ...group,
@@ -257,10 +276,12 @@ export default function ClientLayout({ title = 'Dashboard', header, children }) 
                 }
             />
 
-            <div className="lg:pl-64 rtl:lg:pl-0 rtl:lg:pr-64">
+            <div className={cn("transition-all duration-200", sidebarCollapsed ? "lg:pl-[68px] rtl:lg:pl-0 rtl:lg:pr-[68px]" : "lg:pl-64 rtl:lg:pl-0 rtl:lg:pr-64")}>
                 <Topbar
                     showLogo={false}
                     title={title}
+                    onToggleSidebarCollapse={toggleSidebarCollapse}
+                    isSidebarCollapsed={sidebarCollapsed}
                     extra={<CreditChip credits={credits} />}
                     userNavItems={[
                         { label: t('nav.profile'), href: route('client.profile.edit'), as: 'link' },

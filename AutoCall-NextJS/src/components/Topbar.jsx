@@ -119,6 +119,8 @@ export default function Topbar({
     title,
     showWorkspace = true,
     extra = null,
+    onToggleSidebarCollapse = null,
+    isSidebarCollapsed = false,
 }) {
     const { t } = useTranslation();
     const page = usePage();
@@ -178,6 +180,17 @@ export default function Topbar({
                     <Link href={logoHref} className="shrink-0">
                         <ApplicationLogo className="h-8 w-8" />
                     </Link>
+                )}
+                {onToggleSidebarCollapse && (
+                    <button
+                        type="button"
+                        onClick={onToggleSidebarCollapse}
+                        aria-label={isSidebarCollapsed ? 'Déplier le menu' : 'Replier le menu'}
+                        title={isSidebarCollapsed ? 'Déplier le menu (Agrandir)' : 'Replier le menu (Réduire)'}
+                        className="hidden lg:flex h-8 w-8 items-center justify-center rounded-xl border border-neutral-200/80 bg-white/70 text-neutral-600 shadow-2xs hover:bg-neutral-100 hover:text-neutral-900 dark:border-white/10 dark:bg-white/[0.04] dark:text-neutral-300 dark:hover:bg-white/[0.08] dark:hover:text-white transition cursor-pointer shrink-0"
+                    >
+                        {isSidebarCollapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+                    </button>
                 )}
                 {title && (
                     <h1 className="truncate text-sm font-bold tracking-tight text-neutral-900 dark:text-white font-hero-sans">{title}</h1>

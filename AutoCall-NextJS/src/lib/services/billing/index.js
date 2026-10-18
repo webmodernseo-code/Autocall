@@ -15,6 +15,7 @@ import {
     createTapGateway,
     createXenditGateway,
 } from './http-gateways';
+import { createGeniusPayGateway } from './geniuspay';
 
 /**
  * Port of App\Services\Billing\BillingGatewayRegistry: DB-configured gateways
@@ -48,6 +49,7 @@ const FACTORIES = {
     myfatoorah: createMyFatoorahGateway,
     tap: createTapGateway,
     paymob: createPaymobGateway,
+    geniuspay: createGeniusPayGateway,
 };
 
 function appUrl() {

@@ -188,7 +188,7 @@ export default function Pricing({ plans = [], gateways = [], flash = {}, isRequi
                                                         onClick={() => handleCheckout(plan.id, gw.key)}
                                                     >
                                                         <CreditCard className="h-4 w-4" />
-                                                        {isThisLoading ? 'Redirection vers Stripe…' : `Activer avec ${gw.name}`}
+                                                        {isThisLoading ? `Redirection vers ${gw.name}…` : `Activer avec ${gw.name}`}
                                                     </Button>
                                                 );
                                             })
@@ -202,7 +202,7 @@ export default function Pricing({ plans = [], gateways = [], flash = {}, isRequi
 
                 <div className="flex items-center justify-center gap-2 pt-4 text-xs text-neutral-500 dark:text-neutral-400">
                     <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                    <span>Paiements sécurisés par Stripe — Chiffrement SSL 256-bit certifié PCI-DSS</span>
+                    <span>Paiements chiffrés SSL 256-bit certifiés PCI-DSS (Mobile Money & Cartes)</span>
                 </div>
             </div>
         </ClientLayout>

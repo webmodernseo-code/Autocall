@@ -101,6 +101,16 @@ export function definitions() {
                 { key: 'hmac_secret', label: 'HMAC Secret', type: 'password', required: false, help: 'For callback verification' },
             ],
         },
+        geniuspay: {
+            label: 'GeniusPay (Mobile Money & Cartes)',
+            recurring: true,
+            secret_field: 'api_secret',
+            fields: [
+                { key: 'api_key', label: 'Clé Publique (X-API-Key)', type: 'text', required: true, help: 'pk_live_… ou pk_sandbox_…' },
+                { key: 'api_secret', label: 'Clé Secrète (X-API-Secret)', type: 'password', required: true, help: 'sk_live_… ou sk_sandbox_…' },
+                { key: 'webhook_secret', label: 'Secret Webhook', type: 'password', required: false, help: 'Pour la signature HMAC-SHA256 (utilise la clé secrète par défaut)' },
+            ],
+        },
     };
 }
 

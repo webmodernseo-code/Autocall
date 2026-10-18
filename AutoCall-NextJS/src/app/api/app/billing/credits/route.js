@@ -20,7 +20,7 @@ export const POST = handler(async (request) => {
 
     const data = await validate(await readBody(request), {
         credit_package_id: ['required', 'integer'],
-        gateway: ['nullable', 'string', 'in:stripe,paypal,paddle'],
+        gateway: ['nullable', 'string', 'in:stripe,paypal,paddle,geniuspay'],
     });
 
     const pkg = await prisma.creditPackage.findFirst({
