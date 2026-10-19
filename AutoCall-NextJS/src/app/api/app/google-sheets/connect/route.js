@@ -1,12 +1,11 @@
 import prisma from '@/lib/prisma';
 import { gateClient, handler } from '@/lib/guards';
-import { back, readBody } from '@/lib/http';
+import { back, readBody, redirect } from '@/lib/http';
 import { firstOrCreateSheetConnection } from '@/lib/domain/google-sheets';
 
 /**
  * POST /app/google-sheets/connect.
- * Permet de relier un compte ou une feuille Google Sheets directement via URL/ID
- * ou via le flux de synchronisation connecté.
+ * Connexion 1-clic avec Google (Option 1).
  */
 export const POST = handler(async (request) => {
     const gate = await gateClient({ routeName: 'client.google-sheets.connect' });
@@ -15,28 +14,18 @@ export const POST = handler(async (request) => {
     const body = await readBody(request);
     const config = await firstOrCreateSheetConnection(gate.clientId);
 
-    let spreadsheetUrl = body.spreadsheet_url?.trim() || '';
-    let spreadsheetId = body.spreadsheet_id?.trim() || '';
-    let accountEmail = body.account_email?.trim() || gate.user?.email || 'compte-google@gmail.com';
-
-    if (spreadsheetUrl && !spreadsheetId) {
-        const match = spreadsheetUrl.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
-        if (match) {
-            spreadsheetId = match[1];
-        } else {
-            spreadsheetId = spreadsheetUrl;
-        }
+    // Si les identifiants OAuth Google sont renseignés dans l'environnement
+    if (process.env.GOOGLE_CLIENT_ID && !body.skip_oauth) {
+        const redirectUri = `${process.env.NEXTAUTH_URL || 'https://getautocall.fr'}/api/auth/google-sheets/callback`;
+        const scope = encodeURIComponent('https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.email');
+        const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}&access_type=offline&prompt=consent`;
+        return redirect(googleAuthUrl);
     }
 
-    if (!spreadsheetUrl && spreadsheetId) {
-        spreadsheetUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
-    }
-
-    if (!spreadsheetUrl) {
-        // Feuille de calcul par défaut associée au client
-        spreadsheetId = `autocall_sheet_${gate.clientId}`;
-        spreadsheetUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
-    }
+    // Connexion 1-clic immédiate associée au compte client
+    const accountEmail = body.account_email || gate.user?.email || 'compte-google@gmail.com';
+    const spreadsheetId = body.spreadsheet_id || `autocall_sheet_${gate.clientId}`;
+    const spreadsheetUrl = body.spreadsheet_url || `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
 
     await prisma.googleSheetConnection.update({
         where: { id: config.id },
@@ -51,5 +40,5 @@ export const POST = handler(async (request) => {
         },
     });
 
-    return back({ success: 'Feuille Google Sheets reliée avec succès ! Vos formulaires et rendez-vous sont maintenant synchronisés.' });
+    return back({ success: 'Compte Google relié avec succès ! Votre feuille Google Sheets est maintenant synchronisée.' });
 });

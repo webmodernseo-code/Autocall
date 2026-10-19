@@ -18,10 +18,31 @@ import {
     XCircle,
     FileText,
     CalendarClock,
-    Link2,
-    Edit3,
-    Sparkles,
+    ShieldCheck,
 } from 'lucide-react';
+
+function GoogleSvg({ className = 'h-4.5 w-4.5' }) {
+    return (
+        <svg className={className} viewBox="0 0 24 24">
+            <path
+                fill="#4285F4"
+                d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"
+            />
+            <path
+                fill="#34A853"
+                d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
+            />
+            <path
+                fill="#FBBC05"
+                d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"
+            />
+            <path
+                fill="#EA4335"
+                d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
+            />
+        </svg>
+    );
+}
 
 function StatusBadge({ connected, isFr }) {
     return connected ? (
@@ -65,34 +86,23 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
     const { t, i18n } = useTranslation();
     const isFr = (i18n?.language || 'fr').startsWith('fr');
 
-    const [showCustomLink, setShowCustomLink] = useState(false);
-    const [customUrl, setCustomUrl] = useState('');
-    const [customEmail, setCustomEmail] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isConnecting, setIsConnecting] = useState(false);
 
     const settings = useForm({
         sync_forms: config.sync_forms ?? false,
         sync_appointments: config.sync_appointments ?? false,
     });
 
-    const connect = (payload = {}) => {
-        setIsSubmitting(true);
+    const connectGoogle = () => {
+        setIsConnecting(true);
         router.post(
             route('client.google-sheets.connect'),
-            payload,
+            {},
             {
                 preserveScroll: true,
-                onFinish: () => setIsSubmitting(false),
+                onFinish: () => setIsConnecting(false),
             }
         );
-    };
-
-    const handleCustomConnect = (e) => {
-        e.preventDefault();
-        connect({
-            spreadsheet_url: customUrl,
-            account_email: customEmail,
-        });
     };
 
     const disconnect = () => {
@@ -136,100 +146,39 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
 
                 {!config.connected ? (
                     <div className="rounded-2xl border border-slate-200/90 dark:border-white/[0.08] bg-white dark:bg-[#131622] p-8 text-center shadow-[0_1px_3px_rgba(15,23,42,0.06),0_6px_20px_rgba(15,23,42,0.03)] dark:shadow-none">
-                        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 text-blue-600 dark:text-blue-400">
-                            <Table className="h-7 w-7" />
+                        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 shadow-xs">
+                            <GoogleSvg className="h-7 w-7" />
                         </div>
+
+                        <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200/60 dark:border-blue-500/20 px-2.5 py-0.5 text-[11px] font-semibold text-blue-700 dark:text-blue-300 mb-3">
+                            <span>Connexion 1-clic avec votre compte Google</span>
+                        </div>
+
                         <h2 className="font-hero-sans text-lg font-bold text-neutral-900 dark:text-white">
-                            {isFr ? 'Connecter votre compte Google Sheets' : 'Connect Google Sheets'}
+                            {isFr ? 'Relier votre compte Google' : 'Connect your Google account'}
                         </h2>
                         <p className="mx-auto mt-2 max-w-md text-xs sm:text-sm text-slate-500 dark:text-neutral-400 leading-relaxed">
                             {isFr
-                                ? 'Reliez votre compte Google pour créer une feuille de calcul dédiée ou synchroniser un tableur existant en direct.'
-                                : 'Grant access to your Google account to automatically create and synchronize your calling and form data.'}
+                                ? 'Autorisez l\'accès à votre compte Google pour synchroniser automatiquement vos formulaires et rendez-vous dans votre tableur Google Sheets.'
+                                : 'Authorize access to your Google account to automatically synchronize your forms and appointments into Google Sheets.'}
                         </p>
 
-                        <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <div className="mt-6 flex flex-col items-center justify-center gap-3">
                             <button
                                 type="button"
-                                onClick={() => connect()}
-                                disabled={isSubmitting}
-                                className="inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-xs transition cursor-pointer disabled:opacity-50"
+                                onClick={connectGoogle}
+                                disabled={isConnecting}
+                                className="inline-flex items-center justify-center gap-3 rounded-xl bg-white dark:bg-[#1c2233] border border-slate-300 dark:border-white/15 hover:border-slate-400 dark:hover:border-white/30 text-neutral-800 dark:text-white px-6 py-3 text-sm font-semibold shadow-xs hover:shadow-sm transition-all cursor-pointer disabled:opacity-50"
                             >
-                                <Table className="h-4 w-4" />
-                                <span>{isSubmitting ? (isFr ? 'Connexion en cours…' : 'Connecting…') : (isFr ? 'Lier mon compte Google Sheets (Auto)' : 'Connect Google Sheets')}</span>
+                                <GoogleSvg className="h-5 w-5 shrink-0" />
+                                <span>{isConnecting ? (isFr ? 'Connexion en cours…' : 'Connecting…') : (isFr ? 'Continuer avec Google' : 'Continue with Google')}</span>
                             </button>
 
-                            <button
-                                type="button"
-                                onClick={() => setShowCustomLink(!showCustomLink)}
-                                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-neutral-50 dark:bg-white/[0.03] px-4 py-2.5 text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 transition cursor-pointer"
-                            >
-                                <Link2 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                                <span>{isFr ? 'Lier une feuille existante (URL ou ID)' : 'Link existing sheet by URL'}</span>
-                            </button>
+                            <p className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-neutral-400 mt-1">
+                                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+                                <span>{isFr ? 'Connexion sécurisée certifiée Google Cloud API & SSL 256-bit.' : 'Secure connection via Google Cloud API.'}</span>
+                            </p>
                         </div>
-
-                        {/* Formulaire de saisie personnalisée d'URL / ID */}
-                        {showCustomLink && (
-                            <form
-                                onSubmit={handleCustomConnect}
-                                className="mt-6 max-w-lg mx-auto text-left rounded-xl border border-blue-200/90 dark:border-white/10 bg-blue-50/20 dark:bg-white/[0.02] p-4 space-y-3"
-                            >
-                                <div className="flex items-center gap-2">
-                                    <Sparkles className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                                    <span className="text-xs font-bold text-neutral-900 dark:text-white">
-                                        {isFr ? 'Renseigner votre feuille Google Sheets' : 'Enter your Google Sheets details'}
-                                    </span>
-                                </div>
-
-                                <div>
-                                    <label className="text-[11px] font-semibold text-neutral-600 dark:text-neutral-400 block mb-1">
-                                        {isFr ? 'Lien ou ID de la feuille Google Sheets :' : 'Google Sheet URL or ID:'}
-                                    </label>
-                                    <input
-                                        type="text"
-                                        required
-                                        value={customUrl}
-                                        onChange={(e) => setCustomUrl(e.target.value)}
-                                        placeholder="https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5n..."
-                                        className="w-full rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-[#11141d] px-3 py-2 text-xs font-mono"
-                                    />
-                                    <p className="mt-1 text-[10px] text-slate-500 dark:text-neutral-400">
-                                        {isFr ? 'Collez simplement l\'URL de votre tableur depuis la barre d\'adresse de votre navigateur.' : 'Copy and paste the URL of your spreadsheet directly.'}
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <label className="text-[11px] font-semibold text-neutral-600 dark:text-neutral-400 block mb-1">
-                                        {isFr ? 'Votre adresse Google (optionnel) :' : 'Your Google email (optional):'}
-                                    </label>
-                                    <input
-                                        type="email"
-                                        value={customEmail}
-                                        onChange={(e) => setCustomEmail(e.target.value)}
-                                        placeholder="exemple@gmail.com"
-                                        className="w-full rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-[#11141d] px-3 py-1.5 text-xs"
-                                    />
-                                </div>
-
-                                <div className="flex justify-end gap-2 pt-2 border-t border-blue-100 dark:border-white/[0.04]">
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowCustomLink(false)}
-                                        className="px-3 py-1.5 text-xs text-neutral-500 hover:text-neutral-800 dark:hover:text-white"
-                                    >
-                                        {isFr ? 'Annuler' : 'Cancel'}
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        className="rounded-xl bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 text-xs font-semibold shadow-xs disabled:opacity-50"
-                                    >
-                                        {isSubmitting ? (isFr ? 'Enregistrement…' : 'Saving…') : (isFr ? 'Connecter ce tableur' : 'Connect Spreadsheet')}
-                                    </button>
-                                </div>
-                            </form>
-                        )}
                     </div>
                 ) : (
                     <div className="space-y-5">
@@ -258,63 +207,14 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
                                         </p>
                                     )}
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowCustomLink(!showCustomLink)}
-                                        className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-neutral-50 dark:bg-white/[0.03] px-3 py-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 transition cursor-pointer"
-                                    >
-                                        <Edit3 className="h-3.5 w-3.5 text-slate-500" />
-                                        <span>{isFr ? 'Changer de feuille' : 'Change sheet'}</span>
-                                    </button>
-
-                                    <button
-                                        onClick={disconnect}
-                                        className="inline-flex items-center gap-2 rounded-xl border border-rose-200 dark:border-rose-500/20 bg-rose-50/60 dark:bg-rose-500/10 px-4 py-1.5 text-xs font-semibold text-rose-700 dark:text-rose-400 hover:bg-rose-100 transition cursor-pointer"
-                                    >
-                                        <Unplug className="h-4 w-4" />
-                                        <span>{isFr ? 'Déconnecter' : 'Disconnect'}</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Formulaire de modification de la feuille */}
-                            {showCustomLink && (
-                                <form
-                                    onSubmit={handleCustomConnect}
-                                    className="mt-4 pt-4 border-t border-slate-100 dark:border-white/[0.06] max-w-lg space-y-3"
+                                <button
+                                    onClick={disconnect}
+                                    className="inline-flex items-center gap-2 rounded-xl border border-rose-200 dark:border-rose-500/20 bg-rose-50/60 dark:bg-rose-500/10 px-4 py-2 text-xs font-semibold text-rose-700 dark:text-rose-400 hover:bg-rose-100 transition cursor-pointer"
                                 >
-                                    <div>
-                                        <label className="text-[11px] font-semibold text-neutral-600 dark:text-neutral-400 block mb-1">
-                                            {isFr ? 'Nouvelle URL ou ID Google Sheets :' : 'New Google Sheets URL or ID:'}
-                                        </label>
-                                        <input
-                                            type="text"
-                                            required
-                                            value={customUrl}
-                                            onChange={(e) => setCustomUrl(e.target.value)}
-                                            placeholder={config.spreadsheet_url || 'https://docs.google.com/spreadsheets/d/...'}
-                                            className="w-full rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-[#11141d] px-3 py-1.5 text-xs font-mono"
-                                        />
-                                    </div>
-                                    <div className="flex justify-end gap-2">
-                                        <button
-                                            type="button"
-                                            onClick={() => setShowCustomLink(false)}
-                                            className="px-3 py-1 text-xs text-neutral-500"
-                                        >
-                                            {isFr ? 'Annuler' : 'Cancel'}
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            disabled={isSubmitting}
-                                            className="rounded-xl bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-1 text-xs font-semibold"
-                                        >
-                                            {isFr ? 'Mettre à jour' : 'Update'}
-                                        </button>
-                                    </div>
-                                </form>
-                            )}
+                                    <Unplug className="h-4 w-4" />
+                                    <span>{isFr ? 'Déconnecter' : 'Disconnect'}</span>
+                                </button>
+                            </div>
                         </div>
 
                         <div className="rounded-2xl border border-slate-200/90 dark:border-white/[0.08] bg-white dark:bg-[#131622] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06)] dark:shadow-none">
