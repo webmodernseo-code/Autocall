@@ -158,6 +158,21 @@ export async function billingRegistry() {
         );
     }
 
+    const geniuspayKey = process.env.GENIUSPAY_API_KEY;
+    const geniuspaySecret = process.env.GENIUSPAY_API_SECRET;
+    const geniuspayWebhookSecret = process.env.GENIUSPAY_WEBHOOK_SECRET || geniuspaySecret;
+    const geniuspayTestMode = process.env.GENIUSPAY_SANDBOX === 'true' || process.env.GENIUSPAY_TEST_MODE === 'true';
+
+    if (!gateways.geniuspay && geniuspayKey && geniuspaySecret) {
+        gateways.geniuspay = createGeniusPayGateway(
+            { api_key: geniuspayKey, api_secret: geniuspaySecret, webhook_secret: geniuspayWebhookSecret },
+            geniuspayTestMode,
+            successUrl,
+            cancelUrl,
+            webhookUrl('geniuspay'),
+        );
+    }
+
     return {
         all: () => gateways,
         get: (k) => gateways[k] ?? null,
