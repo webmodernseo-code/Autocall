@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from 'react-i18next';
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, LayoutDashboard, Home, PhoneCall, Sparkles } from 'lucide-react';
@@ -33,7 +34,7 @@ export default function NotFound() {
         >
           <BrandMark variant="dark" className="h-7 w-7 shrink-0 text-white" />
           <span className="font-semibold text-sm tracking-tight text-white">
-            AutoCall
+            <Trans i18nKey="app.name" />
           </span>
         </Link>
 
@@ -42,7 +43,7 @@ export default function NotFound() {
           className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] hover:bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-neutral-300 hover:text-white transition-all"
         >
           <LayoutDashboard className="h-3.5 w-3.5 text-blue-400" />
-          <span>Dashboard</span>
+          <span><Trans i18nKey="nav.dashboard" /></span>
         </Link>
       </header>
 

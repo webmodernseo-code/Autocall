@@ -3,7 +3,7 @@
 
 
 import translationI18n from '@/i18n';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { route } from '@/lib/route';
 import { Head, router, useForm } from '@/lib/page-router';
 import AdminLayout from '@/layouts/AdminLayout';
@@ -18,6 +18,7 @@ function Stat({ label, value }) {
 }
 
 export default function MessagingIndex({ settings = {}, logs = [], stats = {}, filters = {} }) {
+    const { t } = useTranslation();
     const form = useForm({
         provider_mode: settings.provider_mode || 'disabled',
         meta_app_id: settings.meta_app_id || '', meta_app_secret: '', meta_config_id: settings.meta_config_id || '',
@@ -26,8 +27,8 @@ export default function MessagingIndex({ settings = {}, logs = [], stats = {}, f
     const save = (e) => { e.preventDefault(); form.put(route('admin.messaging.update'), { preserveScroll: true }); };
 
     return (
-        <AdminLayout title="Messaging">
-            <Head title="Messaging" />
+        <AdminLayout title={t('nav.messaging', 'Messagerie')}>
+            <Head title={`${t('nav.messaging', 'Messagerie')} · ${t('head.admin', 'AutoCall')}`} />
             <div className="space-y-6">
                 <div className="flex items-center gap-2"><MessageSquare className="h-6 w-6 text-brand-600 dark:text-brand-400" /><h2 className="font-display text-xl font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_admin_messaging_index_a0f169437241" /></h2></div>
 
@@ -39,10 +40,10 @@ export default function MessagingIndex({ settings = {}, logs = [], stats = {}, f
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-4">
-                    <Stat label="Total messages" value={stats.total ?? 0} />
-                    <Stat label="Emails" value={stats.emails ?? 0} />
-                    <Stat label="WhatsApp" value={stats.whatsapp ?? 0} />
-                    <Stat label="Success rate" value={`${stats.success_rate ?? 0}%`} />
+                    <Stat label={t('admin.total_messages', 'Total des messages')} value={stats.total ?? 0} />
+                    <Stat label={t('admin.emails', 'E-mails')} value={stats.emails ?? 0} />
+                    <Stat label={t('admin.whatsapp', 'WhatsApp')} value={stats.whatsapp ?? 0} />
+                    <Stat label={t('admin.success_rate', 'Taux de succès')} value={`${stats.success_rate ?? 0}%`} />
                 </div>
 
                 <form onSubmit={save} className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft space-y-4">

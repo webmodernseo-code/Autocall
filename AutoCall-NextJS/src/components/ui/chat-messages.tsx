@@ -1,5 +1,6 @@
 "use client";
 
+import translationI18n from '@/i18n';
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Send, RotateCcw, Sparkles } from "lucide-react";
@@ -182,7 +183,7 @@ export function AnimatedUserAvatar({
       >
         <img
           src={src}
-          alt="Client"
+          alt={translationI18n.t('admin.client_label')}
           className="h-full w-full object-cover"
         />
       </motion.div>

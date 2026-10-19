@@ -1,5 +1,7 @@
 "use client";
 
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import React, { useState } from "react";
 import type { ReactNode } from "react";
 import { FlutedGlass } from "@paper-design/shaders-react";
@@ -86,14 +88,14 @@ export default function AuthSectionThree() {
               </div>
 
               <InputField
-                label="Email"
+                label={translationI18n.t('client.profile.email')}
                 value="harshitlog@gmail.com"
                 placeholder="email@example.com"
                 type="email"
               />
 
               <InputField
-                label="Password"
+                label={translationI18n.t('client.profile.section_password_title')}
                 value="*************"
                 placeholder="Enter password"
                 type="password"
@@ -111,7 +113,7 @@ export default function AuthSectionThree() {
                 type="button"
                 className="mt-8 flex h-11 w-full items-center justify-center rounded-lg border border-black/40 bg-black text-sm font-medium text-white transition-colors hover:bg-black/85 dark:border-white/40 dark:bg-white dark:text-black dark:hover:bg-white/85"
               >
-                Submit
+                <Trans i18nKey="customer.login.submit" />
               </button>
             </form>
           </div>

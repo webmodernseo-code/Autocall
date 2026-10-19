@@ -29,7 +29,7 @@ export default function AdminAuditLogIndex({ logs, stats = [], filters = {} }) {
                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
                                     <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_auditlog_index_888faf3a2a9b" /></th>
                                     <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_auditlog_index_a06203770587" /></th>
-                                    <th className="pb-2 pr-4 font-medium">Action</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="client.custom_orders_ui.col_action" /></th>
                                     <th className="pb-2 pr-4 font-medium">Auditable</th>
                                     <th className="pb-2 pr-4 font-medium">IP</th>
                                 </tr>

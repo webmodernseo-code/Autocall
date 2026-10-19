@@ -33,14 +33,14 @@ export default function PlanForm({
                 </h4>
                 <div className="space-y-4">
                     <Input
-                        label="Plan Name"
+                        label={translationI18n.t('admin.plan_name')}
                         value={data.name ?? ''}
                         onChange={(e) => setData('name', e.target.value)}
                         error={errors.name}
                         required
                     />
                     <Input
-                        label="Slug"
+                        label={translationI18n.t('client.regions_ui.tbl_slug')}
                         value={data.slug ?? ''}
                         onChange={(e) => setData('slug', e.target.value)}
                         hint="Leave empty to auto-generate from name"
@@ -62,7 +62,7 @@ export default function PlanForm({
                         )}
                     </div>
                     <Input
-                        label="Currency"
+                        label={translationI18n.t('topbar.currency')}
                         value={data.currency_code ?? ''}
                         onChange={(e) => setData('currency_code', e.target.value.toUpperCase())}
                         error={errors.currency_code}
@@ -74,12 +74,12 @@ export default function PlanForm({
 
             {/* Pricing */}
             <section>
-                <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3">Pricing</h4>
+                <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3"><Trans i18nKey="nav.pricing" /></h4>
                 <div className="space-y-4">
                     <Input
                         type="number"
                         min={0}
-                        label="Monthly Price (cents)"
+                        label={translationI18n.t('admin.monthly_price_cents')}
                         value={data.monthly_price_cents ?? ''}
                         onChange={(e) =>
                             setData('monthly_price_cents', e.target.value ? parseInt(e.target.value, 10) : null)
@@ -100,7 +100,7 @@ export default function PlanForm({
                         <Input
                             type="number"
                             min={0}
-                            label="Yearly Price (cents)"
+                            label={translationI18n.t('admin.yearly_price_cents')}
                             value={data.yearly_price_cents ?? ''}
                             onChange={(e) =>
                                 setData(
@@ -114,7 +114,7 @@ export default function PlanForm({
                         type="number"
                         min={0}
                         max={365}
-                        label="Trial Days"
+                        label={translationI18n.t('admin.trial_days')}
                         value={data.trial_days ?? 0}
                         onChange={(e) => setData('trial_days', parseInt(e.target.value, 10) || 0)}
                     />
@@ -131,16 +131,16 @@ export default function PlanForm({
                         Find these IDs inside Stripe Dashboard → Products
                     </p>
                     <Input
-                        label="Stripe Monthly Price ID"
+                        label={translationI18n.t('admin.stripe_monthly_price_id')}
                         value={data.stripe_monthly_id ?? ''}
                         onChange={(e) => setData('stripe_monthly_id', e.target.value)}
-                        placeholder="price_..."
+                        placeholder={translationI18n.t('admin.price_placeholder')}
                     />
                     <Input
-                        label="Stripe Yearly Price ID"
+                        label={translationI18n.t('admin.stripe_yearly_price_id')}
                         value={data.stripe_yearly_id ?? ''}
                         onChange={(e) => setData('stripe_yearly_id', e.target.value)}
-                        placeholder="price_..."
+                        placeholder={translationI18n.t('admin.price_placeholder')}
                     />
                 </div>
             </section>
@@ -162,17 +162,17 @@ export default function PlanForm({
                 <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3"><Trans i18nKey="hardcoded.views_admin_plans_planform_cb101cc1b64f" /></h4>
                 <div className="flex flex-wrap gap-6">
                     <Toggle
-                        label="Active"
+                        label={translationI18n.t('common.active')}
                         checked={data.enabled ?? true}
                         onChange={(v) => setData('enabled', v)}
                     />
                     <Toggle
-                        label="Popular"
+                        label={translationI18n.t('client.esim_catalog_ui.tbl_col_popular')}
                         checked={data.popular ?? false}
                         onChange={(v) => setData('popular', v)}
                     />
                     <Toggle
-                        label="Featured"
+                        label={translationI18n.t('admin.featured')}
                         checked={data.featured ?? false}
                         onChange={(v) => setData('featured', v)}
                     />

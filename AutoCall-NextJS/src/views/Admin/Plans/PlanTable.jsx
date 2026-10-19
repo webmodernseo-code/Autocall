@@ -70,12 +70,12 @@ function StatusCell({ plan }) {
             </span>
             {plan.popular && (
                 <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
-                    Popular
+                    <Trans i18nKey="client.esim_catalog_ui.tbl_col_popular" />
                 </span>
             )}
             {plan.featured && (
                 <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-                    Featured
+                    <Trans i18nKey="admin.featured" />
                 </span>
             )}
         </div>
@@ -110,7 +110,7 @@ function SortableRow({ plan, onEdit, onDuplicate, onToggleEnabled, onDelete }) {
                     className="p-1 rounded text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 cursor-grab active:cursor-grabbing touch-none"
                     {...attributes}
                     {...listeners}
-                    aria-label="Drag to reorder"
+                    aria-label={translationI18n.t('admin.drag_to_reorder')}
                 >
                     <GripVertical className="h-4 w-4" />
                 </button>
@@ -141,7 +141,7 @@ function SortableRow({ plan, onEdit, onDuplicate, onToggleEnabled, onDelete }) {
                         <button
                             type="button"
                             className="p-2 rounded-lg text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 transition"
-                            aria-label="Actions"
+                            aria-label={translationI18n.t('common.actions')}
                         >
                             <MoreVertical className="h-4 w-4" />
                         </button>

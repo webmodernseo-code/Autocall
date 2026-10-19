@@ -135,14 +135,14 @@ export default function AdminPlansIndex({ plans = [], stats = [] }) {
     };
 
     return (
-        <AdminLayout title="Price Plans">
+        <AdminLayout title={translationI18n.t('admin.price_plans')}>
             <Head title="Price Plans · Admin" />
             <div className="space-y-6">
                 {/* Section 1 — Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                         <h1 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
-                            Price Plans
+                            <Trans i18nKey="admin.price_plans" />
                         </h1>
                         <p className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">
                             <Trans i18nKey="hardcoded.views_admin_plans_index_d978ce6603dc" />

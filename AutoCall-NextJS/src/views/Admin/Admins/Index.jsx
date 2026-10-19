@@ -77,7 +77,7 @@ export default function AdminAdminsIndex({ admins, roles, stats = [], filters = 
     const links = admins?.links ?? [];
 
     return (
-        <AdminLayout title="Admin Management">
+        <AdminLayout title={translationI18n.t('admin.admin_management')}>
             <Head title="Admin Management · Admin" />
             <div className="space-y-6">
                 {pageFlash?.success && (

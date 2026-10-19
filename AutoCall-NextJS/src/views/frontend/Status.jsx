@@ -1,5 +1,7 @@
 'use client';
 
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import React from 'react';
 import Link from 'next/link';
 import {
@@ -74,7 +76,7 @@ export default function StatusView() {
                         <Link href="/" className="flex items-center gap-2 group">
                             <img
                                 src="/images/autocall-logo.png"
-                                alt="AutoCall"
+                                alt={translationI18n.t('app.name')}
                                 className="h-[20px] w-auto object-contain transition-transform duration-200 group-hover:scale-102"
                             />
                         </Link>
@@ -94,7 +96,7 @@ export default function StatusView() {
                             href="/app"
                             className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full bg-white px-4 text-xs font-bold text-neutral-950 hover:bg-neutral-200 transition-all shadow-sm"
                         >
-                            <span>Dashboard</span>
+                            <span><Trans i18nKey="nav.dashboard" /></span>
                             <ArrowUpRight className="h-3.5 w-3.5" />
                         </Link>
                     </div>

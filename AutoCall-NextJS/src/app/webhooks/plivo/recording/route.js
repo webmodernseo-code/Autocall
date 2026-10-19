@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 import { handler } from '@/lib/guards';
-import { formDataToObject, queryParams } from '@/lib/http';
+import { formDataToObject, queryParams, readFormBody } from '@/lib/http';
 import { verifyPlivoSignature } from '@/lib/webhooks/signatures';
 
 /** POST /webhooks/plivo/recording */
@@ -8,7 +8,7 @@ export const POST = handler(async (request) => {
     const check = await verifyPlivoSignature(request);
     if (!check.ok) return check.response;
 
-    const form = formDataToObject(await request.formData());
+    const form = formDataToObject(await readFormBody(request));
     const callId = queryParams(request).c;
 
     if (callId) {

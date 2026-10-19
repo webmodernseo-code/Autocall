@@ -3,6 +3,7 @@ import 'server-only';
 import crypto from 'node:crypto';
 import prisma from '@/lib/prisma';
 import config from '@/lib/config';
+import { readTextBody } from '@/lib/http';
 import { priceCentsForCycle } from '@/lib/plans';
 import {
     badSignature,
@@ -140,7 +141,7 @@ export function createPayPalGateway(clientId, clientSecret, sandbox, successUrl,
          * /v1/notifications/verify-webhook-signature (needs the webhook id).
          */
         async handleWebhook(request) {
-            const payload = await request.text();
+            const payload = await readTextBody(request);
 
             let data;
             try {
@@ -298,7 +299,7 @@ export function createPaddleGateway(apiKey, environment, successUrl, cancelUrl, 
         },
 
         async handleWebhook(request) {
-            const payload = await request.text();
+            const payload = await readTextBody(request);
 
             let data;
             try {

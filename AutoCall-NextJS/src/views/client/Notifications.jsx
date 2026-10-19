@@ -1,5 +1,7 @@
 'use client';
 
+import translationI18n from '@/i18n';
+import { Trans } from 'react-i18next';
 import { Head } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
 import { Bell, Info, CheckCircle2, AlertTriangle, AlertOctagon, Megaphone } from 'lucide-react';
@@ -13,10 +15,10 @@ const LEVEL = {
 
 export default function Notifications({ notifications = [] }) {
     return (
-        <ClientLayout title="Notifications">
-            <Head title="Notifications" />
+        <ClientLayout title={translationI18n.t('nav.notifications')}>
+            <Head title={translationI18n.t('nav.notifications')} />
             <div className="mx-auto max-w-2xl space-y-4">
-                <div className="flex items-center gap-2"><Bell className="h-6 w-6 text-brand-600 dark:text-brand-400" /><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Notifications</h1></div>
+                <div className="flex items-center gap-2"><Bell className="h-6 w-6 text-brand-600 dark:text-brand-400" /><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="nav.notifications" /></h1></div>
                 <div className="space-y-2">
                     {notifications.map((n) => {
                         const L = LEVEL[n.level] || LEVEL.info;

@@ -66,11 +66,11 @@ export default function TeamIndex({ users = [], roles = [], stats = [], permissi
     const assignRole = (u, roleId) => router.post(route('client.team.assign-role', u.id), { role_id: roleId }, { preserveScroll: true });
 
     return (
-        <ClientLayout title="Team">
-            <Head title="Team" />
+        <ClientLayout title={translationI18n.t('nav.team')}>
+            <Head title={translationI18n.t('nav.team')} />
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Team</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{seats.used ?? 0}/{seats.limit ?? 0} <Trans i18nKey="hardcoded.views_client_team_index_53325f38a240" /></p></div>
+                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="nav.team" /></h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{seats.used ?? 0}/{seats.limit ?? 0} <Trans i18nKey="hardcoded.views_client_team_index_53325f38a240" /></p></div>
                     <button onClick={() => setMemberModal({})} disabled={(seats.used ?? 0) >= (seats.limit ?? 0)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_team_index_69bd5401c6b1" /></button>
                 </div>
 

@@ -53,13 +53,13 @@ export default function CallsIndex({ calls, filters = {}, stats = [] }) {
 
     return (
         <ClientLayout title={t('nav.calls') !== 'nav.calls' ? t('nav.calls') : 'Calls'}>
-            <Head title="Calls" />
+            <Head title={translationI18n.t('nav.calls')} />
             <div className="space-y-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_calls_index_cc1731ef145e" /></h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_calls_index_6fbe84d13491" /></p></div>
                     <div className="flex gap-2">
                         <button onClick={sync} className="inline-flex items-center gap-2 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><RefreshCw className="h-4 w-4" /> Sync recordings</button>
-                        <a href={route('client.calls.export')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Download className="h-4 w-4" /> Export CSV</a>
+                        <a href={route('client.calls.export')} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Download className="h-4 w-4" /> <Trans i18nKey="client.referral_ui.export_csv" /></a>
                     </div>
                 </div>
 

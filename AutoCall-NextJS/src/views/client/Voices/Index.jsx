@@ -73,7 +73,7 @@ export default function VoicesIndex({ voices, stats = [], filters = {}, filterOp
 
     return (
         <ClientLayout title={t('nav.voices') !== 'nav.voices' ? t('nav.voices') : 'Voices'}>
-            <Head title="Voices" />
+            <Head title={translationI18n.t('nav.voices')} />
             <div className="space-y-5">
                 <div>
                     <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Voice library</h1>

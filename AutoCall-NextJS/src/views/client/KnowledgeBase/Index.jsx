@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router, useForm } from '@/lib/page-router';
@@ -34,13 +35,13 @@ export default function KnowledgeBaseIndex({ items, storage = {}, stats = [] }) 
 
     return (
         <ClientLayout title={t('nav.knowledge_base') !== 'nav.knowledge_base' ? t('nav.knowledge_base') : 'Knowledge Base'}>
-            <Head title="Knowledge Base" />
+            <Head title={translationI18n.t('nav.knowledge_base')} />
             <div className="grid gap-6 lg:grid-cols-3">
                 <div className="lg:col-span-3"><PageOverview feature="knowledge-base" /></div>
                 <div className="lg:col-span-3"><StatCards items={stats} /></div>
                 <div className="lg:col-span-2 space-y-4">
                     <div>
-                        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Knowledge Base</h1>
+                        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="nav.knowledge_base" /></h1>
                         <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_knowledgebase_index_f01bf4f092fd" /></p>
                     </div>
 
@@ -85,7 +86,7 @@ export default function KnowledgeBaseIndex({ items, storage = {}, stats = [] }) 
                                 return <button type="button" key={tp} onClick={() => setType2(tp)} className={`flex flex-1 items-center justify-center gap-1.5 rounded-soft border px-2 py-1.5 text-xs capitalize ${type === tp ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-300' : 'border-neutral-200 dark:border-ink-700 text-neutral-600 dark:text-neutral-300'}`}><Icon className="h-3.5 w-3.5" />{tp}</button>;
                             })}
                         </div>
-                        <input className={inputCls} placeholder="Title" value={form.data.title} onChange={(e) => form.setData('title', e.target.value)} />
+                        <input className={inputCls} placeholder={translationI18n.t('client.topup_packages_ui.tbl_title')} value={form.data.title} onChange={(e) => form.setData('title', e.target.value)} />
                         {form.errors.title && <p className="text-xs text-danger">{form.errors.title}</p>}
                         {type === 'url' && <input className={inputCls} placeholder="https://…" value={form.data.source_url} onChange={(e) => form.setData('source_url', e.target.value)} />}
                         {type === 'text' && <textarea rows="5" className={inputCls} placeholder="Paste text content…" value={form.data.content} onChange={(e) => form.setData('content', e.target.value)} />}

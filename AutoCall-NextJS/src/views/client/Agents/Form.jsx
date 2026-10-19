@@ -66,7 +66,7 @@ export default function AgentForm({ agent, voices = [], llmModels = [], voiceCos
                             <Field label="Agent name" error={errors.name}>
                                 <input className={inputCls} value={data.name} onChange={(e) => setData('name', e.target.value)} placeholder="e.g. Lead Qualifier" />
                             </Field>
-                            <Field label="Status" error={errors.status}>
+                            <Field label={translationI18n.t('client.vouchers_ui.col_status')} error={errors.status}>
                                 <select className={inputCls} value={data.status} onChange={(e) => setData('status', e.target.value)}>
                                     <option value="draft">Draft</option><option value="active"><Trans i18nKey="hardcoded.views_client_agents_form_acf64d82446a" /></option><option value="archived">Archived</option>
                                 </select>
@@ -77,7 +77,7 @@ export default function AgentForm({ agent, voices = [], llmModels = [], voiceCos
                                     {voices.map((v) => <option key={v.id} value={v.id}>{v.name}{v.accent ? ` · ${v.accent}` : ''}</option>)}
                                 </select>
                             </Field>
-                            <Field label="Language" error={errors.language}>
+                            <Field label={translationI18n.t('topbar.language')} error={errors.language}>
                                 <input className={inputCls} value={data.language} onChange={(e) => setData('language', e.target.value)} placeholder="en" />
                             </Field>
                             <Field label="LLM model" error={errors.llm_model}>

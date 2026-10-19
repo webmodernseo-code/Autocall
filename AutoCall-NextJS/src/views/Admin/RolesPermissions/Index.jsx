@@ -72,7 +72,7 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
     const categories = [...new Set((permissions || []).map((p) => p.category))].sort();
 
     return (
-        <AdminLayout title="Roles & Permissions">
+        <AdminLayout title={translationI18n.t('admin.roles_permissions')}>
             <Head title="Roles & Permissions · Admin" />
             <div className="space-y-6">
                 {pageFlash?.success && (
@@ -122,7 +122,7 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                                                     <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_8f84d70417ad" /></th>
                                                     <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_c0a06882d448" /></th>
                                                     <th className="pb-2 pr-4 font-medium">Permissions</th>
-                                                    <th className="pb-2 pr-4 font-medium">Admins</th>
+                                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="admin.admins" /></th>
                                                     <th className="pb-2 pr-4 w-24"><Trans i18nKey="hardcoded.views_admin_rolespermissions_index_5511f7b87eaf" /></th>
                                                 </tr>
                                             </thead>
@@ -214,7 +214,7 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                             </div>
                             <div>
                                 <label className="block text-sm font-medium mb-1">Key (e.g. SUPPORT)</label>
-                                <input type="text" value={roleForm.data.key} onChange={(e) => roleForm.setData('key', e.target.value.toUpperCase())} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm font-mono" placeholder="SUPPORT" required />
+                                <input type="text" value={roleForm.data.key} onChange={(e) => roleForm.setData('key', e.target.value.toUpperCase())} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm font-mono" placeholder={translationI18n.t('admin.role_key_placeholder')} required />
                                 {roleForm.errors.key && <p className="mt-1 text-sm text-red-500">{roleForm.errors.key}</p>}
                             </div>
                             <div>
@@ -301,7 +301,7 @@ export default function AdminRolesPermissionsIndex({ roles = [], permissions = [
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium mb-1">Key</label>
-                                <input type="text" value={permForm.data.key} onChange={(e) => permForm.setData('key', e.target.value)} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm font-mono" placeholder="view_something" required />
+                                <input type="text" value={permForm.data.key} onChange={(e) => permForm.setData('key', e.target.value)} className="w-full rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-sm font-mono" placeholder={translationI18n.t('admin.permission_key_placeholder')} required />
                                 {permForm.errors.key && <p className="mt-1 text-sm text-red-500">{permForm.errors.key}</p>}
                             </div>
                             <div>

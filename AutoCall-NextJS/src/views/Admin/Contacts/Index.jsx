@@ -18,8 +18,8 @@ export default function AdminContactsIndex({ contacts, stats = [], filters = {},
     const go = (e) => { e?.preventDefault(); router.get(route('admin.contacts.index'), { search }, { preserveState: true, replace: true }); };
 
     return (
-        <AdminLayout title="Contacts">
-            <Head title="Contacts" />
+        <AdminLayout title={translationI18n.t('nav.contacts')}>
+            <Head title={translationI18n.t('nav.contacts')} />
             <div className="space-y-5">
                 <div><h2 className="font-display text-xl font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_admin_contacts_index_c25735011306" /></h2><p className="text-sm text-neutral-500">{total.toLocaleString()} <Trans i18nKey="hardcoded.views_admin_contacts_index_b4ca28000f5b" /></p></div>
                 <PageOverview feature="admin-contacts" />

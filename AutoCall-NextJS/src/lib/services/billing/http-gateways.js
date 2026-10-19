@@ -3,6 +3,7 @@ import 'server-only';
 import crypto from 'node:crypto';
 import prisma from '@/lib/prisma';
 import { priceCentsForCycle } from '@/lib/plans';
+import { readTextBody } from '@/lib/http';
 import {
     badSignature,
     cred,
@@ -107,7 +108,7 @@ export function createRazorpayGateway(creds, testMode, successUrl, cancelUrl, we
         },
 
         async handleWebhook(request) {
-            const payload = await request.text();
+            const payload = await readTextBody(request);
             const secret = cred(creds, 'webhook_secret');
             if (secret === '') {
                 console.error(
@@ -252,7 +253,7 @@ export function createPaystackGateway(creds, testMode, successUrl, cancelUrl, we
         },
 
         async handleWebhook(request) {
-            const payload = await request.text();
+            const payload = await readTextBody(request);
             const secret = cred(creds, 'secret_key');
             if (secret === '') return badSignature(key);
 
@@ -391,7 +392,7 @@ export function createCashfreeGateway(creds, testMode, successUrl, cancelUrl, we
         },
 
         async handleWebhook(request) {
-            const payload = await request.text();
+            const payload = await readTextBody(request);
             const secret = cred(creds, 'webhook_secret') || cred(creds, 'secret_key');
             const ts = request.headers.get('x-webhook-timestamp') ?? '';
             const sig = request.headers.get('x-webhook-signature') ?? '';
@@ -559,7 +560,7 @@ export function createXenditGateway(creds, testMode, successUrl, cancelUrl, webh
 
             let data;
             try {
-                data = JSON.parse(await request.text());
+                data = JSON.parse(await readTextBody(request));
             } catch {
                 return invalidPayload();
             }
@@ -678,7 +679,7 @@ export function createMyFatoorahGateway(creds, testMode, successUrl, cancelUrl, 
         async handleWebhook(request) {
             let data;
             try {
-                data = JSON.parse(await request.text());
+                data = JSON.parse(await readTextBody(request));
             } catch {
                 return invalidPayload();
             }
@@ -805,7 +806,7 @@ export function createTapGateway(creds, testMode, successUrl, cancelUrl, webhook
         async handleWebhook(request) {
             let data;
             try {
-                data = JSON.parse(await request.text());
+                data = JSON.parse(await readTextBody(request));
             } catch {
                 return invalidPayload();
             }
@@ -953,7 +954,7 @@ export function createPaymobGateway(creds, testMode, successUrl, cancelUrl, webh
             const url = new URL(request.url);
             let body;
             try {
-                body = JSON.parse(await request.text());
+                body = JSON.parse(await readTextBody(request));
             } catch {
                 return invalidPayload();
             }

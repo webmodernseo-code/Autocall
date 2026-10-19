@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 import { handler } from '@/lib/guards';
-import { formDataToObject, queryParams } from '@/lib/http';
+import { formDataToObject, queryParams, readFormBody } from '@/lib/http';
 import { verifyTwilioSignature } from '@/lib/webhooks/signatures';
 import {
     CALL_STATUS,
@@ -15,7 +15,7 @@ import { greeting as agentGreeting } from '@/lib/services/agent-conversation';
 
 /** POST /webhooks/twilio/voice */
 export const POST = handler(async (request) => {
-    const form = formDataToObject(await request.formData());
+    const form = formDataToObject(await readFormBody(request));
 
     const check = await verifyTwilioSignature(request, form);
     if (!check.ok) return check.response;

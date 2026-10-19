@@ -95,7 +95,7 @@ export default function BillingIndex({ transactions, stats = [], creditBalance =
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {creditPackages.map((pkg) => (
                             <div key={pkg.id} className={`relative rounded-soft-lg border bg-white dark:bg-ink-900 p-5 shadow-soft ${pkg.is_popular ? 'border-brand-400 dark:border-brand-500' : 'border-neutral-200 dark:border-ink-800'}`}>
-                                {pkg.is_popular && <span className="absolute -top-2 right-4 inline-flex items-center gap-1 rounded-full bg-brand-600 px-2 py-0.5 text-[10px] font-medium text-white"><Star className="h-3 w-3" /> Popular</span>}
+                                {pkg.is_popular && <span className="absolute -top-2 right-4 inline-flex items-center gap-1 rounded-full bg-brand-600 px-2 py-0.5 text-[10px] font-medium text-white"><Star className="h-3 w-3" /> <Trans i18nKey="client.esim_catalog_ui.tbl_col_popular" /></span>}
                                 <h3 className="font-display font-semibold text-neutral-900 dark:text-white">{pkg.name}</h3>
                                 <p className="mt-1 font-mono text-3xl font-bold tabular-nums text-neutral-900 dark:text-white">{pkg.credits.toLocaleString()}</p>
                                 <p className="text-xs text-neutral-500">credits</p>

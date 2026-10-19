@@ -55,7 +55,7 @@ export default function AdminSubscriptionsIndex({ subscriptions, filters = {}, s
                         <option value="paypal">PayPal</option>
                         <option value="paddle">Paddle</option>
                     </select>
-                    <Button type="submit" variant="outline" size="sm">Filter</Button>
+                    <Button type="submit" variant="outline" size="sm"><Trans i18nKey="common.filter" /></Button>
                 </form>
                 <Card>
                     <div className="overflow-x-auto">
@@ -63,11 +63,11 @@ export default function AdminSubscriptionsIndex({ subscriptions, filters = {}, s
                             <thead>
                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
                                     <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_subscriptions_index_87dec8f7096b" /></th>
-                                    <th className="pb-2 pr-4 font-medium">Plan</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="client.plan" /></th>
                                     <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_subscriptions_index_9ac8042c243d" /></th>
                                     <th className="pb-2 pr-4 font-medium">Gateway</th>
                                     <th className="pb-2 pr-4 font-medium">Starts</th>
-                                    <th className="pb-2 pr-4 font-medium">Renews</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="client.renews" /></th>
                                     <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_subscriptions_index_9a0bc7f349e6" /></th>
                                 </tr>
                             </thead>

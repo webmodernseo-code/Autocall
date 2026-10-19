@@ -28,11 +28,11 @@ export default function BatchJobsIndex({ batches, filters = {}, clients = [], st
     const resume = (b) => router.post(route('admin.batch-jobs.resume', b.id), {}, { preserveScroll: true });
 
     return (
-        <AdminLayout title="Batch Jobs">
-            <Head title="Batch Jobs" />
+        <AdminLayout title={translationI18n.t('admin.batch_jobs')}>
+            <Head title={translationI18n.t('admin.batch_jobs')} />
             <div className="space-y-5">
                 <div>
-                    <h2 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Batch Jobs</h2>
+                    <h2 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="admin.batch_jobs" /></h2>
                     <p className="text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_admin_batchjobs_index_40af38da761c" /></p>
                 </div>
 
@@ -82,7 +82,7 @@ export default function BatchJobsIndex({ batches, filters = {}, clients = [], st
                                         <td className="px-5 py-3"><span className={b.success_rate >= 50 ? 'text-signal-600 dark:text-signal-400' : 'text-neutral-500'}>{b.success_rate}%</span></td>
                                         <td className="px-5 py-3 text-right">
                                             {b.status === 'active' && <button onClick={() => pause(b)} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 px-2.5 py-1 text-xs text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800"><Pause className="h-3.5 w-3.5" /> Pause</button>}
-                                            {b.status === 'paused' && <button onClick={() => resume(b)} className="inline-flex items-center gap-1 rounded-soft bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 hover:bg-brand-100 dark:bg-brand-500/10 dark:text-brand-300"><Play className="h-3.5 w-3.5" /> Resume</button>}
+                                            {b.status === 'paused' && <button onClick={() => resume(b)} className="inline-flex items-center gap-1 rounded-soft bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 hover:bg-brand-100 dark:bg-brand-500/10 dark:text-brand-300"><Play className="h-3.5 w-3.5" /> <Trans i18nKey="hardcoded.views_client_campaigns_show_81cf7a5239e1" /></button>}
                                         </td>
                                     </tr>
                                 ))}

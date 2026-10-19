@@ -56,11 +56,15 @@ function SectionCard({ title, action, children, className = '', pad = true }) {
 }
 
 function Health({ ok, label }) {
+    const { t } = useTranslation();
     return (
         <div className="flex items-center gap-2.5 rounded-soft border border-neutral-200 px-3 py-2.5 dark:border-ink-700">
             <span className={`flex h-7 w-7 items-center justify-center rounded-lg ${ok ? 'bg-signal-500/15 text-signal-600 dark:text-signal-300' : 'bg-neutral-100 text-neutral-400 dark:bg-ink-800'}`}>{ok ? <CheckCircle2 className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}</span>
             <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{label}</span>
-            <span className={`ml-auto inline-flex items-center gap-1 text-xs font-medium ${ok ? 'text-signal-600 dark:text-signal-400' : 'text-neutral-400'}`}>{ok && <span className="h-1.5 w-1.5 rounded-full bg-signal-500 animate-pulse" />}{ok ? 'Connected' : 'Not set'}</span>
+            <span className={`ml-auto inline-flex items-center gap-1 text-xs font-medium ${ok ? 'text-signal-600 dark:text-signal-400' : 'text-neutral-400'}`}>
+                {ok && <span className="h-1.5 w-1.5 rounded-full bg-signal-500 animate-pulse" />}
+                {ok ? t('admin.service_connected', 'Connecté') : t('admin.service_not_set', 'Non configuré')}
+            </span>
         </div>
     );
 }
@@ -72,8 +76,8 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
     const money = (dollars) => fmtMoney(Math.round(Number(dollars || 0) * 100), 'USD');
 
     return (
-        <AdminLayout title={t('admin.dashboard')}>
-            <Head title={`${t('admin.dashboard')} · ${t('head.admin')}`} />
+        <AdminLayout title={t('admin.dashboard', 'Tableau de bord')}>
+            <Head title={`${t('admin.dashboard', 'Tableau de bord')} · ${t('head.admin', 'AutoCall')}`} />
             <div className="space-y-6">
                 {/* Hero band */}
                 <div className="relative overflow-hidden rounded-soft-xl bg-gradient-to-br from-ink-950 via-ink-900 to-brand-800 p-6 text-white shadow-soft-lg sm:p-7">
@@ -86,19 +90,19 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                             <p className="mt-1 max-w-md text-sm text-brand-100/80"><Trans i18nKey="hardcoded.views_admin_dashboard_fae3a7f95d3d" /></p>
                         </div>
                         <div className="rounded-soft-lg bg-white/10 px-4 py-3 text-right ring-1 ring-inset ring-white/15 backdrop-blur">
-                            <p className="text-[11px] font-medium uppercase tracking-wide text-brand-100/80">Monthly recurring</p>
+                            <p className="text-[11px] font-medium uppercase tracking-wide text-brand-100/80">{t('admin.monthly_recurring', 'Revenu récurrent mensuel')}</p>
                             <p className="mt-0.5 font-display text-2xl font-bold tabular-nums">{money(kpis.mrr)}</p>
                         </div>
                     </div>
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-                    <Stat icon={Building2} label="Customers" value={kpis.customers ?? 0} accent="brand" />
-                    <Stat icon={Users} label="Active subs" value={kpis.subscriptions_active ?? 0} accent="cold" />
-                    <Stat icon={Banknote} label="MRR" value={money(kpis.mrr)} accent="signal" />
-                    <Stat icon={PhoneCall} label="Total calls" value={(kpis.total_calls ?? 0).toLocaleString()} accent="brand" />
-                    <Stat icon={Target} label="Qualified leads" value={(kpis.qualified_leads ?? 0).toLocaleString()} accent="warm" />
-                    <Stat icon={TrendingUp} label="Success rate" value={`${kpis.success_rate ?? 0}%`} accent="signal" />
+                    <Stat icon={Building2} label={t('nav.customers', 'Clients')} value={kpis.customers ?? 0} accent="brand" />
+                    <Stat icon={Users} label={t('admin.active_subs', 'Abonnements actifs')} value={kpis.subscriptions_active ?? 0} accent="cold" />
+                    <Stat icon={Banknote} label={t('admin.mrr', 'MRR')} value={money(kpis.mrr)} accent="signal" />
+                    <Stat icon={PhoneCall} label={t('admin.total_calls', 'Total des appels')} value={(kpis.total_calls ?? 0).toLocaleString()} accent="brand" />
+                    <Stat icon={Target} label={t('admin.qualified_leads', 'Leads qualifiés')} value={(kpis.qualified_leads ?? 0).toLocaleString()} accent="warm" />
+                    <Stat icon={TrendingUp} label={t('admin.success_rate', 'Taux de succès')} value={`${kpis.success_rate ?? 0}%`} accent="signal" />
                 </div>
 
                 <div className="grid gap-4 lg:grid-cols-3">
@@ -117,7 +121,7 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                         </ResponsiveContainer>
                     </SectionCard>
                     <div className="space-y-4">
-                        <SectionCard title="Service health">
+                        <SectionCard title={t('admin.service_health', 'Santé des services')}>
                             <div className="space-y-2">
                                 <Health ok={serviceHealth.twilio} label="Twilio" />
                                 <Health ok={serviceHealth.elevenlabs} label="ElevenLabs" />
@@ -126,7 +130,7 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                         </SectionCard>
                         <div className="relative overflow-hidden rounded-soft-lg bg-gradient-to-br from-brand-600 to-brand-800 p-5 text-white shadow-soft-lg">
                             <ListChecks className="pointer-events-none absolute -bottom-3 -right-2 h-24 w-24 text-white/10" />
-                            <div className="relative flex items-center gap-2 text-brand-100"><ListChecks className="h-4 w-4" /><span className="text-xs font-medium uppercase tracking-wide">Queue pending</span></div>
+                            <div className="relative flex items-center gap-2 text-brand-100"><ListChecks className="h-4 w-4" /><span className="text-xs font-medium uppercase tracking-wide">{t('admin.queue_pending', 'File en attente')}</span></div>
                             <p className="relative mt-2 font-display text-3xl font-bold tabular-nums">{kpis.queue_pending ?? 0}</p>
                             <Link href={route('admin.call-queue.index')} className="relative mt-2 inline-flex items-center gap-1 rounded-soft bg-white/20 px-2.5 py-1 text-xs font-medium backdrop-blur transition hover:bg-white/30"><Trans i18nKey="hardcoded.views_admin_dashboard_ad95ddf5f43b" /> <ArrowRight className="h-3 w-3" /></Link>
                         </div>
@@ -149,11 +153,11 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                                         <td className="px-5 py-2.5 text-right font-mono text-neutral-600 dark:text-neutral-300">{v.credits.toLocaleString()} cr</td>
                                     </tr>
                                 ))}
-                                {recentCustomers.length === 0 && <tr><td className="px-5 py-10 text-center text-neutral-500">No customers yet.</td></tr>}
+                                {recentCustomers.length === 0 && <tr><td className="px-5 py-10 text-center text-neutral-500"><Trans i18nKey="client.latest_customers_empty" /></td></tr>}
                             </tbody>
                         </table>
                     </SectionCard>
-                    <SectionCard title="Top customers by calls">
+                    <SectionCard title={t('admin.top_customers_by_calls', 'Top clients par appels')}>
                         {topCustomers.length > 0 ? (
                             <div className="space-y-3">
                                 {topCustomers.map((v, i) => {
@@ -169,7 +173,7 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                         ) : <p className="py-10 text-center text-sm text-neutral-400"><Trans i18nKey="hardcoded.views_admin_dashboard_e002d5492a56" /></p>}
                         <div className="mt-5 flex flex-wrap gap-2 border-t border-neutral-100 pt-4 dark:border-ink-800">
                             <Link href={route('admin.plans.index')} className="inline-flex items-center gap-1 rounded-soft bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300 dark:hover:bg-ink-700">{t('admin.plans')} <ArrowUpRight className="h-3 w-3" /></Link>
-                            <Link href={route('admin.engines.index')} className="inline-flex items-center gap-1 rounded-soft bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300 dark:hover:bg-ink-700">Engines <ArrowUpRight className="h-3 w-3" /></Link>
+                            <Link href={route('admin.engines.index')} className="inline-flex items-center gap-1 rounded-soft bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300 dark:hover:bg-ink-700"><Trans i18nKey="admin.engines_nav" /> <ArrowUpRight className="h-3 w-3" /></Link>
                             <Link href={route('admin.payments.index')} className="inline-flex items-center gap-1 rounded-soft bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-200 dark:bg-ink-800 dark:text-neutral-300 dark:hover:bg-ink-700"><Trans i18nKey="hardcoded.views_admin_dashboard_86ab5af7c26c" /> <ArrowUpRight className="h-3 w-3" /></Link>
                         </div>
                     </SectionCard>

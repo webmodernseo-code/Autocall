@@ -186,22 +186,38 @@ export const INTEGRATION_GUIDES = {
     // ── Messaging ─────────────────────────────────────────────────
     'whatsapp-meta': {
         title: 'WhatsApp — Meta Cloud API',
+        title_fr: 'WhatsApp — Meta Cloud API (Officiel)',
         intro: 'Send and receive WhatsApp messages through the official Meta Cloud API.',
+        intro_fr: 'Envoyez et recevez des messages WhatsApp via l\'API officielle Meta Cloud.',
         steps: [
             { text: 'Create a Meta app and add the WhatsApp product.', href: 'https://developers.facebook.com/apps', linkText: 'Meta for Developers' },
             { text: 'Copy the App ID and App Secret.' },
             { text: 'Set a Verify token (any string) and use it in the webhook configuration.' },
             { text: 'Add the callback URL from this page to your Meta app’s WhatsApp webhook, and subscribe to message events.' },
         ],
+        steps_fr: [
+            { text: 'Créez une application sur Meta et ajoutez le produit WhatsApp.', href: 'https://developers.facebook.com/apps', linkText: 'Meta for Developers' },
+            { text: 'Copiez l\'identifiant de l\'application (Meta App ID) et la clé secrète (Meta App Secret).' },
+            { text: 'Définissez un jeton de vérification (chaîne arbitraire secrète) et reportez-le ci-dessous.' },
+            { text: 'Ajoutez l\'URL de Webhook ci-dessous dans la configuration WhatsApp de Meta et abonnez-vous aux événements "messages".' },
+        ],
         notes: ['The Verify token you enter here must match the one set in the Meta webhook config, or verification fails.'],
+        notes_fr: ['Le jeton de vérification entré ici doit correspondre exactement à celui configuré sur le portail Meta.'],
     },
     whatsway: {
         title: 'WhatsApp — WhatsWay',
+        title_fr: 'WhatsApp — WhatsWay (Passerelle)',
         intro: 'Use a self-hosted WhatsWay instance as the WhatsApp provider.',
+        intro_fr: 'Utilisez une instance hébergée WhatsWay comme passerelle alternative WhatsApp.',
         steps: [
             { text: 'Deploy or open your WhatsWay instance and locate its API base URL.' },
             { text: 'Generate an API key in WhatsWay.' },
             { text: 'Paste the base URL and API key here and set the provider mode.' },
+        ],
+        steps_fr: [
+            { text: 'Déployez ou ouvrez votre instance WhatsWay et récupérez son URL de base API.' },
+            { text: 'Générez une clé API dans WhatsWay.' },
+            { text: 'Collez l\'URL de base et la clé API ci-dessous, puis activez le mode fournisseur.' },
         ],
     },
 

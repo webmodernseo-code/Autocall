@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from 'react-i18next';
 import React, { useState } from 'react';
 import { 
     Layers, 
@@ -61,7 +62,7 @@ function SalesforceLogo({ className = "h-7 w-7" }) {
     return (
         <svg className={className} viewBox="0 0 24 24" fill="none">
             <path d="M10 5.5C11.2 4 13.2 3.5 14.9 4.2C16.5 4.8 17.5 6.3 17.7 8C19.2 8.3 20.4 9.6 20.5 11.2C20.6 12.8 19.6 14.3 18.1 14.8C18.2 15.2 18.1 15.6 17.9 16C17.2 17.2 15.9 18 14.5 18H8.5C6.6 18 5 16.4 5 14.5C5 13.1 5.8 11.8 7.1 11.2C6.9 10.5 7 9.7 7.4 9.1C8 8.1 9 7.5 10.1 7.5L10 5.5Z" fill="#00A1E0" />
-            <text x="12.5" y="13.2" textAnchor="middle" fontSize="4.2" fontWeight="800" fill="#FFFFFF" fontFamily="sans-serif">CRM</text>
+            <text x="12.5" y="13.2" textAnchor="middle" fontSize="4.2" fontWeight="800" fill="#FFFFFF" fontFamily="sans-serif"><Trans i18nKey="nav.crm" /></text>
         </svg>
     );
 }

@@ -53,13 +53,13 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
     const alignRight = form.data.position === 'bottom-right';
 
     return (
-        <ClientLayout title="Website Widget">
-            <Head title="Website Widget" />
+        <ClientLayout title={translationI18n.t('nav.website_widget')}>
+            <Head title={translationI18n.t('nav.website_widget')} />
             <div className="space-y-6">
                 <div>
                     <h1 className="text-2xl font-bold text-neutral-900 dark:text-white flex items-center gap-2">
                         <Globe className="h-6 w-6 text-brand-500" />
-                        Website Widget
+                        <Trans i18nKey="nav.website_widget" />
                     </h1>
                     <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
                         <Trans i18nKey="hardcoded.views_client_widget_index_ac6fc9896b8b" />
@@ -82,12 +82,12 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
                         className="rounded-soft-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800/50 p-6 shadow-soft space-y-5"
                     >
                         <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">
-                            Configuration
+                            <Trans i18nKey="client.price_brackets_ui.config_title" />
                         </h2>
 
                         <div>
                             <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                                Title
+                                <Trans i18nKey="client.topup_packages_ui.tbl_title" />
                             </label>
                             <input
                                 type="text"
@@ -119,7 +119,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
                                 <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                                    Primary color
+                                    <Trans i18nKey="admin.general_primary_color" />
                                 </label>
                                 <div className="flex items-center gap-2">
                                     <input

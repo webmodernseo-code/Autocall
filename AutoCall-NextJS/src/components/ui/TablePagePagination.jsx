@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 import { useMemo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -52,14 +53,14 @@ export default function TablePagePagination({ currentPage, lastPage, onPageChang
         <div
             className={['flex flex-wrap items-center justify-end gap-1', className].filter(Boolean).join(' ')}
             role="navigation"
-            aria-label="Pagination"
+            aria-label={translationI18n.t('pagination.label')}
         >
             <button
                 type="button"
                 disabled={currentPage <= 1}
                 onClick={() => onPageChange(currentPage - 1)}
                 className={navBtn}
-                aria-label="Previous page"
+                aria-label={translationI18n.t('pagination.previous_page')}
             >
                 <ChevronLeft className="h-4 w-4" strokeWidth={2} />
             </button>
@@ -96,7 +97,7 @@ export default function TablePagePagination({ currentPage, lastPage, onPageChang
                 disabled={currentPage >= lastPage}
                 onClick={() => onPageChange(currentPage + 1)}
                 className={navBtn}
-                aria-label="Next page"
+                aria-label={translationI18n.t('pagination.next_page')}
             >
                 <ChevronRight className="h-4 w-4" strokeWidth={2} />
             </button>

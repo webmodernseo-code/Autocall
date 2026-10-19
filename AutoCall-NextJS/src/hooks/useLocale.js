@@ -2,6 +2,7 @@
 
 import { route } from '@/lib/route';
 import { usePage, router } from '@/lib/page-router';
+import { applyLocaleToDocument } from '@/i18n';
 
 /**
  * Returns active locale, isRtl, locales list, and setLocale(code).
@@ -14,6 +15,12 @@ export function useLocale() {
     const locales = props.i18n?.locales ?? [];
 
     const setLocale = (code) => {
+        if (typeof window !== 'undefined') {
+            try {
+                localStorage.setItem('autocall_locale', code);
+            } catch {}
+        }
+        applyLocaleToDocument(code);
         router.put(route('locale.update'), { locale: code }, { preserveScroll: true });
     };
 

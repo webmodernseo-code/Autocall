@@ -3,6 +3,7 @@ import { gateClient, gatePlanFeature, handler } from '@/lib/guards';
 import { back, readBody, validate } from '@/lib/http';
 import { planFor } from '@/lib/plans';
 import { randomKeySuffix } from '@/lib/services/client-rbac';
+import { encryptString } from '@/lib/crypt';
 
 /** POST /app/sip/trunks */
 export const POST = handler(async (request) => {
@@ -44,7 +45,7 @@ export const POST = handler(async (request) => {
             sip_port: data.sip_port,
             transport: data.transport,
             username: data.username ?? null,
-            password: data.password ?? null,
+            password: data.password ? encryptString(data.password) : null,
             auth_id: data.auth_id ?? null,
             inbound_enabled: data.inbound_enabled ?? false,
             outbound_enabled: data.outbound_enabled ?? false,

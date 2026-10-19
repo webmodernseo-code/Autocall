@@ -1,5 +1,5 @@
 import { handler } from '@/lib/guards';
-import { formDataToObject, queryParams } from '@/lib/http';
+import { formDataToObject, queryParams, readFormBody } from '@/lib/http';
 import { verifyPlivoSignature } from '@/lib/webhooks/signatures';
 import { processCallResult } from '@/lib/services/call-results';
 
@@ -8,7 +8,7 @@ export const POST = handler(async (request) => {
     const check = await verifyPlivoSignature(request);
     if (!check.ok) return check.response;
 
-    const form = formDataToObject(await request.formData());
+    const form = formDataToObject(await readFormBody(request));
 
     const callId = Number(queryParams(request).c ?? 0);
     const status = String(form.CallStatus ?? 'completed').toLowerCase();

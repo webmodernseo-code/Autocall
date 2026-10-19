@@ -12,11 +12,104 @@ function fillVars(text, contact) {
         .replaceAll('{{company}}', contact?.company ?? '');
 }
 
+const DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+
+export function checkAvailability(agent) {
+    const avail = agent?.meta?.availability;
+    if (!avail || avail.enabled === false) return { status: 'open', message: null };
+
+    const now = new Date();
+    // Heure de Paris pour les entreprises françaises
+    const formatter = new Intl.DateTimeFormat('fr-FR', {
+        timeZone: 'Europe/Paris',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+    });
+    const parts = formatter.formatToParts(now);
+    const getPart = (type) => parts.find((p) => p.type === type)?.value;
+
+    const currentYear = getPart('year');
+    const currentMonth = getPart('month');
+    const currentDay = getPart('day');
+    const currentDateStr = `${currentYear}-${currentMonth}-${currentDay}`;
+
+    const currentHour = getPart('hour');
+    const currentMin = getPart('minute');
+    const currentTimeStr = `${currentHour}:${currentMin}`;
+
+    const dayIndex = now.getDay();
+    const currentDayName = DAYS[dayIndex];
+
+    // 1. Vérification des absences temporaires / congés
+    if (Array.isArray(avail.absences)) {
+        for (const abs of avail.absences) {
+            if (abs.start_date && abs.end_date) {
+                if (currentDateStr >= abs.start_date && currentDateStr <= abs.end_date) {
+                    const retDate = abs.return_date || abs.end_date;
+                    const defaultMsg = abs.title && abs.title.trim()
+                        ? `Bonjour ! Nos bureaux sont actuellement fermés pour ${abs.title} jusqu'au ${retDate}. Je prends votre message pour que notre équipe vous recontacte dès notre réouverture.`
+                        : `Bonjour ! Nos bureaux sont actuellement fermés jusqu'au ${retDate}. Je prends votre message pour que notre équipe vous recontacte dès notre réouverture.`;
+                    return {
+                        status: 'vacation',
+                        title: abs.title || 'Indisponibilité temporaire',
+                        returnDate: retDate,
+                        message: abs.message || defaultMsg,
+                    };
+                }
+            }
+        }
+    }
+
+    // 2. Horaires permanents hebdomadaires
+    const weekly = avail.weekly;
+    if (weekly) {
+        const allowedDays = weekly.days || ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+        if (!allowedDays.includes(currentDayName)) {
+            return {
+                status: 'closed',
+                message: weekly.closed_greeting || "Bonjour ! Nos bureaux sont actuellement fermés. Je prends votre message pour que notre équipe vous recontacte dès la prochaine ouverture.",
+            };
+        }
+
+        // 3. Coupure du midi / Pause déjeuner
+        if (weekly.lunch_break_enabled && weekly.lunch_start && weekly.lunch_end) {
+            if (currentTimeStr >= weekly.lunch_start && currentTimeStr < weekly.lunch_end) {
+                return {
+                    status: 'lunch_break',
+                    lunchEnd: weekly.lunch_end,
+                    message: weekly.lunch_greeting || `Bonjour ! Nos bureaux sont actuellement indisponibles jusqu'à ${weekly.lunch_end}. Je prends votre message pour que vous soyez rappelé dès la reprise cet après-midi.`,
+                };
+            }
+        }
+
+        // 4. Heures d'ouverture générales (matin ou après-midi)
+        const openStart = weekly.morning_start || '09:00';
+        const openEnd = weekly.afternoon_end || '18:00';
+        if (currentTimeStr < openStart || currentTimeStr >= openEnd) {
+            return {
+                status: 'closed',
+                message: weekly.closed_greeting || "Bonjour ! Nos bureaux sont actuellement fermés. Je prends votre message pour que notre équipe vous recontacte dès la prochaine ouverture.",
+            };
+        }
+    }
+
+    return { status: 'open', message: null };
+}
+
 export function greeting(agent, contact = null) {
+    const avail = checkAvailability(agent);
+    if (avail.status !== 'open' && avail.message) {
+        return fillVars(avail.message, contact);
+    }
+
     const configured = String(agent?.greeting ?? '').trim();
     if (configured !== '') return fillVars(configured, contact);
 
-    return 'Hi, this is your AI assistant calling. Do you have a quick moment to chat?';
+    return 'Bonjour, comment puis-je vous aider ?';
 }
 
 /** The full system prompt: persona, objective, knowledge base and call policy. */
@@ -24,6 +117,30 @@ export async function systemPrompt(agent, campaign = null, contact = null) {
     const parts = [];
 
     parts.push(String(agent?.system_prompt ?? '').trim() || 'You are a helpful AI phone agent.');
+
+    const avail = checkAvailability(agent);
+    if (avail.status === 'vacation') {
+        parts.push(
+            `IMPORTANT HORAIRES : L'entreprise est actuellement indisponible jusqu'au ${avail.returnDate}. ` +
+            `Message d'accueil configuré par l'entreprise : "${avail.message}". ` +
+            `Respectez scrupuleusement le ton et les indications de ce message (ne divulguez pas de motif si le message se veut neutre ou discret). ` +
+            `Accueillez l'appelant poliment, informez-le de la date de reprise (${avail.returnDate}), ` +
+            `prenez note de sa demande et de ses coordonnées pour qu'il soit recontacté en priorité dès la reprise.`
+        );
+    } else if (avail.status === 'lunch_break') {
+        parts.push(
+            `IMPORTANT HORAIRES : L'appel a lieu pendant la coupure de mi-journée (reprise prévue à ${avail.lunchEnd || 'cet après-midi'}). ` +
+            `Message d'accueil configuré par l'entreprise : "${avail.message}". ` +
+            `Suivez précisément la consigne de ce message (mentionnez la pause déjeuner ou restez neutre et discret selon ce qui est rédigé). ` +
+            `Accueillez l'appelant, notez son besoin et ses coordonnées afin qu'il soit rappelé dès la reprise cet après-midi.`
+        );
+    } else if (avail.status === 'closed') {
+        parts.push(
+            `IMPORTANT HORAIRES : L'appel a lieu en dehors des heures d'ouverture (soirée ou week-end). ` +
+            `Message d'accueil configuré par l'entreprise : "${avail.message}". ` +
+            `Les bureaux sont actuellement fermés. Accueillez l'appelant, recueillez sa demande et confirmez un rappel dès la prochaine ouverture.`
+        );
+    }
 
     if (agent?.tone || agent?.personality) {
         parts.push(`Speak in a ${`${agent.tone ?? ''} ${agent.personality ?? ''}`.trim()} manner.`);

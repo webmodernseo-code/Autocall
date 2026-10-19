@@ -266,7 +266,7 @@ export default function AppointmentsIndex({ appointments, filters = {}, stats = 
 
     return (
         <ClientLayout title={t('nav.appointments') !== 'nav.appointments' ? t('nav.appointments') : 'Appointments'}>
-            <Head title="Appointments" />
+            <Head title={translationI18n.t('nav.appointments')} />
             <div className="space-y-6">
                 {/* Header */}
                 <div className="flex flex-wrap items-center justify-between gap-4">

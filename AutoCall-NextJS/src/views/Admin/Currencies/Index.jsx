@@ -24,7 +24,7 @@ export default function AdminCurrenciesIndex({ currencies = [], stats = [], flas
                         <table className="min-w-full text-sm">
                             <thead>
                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
-                                    <th className="pb-2 pr-4 font-medium">Code</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="client.vouchers_ui.col_code" /></th>
                                     <th className="pb-2 pr-4 font-medium">Symbol</th>
                                     <th className="pb-2 pr-4 font-medium">Decimals</th>
                                     <th className="pb-2 pr-4 font-medium">Exchange rate</th>

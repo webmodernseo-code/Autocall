@@ -1,6 +1,7 @@
 'use client';
 
 
+import translationI18n from '@/i18n';
 import { Trans } from 'react-i18next';
 import { Button, Input } from '@/components/ui';
 
@@ -74,7 +75,7 @@ export default function PlanLimits({ limits = {}, onChange }) {
                         label={LABELS[key]}
                         value={value[key] ?? ''}
                         onChange={(e) => update(key, e.target.value ? e.target.value : null)}
-                        placeholder="Unlimited"
+                        placeholder={translationI18n.t('client.esim_catalog_ui.badge_unlimited_short')}
                     />
                 ))}
             </div>

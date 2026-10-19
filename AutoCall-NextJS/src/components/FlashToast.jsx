@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 import { useEffect, useState } from 'react';
 import { usePage } from '@/lib/page-router';
 import { CheckCircle2, XCircle, X } from 'lucide-react';
@@ -65,7 +66,7 @@ export default function FlashToast() {
                     : 'border-danger/30 bg-white text-neutral-800 dark:bg-ink-900 dark:text-neutral-100'}`}>
                 {ok ? <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-signal-500" /> : <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-danger" />}
                 <p className="text-sm font-medium leading-snug">{toast.msg}</p>
-                <button onClick={() => setToast(null)} className="ml-1 shrink-0 rounded p-0.5 text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200" aria-label="Dismiss"><X className="h-4 w-4" /></button>
+                <button onClick={() => setToast(null)} className="ml-1 shrink-0 rounded p-0.5 text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200" aria-label={translationI18n.t('client.kyc_ui.dismiss')}><X className="h-4 w-4" /></button>
             </div>
         </div>
     );

@@ -9,15 +9,11 @@ import ClientLayout from '@/layouts/ClientLayout';
 import { useTranslation, Trans } from 'react-i18next';
 import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
+import AvailabilityScheduler from '@/components/AvailabilityScheduler';
 import { Network, Plus, Trash2, X } from 'lucide-react';
 
 const inputCls = 'w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 px-3 py-2 text-sm';
 
-const ACTION_LABELS = {
-    connect_agent: 'Connect agent',
-    voicemail: 'Voicemail',
-    forward: 'Forward',
-};
 const ACTION_ACCENTS = {
     connect_agent: 'bg-brand-100 dark:bg-brand-500/20 text-brand-700 dark:text-brand-300',
     voicemail: 'bg-neutral-100 dark:bg-ink-800 text-neutral-600 dark:text-neutral-300',
@@ -25,6 +21,7 @@ const ACTION_ACCENTS = {
 };
 
 function AddModal({ numbers, agents, onClose }) {
+    const { t } = useTranslation();
     const form = useForm({
         name: '',
         phone_number_id: '',
@@ -58,17 +55,17 @@ function AddModal({ numbers, agents, onClose }) {
                 </div>
 
                 <div>
-                    <label className="mb-1 block text-xs font-medium text-neutral-500">Inbound number</label>
+                    <label className="mb-1 block text-xs font-medium text-neutral-500">{t('client.incoming_connections.inbound_number')}</label>
                     <select className={inputCls} value={form.data.phone_number_id} onChange={(e) => form.setData('phone_number_id', e.target.value)}>
-                        <option value="">Any number</option>
+                        <option value="">{t('client.incoming_connections.any_number')}</option>
                         {numbers.map((n) => <option key={n.id} value={n.id}>{n.e164_number}</option>)}
                     </select>
                 </div>
 
                 <div>
-                    <label className="mb-1 block text-xs font-medium text-neutral-500">Action</label>
+                    <label className="mb-1 block text-xs font-medium text-neutral-500"><Trans i18nKey="client.custom_orders_ui.col_action" /></label>
                     <select className={inputCls} value={form.data.action} onChange={(e) => form.setData('action', e.target.value)}>
-                        <option value="connect_agent">Connect agent</option>
+                        <option value="connect_agent">{t('client.incoming_connections.connect_agent')}</option>
                         <option value="voicemail"><Trans i18nKey="hardcoded.views_client_incomingconnections_index_b70a5b9081ac" /></option>
                         <option value="forward"><Trans i18nKey="hardcoded.views_client_incomingconnections_index_08ef6b727fcf" /></option>
                     </select>
@@ -76,7 +73,7 @@ function AddModal({ numbers, agents, onClose }) {
 
                 {form.data.action === 'connect_agent' && (
                     <div>
-                        <label className="mb-1 block text-xs font-medium text-neutral-500">Agent</label>
+                        <label className="mb-1 block text-xs font-medium text-neutral-500"><Trans i18nKey="client.support_tickets_ui.role_agent" /></label>
                         <select className={inputCls} value={form.data.agent_id} onChange={(e) => form.setData('agent_id', e.target.value)}>
                             <option value=""><Trans i18nKey="hardcoded.views_client_incomingconnections_index_21e50b67cd09" /></option>
                             {agents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
@@ -86,14 +83,14 @@ function AddModal({ numbers, agents, onClose }) {
 
                 {form.data.action === 'forward' && (
                     <div>
-                        <input className={inputCls} placeholder="Forward to (e.g. +14155550123)" value={form.data.forward_to} onChange={(e) => form.setData('forward_to', e.target.value)} />
+                        <input className={inputCls} placeholder={t('client.incoming_connections.forward_placeholder')} value={form.data.forward_to} onChange={(e) => form.setData('forward_to', e.target.value)} />
                         {form.errors.forward_to && <p className="mt-1 text-xs text-danger">{form.errors.forward_to}</p>}
                     </div>
                 )}
 
                 <div className="flex items-center gap-3">
                     <div className="flex-1">
-                        <label className="mb-1 block text-xs font-medium text-neutral-500">Priority</label>
+                        <label className="mb-1 block text-xs font-medium text-neutral-500"><Trans i18nKey="client.support_tickets_ui.label_priority" /></label>
                         <input type="number" min="0" className={inputCls} value={form.data.priority} onChange={(e) => form.setData('priority', e.target.value)} />
                     </div>
                     <label className="flex items-center gap-2 pt-5 text-sm text-neutral-700 dark:text-neutral-300">
@@ -125,7 +122,7 @@ export default function IncomingConnectionsIndex({ routes = [], stats = [], numb
         enabled: !r.enabled,
     }, { preserveScroll: true });
 
-    const remove = (r) => { if (confirm('Delete this route?')) router.delete(route('client.incoming-connections.destroy', r.id), { preserveScroll: true }); };
+    const remove = (r) => { if (confirm(t('client.incoming_connections.delete_confirm'))) router.delete(route('client.incoming-connections.destroy', r.id), { preserveScroll: true }); };
 
     const target = (r) => {
         if (r.action === 'connect_agent') return r.agent_name || '—';
@@ -133,16 +130,30 @@ export default function IncomingConnectionsIndex({ routes = [], stats = [], numb
         return '—';
     };
 
-    const title = t('nav.incoming-connections') !== 'nav.incoming-connections' ? t('nav.incoming-connections') : 'Incoming Connections';
+    const title = t('nav.incoming_connections');
+    const actionLabels = {
+        connect_agent: t('client.incoming_connections.connect_agent'),
+        voicemail: t('hardcoded.views_client_incomingconnections_index_b70a5b9081ac'),
+        forward: t('hardcoded.views_client_incomingconnections_index_08ef6b727fcf'),
+    };
+    const tableHeaders = [
+        t('client.incoming_connections.name'),
+        t('client.incoming_connections.inbound_number'),
+        t('client.incoming_connections.action'),
+        t('client.incoming_connections.target'),
+        t('client.incoming_connections.priority'),
+        t('client.incoming_connections.enabled'),
+        '',
+    ];
 
     return (
         <ClientLayout title={title}>
-            <Head title="Incoming Connections" />
+            <Head title={translationI18n.t('nav.incoming_connections')} />
             <div className="space-y-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Incoming Connections</h1>
-                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Route inbound callers to AI agents, voicemail, or forwarding.</p>
+                        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="nav.incoming_connections" /></h1>
+                        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{t('client.incoming_connections.description')}</p>
                     </div>
                     <button onClick={() => setShowModal(true)} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_incomingconnections_index_11b02a482688" /></button>
                 </div>
@@ -151,19 +162,22 @@ export default function IncomingConnectionsIndex({ routes = [], stats = [], numb
 
                 <StatCards items={stats} />
 
+                {/* Module de gestion des Horaires, Coupure déjeuner et Congés (Zéro Code GSM) */}
+                <AvailabilityScheduler />
+
                 <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                     {routes.length > 0 ? (
                         <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">
                             <thead className="bg-neutral-50 dark:bg-ink-800/50">
-                                <tr>{['Name', 'Inbound number', 'Action', 'Target', 'Priority', 'Enabled', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr>
+                                <tr>{tableHeaders.map((h, index) => <th key={`${h}-${index}`} className="px-4 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr>
                             </thead>
                             <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                                 {routes.map((r) => (
                                     <tr key={r.id}>
                                         <td className="px-4 py-3 font-medium text-neutral-900 dark:text-white">{r.name}</td>
-                                        <td className="px-4 py-3 font-mono text-neutral-600 dark:text-neutral-300">{r.e164_number || 'Any'}</td>
+                                        <td className="px-4 py-3 font-mono text-neutral-600 dark:text-neutral-300">{r.e164_number || t('client.incoming_connections.any')}</td>
                                         <td className="px-4 py-3">
-                                            <span className={`rounded-full px-2 py-0.5 text-xs ${ACTION_ACCENTS[r.action] || ACTION_ACCENTS.voicemail}`}>{ACTION_LABELS[r.action] || r.action}</span>
+                                            <span className={`rounded-full px-2 py-0.5 text-xs ${ACTION_ACCENTS[r.action] || ACTION_ACCENTS.voicemail}`}>{actionLabels[r.action] || r.action}</span>
                                         </td>
                                         <td className="px-4 py-3 text-neutral-500">{target(r)}</td>
                                         <td className="px-4 py-3 text-neutral-500">{r.priority}</td>

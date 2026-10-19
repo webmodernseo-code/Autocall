@@ -2,6 +2,7 @@ import 'server-only';
 
 import prisma from '@/lib/prisma';
 import config from '@/lib/config';
+import { maybeDecrypt } from '@/lib/crypt';
 import { integrationConfig } from '@/lib/services/integrations';
 
 /**
@@ -17,10 +18,10 @@ function base() {
 }
 
 async function apiKeyFor(key) {
-    if (key && typeof key === 'object') return key.api_key;
+    if (key && typeof key === 'object') return maybeDecrypt(key.api_key);
     if (key) return key;
     const stored = await integrationConfig('elevenlabs');
-    return stored.api_key || config.voice.default_api_key;
+    return maybeDecrypt(stored.api_key) || config.voice.default_api_key;
 }
 
 export async function health(key) {

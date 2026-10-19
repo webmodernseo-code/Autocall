@@ -20,15 +20,15 @@ export default function NotificationsIndex({ notifications = [], stats = [] }) {
     const remove = (n) => { if (confirm('Delete?')) router.delete(route('admin.notifications.destroy', n.id), { preserveScroll: true }); };
 
     return (
-        <AdminLayout title="Notifications">
-            <Head title="Notifications" />
+        <AdminLayout title={translationI18n.t('nav.notifications')}>
+            <Head title={translationI18n.t('nav.notifications')} />
             <div className="space-y-6">
                 <PageOverview feature="admin-notifications" />
                 <StatCards items={stats} />
                 <div className="grid gap-6 lg:grid-cols-3">
                 <form onSubmit={send} className="space-y-3 rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft">
                     <h3 className="flex items-center gap-2 font-display font-semibold text-neutral-900 dark:text-white"><Bell className="h-5 w-5 text-brand-600 dark:text-brand-400" /> Broadcast</h3>
-                    <input className={inputCls} placeholder="Title" value={form.data.title} onChange={(e) => form.setData('title', e.target.value)} />
+                    <input className={inputCls} placeholder={translationI18n.t('client.topup_packages_ui.tbl_title')} value={form.data.title} onChange={(e) => form.setData('title', e.target.value)} />
                     {form.errors.title && <p className="text-xs text-danger">{form.errors.title}</p>}
                     <textarea rows="4" className={inputCls} placeholder={translationI18n.t('hardcoded.views_admin_notifications_index_ba974fc48ead')} value={form.data.message} onChange={(e) => form.setData('message', e.target.value)} />
                     <select className={inputCls} value={form.data.level} onChange={(e) => form.setData('level', e.target.value)}><option value="info">Info</option><option value="success"><Trans i18nKey="hardcoded.views_admin_notifications_index_cb28eca7944c" /></option><option value="warning"><Trans i18nKey="hardcoded.views_admin_notifications_index_248f5564f14c" /></option><option value="critical"><Trans i18nKey="hardcoded.views_admin_notifications_index_44b8bd0fe150" /></option></select>

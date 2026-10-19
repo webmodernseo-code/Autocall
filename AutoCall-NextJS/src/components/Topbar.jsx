@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { Link, router, usePage } from '@/lib/page-router';
 import { Bell, BadgeCheck, Sun, Moon, Layers, Globe, Coins, ChevronDown, Check, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
@@ -205,7 +206,7 @@ export default function Topbar({
                     <Link
                         href={route('client.alerts.notifications')}
                         className="relative rounded-xl p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-white/70 dark:hover:bg-white/[0.06] dark:hover:text-white transition duration-150"
-                        aria-label="Notifications"
+                        aria-label={translationI18n.t('nav.notifications')}
                     >
                         <Bell className="h-4.5 w-4.5" />
                         {page.props.notificationsUnread > 0 && (
@@ -399,7 +400,7 @@ export default function Topbar({
                                 <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-neutral-900 text-white dark:bg-white dark:text-black text-xs font-bold shadow-xs">
                                     {(user.name || user.email || 'U').charAt(0).toUpperCase()}
                                     {kycVerified && (
-                                        <BadgeCheck className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full bg-white text-emerald-500 dark:bg-black dark:text-emerald-400" strokeWidth={2.5} aria-label="Verified" />
+                                        <BadgeCheck className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full bg-white text-emerald-500 dark:bg-black dark:text-emerald-400" strokeWidth={2.5} aria-label={translationI18n.t('client.kyc_ui.tab_verified')} />
                                     )}
                                 </span>
                                 <span className="hidden max-w-[120px] truncate md:inline font-semibold">{user.name || user.email}</span>

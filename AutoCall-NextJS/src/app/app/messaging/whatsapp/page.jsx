@@ -3,7 +3,7 @@ import { renderPage } from '@/lib/render';
 import { requireClientPage, requirePlanFeaturePage } from '@/lib/guards';
 import prisma from '@/lib/prisma';
 import { plain } from '@/lib/serialize';
-import { enabledWhatsAppProviders } from '@/lib/services/messaging';
+import { enabledWhatsAppProviders, messagingSettings } from '@/lib/services/messaging';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,7 +14,7 @@ export default async function Page() {
 
     const client_id = BigInt(clientId);
 
-    const [accounts, templates, enabledProviders] = await Promise.all([
+    const [accounts, templates, enabledProviders, settings] = await Promise.all([
         prisma.whatsAppAccount.findMany({
             where: { client_id },
             orderBy: { id: 'desc' },
@@ -32,12 +32,24 @@ export default async function Page() {
             },
         }),
         enabledWhatsAppProviders(),
+        messagingSettings(),
     ]);
+
+    const metaSettings = {
+        appId: settings?.meta_app_id || null,
+        configId: settings?.meta_config_id || null,
+        embeddedSignupEnabled: Boolean(settings?.embedded_signup_enabled),
+    };
 
     return renderPage(
         WhatsApp,
         'client/Messaging/WhatsApp',
-        { accounts: plain(accounts), templates: plain(templates), enabledProviders },
+        {
+            accounts: plain(accounts),
+            templates: plain(templates),
+            enabledProviders,
+            metaSettings,
+        },
         { url: '/app/messaging/whatsapp' },
     );
 }

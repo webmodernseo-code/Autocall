@@ -47,11 +47,11 @@ export default function CallQueueIndex({ jobs, filters = {}, stats = {} }) {
                 <PageOverview feature="admin-call-queue" />
 
                 <div className="grid gap-3 sm:grid-cols-5">
-                    <Stat label="Pending" value={stats.pending ?? 0} />
+                    <Stat label={translationI18n.t('client.referral_ui.status_pending')} value={stats.pending ?? 0} />
                     <Stat label="Scheduled" value={stats.scheduled ?? 0} />
                     <Stat label="Processing" value={stats.processing ?? 0} live />
-                    <Stat label="Completed" value={stats.completed ?? 0} />
-                    <Stat label="Failed" value={stats.failed ?? 0} />
+                    <Stat label={translationI18n.t('client.chart_status_completed')} value={stats.completed ?? 0} />
+                    <Stat label={translationI18n.t('admin.status_failed')} value={stats.failed ?? 0} />
                 </div>
 
                 <div className="flex gap-1.5">

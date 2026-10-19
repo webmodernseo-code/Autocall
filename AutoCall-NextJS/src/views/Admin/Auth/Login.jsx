@@ -59,17 +59,17 @@ export default function AdminLogin({ status, error }) {
             <DemoLoginCard cred={demoCred} onOneClick={oneClickLogin} loading={demoLoading} hint="Sign in as demo admin" />
 
             <form onSubmit={submit} className="space-y-4">
-                <AuthField id="email" label="Email address" type="email" name="email" autoComplete="username" autoFocus required
+                <AuthField id="email" label={translationI18n.t('client.kyc_ui.review_grid_email')} type="email" name="email" autoComplete="username" autoFocus required
                     value={data.email} onChange={(e) => setData('email', e.target.value)} error={errors.email} />
 
-                <AuthField id="password" label="Password" secret name="password" autoComplete="current-password" required
+                <AuthField id="password" label={translationI18n.t('client.profile.section_password_title')} secret name="password" autoComplete="current-password" required
                     value={data.password} onChange={(e) => setData('password', e.target.value)} error={errors.password} />
 
                 <div className="flex items-center pt-1">
                     <label className="flex cursor-pointer items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
                         <input type="checkbox" name="remember" checked={data.remember} onChange={(e) => setData('remember', e.target.checked)}
                             className="h-4 w-4 rounded border-neutral-300 bg-white dark:border-white/20 dark:bg-white/5 text-brand-600 focus:ring-brand-500/40" />
-                        Remember me
+                        <Trans i18nKey="auth.remember_me" />
                     </label>
                 </div>
 

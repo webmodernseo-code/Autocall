@@ -1,7 +1,8 @@
 import crypto from 'node:crypto';
 import { handler } from '@/lib/guards';
 import config from '@/lib/config';
-import { queryParams } from '@/lib/http';
+import { maybeDecrypt } from '@/lib/crypt';
+import { queryParams, readTextBody } from '@/lib/http';
 import { messagingSettings } from '@/lib/services/messaging';
 import { processInboundWhatsApp } from '@/lib/services/inbound-whatsapp';
 
@@ -24,10 +25,10 @@ export const GET = handler(async (request) => {
 
 /** POST /webhooks/whatsapp/meta */
 export const POST = handler(async (request) => {
-    const raw = await request.text();
+    const raw = await readTextBody(request);
 
     const settings = await messagingSettings();
-    const secret = String(settings.meta_app_secret || config.messaging.meta.app_secret || '');
+    const secret = String(maybeDecrypt(settings.meta_app_secret) || config.messaging.meta.app_secret || '');
 
     if (secret === '') {
         console.warn('WhatsApp webhook rejected — no Meta app secret configured.');

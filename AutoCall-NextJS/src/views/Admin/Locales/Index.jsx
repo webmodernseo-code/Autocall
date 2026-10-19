@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import AdminLayout from '@/layouts/AdminLayout';
 import PageOverview from '@/components/PageOverview';
@@ -42,7 +43,7 @@ export default function AdminLocalesIndex({
     ];
 
     return (
-        <AdminLayout title="Languages">
+        <AdminLayout title={translationI18n.t('admin.languages')}>
             <Head title="Languages · Admin" />
             <div className="space-y-6">
                 <div className="flex justify-between items-center">
@@ -117,7 +118,7 @@ export default function AdminLocalesIndex({
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label className="block text-xs text-neutral-500 dark:text-neutral-400 mb-0.5">Flag</label>
+                                                    <label className="block text-xs text-neutral-500 dark:text-neutral-400 mb-0.5"><Trans i18nKey="client.countries_ui.tbl_flag" /></label>
                                                     <input
                                                         placeholder={t('common.optional')}
                                                         value={newLocale.flag}

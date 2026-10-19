@@ -547,7 +547,26 @@ function AddWidgetModal({ isOpen, onClose, onAddWidget, activeWidgets }) {
 
 /** 6. BANDEAU ONBOARDING / GUIDE DE DÉMARRAGE RAPIDE (Style Linear / Stripe) */
 function OnboardingQuickStartBanner({ onboarding }) {
-    const [dismissed, setDismissed] = useState(false);
+    const [dismissed, setDismissed] = useState(true);
+
+    useEffect(() => {
+        try {
+            const stored = localStorage.getItem('autocall_dashboard_guide_dismissed');
+            if (stored !== 'true') {
+                setDismissed(false);
+            }
+        } catch {
+            setDismissed(false);
+        }
+    }, []);
+
+    const handleDismiss = () => {
+        setDismissed(true);
+        try {
+            localStorage.setItem('autocall_dashboard_guide_dismissed', 'true');
+        } catch {}
+    };
+
     if (!onboarding || dismissed) return null;
 
     const steps = [
@@ -630,9 +649,9 @@ function OnboardingQuickStartBanner({ onboarding }) {
                     </div>
                     <button
                         type="button"
-                        onClick={() => setDismissed(true)}
+                        onClick={handleDismiss}
                         className="rounded-lg p-1 text-neutral-400 hover:text-neutral-700 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-white/[0.06] transition cursor-pointer"
-                        title="Masquer le guide"
+                        title="Masquer définitivement le guide"
                     >
                         <X className="h-4 w-4" />
                     </button>
@@ -791,6 +810,9 @@ export default function Dashboard({
                     </div>
                 </div>
 
+                {/* GUIDE DE DÉMARRAGE RAPIDE (Affiché uniquement à la première connexion) */}
+                <OnboardingQuickStartBanner onboarding={onboarding} />
+
                 
                 {/* 1. TOP ROW : LES 4 KPIS EN TÊTE (Design Shopeers) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -876,7 +898,7 @@ export default function Dashboard({
                             </div>
                             <div>
                                 <p className="font-hero-sans text-base font-bold text-neutral-900 dark:text-white tabular-nums">{(kpis?.contacts ?? 0).toLocaleString()}</p>
-                                <p className="text-[11px] text-neutral-400">Contacts</p>
+                                <p className="text-[11px] text-neutral-400"><Trans i18nKey="nav.contacts" /></p>
                             </div>
                         </div>
                         <ArrowUpRight className="h-4 w-4 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors" />

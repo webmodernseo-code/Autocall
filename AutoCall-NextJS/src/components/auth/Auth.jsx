@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
@@ -288,8 +289,8 @@ export default function AuthShell({
             {/* Header supérieur avec logo, theme toggle et retour */}
             <header className="relative z-20 w-full max-w-lg flex items-center justify-between pb-6">
                 <Link href="/" className="inline-flex items-center group transition-opacity hover:opacity-85 py-1">
-                    <img src="/images/autocall-logo-dark.png" alt="AutoCall" className="h-4 sm:h-[18px] max-h-5 w-auto object-contain dark:hidden" />
-                    <img src="/images/autocall-logo.png" alt="AutoCall" className="h-4 sm:h-[18px] max-h-5 w-auto object-contain hidden dark:block" />
+                    <img src="/images/autocall-logo-dark.png" alt={translationI18n.t('app.name')} className="h-4 sm:h-[18px] max-h-5 w-auto object-contain dark:hidden" />
+                    <img src="/images/autocall-logo.png" alt={translationI18n.t('app.name')} className="h-4 sm:h-[18px] max-h-5 w-auto object-contain hidden dark:block" />
                 </Link>
 
                 <div className="flex items-center gap-2">

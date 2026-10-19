@@ -225,7 +225,7 @@ export default function Sidebar({
             return;
         }
 
-        if (route().current('client.dashboard')) {
+        if (route().current('client.dashboard') || route().current('admin.dashboard')) {
             rememberedDrilldownGroupKey = null;
             setSelectedGroupKey(null);
         }
@@ -436,7 +436,7 @@ export default function Sidebar({
                 )}>
                     {collapsed ? (
                         <Link
-                            href={route('logout')}
+                            href={(() => { try { if (route().current('admin.*')) return route('admin.logout'); } catch {} return route('logout'); })()}
                             method="post"
                             as="button"
                             title={t('nav.logout', 'Déconnexion')}

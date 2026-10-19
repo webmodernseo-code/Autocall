@@ -29,7 +29,7 @@ export default function AgentsIndex({ agents, stats = [], filters = {}, engines 
 
     return (
         <ClientLayout title={t('nav.agents') !== 'nav.agents' ? t('nav.agents') : 'Agents'}>
-            <Head title="Agents" />
+            <Head title={translationI18n.t('nav.agents')} />
             <div className="space-y-5">
                 <div className="flex items-center justify-between">
                     <div>

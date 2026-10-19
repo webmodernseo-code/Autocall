@@ -35,6 +35,7 @@
     "test:recording-url": "node --test src/lib/recording-url.test.mjs",
     "test:e2e:smoke": "node --test tests/e2e/production-smoke.test.mjs",
     "key:generate": "node scripts/generate-key.mjs",
+    "security:encrypt-legacy-secrets": "node scripts/encrypt-legacy-secrets.mjs",
     "worker": "node scripts/worker.mjs"
   },
   "dependencies": {

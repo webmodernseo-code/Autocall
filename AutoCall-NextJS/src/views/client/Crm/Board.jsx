@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { useState } from 'react';
 import { Head, router } from '@/lib/page-router';
@@ -118,11 +119,11 @@ export default function CrmBoard({ columns = [], stats = [], stages = [] }) {
 
     return (
         <ClientLayout title={t('nav.crm') !== 'nav.crm' ? t('nav.crm') : 'Quick CRM'}>
-            <Head title="Quick CRM" />
+            <Head title={translationI18n.t('nav.quick_crm')} />
             <div className="space-y-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Quick CRM</h1>
+                        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="nav.quick_crm" /></h1>
                         <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_crm_board_5716aa910bfb" /></p>
                     </div>
                 </div>

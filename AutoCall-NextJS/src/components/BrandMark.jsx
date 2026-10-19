@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 /**
  * AutoCall Official Emblem & Wordmark
  */
@@ -12,7 +13,7 @@ export default function BrandMark({ className = '', variant = 'auto', ...props }
         return (
             <img
                 src="/images/autocall-logo-dark.png"
-                alt="AutoCall"
+                alt={translationI18n.t('app.name')}
                 className={`w-auto max-h-5 object-contain ${resolvedClass}`}
                 {...props}
             />
@@ -23,7 +24,7 @@ export default function BrandMark({ className = '', variant = 'auto', ...props }
         return (
             <img
                 src="/images/autocall-logo.png"
-                alt="AutoCall"
+                alt={translationI18n.t('app.name')}
                 className={`w-auto max-h-5 object-contain ${resolvedClass}`}
                 {...props}
             />
@@ -34,13 +35,13 @@ export default function BrandMark({ className = '', variant = 'auto', ...props }
         <>
             <img
                 src="/images/autocall-logo-dark.png"
-                alt="AutoCall"
+                alt={translationI18n.t('app.name')}
                 className={`w-auto max-h-5 object-contain dark:hidden ${resolvedClass}`}
                 {...props}
             />
             <img
                 src="/images/autocall-logo.png"
-                alt="AutoCall"
+                alt={translationI18n.t('app.name')}
                 className={`w-auto max-h-5 object-contain hidden dark:block ${resolvedClass}`}
                 {...props}
             />

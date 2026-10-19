@@ -1,5 +1,5 @@
 import { handler } from '@/lib/guards';
-import { formDataToObject, queryParams } from '@/lib/http';
+import { formDataToObject, queryParams, readFormBody } from '@/lib/http';
 import { verifyPlivoSignature } from '@/lib/webhooks/signatures';
 import { loadCall, nextTurn } from '@/lib/webhooks/twiml';
 import { getInputXml, plivoXml, speak } from '@/lib/webhooks/plivo-xml';
@@ -12,7 +12,7 @@ export const POST = handler(async (request) => {
     const call = await loadCall(queryParams(request).c);
     if (!call) return plivoXml('<Hangup/>');
 
-    const form = formDataToObject(await request.formData());
+    const form = formDataToObject(await readFormBody(request));
     const speech = String(form.Speech ?? '').trim();
 
     const { text, end } = await nextTurn(call, speech);

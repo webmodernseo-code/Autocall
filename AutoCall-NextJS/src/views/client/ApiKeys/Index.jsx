@@ -46,11 +46,11 @@ export default function ApiKeysIndex({ keys = [], availableScopes = [], limit = 
     const activeCount = keys.filter((k) => !k.revoked).length;
 
     return (
-        <ClientLayout title="API Keys">
-            <Head title="API Keys" />
+        <ClientLayout title={translationI18n.t('nav.api_keys')}>
+            <Head title={translationI18n.t('nav.api_keys')} />
             <div className="space-y-5">
                 <div className="flex items-center justify-between">
-                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">API Keys</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{activeCount}/{limit} <Trans i18nKey="hardcoded.views_client_apikeys_index_2fa147a90d39" /> <a href={route('api.docs.playground')} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400"><BookOpen className="h-3.5 w-3.5" /> API docs</a></p></div>
+                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="nav.api_keys" /></h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{activeCount}/{limit} <Trans i18nKey="hardcoded.views_client_apikeys_index_2fa147a90d39" /> <a href={route('api.docs.playground')} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400"><BookOpen className="h-3.5 w-3.5" /> API docs</a></p></div>
                     <button onClick={() => setCreating(true)} disabled={activeCount >= limit} className="inline-flex items-center gap-2 rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Plus className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_apikeys_index_82ed9451a312" /></button>
                 </div>
 

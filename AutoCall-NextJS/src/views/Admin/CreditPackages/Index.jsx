@@ -34,7 +34,7 @@ function PackageModal({ open, initial, onClose }) {
                     {editing ? translationI18n.t('hardcoded.views_admin_creditpackages_index_95042dad5192') : translationI18n.t('hardcoded.views_admin_creditpackages_index_dd6caf0e5408')}
                 </h3>
                 <form onSubmit={submit} className="space-y-3">
-                    <Field label="Name" error={errors.name}>
+                    <Field label={translationI18n.t('common.name')} error={errors.name}>
                         <input className="input" value={data.name} onChange={(e) => setData('name', e.target.value)} />
                     </Field>
                     <div className="grid grid-cols-2 gap-3">
@@ -46,16 +46,16 @@ function PackageModal({ open, initial, onClose }) {
                         </Field>
                     </div>
                     <div className="grid grid-cols-2 gap-3">
-                        <Field label="Currency" error={errors.currency_code}>
+                        <Field label={translationI18n.t('topbar.currency')} error={errors.currency_code}>
                             <input className="input" value={data.currency_code} onChange={(e) => setData('currency_code', e.target.value.toUpperCase())} />
                         </Field>
-                        <Field label="Sort order" error={errors.sort_order}>
+                        <Field label={translationI18n.t('plans.sort_order')} error={errors.sort_order}>
                             <input type="number" className="input" value={data.sort_order} onChange={(e) => setData('sort_order', Number(e.target.value))} />
                         </Field>
                     </div>
                     <div className="flex items-center gap-4">
                         <label className="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
-                            <input type="checkbox" checked={data.is_popular} onChange={(e) => setData('is_popular', e.target.checked)} /> Popular
+                            <input type="checkbox" checked={data.is_popular} onChange={(e) => setData('is_popular', e.target.checked)} /> <Trans i18nKey="client.esim_catalog_ui.tbl_col_popular" />
                         </label>
                         <label className="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
                             <input type="checkbox" checked={data.is_active} onChange={(e) => setData('is_active', e.target.checked)} /> <Trans i18nKey="hardcoded.views_admin_creditpackages_index_bb178ea66ef2" />
@@ -118,7 +118,7 @@ export default function CreditPackagesIndex({ packages = [], pendingPurchases = 
                                 <div>
                                     <div className="flex items-center gap-2">
                                         <h3 className="font-display font-semibold text-neutral-900 dark:text-white">{pkg.name}</h3>
-                                        {pkg.is_popular && <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 dark:bg-brand-500/20 px-2 py-0.5 text-[10px] font-medium text-brand-700 dark:text-brand-300"><Star className="h-3 w-3" /> Popular</span>}
+                                        {pkg.is_popular && <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 dark:bg-brand-500/20 px-2 py-0.5 text-[10px] font-medium text-brand-700 dark:text-brand-300"><Star className="h-3 w-3" /> <Trans i18nKey="client.esim_catalog_ui.tbl_col_popular" /></span>}
                                     </div>
                                     <p className="mt-1 font-mono text-2xl font-bold tabular-nums text-neutral-900 dark:text-white">{pkg.credits.toLocaleString()}</p>
                                     <p className="text-xs text-neutral-500">credits · {money(pkg.price_cents, pkg.currency_code)}</p>
@@ -144,7 +144,7 @@ export default function CreditPackagesIndex({ packages = [], pendingPurchases = 
                                         <span className="font-medium text-neutral-900 dark:text-white">{p.client}</span>
                                         <span className="text-neutral-500"> · {p.credits.toLocaleString()} credits · {money(p.amount_cents, p.currency_code)}</span>
                                     </div>
-                                    <button onClick={() => approve(p)} className="inline-flex items-center gap-1 rounded-soft bg-signal-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-signal-600"><Check className="h-3.5 w-3.5" /> Approve</button>
+                                    <button onClick={() => approve(p)} className="inline-flex items-center gap-1 rounded-soft bg-signal-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-signal-600"><Check className="h-3.5 w-3.5" /> <Trans i18nKey="client.reporting_reviews_ui.approve" /></button>
                                 </div>
                             ))}
                         </div>

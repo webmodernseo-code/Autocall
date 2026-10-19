@@ -16,9 +16,19 @@ const BUNDLED_LOCALES = {
  * the server cache is stale or the shared payload is incomplete.
  */
 export function initI18n() {
-    const initialLang = typeof document !== 'undefined'
-        ? (document.documentElement.getAttribute('lang') || 'fr').split('-')[0]
-        : 'fr';
+    let initialLang = 'fr';
+    if (typeof window !== 'undefined') {
+        try {
+            const saved = localStorage.getItem('autocall_locale');
+            if (saved && (saved === 'fr' || saved === 'en' || saved === 'es' || saved === 'de')) {
+                initialLang = saved;
+            } else {
+                initialLang = (document.documentElement.getAttribute('lang') || 'fr').split('-')[0];
+            }
+        } catch {
+            initialLang = (document.documentElement.getAttribute('lang') || 'fr').split('-')[0];
+        }
+    }
 
     i18n.use(initReactI18next).init({
         lng: initialLang,

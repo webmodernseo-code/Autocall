@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -132,8 +133,8 @@ export default function LegalLayout({
                 <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center gap-8">
                         <Link href="/" className="inline-flex items-center gap-2 group transition-opacity hover:opacity-85 py-1">
-                            <img src="/images/autocall-logo-dark.png" alt="AutoCall" className="h-4 sm:h-[18px] max-h-5 w-auto object-contain dark:hidden" />
-                            <img src="/images/autocall-logo.png" alt="AutoCall" className="h-4 sm:h-[18px] max-h-5 w-auto object-contain hidden dark:block" />
+                            <img src="/images/autocall-logo-dark.png" alt={translationI18n.t('app.name')} className="h-4 sm:h-[18px] max-h-5 w-auto object-contain dark:hidden" />
+                            <img src="/images/autocall-logo.png" alt={translationI18n.t('app.name')} className="h-4 sm:h-[18px] max-h-5 w-auto object-contain hidden dark:block" />
                         </Link>
 
                         {/* Navigation entre documents légaux */}
@@ -402,8 +403,8 @@ export default function LegalLayout({
                 <div className="mx-auto max-w-7xl">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-neutral-200 dark:border-white/[0.06]">
                         <Link href="/" className="inline-flex items-center group py-1">
-                            <img src="/images/autocall-logo-dark.png" alt="AutoCall" className="h-3.5 sm:h-4 max-h-[18px] w-auto object-contain dark:hidden" />
-                            <img src="/images/autocall-logo.png" alt="AutoCall" className="h-3.5 sm:h-4 max-h-[18px] w-auto object-contain hidden dark:block" />
+                            <img src="/images/autocall-logo-dark.png" alt={translationI18n.t('app.name')} className="h-3.5 sm:h-4 max-h-[18px] w-auto object-contain dark:hidden" />
+                            <img src="/images/autocall-logo.png" alt={translationI18n.t('app.name')} className="h-3.5 sm:h-4 max-h-[18px] w-auto object-contain hidden dark:block" />
                         </Link>
 
                         <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-600 dark:text-white/60">

@@ -3,6 +3,7 @@ import 'server-only';
 import crypto from 'node:crypto';
 import prisma from '@/lib/prisma';
 import { priceCentsForCycle } from '@/lib/plans';
+import { readTextBody } from '@/lib/http';
 import {
     badSignature,
     cred,
@@ -120,7 +121,7 @@ export function createGeniusPayGateway(creds, testMode, successUrl, cancelUrl, w
          * Verify webhook HMAC-SHA256 signature and process payment status updates.
          */
         async handleWebhook(request) {
-            const rawBody = await request.text();
+            const rawBody = await readTextBody(request);
             const signature = request.headers.get('x-webhook-signature');
             const timestamp = request.headers.get('x-webhook-timestamp') || '';
             const secret = webhookSecret();

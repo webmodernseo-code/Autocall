@@ -41,8 +41,8 @@ export default function KycIndex({ kycStatus = 'unverified', types = [] }) {
     const b = BANNER[kycStatus] || BANNER.unverified;
     const Icon = b.icon;
     return (
-        <ClientLayout title="Verification">
-            <Head title="Verification" />
+        <ClientLayout title={translationI18n.t('nav.verification')}>
+            <Head title={translationI18n.t('nav.verification')} />
             <div className="mx-auto max-w-2xl space-y-5">
                 <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Business verification</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_kyc_index_35225a63f5bf" /></p></div>
                 <PageOverview feature="kyc" />

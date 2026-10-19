@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from 'react-i18next';
 import React from 'react';
 import LegalLayout, { LegalArticle, LegalBox } from '@/components/legal/LegalLayout';
 import { Head } from '@/lib/page-router';
@@ -53,7 +54,7 @@ export default function CookiesDoc() {
                             <tr className="border-b border-[#1B4654]/30 bg-[#1B4654]/10 text-[#1B4654] dark:text-[#5EC2D7] font-mono">
                                 <th className="p-3">Nom du Cookie</th>
                                 <th className="p-3">Finalité Technique</th>
-                                <th className="p-3">Type</th>
+                                <th className="p-3"><Trans i18nKey="client.esim_catalog_ui.tbl_type" /></th>
                                 <th className="p-3">Durée de Vie</th>
                             </tr>
                         </thead>

@@ -6,6 +6,7 @@ import { priceCentsForCycle } from '@/lib/plans';
 import { sendTemplateMail } from '@/lib/services/mail';
 import { notify, okResponse, recordTransaction } from './base';
 import { verifyStripeSignature } from './stripe-signature.mjs';
+import { readTextBody } from '@/lib/http';
 
 /**
  * Port of App\Services\Billing\StripeGateway, using the Stripe REST API directly
@@ -164,7 +165,7 @@ export function createStripeGateway(creds, testMode, successUrl, cancelUrl) {
          * no event is processed.
          */
         async handleWebhook(request) {
-            const payload = await request.text();
+            const payload = await readTextBody(request);
             const sig = request.headers.get('stripe-signature');
 
             if (!webhookSecret) {

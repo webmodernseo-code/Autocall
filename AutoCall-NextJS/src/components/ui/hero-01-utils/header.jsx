@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
@@ -15,7 +16,7 @@ export function ShadcnSpaceLogo() {
     return (
         <img
             src="/images/autocall-logo.png"
-            alt="AutoCall"
+            alt={translationI18n.t('app.name')}
             className="h-4 sm:h-[18px] max-h-5 w-auto object-contain flex-shrink-0"
         />
     );
@@ -31,7 +32,7 @@ export default function Header({ navigationData = [], isDark = true, onToggleThe
                 <Link href="/" className="flex items-center group py-1">
                     <img
                         src="/images/autocall-logo.png"
-                        alt="AutoCall"
+                        alt={translationI18n.t('app.name')}
                         className="h-[18px] sm:h-5 md:h-[21px] w-auto object-contain transition-transform duration-200 group-hover:scale-102"
                     />
                 </Link>
@@ -87,7 +88,7 @@ export default function Header({ navigationData = [], isDark = true, onToggleThe
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
                         className="rounded-full border border-white/10 bg-white/5 p-2 text-white"
-                        aria-label="Menu"
+                        aria-label={translationI18n.t('sidebar.menu')}
                     >
                         {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                     </button>

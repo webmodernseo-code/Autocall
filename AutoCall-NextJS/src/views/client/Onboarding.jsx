@@ -135,8 +135,16 @@ export default function Onboarding({ step = 1, totalSteps = 4, client, agent, sa
                             Chaque étape enregistre de vraies informations dans votre espace. Vous pourrez tout modifier ensuite.
                         </p>
                     </div>
-                    <div className="text-sm font-medium tabular-nums text-neutral-500 dark:text-neutral-400">
-                        Étape {step} sur {totalSteps}
+                    <div className="flex items-center gap-3">
+                        <span className="text-sm font-medium tabular-nums text-neutral-500 dark:text-neutral-400">
+                            Étape {step} sur {totalSteps}
+                        </span>
+                        <Link
+                            href="/app/dashboard"
+                            className="text-xs font-semibold text-slate-500 dark:text-[#8E95A5] hover:text-neutral-900 dark:hover:text-white transition px-2.5 py-1 rounded-lg border border-neutral-200 dark:border-white/10 hover:bg-neutral-50 dark:hover:bg-white/[0.04]"
+                        >
+                            Accéder au tableau de bord →
+                        </Link>
                     </div>
                 </div>
 
@@ -295,7 +303,15 @@ export default function Onboarding({ step = 1, totalSteps = 4, client, agent, sa
                                     <Link href={`/app/onboarding?step=${step - 1}`} className="inline-flex h-10 items-center justify-center gap-2 rounded-xl px-3 text-sm font-semibold text-neutral-600 transition hover:bg-neutral-200/60 dark:text-neutral-300 dark:hover:bg-white/[0.06]">
                                         <ArrowLeft className="h-4 w-4" /> Retour
                                     </Link>
-                                ) : <span className="inline-flex items-center gap-1.5 text-xs text-neutral-400"><ShieldCheck className="h-3.5 w-3.5" /> Données enregistrées dans votre espace</span>}
+                                ) : (
+                                    <div className="flex items-center gap-2.5">
+                                        <span className="inline-flex items-center gap-1.5 text-xs text-neutral-400"><ShieldCheck className="h-3.5 w-3.5" /> Données enregistrées dans votre espace</span>
+                                        <span className="text-neutral-300 dark:text-white/10">·</span>
+                                        <Link href="/app/dashboard" className="text-xs font-medium text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 underline">
+                                            Passer pour le moment
+                                        </Link>
+                                    </div>
+                                )}
                             </div>
                             <button type="submit" disabled={processing} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20 disabled:cursor-not-allowed disabled:opacity-60">
                                 <span>{processing ? 'Enregistrement…' : step === totalSteps ? 'Terminer la configuration' : 'Enregistrer et continuer'}</span>

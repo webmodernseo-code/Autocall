@@ -47,10 +47,10 @@ export default function AnalyticsIndex({ days = 30, kpis = {}, charts = {} }) {
 
     return (
         <ClientLayout title={t('nav.analytics') !== 'nav.analytics' ? t('nav.analytics') : 'Analytics'}>
-            <Head title="Analytics" />
+            <Head title={translationI18n.t('nav.analytics')} />
             <div className="space-y-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Analytics</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_analytics_index_992af29f811b" /></p></div>
+                    <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="nav.analytics" /></h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_analytics_index_992af29f811b" /></p></div>
                     <div className="flex gap-1.5">{[7, 30, 90].map((d) => <button key={d} onClick={() => setDays(d)} className={`rounded-soft px-3 py-1.5 text-xs font-medium ${days === d ? 'bg-brand-600 text-white' : 'border border-neutral-200 dark:border-ink-700 text-neutral-600 dark:text-neutral-300'}`}>{d}d</button>)}</div>
                 </div>
 

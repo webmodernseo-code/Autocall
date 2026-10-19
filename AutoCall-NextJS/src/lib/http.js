@@ -16,16 +16,82 @@ export async function readBody(request) {
     const type = request.headers.get('content-type') || '';
 
     if (type.includes('application/json')) {
-        return (await request.json().catch(() => ({}))) ?? {};
+        const bytes = await readBytesBounded(request);
+        if (bytes.byteLength === 0) return {};
+        try {
+            return JSON.parse(new TextDecoder().decode(bytes)) ?? {};
+        } catch {
+            return {};
+        }
     }
 
     if (type.includes('multipart/form-data') || type.includes('application/x-www-form-urlencoded')) {
-        const form = await request.formData();
+        const form = await readFormBody(request);
         return formDataToObject(form);
     }
 
-    // Fall back to JSON — the shim always sends one of the two.
-    return (await request.json().catch(() => ({}))) ?? {};
+    // Fall back to bounded JSON parsing — never bypass the cap for an unusual
+    // or missing Content-Type.
+    const bytes = await readBytesBounded(request);
+    if (bytes.byteLength === 0) return {};
+    try {
+        return JSON.parse(new TextDecoder().decode(bytes)) ?? {};
+    } catch {
+        return {};
+    }
+}
+
+/** Read a request stream with a hard cap, including chunked requests. */
+export async function readBytesBounded(request, maxBytes = null) {
+    const limit = Math.max(1024, Number(maxBytes || process.env.MAX_REQUEST_BODY_BYTES || 1024 * 1024));
+    const declaredLength = Number(request.headers.get('content-length') || 0);
+    if (Number.isFinite(declaredLength) && declaredLength > limit) throw payloadTooLarge(limit);
+    if (!request.body) return new Uint8Array();
+
+    const reader = request.body.getReader();
+    const chunks = [];
+    let total = 0;
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        total += value.byteLength;
+        if (total > limit) {
+            await reader.cancel().catch(() => {});
+            throw payloadTooLarge(limit);
+        }
+        chunks.push(value);
+    }
+
+    const bytes = new Uint8Array(total);
+    let offset = 0;
+    for (const chunk of chunks) {
+        bytes.set(chunk, offset);
+        offset += chunk.byteLength;
+    }
+    return bytes;
+}
+
+export async function readTextBody(request, maxBytes = null) {
+    return new TextDecoder().decode(await readBytesBounded(request, maxBytes));
+}
+
+export async function readFormBody(request, maxBytes = null) {
+    const bytes = await readBytesBounded(request, maxBytes);
+    const clone = new Request(request.url, {
+        method: request.method,
+        headers: request.headers,
+        body: bytes,
+    });
+    return clone.formData();
+}
+
+function payloadTooLarge(maxBytes) {
+    const error = new Error(`Request body exceeds the ${maxBytes}-byte limit.`);
+    error.response = NextResponse.json(
+        { message: 'Request body too large.' },
+        { status: 413 },
+    );
+    return error;
 }
 
 /** Expands `a[b][0]` bracket keys back into nested objects/arrays. */

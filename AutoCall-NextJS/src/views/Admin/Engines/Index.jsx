@@ -20,8 +20,8 @@ export default function EnginesIndex({ providers = [], engines = [] }) {
     const toggleEngine = (eng, enabled) => router.put(route('admin.engines.toggle', eng.key), { enabled }, { preserveScroll: true });
 
     return (
-        <AdminLayout title="Engines">
-            <Head title="Engines" />
+        <AdminLayout title={translationI18n.t('admin.engines_nav')}>
+            <Head title={translationI18n.t('admin.engines_nav')} />
             <div className="space-y-6">
                 <div>
                     <h2 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Calling Engines</h2>
@@ -55,7 +55,7 @@ export default function EnginesIndex({ providers = [], engines = [] }) {
 
                 {/* Engine availability */}
                 <div>
-                    <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Engines</h3>
+                    <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400"><Trans i18nKey="admin.engines_nav" /></h3>
                     <div className="overflow-hidden rounded-soft-lg border border-neutral-200 bg-white shadow-soft dark:border-ink-800 dark:bg-ink-900">
                         <table className="min-w-full divide-y divide-neutral-100 text-sm dark:divide-ink-800">
                             <thead className="bg-neutral-50 dark:bg-ink-800/50">

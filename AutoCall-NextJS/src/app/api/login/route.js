@@ -84,12 +84,15 @@ export const POST = handler(async (request) => {
             return NextResponse.json({ redirect: '/app/pricing?required=1' });
         }
 
+        const url = new URL(request.url);
+        const intended = url.searchParams.get('redirect');
+
         const firstAgent = await prisma.agent.findFirst({
             where: { client_id: BigInt(effectiveClientId) },
             orderBy: { id: 'asc' },
             select: { meta: true },
         });
-        if (!firstAgent || (firstAgent.meta?.onboarding && !firstAgent.meta.onboarding.completed_at)) {
+        if (!intended && (!firstAgent || (firstAgent.meta?.onboarding && !firstAgent.meta.onboarding.completed_at))) {
             await writeSession({
                 uid: Number(user.id),
                 client_id: Number(effectiveClientId),

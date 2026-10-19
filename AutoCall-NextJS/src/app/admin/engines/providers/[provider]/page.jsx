@@ -5,6 +5,7 @@ import { requireAdminPermissions } from '@/lib/guards-admin';
 import prisma from '@/lib/prisma';
 import { iso } from '@/lib/serialize';
 import { integrationEnabled } from '@/lib/services/integrations';
+import { maybeDecrypt } from '@/lib/crypt';
 import {
     PROVIDER_KIND,
     PROVIDER_LABEL,
@@ -50,7 +51,7 @@ export default async function Page({ params }) {
             agents_count: k.agents_count,
             last_health_check_at: iso(k.last_health_check_at),
             // Only the last four characters of the key are ever shown.
-            key_hint: `••••${String(k.api_key ?? '').slice(-4)}`,
+            key_hint: `••••${String(maybeDecrypt(k.api_key) ?? '').slice(-4)}`,
         }));
 
         props.poolStats = {

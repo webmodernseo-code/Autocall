@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from 'react-i18next';
 import React from 'react';
 import LegalLayout, { LegalArticle, LegalBox } from '@/components/legal/LegalLayout';
 import { Head } from '@/lib/page-router';
@@ -40,7 +41,7 @@ export default function Terms() {
             {/* ART 1 */}
             <LegalArticle id="art-1" number="ARTICLE 01" title="Objet et Définitions">
                 <p>
-                    Les présentes Conditions Générales d’Utilisation et de Vente (ci-après les « <strong>CGVU</strong> ») régissent l’ensemble des relations contractuelles entre la société <strong>AutoCall SAS</strong> (ci-après « <strong>AutoCall</strong> » ou « le Prestataire ») et toute personne physique ou morale professionnelle (ci-après le « <strong>Client</strong> » ou l’« <strong>Utilisateur</strong> ») souscrivant aux services logiciels de standard téléphonique automatisé et d'agents conversationnels vocaux basés sur l'intelligence artificielle (le « <strong>Service</strong> »).
+                    Les présentes Conditions Générales d’Utilisation et de Vente (ci-après les « <strong>CGVU</strong> ») régissent l’ensemble des relations contractuelles entre la société <strong>AutoCall SAS</strong> (ci-après « <strong><Trans i18nKey="app.name" /></strong> » ou « le Prestataire ») et toute personne physique ou morale professionnelle (ci-après le « <strong><Trans i18nKey="admin.client_label" /></strong> » ou l’« <strong>Utilisateur</strong> ») souscrivant aux services logiciels de standard téléphonique automatisé et d'agents conversationnels vocaux basés sur l'intelligence artificielle (le « <strong>Service</strong> »).
                 </p>
                 <p>
                     La souscription au Service implique l’adhésion sans réserve et le strict respect des présentes dispositions. Le Client garantit disposer du pouvoir légal nécessaire pour contracter au nom et pour le compte de l’entité qu’il représente.

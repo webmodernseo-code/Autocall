@@ -35,13 +35,13 @@ export default function TenantsIndex({ tenants = [], stats = [] }) {
     };
 
     return (
-        <ClientLayout title="Workspaces">
-            <Head title="Workspaces" />
+        <ClientLayout title={translationI18n.t('nav.workspaces')}>
+            <Head title={translationI18n.t('nav.workspaces')} />
 
             <div className="space-y-6">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <h2 className="text-xl font-semibold text-neutral-900">Workspaces</h2>
+                        <h2 className="text-xl font-semibold text-neutral-900"><Trans i18nKey="nav.workspaces" /></h2>
                         <p className="text-sm text-neutral-500 mt-1">
                             <Trans i18nKey="hardcoded.views_client_tenants_index_32efc8c625b6" />
                         </p>
@@ -57,7 +57,7 @@ export default function TenantsIndex({ tenants = [], stats = [] }) {
                         <h3 className="text-sm font-semibold text-neutral-800 mb-3"><Trans i18nKey="hardcoded.views_client_tenants_index_7b2ef8628a11" /></h3>
                         <form onSubmit={handleCreate} className="flex flex-col gap-3 sm:flex-row sm:items-end">
                             <Input
-                                label="Name"
+                                label={translationI18n.t('common.name')}
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 placeholder="My workspace"

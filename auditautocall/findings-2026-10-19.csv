@@ -1,0 +1,6 @@
+id,severity,cwe,status,title,primary_location,recommendation
+AC-SEC-2026-001,high,CWE-918,fixed,"SSRF via tenant-controlled WhatsWay base URL","src/lib/services/messaging.js:185","Require HTTPS/allowlist and use safeFetch with pinned DNS"
+AC-SEC-2026-002,high,CWE-312,fixed-code-migration-required,"Operational credentials stored as plaintext","src/app/api/app/messaging/whatsapp/accounts/route.js:56","Encrypt on write, migrate existing rows, rotate secrets"
+AC-SEC-2026-003,medium,"CWE-400;CWE-20",fixed,"Unbounded bodies and unvalidated availability","src/app/api/app/availability/route.js:48","Enforce body limits and validate a bounded schema"
+AC-SEC-2026-004,medium,CWE-598,fixed,"Meta OAuth secret in query string","src/app/api/app/messaging/whatsapp/accounts/route.js:36","Use form-encoded POST and fail closed"
+AC-SEC-2026-005,low,"CWE-674;CWE-400",accepted-temporarily,"Development dependency advisories","package-lock.json","Migrate toolchain and exclude dev dependencies from runtime"

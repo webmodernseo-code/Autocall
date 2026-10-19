@@ -1,5 +1,6 @@
 'use client';
 
+import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { Head, router, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
@@ -73,13 +74,13 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
     };
 
     return (
-        <ClientLayout title="Google Sheets">
+        <ClientLayout title={translationI18n.t('nav.google_sheets')}>
             <Head title="Google Sheets · AutoCall" />
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
                     <div>
                         <div className="flex items-center gap-3">
-                            <h1 className="font-hero-sans text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">Google Sheets</h1>
+                            <h1 className="font-hero-sans text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white"><Trans i18nKey="nav.google_sheets" /></h1>
                             <StatusBadge connected={config.connected} isFr={isFr} />
                         </div>
                         <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-neutral-400">

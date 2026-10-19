@@ -29,7 +29,7 @@ export default function AdminPaymentsIndex({ payments, filters = {}, stats = [] 
                     <select name="status" className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 px-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20" defaultValue={filters.status}>
                         <option value=""><Trans i18nKey="hardcoded.views_admin_payments_index_86126b7372ae" /></option>
                         <option value="succeeded">Succeeded</option>
-                        <option value="pending">Pending</option>
+                        <option value="pending"><Trans i18nKey="client.referral_ui.status_pending" /></option>
                         <option value="failed"><Trans i18nKey="hardcoded.views_admin_payments_index_04aa05531bec" /></option>
                     </select>
                     <select name="gateway" className="rounded-soft border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 px-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20" defaultValue={filters.gateway}>
@@ -38,7 +38,7 @@ export default function AdminPaymentsIndex({ payments, filters = {}, stats = [] 
                         <option value="paypal">PayPal</option>
                         <option value="paddle">Paddle</option>
                     </select>
-                    <Button type="submit" variant="outline" size="sm">Filter</Button>
+                    <Button type="submit" variant="outline" size="sm"><Trans i18nKey="common.filter" /></Button>
                 </form>
                 <Card>
                     <div className="overflow-x-auto">
@@ -46,7 +46,7 @@ export default function AdminPaymentsIndex({ payments, filters = {}, stats = [] 
                             <thead>
                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
                                     <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_payments_index_d5d106583f0e" /></th>
-                                    <th className="pb-2 pr-4 font-medium">Amount</th>
+                                    <th className="pb-2 pr-4 font-medium"><Trans i18nKey="client.orders_ui.col_amount" /></th>
                                     <th className="pb-2 pr-4 font-medium">Gateway</th>
                                     <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_payments_index_64bbefc0f07a" /></th>
                                     <th className="pb-2 pr-4 font-medium"><Trans i18nKey="hardcoded.views_admin_payments_index_d21586cff532" /></th>

@@ -21,17 +21,17 @@ export default function AdminPlansEdit({ plan }) {
                 <form onSubmit={(e) => { e.preventDefault(); put(route('admin.plans.update', plan.id)); }}>
                     <Card>
                         <Card.Body className="space-y-4">
-                            <Input label="Name" value={data.name} onChange={(e) => setData('name', e.target.value)} />
-                            <Input label="Slug" value={data.slug} onChange={(e) => setData('slug', e.target.value)} />
-                            <Input type="number" label="Monthly price (cents)" value={data.monthly_price_cents ?? ''} onChange={(e) => setData('monthly_price_cents', e.target.value ? parseInt(e.target.value, 10) : null)} />
-                            <Input type="number" label="Yearly price (cents)" value={data.yearly_price_cents ?? ''} onChange={(e) => setData('yearly_price_cents', e.target.value ? parseInt(e.target.value, 10) : null)} />
-                            <Input label="Currency code" value={data.currency_code ?? ''} onChange={(e) => setData('currency_code', e.target.value)} />
+                            <Input label={translationI18n.t('common.name')} value={data.name} onChange={(e) => setData('name', e.target.value)} />
+                            <Input label={translationI18n.t('client.regions_ui.tbl_slug')} value={data.slug} onChange={(e) => setData('slug', e.target.value)} />
+                            <Input type="number" label={translationI18n.t('plans.monthly_price_cents')} value={data.monthly_price_cents ?? ''} onChange={(e) => setData('monthly_price_cents', e.target.value ? parseInt(e.target.value, 10) : null)} />
+                            <Input type="number" label={translationI18n.t('plans.yearly_price_cents')} value={data.yearly_price_cents ?? ''} onChange={(e) => setData('yearly_price_cents', e.target.value ? parseInt(e.target.value, 10) : null)} />
+                            <Input label={translationI18n.t('plans.currency_code')} value={data.currency_code ?? ''} onChange={(e) => setData('currency_code', e.target.value)} />
                             <label className="flex items-center gap-2 text-neutral-900 dark:text-neutral-100">
                                 <input type="checkbox" checked={data.enabled ?? false} onChange={(e) => setData('enabled', e.target.checked)} className="rounded border-neutral-300 dark:border-neutral-600 text-brand-500" />
                                 <span className="text-sm"><Trans i18nKey="hardcoded.views_admin_plans_edit_06cadcebbfec" /></span>
                             </label>
-                            <Input type="number" label="Sort order" value={data.sort_order ?? 0} onChange={(e) => setData('sort_order', parseInt(e.target.value, 10) || 0)} />
-                            <Input type="number" label="AI credits" value={data.ai_credits ?? ''} onChange={(e) => setData('ai_credits', e.target.value ? parseInt(e.target.value, 10) : null)} />
+                            <Input type="number" label={translationI18n.t('plans.sort_order')} value={data.sort_order ?? 0} onChange={(e) => setData('sort_order', parseInt(e.target.value, 10) || 0)} />
+                            <Input type="number" label={translationI18n.t('plans.ai_credits')} value={data.ai_credits ?? ''} onChange={(e) => setData('ai_credits', e.target.value ? parseInt(e.target.value, 10) : null)} />
                             <label className="flex items-center gap-2 text-neutral-900 dark:text-neutral-100"><input type="checkbox" checked={data.export_enabled ?? false} onChange={(e) => setData('export_enabled', e.target.checked)} className="rounded border-neutral-300 dark:border-neutral-600 text-brand-500" /><span className="text-sm"><Trans i18nKey="hardcoded.views_admin_plans_edit_62a921df69ca" /></span></label>
                             <label className="flex items-center gap-2 text-neutral-900 dark:text-neutral-100"><input type="checkbox" checked={data.custom_domain_enabled ?? false} onChange={(e) => setData('custom_domain_enabled', e.target.checked)} className="rounded border-neutral-300 dark:border-neutral-600 text-brand-500" /><span className="text-sm"><Trans i18nKey="hardcoded.views_admin_plans_edit_9cc44ba65e76" /></span></label>
                             <label className="flex items-center gap-2 text-neutral-900 dark:text-neutral-100"><input type="checkbox" checked={data.white_label_enabled ?? false} onChange={(e) => setData('white_label_enabled', e.target.checked)} className="rounded border-neutral-300 dark:border-neutral-600 text-brand-500" /><span className="text-sm"><Trans i18nKey="hardcoded.views_admin_plans_edit_9c31bf5f92f3" /></span></label>

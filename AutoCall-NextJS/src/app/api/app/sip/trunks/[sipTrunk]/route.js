@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma';
 import { assertOwned, gateClient, handler } from '@/lib/guards';
 import { back, readBody, validate } from '@/lib/http';
+import { encryptString } from '@/lib/crypt';
 
 /** PUT /app/sip/trunks/{sipTrunk} */
 export const PUT = handler(async (request, { params }) => {
@@ -35,7 +36,7 @@ export const PUT = handler(async (request, { params }) => {
             concurrency_limit: data.concurrency_limit,
             status: data.status,
             // An empty password field leaves the stored secret untouched.
-            ...(data.password ? { password: data.password } : {}),
+            ...(data.password ? { password: encryptString(data.password) } : {}),
             updated_at: new Date(),
         },
     });

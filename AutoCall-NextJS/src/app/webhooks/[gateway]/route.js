@@ -10,10 +10,9 @@ export const POST = handler(async (request, { params }) => {
 
     if (!getDefinition(gateway)) return new Response('Unknown gateway', { status: 404 });
 
-    const cloned = request.clone();
     console.info('Billing webhook received', {
         gateway,
-        body_length: (await cloned.text()).length,
+        body_length: request.headers.get('content-length') ?? 'unknown',
     });
 
     const registry = await billingRegistry();

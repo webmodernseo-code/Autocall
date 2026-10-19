@@ -56,7 +56,7 @@ export default function IntegrationsIndex({ webhooks = [], availableEvents = [],
 
     return (
         <ClientLayout title={t('nav.integrations') !== 'nav.integrations' ? t('nav.integrations') : 'Integrations'}>
-            <Head title="Integrations" />
+            <Head title={translationI18n.t('nav.integrations')} />
             <div className="space-y-5">
                 <div className="flex items-center justify-between">
                     <div><h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Integrations & Webhooks</h1><p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400"><Trans i18nKey="hardcoded.views_client_integrations_index_9f9d0cf3f837" /></p></div>

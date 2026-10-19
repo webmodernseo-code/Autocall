@@ -64,11 +64,11 @@ export default function ContactsIndex({ contacts, filters = {}, stats = {} }) {
 
     return (
         <ClientLayout title={t('nav.contacts') !== 'nav.contacts' ? t('nav.contacts') : 'Contacts'}>
-            <Head title="Contacts" />
+            <Head title={translationI18n.t('nav.contacts')} />
             <div className="space-y-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white">Contacts</h1>
+                        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-white"><Trans i18nKey="nav.contacts" /></h1>
                         <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{stats.total ?? 0}{stats.limit ? ` / ${stats.limit}` : ''} contacts · deduped by phone</p>
                     </div>
                     <div className="flex gap-2">

@@ -3,6 +3,8 @@ import 'server-only';
 import prisma from '@/lib/prisma';
 import config from '@/lib/config';
 import { activeSmtp, sendRaw } from '@/lib/services/mail';
+import { maybeDecrypt } from '@/lib/crypt';
+import { safeFetch } from '@/lib/services/outbound-guard';
 
 /**
  * Port of App\Services\Messaging — EmailSender, WhatsAppSender and the
@@ -126,7 +128,7 @@ function metaProvider() {
 
     async function post(account, body) {
         const phoneId = account.phone_number_id;
-        const token = account.access_token;
+        const token = maybeDecrypt(account.access_token);
         if (!phoneId || !token) return { ok: false, error: 'Missing Meta credentials.' };
 
         try {
@@ -179,11 +181,11 @@ function whatsWayProvider() {
 
     async function post(account, path, body) {
         const base = account.base_url || baseUrl;
-        const apiKey = account.api_key || config.messaging.whatsway.api_key;
+        const apiKey = maybeDecrypt(account.api_key) || config.messaging.whatsway.api_key;
         if (!base || !apiKey) return { ok: false, error: 'Missing WhatsWay credentials.' };
 
         try {
-            const res = await fetch(`${String(base).replace(/\/+$/, '')}${path}`, {
+            const res = await safeFetch(`${String(base).replace(/\/+$/, '')}${path}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
                 body: JSON.stringify(body),

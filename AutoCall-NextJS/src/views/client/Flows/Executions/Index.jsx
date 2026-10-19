@@ -39,7 +39,7 @@ export default function ExecutionsIndex({ executions, filters = {}, stats = [] }
                 <div className="flex gap-2">
                     <select value={filters.status || ''} onChange={(e) => setStatus(e.target.value)} className="rounded-soft border border-neutral-200 bg-white px-3 pr-8 py-2 text-sm dark:border-ink-700 dark:bg-ink-900">
                         <option value=""><Trans i18nKey="hardcoded.views_client_flows_executions_index_3b0bd2c0c0b2" /></option>
-                        <option value="completed">Completed</option>
+                        <option value="completed"><Trans i18nKey="client.chart_status_completed" /></option>
                         <option value="failed"><Trans i18nKey="hardcoded.views_client_flows_executions_index_f77b2d0dbf7a" /></option>
                         <option value="running">Running</option>
                     </select>

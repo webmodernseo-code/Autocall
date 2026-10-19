@@ -1,0 +1,60 @@
+{
+  "audit": {
+    "project": "AutoCall-NextJS",
+    "date": "2026-10-19",
+    "branch": "main",
+    "commit": "9e8e964",
+    "dirty_worktree_included": true,
+    "fail_on_severity": "high",
+    "gate": "passed-after-remediation-pending-data-migration"
+  },
+  "summary": { "critical": 0, "high": 2, "medium": 2, "low": 1 },
+  "findings": [
+    {
+      "id": "AC-SEC-2026-001",
+      "severity": "high",
+      "cwe": ["CWE-918"],
+      "title": "SSRF via tenant-controlled WhatsWay base URL",
+      "locations": ["src/app/api/app/messaging/whatsapp/accounts/route.js:24", "src/lib/services/messaging.js:185"],
+      "status": "fixed",
+      "recommendation": "Require HTTPS and a provider allowlist; route all requests through safeFetch with pinned DNS and no redirects."
+    },
+    {
+      "id": "AC-SEC-2026-002",
+      "severity": "high",
+      "cwe": ["CWE-312"],
+      "title": "Operational credentials stored as plaintext",
+      "locations": ["src/app/api/app/messaging/whatsapp/accounts/route.js:56", "src/app/api/app/sip/trunks/route.js:47", "src/app/api/admin/elevenlabs-keys/route.js:21", "src/app/api/admin/messaging/route.js:34"],
+      "status": "fixed-code-migration-required",
+      "recommendation": "Encrypt on write using APP_KEY, decrypt only at use, migrate existing rows and rotate historical credentials."
+    },
+    {
+      "id": "AC-SEC-2026-003",
+      "severity": "medium",
+      "cwe": ["CWE-400", "CWE-20"],
+      "title": "Unbounded request bodies and unvalidated availability object",
+      "locations": ["src/lib/http.js:15", "src/app/api/app/availability/route.js:48"],
+      "status": "fixed",
+      "recommendation": "Enforce proxy and application body limits and validate a bounded availability schema."
+    },
+    {
+      "id": "AC-SEC-2026-004",
+      "severity": "medium",
+      "cwe": ["CWE-598"],
+      "title": "Meta OAuth client secret sent in query string",
+      "locations": ["src/app/api/app/messaging/whatsapp/accounts/route.js:36"],
+      "status": "fixed",
+      "recommendation": "Use a form-encoded POST with timeout and fail closed when exchange fails."
+    },
+    {
+      "id": "AC-SEC-2026-005",
+      "severity": "low",
+      "scanner_severity": "high/moderate",
+      "cwe": ["CWE-674", "CWE-400"],
+      "title": "Known vulnerabilities limited to development dependencies",
+      "locations": ["package-lock.json"],
+      "status": "accepted-temporarily",
+      "recommendation": "Migrate Tailwind and ESLint dependencies; keep dev dependencies out of runtime images."
+    }
+  ]
+}

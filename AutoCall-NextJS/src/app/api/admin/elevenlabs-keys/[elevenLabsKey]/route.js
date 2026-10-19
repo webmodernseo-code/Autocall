@@ -2,6 +2,7 @@ import prisma from '@/lib/prisma';
 import { handler } from '@/lib/guards';
 import { gateAdminPermissions } from '@/lib/guards-admin';
 import { back, readBody, validate } from '@/lib/http';
+import { encryptString } from '@/lib/crypt';
 
 /** PUT /admin/elevenlabs-keys/{elevenLabsKey} — ::update() */
 export const PUT = handler(async (request, { params }) => {
@@ -24,7 +25,7 @@ export const PUT = handler(async (request, { params }) => {
             max_concurrency: data.max_concurrency,
             status: data.status,
             // Blank means "keep the stored key".
-            ...(data.api_key ? { api_key: data.api_key } : {}),
+            ...(data.api_key ? { api_key: encryptString(data.api_key) } : {}),
             updated_at: new Date(),
         },
     });

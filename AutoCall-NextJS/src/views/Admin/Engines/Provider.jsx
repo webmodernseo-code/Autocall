@@ -111,7 +111,7 @@ function ElevenLabsPool({ provider, keys, poolStats }) {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <Stat label="Total capacity" value={poolStats.capacity ?? 0} sub="concurrent calls" />
                 <Stat label="Current load" value={poolStats.current_load ?? 0} sub={`${poolStats.utilization ?? 0}% utilization`} />
-                <Stat label="Voices" value={poolStats.total_voices ?? 0} sub="in library" />
+                <Stat label={translationI18n.t('nav.voices')} value={poolStats.total_voices ?? 0} sub="in library" />
                 <Stat label="Keys" value={poolStats.key_count ?? 0} sub={`${poolStats.total_agents ?? 0} agents`} />
             </div>
 
@@ -123,7 +123,7 @@ function ElevenLabsPool({ provider, keys, poolStats }) {
                         {form.errors.label && <p className="mt-1 text-xs text-danger">{form.errors.label}</p>}
                     </div>
                     <div>
-                        <label className="mb-1 block text-xs font-medium uppercase text-neutral-500">API key</label>
+                        <label className="mb-1 block text-xs font-medium uppercase text-neutral-500"><Trans i18nKey="client.providers_ui.maya_api_key" /></label>
                         <input className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-950" type="password" placeholder="sk_..." value={form.data.api_key} onChange={(e) => form.setData('api_key', e.target.value)} />
                         {form.errors.api_key && <p className="mt-1 text-xs text-danger">{form.errors.api_key}</p>}
                     </div>
@@ -166,7 +166,7 @@ export default function EngineProvider({ provider, keys = [], poolStats = {} }) 
         <AdminLayout title={provider.label}>
             <Head title={`${provider.label} · Engines`} />
             <div className="space-y-5">
-                <Link href={route('admin.engines.index')} className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"><ArrowLeft className="h-4 w-4" /> Engines</Link>
+                <Link href={route('admin.engines.index')} className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"><ArrowLeft className="h-4 w-4" /> <Trans i18nKey="admin.engines_nav" /></Link>
 
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-3">

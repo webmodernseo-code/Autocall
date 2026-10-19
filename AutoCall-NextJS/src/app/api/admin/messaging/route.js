@@ -2,6 +2,7 @@ import prisma from '@/lib/prisma';
 import { handler } from '@/lib/guards';
 import { gateAdminPermissions } from '@/lib/guards-admin';
 import { back, readBody, validate } from '@/lib/http';
+import { encryptString } from '@/lib/crypt';
 import { messagingSettings } from '@/lib/services/messaging';
 
 /** PUT /admin/messaging */
@@ -31,7 +32,7 @@ export const PUT = handler(async (request) => {
             embedded_signup_enabled: data.embedded_signup_enabled ?? false,
             coexistence_enabled: data.coexistence_enabled ?? false,
             // Blank means "keep the stored app secret".
-            ...(data.meta_app_secret ? { meta_app_secret: data.meta_app_secret } : {}),
+            ...(data.meta_app_secret ? { meta_app_secret: encryptString(data.meta_app_secret) } : {}),
             updated_at: new Date(),
         },
     });
