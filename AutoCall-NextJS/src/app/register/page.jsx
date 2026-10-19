@@ -18,7 +18,7 @@ export default async function Page({ searchParams }) {
     const requestedPlan = normalizeRegistrationPlan(params?.plan);
     const selectedPlan = plans.some((plan) => plan.slug === requestedPlan)
         ? requestedPlan
-        : (plans[0]?.slug ?? 'free');
+        : (plans[0]?.slug ?? 'pro');
 
     return renderPage(Register, 'Auth/Register', {
         plans,

@@ -62,10 +62,10 @@ export default function Login({ status, canResetPassword = true }) {
             title="Connexion à votre espace"
             subtitle="Accédez au tableau de bord pour superviser vos agents vocaux et consulter l’historique de vos appels."
             footer={
-                <div className="text-xs text-neutral-400">
+                <div className="text-xs text-neutral-600 dark:text-neutral-400">
                     Pas encore de compte ?{' '}
-                    <Link href={route('register')} className="font-semibold text-white hover:underline underline-offset-4 transition-colors">
-                        Créer un compte — 100 minutes offertes
+                    <Link href={route('register')} className="font-semibold text-neutral-900 dark:text-white underline underline-offset-4 hover:opacity-80 transition-opacity">
+                        Créer un compte et activer mes agents
                     </Link>
                 </div>
             }
@@ -73,7 +73,7 @@ export default function Login({ status, canResetPassword = true }) {
             <Head title="Connexion · AutoCall" />
 
             {status && (
-                <div className="mb-5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-2.5 text-xs font-medium text-emerald-300">
+                <div className="mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-xs font-medium text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300">
                     {status}
                 </div>
             )}
@@ -84,7 +84,7 @@ export default function Login({ status, canResetPassword = true }) {
                 <div>
                     <GoogleButton onClick={loginWithGoogle} loading={googleLoading} label="Continuer avec Google" />
                 </div>
-                {googleError && <p className="mt-2 text-xs text-red-400">{googleError}</p>}
+                {googleError && <p className="mt-2 text-xs text-red-500">{googleError}</p>}
                 <OrDivider label="ou avec votre adresse e-mail" />
             </div>
 
@@ -119,12 +119,12 @@ export default function Login({ status, canResetPassword = true }) {
                 />
 
                 <div className="flex items-center justify-between text-xs pt-0.5">
-                    <label className="flex items-center gap-2 text-neutral-400 hover:text-white cursor-pointer select-none">
+                    <label className="flex items-center gap-2 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white cursor-pointer select-none">
                         <input
                             type="checkbox"
                             checked={data.remember}
                             onChange={(e) => setData('remember', e.target.checked)}
-                            className="h-4 w-4 rounded-md border-white/20 bg-white/5 text-white focus:ring-white/20 cursor-pointer"
+                            className="h-4 w-4 rounded-md border-neutral-300 dark:border-white/20 text-neutral-900 focus:ring-neutral-900/20 cursor-pointer"
                         />
                         <span>Se souvenir de moi</span>
                     </label>
@@ -132,7 +132,7 @@ export default function Login({ status, canResetPassword = true }) {
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="text-neutral-400 hover:text-white transition-colors font-medium"
+                            className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors font-medium underline underline-offset-2"
                         >
                             Mot de passe oublié ?
                         </Link>

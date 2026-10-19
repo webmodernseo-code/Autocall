@@ -24,9 +24,9 @@ export default function ForgotPassword({ status }) {
             title="Mot de passe oublié"
             subtitle="Indiquez l’adresse e-mail associée à votre compte AutoCall. Vous recevrez un lien sécurisé pour redéfinir votre mot de passe."
             footer={
-                <div className="text-xs text-neutral-400">
+                <div className="text-xs text-neutral-600 dark:text-neutral-400">
                     Vous vous souvenez de votre mot de passe ?{' '}
-                    <Link href={route('login')} className="font-semibold text-white hover:underline underline-offset-4 transition-colors">
+                    <Link href={route('login')} className="font-semibold text-neutral-900 dark:text-white underline underline-offset-4 hover:opacity-80 transition-opacity">
                         Retour à la connexion
                     </Link>
                 </div>
@@ -35,12 +35,12 @@ export default function ForgotPassword({ status }) {
             <Head title="Mot de passe oublié · AutoCall" />
 
             {status && (
-                <div className="mb-5 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-xs text-emerald-300">
+                <div className="mb-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300">
                     <div className="flex items-center gap-2 font-semibold mb-1">
-                        <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                        <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                         <span>Lien de réinitialisation envoyé</span>
                     </div>
-                    <p className="text-neutral-300 pl-6 leading-relaxed">
+                    <p className="text-neutral-700 dark:text-neutral-300 pl-6 leading-relaxed">
                         {status}
                     </p>
                 </div>

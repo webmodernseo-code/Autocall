@@ -27,9 +27,9 @@ export default function ResetPassword({ token, email }) {
             title="Nouveau mot de passe"
             subtitle="Définissez un nouveau mot de passe fort pour sécuriser l’accès à vos agents AutoCall."
             footer={
-                <div className="text-xs text-white/60">
+                <div className="text-xs text-neutral-600 dark:text-neutral-400">
                     Vous souhaitez annuler ?{' '}
-                    <Link href={route('login')} className="font-semibold text-white hover:text-white/80 underline-offset-4 hover:underline transition-colors">
+                    <Link href={route('login')} className="font-semibold text-neutral-900 dark:text-white underline underline-offset-4 hover:opacity-80 transition-opacity">
                         Retour à la connexion
                     </Link>
                 </div>

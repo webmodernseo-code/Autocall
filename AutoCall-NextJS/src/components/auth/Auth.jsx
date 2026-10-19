@@ -89,9 +89,9 @@ export function AppleButton({ onClick, label = 'Continuer avec Apple' }) {
 
 export function OrDivider({ label = "ou avec votre adresse e-mail" }) {
     return (
-        <div className="my-6 flex items-center gap-4 text-xs font-medium text-neutral-400 dark:text-neutral-500">
+        <div className="my-5 flex items-center gap-3 text-xs font-medium text-neutral-500 dark:text-neutral-400">
             <div className="h-px flex-1 bg-neutral-200 dark:bg-white/10" />
-            <span className="text-[11px] uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-medium">{label}</span>
+            <span className="text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-medium">{label}</span>
             <div className="h-px flex-1 bg-neutral-200 dark:bg-white/10" />
         </div>
     );
@@ -116,22 +116,22 @@ export function AuthField({
     return (
         <div className="space-y-1.5 text-left w-full group">
             <div className="flex items-center justify-between">
-                <label htmlFor={id} className="text-xs font-medium text-neutral-700 dark:text-neutral-300 group-focus-within:text-blue-600 dark:group-focus-within:text-white transition-colors">
+                <label htmlFor={id} className="text-xs font-semibold text-neutral-800 dark:text-neutral-200 group-focus-within:text-neutral-950 dark:group-focus-within:text-white transition-colors">
                     {label}
                 </label>
                 {helperText && (
-                    <span className="text-[10px] text-neutral-400 dark:text-neutral-500">{helperText}</span>
+                    <span className="text-[10px] text-neutral-500 dark:text-neutral-400">{helperText}</span>
                 )}
             </div>
             <div
                 className={`relative flex h-11 items-center rounded-xl border px-3.5 transition-all duration-200 ${
                     error
                         ? 'border-red-500/50 bg-red-500/5 ring-2 ring-red-500/20'
-                        : 'border-neutral-200 bg-neutral-50/80 hover:border-neutral-300 focus-within:border-blue-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500/20 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/20 dark:focus-within:border-white/40 dark:focus-within:ring-white/10'
+                        : 'border-neutral-200 bg-neutral-50/70 hover:border-neutral-300 focus-within:border-neutral-900 focus-within:bg-white focus-within:ring-2 focus-within:ring-neutral-900/10 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/20 dark:focus-within:border-white/40 dark:focus-within:ring-white/10'
                 }`}
             >
                 {IconComponent && (
-                    <div className="mr-2.5 text-neutral-400 group-focus-within:text-blue-600 dark:group-focus-within:text-white transition-colors shrink-0">
+                    <div className="mr-2.5 text-neutral-400 group-focus-within:text-neutral-900 dark:group-focus-within:text-white transition-colors shrink-0">
                         <IconComponent className="h-4 w-4" />
                     </div>
                 )}
@@ -166,7 +166,7 @@ export function SubmitButton({ processing, children, loadingText = 'Chargement�
         <button
             type="submit"
             disabled={processing}
-            className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200 text-xs sm:text-sm font-semibold transition-all active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer shadow-sm shadow-blue-500/20 dark:shadow-none"
+            className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100 text-xs sm:text-sm font-semibold transition-all active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer shadow-xs"
         >
             {processing ? loadingText : children}
         </button>
@@ -184,8 +184,8 @@ export function CopyRow({ label, value }) {
     return (
         <div className="flex items-center justify-between rounded-lg border border-neutral-200 dark:border-white/10 bg-neutral-100/70 dark:bg-white/[0.02] px-3 py-1.5 text-xs">
             <div className="flex items-center gap-2">
-                <span className="text-neutral-500 dark:text-neutral-400">{label} :</span>
-                <span className="font-mono text-neutral-800 dark:text-neutral-200 font-medium">{value}</span>
+                <span className="text-neutral-600 dark:text-neutral-400">{label} :</span>
+                <span className="font-mono text-neutral-900 dark:text-neutral-200 font-medium">{value}</span>
             </div>
             <button
                 type="button"
@@ -203,7 +203,7 @@ export function DemoLoginCard({ cred, onOneClick, loading, hint = "Comptes de d�
     if (!cred) return null;
 
     return (
-        <div className="mb-5 rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/[0.03] p-4 text-xs">
+        <div className="mb-5 rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50/90 dark:bg-white/[0.03] p-4 text-xs">
             <div className="mb-2 flex items-center justify-between">
                 <span className="font-semibold text-neutral-800 dark:text-neutral-200">{hint}</span>
                 <span className="rounded-full border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.05] px-2 py-0.5 text-[10px] font-medium text-neutral-600 dark:text-neutral-400 shadow-2xs">
@@ -220,7 +220,7 @@ export function DemoLoginCard({ cred, onOneClick, loading, hint = "Comptes de d�
                 type="button"
                 onClick={onOneClick}
                 disabled={loading}
-                className="mt-2.5 inline-flex w-full h-8.5 items-center justify-center gap-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200/80 dark:bg-white/[0.06] dark:border-white/10 dark:text-neutral-200 dark:hover:bg-white/[0.1] px-3 text-xs font-semibold transition-all active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer shadow-none"
+                className="mt-2.5 inline-flex w-full h-9 items-center justify-center gap-2 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-900 border border-neutral-200 dark:bg-white/[0.06] dark:border-white/10 dark:text-neutral-200 dark:hover:bg-white/[0.1] px-3 text-xs font-semibold transition-all active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer shadow-none"
             >
                 <Zap className="h-3.5 w-3.5 text-amber-500" />
                 <span>{loading ? 'Connexion en cours…' : 'Connexion en 1 clic'}</span>
@@ -280,11 +280,11 @@ export default function AuthShell({
     children
 }) {
     return (
-        <section className="relative min-h-screen bg-[#F8F9FA] dark:bg-[#08090C] px-4 py-8 sm:py-12 text-neutral-900 dark:text-neutral-100 antialiased flex flex-col justify-between items-center overflow-x-hidden selection:bg-blue-600 selection:text-white transition-colors duration-200">
+        <section className="relative min-h-screen bg-[#FBFBFD] dark:bg-[#0A0D12] px-4 py-8 sm:py-12 text-neutral-900 dark:text-neutral-100 antialiased flex flex-col justify-between items-center overflow-x-hidden selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-neutral-950 transition-colors duration-200">
             <FlashToast />
 
             {/* Ambient subtle glow background */}
-            <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-b from-blue-500/10 via-cyan-500/5 to-transparent dark:from-blue-600/10 dark:via-cyan-600/5 blur-3xl rounded-full" />
+            <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-b from-neutral-200/60 via-neutral-100/30 to-transparent dark:from-white/5 dark:via-white/[0.02] blur-3xl rounded-full" />
 
             {/* Header supérieur avec logo, theme toggle et retour */}
             <header className="relative z-20 w-full max-w-lg flex items-center justify-between pb-6">
@@ -297,7 +297,7 @@ export default function AuthShell({
                     <ThemeToggle />
                     <Link
                         href="/"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 text-neutral-700 dark:border-white/10 dark:bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium dark:text-neutral-300 dark:hover:text-white dark:hover:border-white/20 transition-all shadow-2xs"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200/90 bg-white hover:bg-neutral-50 text-neutral-800 dark:border-white/10 dark:bg-white/[0.04] px-3.5 py-1.5 text-xs font-semibold dark:text-neutral-200 dark:hover:text-white dark:hover:border-white/20 transition-all shadow-2xs"
                     >
                         <ArrowLeft className="h-3.5 w-3.5" />
                         <span>Retour au site</span>
@@ -307,10 +307,10 @@ export default function AuthShell({
 
             {/* Carte centrale ultra-premium avec transition fluide */}
             <main className="relative z-10 w-full max-w-lg my-auto">
-                <div className="rounded-3xl border border-neutral-200/90 dark:border-white/10 bg-white/95 dark:bg-[#0E1015]/90 backdrop-blur-xl p-7 sm:p-10 shadow-[0_12px_40px_-8px_rgba(0,0,0,0.08)] dark:shadow-2xl transition-colors duration-200">
+                <div className="rounded-3xl border border-neutral-200/90 dark:border-white/10 bg-white dark:bg-[#11141A] p-7 sm:p-9 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.06)] dark:shadow-2xl transition-colors duration-200">
                     {eyebrow && (
-                        <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 dark:border-white/10 dark:bg-white/[0.04] px-3.5 py-1 text-xs font-semibold text-blue-700 dark:text-neutral-300 mb-4">
-                            <span className="h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-emerald-400" />
+                        <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100/80 dark:border-white/10 dark:bg-white/[0.04] px-3.5 py-1 text-xs font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
                             <span>{eyebrow}</span>
                         </div>
                     )}
@@ -320,7 +320,7 @@ export default function AuthShell({
                     </h1>
 
                     {subtitle && (
-                        <p className="mt-2 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                        <p className="mt-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                             {subtitle}
                         </p>
                     )}
@@ -330,15 +330,15 @@ export default function AuthShell({
                     </div>
 
                     {/* Pied sous formulaire & Micro-réassurance */}
-                    <div className="mt-8 pt-5 border-t border-neutral-200 dark:border-white/10 space-y-3">
+                    <div className="mt-8 pt-5 border-t border-neutral-200/80 dark:border-white/10 space-y-3">
                         {footer && (
-                            <div className="text-center text-xs text-neutral-500 dark:text-neutral-400">
+                            <div className="text-center text-xs text-neutral-600 dark:text-neutral-400">
                                 {footer}
                             </div>
                         )}
 
-                        <div className="flex items-center justify-center gap-1.5 text-[11px] text-neutral-500">
-                            <Lock className="h-3 w-3 text-blue-600 dark:text-emerald-400 shrink-0" />
+                        <div className="flex items-center justify-center gap-1.5 text-[11px] text-neutral-500 dark:text-neutral-400">
+                            <Lock className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                             <span>Transaction chiffrée SSL 256-bit certifiée PCI-DSS</span>
                         </div>
                     </div>
@@ -346,16 +346,16 @@ export default function AuthShell({
             </main>
 
             {/* Micro-footer légal discret */}
-            <footer className="relative z-20 w-full max-w-lg pt-6 text-center text-[11px] text-neutral-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <footer className="relative z-20 w-full max-w-lg pt-6 text-center text-[11px] text-neutral-500 dark:text-neutral-400 flex flex-col sm:flex-row items-center justify-between gap-2">
                 <p>© {new Date().getFullYear()} AutoCall. Tous droits réservés.</p>
-                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-                    <Link href="/terms" className="hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors">CGVU</Link>
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 font-medium">
+                    <Link href="/terms" className="hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors">CGVU</Link>
                     <span>•</span>
-                    <Link href="/privacy" className="hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors">Confidentialité</Link>
+                    <Link href="/privacy" className="hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors">Confidentialité</Link>
                     <span>•</span>
-                    <Link href="/mentions-legales" className="hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors">Mentions Légales</Link>
+                    <Link href="/mentions-legales" className="hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors">Mentions Légales</Link>
                     <span>•</span>
-                    <Link href="/cookies" className="hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors">Cookies</Link>
+                    <Link href="/cookies" className="hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors">Cookies</Link>
                 </div>
             </footer>
         </section>
