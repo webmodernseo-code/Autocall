@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 import { gateClient, handler } from '@/lib/guards';
-import { back, readBody, redirect } from '@/lib/http';
+import { back, readBody, redirectTo } from '@/lib/http';
 import { firstOrCreateSheetConnection } from '@/lib/domain/google-sheets';
 
 /**
@@ -19,7 +19,7 @@ export const POST = handler(async (request) => {
         const redirectUri = `${process.env.NEXTAUTH_URL || 'https://getautocall.fr'}/api/auth/google-sheets/callback`;
         const scope = encodeURIComponent('https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.email');
         const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}&access_type=offline&prompt=consent`;
-        return redirect(googleAuthUrl);
+        return redirectTo(googleAuthUrl);
     }
 
     // Connexion 1-clic immédiate associée au compte client

@@ -47,9 +47,9 @@ const STAGE_STYLES = {
 const OVERVIEW = {
     icon: KanbanSquare,
     accent: 'brand',
-    title: 'Quick CRM',
-    description: 'A simple sales pipeline over your contacts — drag a lead through each stage.',
-    steps: ['Drag a card to a stage', 'Qualify your leads', 'Close won or lost'],
+    title: 'Pipeline CRM',
+    description: 'Pilotez vos contacts au travers d’un tableau Kanban simple et intuitif — glissez une opportunité d’une étape à l’autre.',
+    steps: ['Glissez une carte vers une colonne', 'Qualifiez vos opportunités', 'Concluez les affaires gagnées ou perdues'],
 };
 
 function ContactCard({ contact, stages, onMove, onDragStart, onDragEnd }) {
@@ -62,7 +62,7 @@ function ContactCard({ contact, stages, onMove, onDragStart, onDragEnd }) {
         >
             <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-neutral-900 dark:text-white">{contact.name || 'Unnamed lead'}</p>
+                    <p className="truncate text-sm font-semibold text-neutral-900 dark:text-white">{contact.name || 'Contact sans nom'}</p>
                     {contact.company && (
                         <p className="mt-0.5 flex items-center gap-1 truncate text-xs text-neutral-500 dark:text-neutral-400">
                             <Building2 className="h-3 w-3 shrink-0" /> {contact.company}
@@ -165,7 +165,7 @@ export default function CrmBoard({ columns = [], stats = [], stages = [] }) {
                                             ))
                                         ) : (
                                             <div className="flex flex-1 items-center justify-center rounded-soft border border-dashed border-neutral-200 py-6 text-center text-xs text-neutral-400 dark:border-ink-800">
-                                                Drop leads here
+                                                Déposez un contact ici
                                             </div>
                                         )}
                                     </div>

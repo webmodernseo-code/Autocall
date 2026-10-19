@@ -3,6 +3,8 @@ import { gateClient, handler } from '@/lib/guards';
 import { readBody, redirectTo, validate, validationError } from '@/lib/http';
 import { FORM_STATUS, formRules, validateFields } from '@/lib/domain/forms';
 
+import { randomToken } from '@/lib/domain/widget';
+
 /** POST /app/forms */
 export const POST = handler(async (request) => {
     const gate = await gateClient({ routeName: 'client.forms.store' });
@@ -21,6 +23,7 @@ export const POST = handler(async (request) => {
             description: data.description ?? null,
             status: data.status ?? FORM_STATUS.ACTIVE,
             fields: data.fields ?? [],
+            public_token: randomToken(32),
             created_at: new Date(),
             updated_at: new Date(),
         },

@@ -14,7 +14,15 @@ export default async function Page({ params }) {
     const { form: id } = await params;
 
     const form = await prisma.form.findUnique({ where: { id: BigInt(id) } });
-    if (!form || String(form.client_id) !== String(clientId)) notFound();
+    let publicToken = form.public_token;
+    if (!publicToken) {
+        const { randomToken } = await import('@/lib/domain/widget');
+        publicToken = randomToken(32);
+        await prisma.form.update({
+            where: { id: form.id },
+            data: { public_token: publicToken },
+        });
+    }
 
     const props = {
         form: plain({
@@ -23,7 +31,7 @@ export default async function Page({ params }) {
             description: form.description,
             status: form.status,
             fields: form.fields ?? [],
-            public_token: form.public_token,
+            public_token: publicToken,
         }),
         isNew: false,
         fieldTypes: FIELD_TYPES,

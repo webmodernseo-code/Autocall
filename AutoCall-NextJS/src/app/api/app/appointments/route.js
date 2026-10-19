@@ -13,7 +13,7 @@ export const POST = handler(async (request) => {
     const refErrors = await assertAppointmentRefs(data, gate.clientId);
     if (refErrors) return validationError(refErrors);
 
-    await prisma.appointment.create({
+    const appointment = await prisma.appointment.create({
         data: {
             ...appointmentData(data),
             client_id: BigInt(gate.clientId),
@@ -21,6 +21,16 @@ export const POST = handler(async (request) => {
             created_at: new Date(),
             updated_at: new Date(),
         },
+    });
+
+    const { syncToGoogleSheet } = await import('@/lib/domain/google-sheets');
+    await syncToGoogleSheet(gate.clientId, 'appointment', {
+        id: Number(appointment.id),
+        agent_id: data.agent_id ? Number(data.agent_id) : null,
+        contact_id: data.contact_id ? Number(data.contact_id) : null,
+        scheduled_at: data.scheduled_at,
+        notes: data.notes,
+        status: data.status || 'scheduled',
     });
 
     return back({ success: 'Appointment created.' });

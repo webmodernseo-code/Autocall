@@ -33,7 +33,8 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
         enabled: config.enabled ?? false,
     });
 
-    const snippet = `<script src="https://YOURDOMAIN/widget/${config.public_token ?? 'TOKEN'}.js" async></script>`;
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://autocall.fr';
+    const snippet = `<script src="${origin}/widget/${config.public_token ?? 'TOKEN'}.js" async></script>`;
 
     const handleSubmit = (e) => {
         e.preventDefault();

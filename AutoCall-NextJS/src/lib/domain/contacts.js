@@ -10,11 +10,11 @@ export const SOURCE = { MANUAL: 'manual', CSV: 'csv', API: 'api' };
 
 /** Pipeline stages in order: key => label. */
 export const STAGES = {
-    new: 'New',
-    contacted: 'Contacted',
-    qualified: 'Qualified',
-    won: 'Won',
-    lost: 'Lost',
+    new: 'Nouveau prospect',
+    contacted: 'Contacté',
+    qualified: 'Qualifié',
+    won: 'Gagné',
+    lost: 'Perdu',
 };
 
 /**

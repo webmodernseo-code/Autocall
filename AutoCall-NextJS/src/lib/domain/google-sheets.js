@@ -34,3 +34,53 @@ export async function firstOrCreateSheetConnection(clientId) {
         };
     }
 }
+
+/**
+ * Automatically sync a row to Google Sheets if connected and corresponding toggle is enabled.
+ * @param {string|number|BigInt} clientId
+ * @param {'form'|'appointment'} type
+ * @param {Record<string, any>} rowData
+ */
+export async function syncToGoogleSheet(clientId, type, rowData = {}) {
+    if (!clientId) return;
+    try {
+        const conn = await prisma.googleSheetConnection.findUnique({
+            where: { client_id: BigInt(clientId) },
+        });
+
+        if (!conn || !conn.connected) return;
+        if (type === 'form' && !conn.sync_forms) return;
+        if (type === 'appointment' && !conn.sync_appointments) return;
+
+        if (conn.access_token && conn.spreadsheet_id) {
+            try {
+                const values = [
+                    new Date().toISOString(),
+                    type,
+                    JSON.stringify(rowData),
+                ];
+                await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${conn.spreadsheet_id}/values/A1:append?valueInputOption=USER_ENTERED`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${conn.access_token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ values: [values] }),
+                });
+            } catch (apiErr) {
+                console.error('[GoogleSheets] Google API push error:', apiErr?.message);
+            }
+        }
+
+        await prisma.googleSheetConnection.update({
+            where: { id: conn.id },
+            data: {
+                rows_synced: { increment: 1 },
+                last_synced_at: new Date(),
+                updated_at: new Date(),
+            },
+        });
+    } catch (err) {
+        console.error('[GoogleSheets] syncToGoogleSheet error:', err?.message || err);
+    }
+}

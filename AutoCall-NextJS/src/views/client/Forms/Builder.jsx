@@ -6,7 +6,7 @@ import { route } from '@/lib/route';
 import { Head, Link, useForm } from '@/lib/page-router';
 import ClientLayout from '@/layouts/ClientLayout';
 import { useTranslation, Trans } from 'react-i18next';
-import { ArrowLeft, Plus, Trash2, ArrowUp, ArrowDown, Save, Code } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, ArrowUp, ArrowDown, Save, Code, ExternalLink } from 'lucide-react';
 
 const inputCls = 'w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 px-3 py-2 text-sm';
 
@@ -41,8 +41,10 @@ export default function FormsBuilder({ form, isNew = true, fieldTypes = [] }) {
         else put(route('client.forms.update', form.id), { preserveScroll: true });
     };
 
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://autocall.fr';
+    const publicUrl = form.public_token ? `${origin}/f/${form.public_token}` : null;
     const embedSnippet = form.public_token
-        ? `<iframe src="${window.location.origin}/f/${form.public_token}" width="100%" height="600" frameborder="0"></iframe>`
+        ? `<iframe src="${publicUrl}" width="100%" height="600" frameborder="0"></iframe>`
         : null;
 
     return (
@@ -114,9 +116,22 @@ export default function FormsBuilder({ form, isNew = true, fieldTypes = [] }) {
                     </div>
 
                     {embedSnippet && (
-                        <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft space-y-2">
-                            <h2 className="flex items-center gap-2 font-display font-semibold text-neutral-900 dark:text-white"><Code className="h-4 w-4" /> Embed snippet</h2>
-                            <p className="text-xs text-neutral-500"><Trans i18nKey="hardcoded.views_client_forms_builder_16ea565ffa99" /></p>
+                        <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft space-y-3">
+                            <div className="flex items-center justify-between">
+                                <h2 className="flex items-center gap-2 font-display font-semibold text-neutral-900 dark:text-white"><Code className="h-4 w-4" /> Code d&apos;intégration (Embed)</h2>
+                                {publicUrl && (
+                                    <a
+                                        href={publicUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-600 hover:text-brand-500 dark:text-brand-400"
+                                    >
+                                        <span>Tester le formulaire public</span>
+                                        <ExternalLink className="h-3.5 w-3.5" />
+                                    </a>
+                                )}
+                            </div>
+                            <p className="text-xs text-neutral-500">Copiez ce code pour intégrer le formulaire dans n&apos;importe quel site web ou partagez directement le lien public.</p>
                             <pre className="overflow-x-auto rounded-soft bg-neutral-100 dark:bg-ink-800 p-3 text-xs font-mono text-neutral-700 dark:text-neutral-300"><code>{embedSnippet}</code></pre>
                         </div>
                     )}
