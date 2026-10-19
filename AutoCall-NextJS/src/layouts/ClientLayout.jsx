@@ -127,14 +127,7 @@ function useClientNav() {
                 { label: tr('nav.conversations', 'Conversations'), href: route('client.conversations.index'), icon: <Inbox className={iconClass} />, route: 'client.conversations.*' },
             ],
         },
-        {
-            label: tr('nav.integrations_section', 'Intégrations'), alwaysActive: true, icon: <Cable className={gi} />,
-            items: [
-                { label: 'Webhooks', href: route('client.integrations.index'), icon: <Cable className={iconClass} />, route: 'client.integrations.*' },
-                { label: tr('nav.api_keys', 'Clés API'), href: route('client.api-keys.index'), icon: <Code2 className={iconClass} />, route: 'client.api-keys.*', permission: 'api.read' },
-                { label: tr('nav.sip', 'Lignes SIP'), href: route('client.sip.index'), icon: <Network className={iconClass} />, route: 'client.sip.*' },
-            ],
-        },
+        
         {
             label: tr('nav.tools', 'Outils'), alwaysActive: true, icon: <Wrench className={gi} />,
             items: [
