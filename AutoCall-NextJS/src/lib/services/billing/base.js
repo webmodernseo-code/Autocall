@@ -64,6 +64,54 @@ export async function upsertSubscription(
         ? await prisma.subscription.update({ where: { id: existing.id }, data: values })
         : await prisma.subscription.create({ data: { ...where, ...values, created_at: new Date() } });
 
+    // Synchronize client workspace subscription & grant plan AI credits upon activation/upgrade
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id: BigInt(userId) },
+            select: { id: true, client_id: true },
+        });
+
+        if (user?.client_id && status === 'active') {
+            const now = new Date();
+            // Deactivate older active client subscriptions (superseded)
+            await prisma.clientSubscription.updateMany({
+                where: { client_id: user.client_id, status: 'active' },
+                data: { status: 'canceled', ends_at: now, updated_at: now },
+            });
+
+            // Create new active client subscription with the upgraded/chosen plan
+            await prisma.clientSubscription.create({
+                data: {
+                    client_id: user.client_id,
+                    plan_id: BigInt(planId),
+                    billing_cycle: 'month',
+                    status: 'active',
+                    starts_at: now,
+                    renews_at: renewsAt,
+                    ends_at: endsAt,
+                    created_at: now,
+                    updated_at: now,
+                },
+            });
+
+            // Grant plan's included AI credits
+            const plan = await prisma.plan.findUnique({
+                where: { id: BigInt(planId) },
+            });
+
+            if (plan && Number(plan.ai_credits ?? 0) > 0) {
+                const { grant, REASON } = await import('@/lib/services/credits');
+                await grant(user.client_id, Number(plan.ai_credits), REASON.PLAN_GRANT, {
+                    reference_type: 'Subscription',
+                    reference_id: sub.id,
+                    note: `Forfait ${plan.name} (${Number(plan.ai_credits)} crédits IA)`,
+                });
+            }
+        }
+    } catch (clientSubErr) {
+        console.error('[Billing] Error syncing client subscription:', clientSubErr?.message || clientSubErr);
+    }
+
     if (status === 'active') {
         await notify('subscription_confirmation', userId, { plan_id: planId });
     }
@@ -73,10 +121,28 @@ export async function upsertSubscription(
 
 export async function markCanceled(gatewayKey, subId) {
     if (!subId) return;
+    const now = new Date();
+    const subs = await prisma.subscription.findMany({
+        where: { gateway: gatewayKey, gateway_subscription_id: String(subId) },
+        select: { id: true, user_id: true },
+    });
+
     await prisma.subscription.updateMany({
         where: { gateway: gatewayKey, gateway_subscription_id: String(subId) },
-        data: { status: 'canceled', ends_at: new Date(), updated_at: new Date() },
+        data: { status: 'canceled', ends_at: now, updated_at: now },
     });
+
+    for (const s of subs) {
+        if (s.user_id) {
+            const u = await prisma.user.findUnique({ where: { id: s.user_id }, select: { client_id: true } });
+            if (u?.client_id) {
+                await prisma.clientSubscription.updateMany({
+                    where: { client_id: u.client_id, status: 'active' },
+                    data: { status: 'canceled', ends_at: now, updated_at: now },
+                });
+            }
+        }
+    }
 }
 
 /** — idempotent on the gateway txn id. */
