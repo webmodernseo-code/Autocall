@@ -132,7 +132,7 @@ export default function StatusView() {
                 {/* Services List */}
                 <section className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-base font-bold text-white uppercase tracking-wider font-mono text-xs text-neutral-400">
+                        <h2 className="text-base font-bold text-white normal-case tracking-wider font-mono text-xs text-neutral-400">
                             Composants du Système
                         </h2>
                         <span className="text-xs text-neutral-500 font-mono">Temps réel</span>
@@ -150,7 +150,7 @@ export default function StatusView() {
                                         <div>
                                             <div className="flex items-center gap-2">
                                                 <h3 className="text-sm font-bold text-white">{srv.name}</h3>
-                                                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.2 text-[10px] font-semibold text-emerald-400">
+                                                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.2 text-xs font-semibold text-emerald-400">
                                                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
                                                     {srv.status}
                                                 </span>
@@ -161,11 +161,11 @@ export default function StatusView() {
 
                                     <div className="flex items-center gap-6 pl-12 sm:pl-0 text-xs font-mono text-neutral-400">
                                         <div>
-                                            <span className="text-neutral-500 block text-[10px] uppercase">Uptime</span>
+                                            <span className="text-neutral-500 block text-xs normal-case">Uptime</span>
                                             <span className="text-white font-semibold">{srv.uptime}</span>
                                         </div>
                                         <div>
-                                            <span className="text-neutral-500 block text-[10px] uppercase">Latence</span>
+                                            <span className="text-neutral-500 block text-xs normal-case">Latence</span>
                                             <span className="text-emerald-400 font-semibold">{srv.latency}</span>
                                         </div>
                                     </div>
@@ -178,14 +178,14 @@ export default function StatusView() {
                 {/* 90 Days Uptime Graph */}
                 <section className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 font-mono">
+                        <h2 className="text-xs font-semibold normal-case tracking-wider text-neutral-400 font-mono">
                             Historique d&apos;activité (90 derniers jours)
                         </h2>
                         <span className="text-xs text-emerald-400 font-mono font-medium">99.98% uptime moyen</span>
                     </div>
 
                     <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 space-y-3">
-                        <div className="grid grid-cols-30 sm:grid-cols-45 md:grid-cols-90 gap-1 h-8 items-end">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-30 sm:grid-cols-45 md:grid-cols-90 gap-1 h-8 items-end">
                             {Array.from({ length: 90 }, (_, i) => (
                                 <div
                                     key={i}
@@ -194,7 +194,7 @@ export default function StatusView() {
                                 />
                             ))}
                         </div>
-                        <div className="flex items-center justify-between text-[11px] text-neutral-500 font-mono pt-1">
+                        <div className="flex items-center justify-between text-xs text-neutral-500 font-mono pt-1">
                             <span>Il y a 90 jours</span>
                             <span>Aujourd&apos;hui</span>
                         </div>
@@ -203,7 +203,7 @@ export default function StatusView() {
 
                 {/* Past Incidents */}
                 <section className="space-y-4">
-                    <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 font-mono">
+                    <h2 className="text-xs font-semibold normal-case tracking-wider text-neutral-400 font-mono">
                         Incidents Récents
                     </h2>
                     <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-center space-y-2">

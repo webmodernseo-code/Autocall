@@ -300,7 +300,7 @@ export default function IntegrationsSection() {
 
                 {/* 2. LE FLUX EN 3 ÉTAPES LIMPIDES (SIMPLE À COMPRENDRE) */}
                 <div className="mb-16 rounded-3xl border border-white/10 bg-[#0E1015]/80 p-6 sm:p-8 backdrop-blur-2xl">
-                    <div className="text-xs font-semibold uppercase tracking-wider text-white/50 mb-6 flex items-center gap-2">
+                    <div className="text-xs font-semibold normal-case tracking-wider text-white/50 mb-6 flex items-center gap-2">
                         <Zap className="h-4 w-4 text-white/80" />
                         <span>Comment ça fonctionne en direct :</span>
                     </div>
@@ -312,7 +312,7 @@ export default function IntegrationsSection() {
                                 <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-white text-xs font-bold font-mono">
                                     01
                                 </span>
-                                <span className="text-[11px] font-mono text-white/40">Renvoi d&apos;appel</span>
+                                <span className="text-xs font-mono text-white/40">Renvoi d&apos;appel</span>
                             </div>
                             <div className="flex items-center gap-3 mb-2 text-white font-semibold text-sm sm:text-base">
                                 <PhoneCall className="h-4 w-4 text-sky-400" />
@@ -329,7 +329,7 @@ export default function IntegrationsSection() {
                                 <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold font-mono">
                                     02
                                 </span>
-                                <span className="text-[11px] font-mono text-emerald-400">Voix & Synthèse</span>
+                                <span className="text-xs font-mono text-emerald-400">Voix & Synthèse</span>
                             </div>
                             <div className="flex items-center gap-3 mb-2 text-white font-semibold text-sm sm:text-base">
                                 <Sparkles className="h-4 w-4 text-emerald-400" />
@@ -346,7 +346,7 @@ export default function IntegrationsSection() {
                                 <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-white text-xs font-bold font-mono">
                                     03
                                 </span>
-                                <span className="text-[11px] font-mono text-white/40">Synchronisation</span>
+                                <span className="text-xs font-mono text-white/40">Synchronisation</span>
                             </div>
                             <div className="flex items-center gap-3 mb-2 text-white font-semibold text-sm sm:text-base">
                                 <RefreshCw className="h-4 w-4 text-blue-400" />
@@ -397,13 +397,13 @@ export default function IntegrationsSection() {
                                             <h4 className="text-sm font-semibold text-white group-hover:text-white transition-colors">
                                                 {item.name}
                                             </h4>
-                                            <span className="text-[11px] text-white/40 font-mono">
+                                            <span className="text-xs text-white/40 font-mono">
                                                 {item.categoryLabel}
                                             </span>
                                         </div>
                                     </div>
 
-                                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                                    <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
                                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
                                         {item.syncTime}
                                     </span>

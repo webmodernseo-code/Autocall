@@ -210,7 +210,7 @@ export default function Topbar({
                     >
                         <Bell className="h-4.5 w-4.5" />
                         {page.props.notificationsUnread > 0 && (
-                            <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-neutral-900 dark:bg-white px-1 text-[10px] font-bold text-white dark:text-black">
+                            <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-neutral-900 dark:bg-white px-1 text-xs font-bold text-white dark:text-black">
                                 {page.props.notificationsUnread > 9 ? '9+' : page.props.notificationsUnread}
                             </span>
                         )}
@@ -296,7 +296,7 @@ export default function Topbar({
                         </button>
                     </Dropdown.Trigger>
                     <Dropdown.Content align="right" width="56" className="bg-white/95 dark:bg-[#0E1015]/95 backdrop-blur-xl border border-neutral-200/90 dark:border-white/10 shadow-2xl rounded-2xl p-1.5 min-w-[210px]">
-                        <div className="px-2.5 py-1.5 text-[10px] font-semibold tracking-wider text-neutral-400 dark:text-neutral-500 uppercase">
+                        <div className="px-2.5 py-1.5 text-xs font-semibold tracking-wider text-neutral-400 dark:text-neutral-500 normal-case">
                             {t('topbar.language', 'Langue du système')}
                         </div>
                         {localeEntries.map(([code, label]) => {
@@ -317,7 +317,7 @@ export default function Topbar({
                                         <span className="truncate">{label}</span>
                                     </span>
                                     <div className="flex items-center gap-1.5 shrink-0">
-                                        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
+                                        <span className={`text-xs font-mono px-1.5 py-0.5 rounded-md ${
                                             isSelected
                                                 ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-200 font-bold'
                                                 : 'bg-neutral-100 text-neutral-500 dark:bg-white/5 dark:text-neutral-400'
@@ -350,7 +350,7 @@ export default function Topbar({
                         </button>
                     </Dropdown.Trigger>
                     <Dropdown.Content align="right" width="48" className="bg-white dark:bg-[#0E1015] border border-neutral-200 dark:border-white/10 shadow-xl rounded-2xl p-1.5 min-w-[200px]">
-                        <div className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-neutral-400 dark:text-white/40 select-none">
+                        <div className="px-3 py-1.5 text-xs font-semibold normal-case tracking-wider text-neutral-400 dark:text-white/40 select-none">
                             {t('topbar.currency', 'Devise')}
                         </div>
                         {SUPPORTED_CURRENCIES.map((c) => {
@@ -378,7 +378,7 @@ export default function Topbar({
                                         </span>
                                         <span className="flex flex-col text-left">
                                             <span className="font-medium text-neutral-900 dark:text-white">{c.name}</span>
-                                            <span className="text-[10px] text-neutral-400 dark:text-neutral-500">{c.code} ({c.symbol})</span>
+                                            <span className="text-xs text-neutral-400 dark:text-neutral-500">{c.code} ({c.symbol})</span>
                                         </span>
                                     </span>
                                     {isSelected && <Check className="h-4 w-4 text-blue-600 dark:text-blue-400 shrink-0" />}
@@ -410,7 +410,7 @@ export default function Topbar({
                         <Dropdown.Content align="right" width="56" className="bg-white dark:bg-[#0E1015] border border-neutral-200 dark:border-white/10 shadow-xl rounded-2xl p-1.5">
                             <div className="px-3 py-2 border-b border-neutral-100 dark:border-white/10 mb-1">
                                 <p className="text-xs font-bold text-neutral-900 dark:text-white truncate">{user.name}</p>
-                                <p className="text-[11px] text-neutral-500 dark:text-white/50 truncate mt-0.5">{user.email}</p>
+                                <p className="text-xs text-neutral-500 dark:text-white/50 truncate mt-0.5">{user.email}</p>
                             </div>
                             {accountItems.map((item, i) =>
                                 item.type === 'divider' ? (

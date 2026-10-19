@@ -125,7 +125,7 @@ export default function MarketingLayout({ children, title, description, schema, 
                             </div>
                             <p className="mt-4 max-w-xs text-sm text-neutral-500">Agents vocaux IA qui appellent, qualifient et notent vos prospects — une plateforme d'appels complète, auto-hébergée et multi-tenant.</p>
                             <form onSubmit={(e) => { e.preventDefault(); setSubscribed(true); }} className="mt-6 max-w-xs">
-                                <label htmlFor="nl" className="font-mono text-[11px] uppercase tracking-widest text-neutral-500 dark:text-neutral-600">Nouveautés & Mises à jour</label>
+                                <label htmlFor="nl" className="font-mono text-xs normal-case tracking-widest text-neutral-500 dark:text-neutral-600">Nouveautés & Mises à jour</label>
                                 <div className="mt-2 flex gap-2">
                                     <input id="nl" type="email" required placeholder="vous@entreprise.com" className="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-neutral-600 outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-500/25" />
                                     <button type="submit" className="shrink-0 rounded-lg bg-brand-600 px-3 py-2 text-white transition hover:bg-brand-500" aria-label="S'inscrire"><ArrowRight className="h-4 w-4" /></button>
@@ -135,10 +135,10 @@ export default function MarketingLayout({ children, title, description, schema, 
                         </div>
 
                         {/* link columns */}
-                        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:grid-cols-4">
                             {Object.entries(footer).map(([title, links]) => (
                                 <div key={title}>
-                                    <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-500 dark:text-neutral-600">{title}</p>
+                                    <p className="font-mono text-xs normal-case tracking-widest text-neutral-500 dark:text-neutral-600">{title}</p>
                                     <ul className="mt-4 space-y-2.5 text-sm">
                                         {links.map(([label, href]) => (
                                             <li key={label}>{href.startsWith('/#') || href === '#'
@@ -152,7 +152,7 @@ export default function MarketingLayout({ children, title, description, schema, 
 
                         {/* contact + social */}
                         <div>
-                            <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-500 dark:text-neutral-600">Contact</p>
+                            <p className="font-mono text-xs normal-case tracking-widest text-neutral-500 dark:text-neutral-600">Contact</p>
                             <a href="mailto:contact@autocall.co" className="mt-4 inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 transition hover:text-neutral-900 dark:hover:text-white"><Mail className="h-4 w-4" /> contact@autocall.co</a>
                             <div className="mt-6 flex gap-2">
                                 {socials.map(([Icon, label]) => (

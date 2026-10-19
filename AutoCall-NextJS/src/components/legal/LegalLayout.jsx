@@ -302,7 +302,7 @@ export default function LegalLayout({
                     <aside className="hidden lg:block">
                         <div className="sticky top-28 space-y-6">
                             <div className="rounded-2xl border border-neutral-200/90 dark:border-white/[0.08] bg-white/95 dark:bg-[#0E1015]/90 p-5 backdrop-blur-xl shadow-xs dark:shadow-xl">
-                                <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-white/40 font-mono mb-4">
+                                <h3 className="text-xs font-semibold normal-case tracking-wider text-neutral-400 dark:text-white/40 font-mono mb-4">
                                     Table des Matières
                                 </h3>
                                 <nav className="space-y-1 text-xs">
@@ -319,7 +319,7 @@ export default function LegalLayout({
                                                 }`}
                                             >
                                                 <span className="truncate pr-2">
-                                                    <span className={`font-mono text-[10px] mr-2 ${
+                                                    <span className={`font-mono text-xs mr-2 ${
                                                         isActive
                                                             ? isBlue
                                                                 ? 'text-blue-600 dark:text-blue-400 font-bold'
@@ -353,12 +353,12 @@ export default function LegalLayout({
                                     <Scale className={`h-4 w-4 ${isBlue ? 'text-blue-600' : isTeal ? 'text-[#1B4654] dark:text-[#5EC2D7]' : 'text-neutral-700 dark:text-white/70'}`} />
                                     <span>Département Juridique &amp; DPO</span>
                                 </div>
-                                <p className="text-neutral-500 dark:text-white/50 text-[11px] leading-relaxed">
+                                <p className="text-neutral-500 dark:text-white/50 text-xs leading-relaxed">
                                     Une question sur la conformité de vos campagnes vocales ou vos droits RGPD ?
                                 </p>
                                 <a
                                     href="mailto:legal@autocall.co"
-                                    className={`inline-flex items-center gap-1 font-semibold text-[11px] underline ${
+                                    className={`inline-flex items-center gap-1 font-semibold text-xs underline ${
                                         isBlue
                                             ? 'text-blue-600 hover:text-blue-700 dark:text-blue-400'
                                             : isTeal
@@ -386,7 +386,7 @@ export default function LegalLayout({
                             <p className="leading-relaxed text-neutral-600 dark:text-white/60">
                                 La présente documentation a été établie pour garantir la conformité intégrale des services d’intelligence artificielle vocale avec le droit pénal français, le Code de la consommation, la loi Naegelen encadrant le démarchage téléphonique, les règles de numérotation ARCEP et le Règlement Général sur la Protection des Données (RGPD 2016/679).
                             </p>
-                            <div className="flex flex-wrap items-center gap-4 pt-2 text-[11px] text-neutral-400 dark:text-white/40 border-t border-neutral-200 dark:border-white/[0.06]">
+                            <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-neutral-400 dark:text-white/40 border-t border-neutral-200 dark:border-white/[0.06]">
                                 <span>Fait à Paris, France</span>
                                 <span>•</span>
                                 <span>Société AutoCall SAS</span>

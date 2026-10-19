@@ -78,7 +78,7 @@ function MetricKpiCard({ label, value, trend, isPositive = true, sub, icon: Icon
                 </span>
 
                 {trend && (
-                    <span className={`inline-flex items-center gap-0.5 rounded-md px-1.5 py-0.5 text-[11px] font-semibold ${
+                    <span className={`inline-flex items-center gap-0.5 rounded-md px-1.5 py-0.5 text-xs font-semibold ${
                         isPositive
                             ? 'bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20'
                             : 'bg-rose-50 text-rose-600 border border-rose-100 dark:bg-rose-500/10 dark:text-rose-400 dark:border-rose-500/20'
@@ -90,7 +90,7 @@ function MetricKpiCard({ label, value, trend, isPositive = true, sub, icon: Icon
             </div>
 
             {sub && (
-                <p className="mt-1.5 text-[11px] text-slate-600 dark:text-[#8E95A5]">
+                <p className="mt-1.5 text-xs text-slate-600 dark:text-[#8E95A5]">
                     {sub}
                 </p>
             )}
@@ -163,7 +163,7 @@ function SplineAreaChart({ data = [] }) {
                     return (
                         <g key={ratio}>
                             <line x1={paddingLeft} y1={y} x2={width - paddingRight} y2={y} stroke="currentColor" strokeDasharray="3 3" className="text-neutral-100 dark:text-white/[0.05]" />
-                            <text x={paddingLeft - 8} y={y + 3} textAnchor="end" className="text-[10px] fill-neutral-400 dark:fill-neutral-500 font-mono">
+                            <text x={paddingLeft - 8} y={y + 3} textAnchor="end" className="text-xs fill-neutral-400 dark:fill-neutral-500 font-mono">
                                 {val}
                             </text>
                         </g>
@@ -195,7 +195,7 @@ function SplineAreaChart({ data = [] }) {
                                     x={pt.x}
                                     y={paddingTop + plotH + 18}
                                     textAnchor={i === 0 ? 'start' : i === points.length - 1 ? 'end' : 'middle'}
-                                    className={`text-[10px] font-medium transition-colors ${
+                                    className={`text-xs font-medium transition-colors ${
                                         isHovered ? 'fill-blue-600 font-bold dark:fill-blue-400' : 'fill-neutral-400 dark:fill-[#8E95A5]'
                                     }`}
                                 >
@@ -219,7 +219,7 @@ function SplineAreaChart({ data = [] }) {
                     <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
                         Aucun appel sur cette semaine
                     </span>
-                    <span className="text-[11px] text-neutral-400/80 dark:text-neutral-500 mt-0.5">
+                    <span className="text-xs text-neutral-400/80 dark:text-neutral-500 mt-0.5">
                         La courbe d&apos;activité se dessinera dès vos premiers échanges
                     </span>
                 </div>
@@ -252,7 +252,7 @@ function InteractiveChartTooltip({ active, payload, label }) {
 
     return (
         <div className="rounded-xl border border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#1A1D2D]/95 p-3 shadow-xl backdrop-blur-md min-w-[160px]">
-            <p className="text-[11px] font-semibold text-neutral-800 dark:text-white">{label}</p>
+            <p className="text-xs font-semibold text-neutral-800 dark:text-white">{label}</p>
             <div className="mt-2 space-y-1.5 text-xs">
                 <div className="flex items-center justify-between gap-3">
                     <span className="flex items-center gap-1.5 text-neutral-600 dark:text-neutral-300">
@@ -305,7 +305,7 @@ function SatisfactionRadialGauge({ percentage = 0, hasData = true }) {
                 <span className="font-hero-sans text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
                     {safePct}%
                 </span>
-                <p className="mt-0.5 text-[11px] text-slate-600 dark:text-[#8E95A5]">
+                <p className="mt-0.5 text-xs text-slate-600 dark:text-[#8E95A5]">
                     {hasData ? 'Part des appels terminés avec succès' : 'En attente de vos premiers appels'}
                 </p>
             </div>
@@ -367,12 +367,12 @@ function VoiceAiAssistantWidget() {
             </div>
 
             {responseMsg ? (
-                <div className="rounded-xl border border-blue-500/20 bg-blue-50/50 dark:bg-blue-500/10 p-2.5 mb-2 text-left text-[11px] text-blue-700 dark:text-blue-300">
+                <div className="rounded-xl border border-blue-500/20 bg-blue-50/50 dark:bg-blue-500/10 p-2.5 mb-2 text-left text-xs text-blue-700 dark:text-blue-300">
                     <p className="font-semibold mb-0.5">💡 Réponse rapide :</p>
                     <p>{responseMsg}</p>
                 </div>
             ) : (
-                <p className="text-center text-[11px] text-slate-600 dark:text-[#8E95A5] mb-2">
+                <p className="text-center text-xs text-slate-600 dark:text-[#8E95A5] mb-2">
                     {simulating ? 'L\'IA analyse votre consigne vocale…' : 'Posez une question ou pilotez vos agents.'}
                 </p>
             )}
@@ -387,7 +387,7 @@ function VoiceAiAssistantWidget() {
                             setQuery(qp.prompt);
                             handleSend(qp.prompt);
                         }}
-                        className="rounded-lg border border-slate-200/90 dark:border-white/10 bg-neutral-100/60 dark:bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-neutral-600 dark:text-neutral-300 hover:border-blue-500/40 hover:text-blue-600 dark:hover:text-blue-400 transition cursor-pointer"
+                        className="rounded-lg border border-slate-200/90 dark:border-white/10 bg-neutral-100/60 dark:bg-white/[0.04] px-2 py-0.5 text-xs font-medium text-neutral-600 dark:text-neutral-300 hover:border-blue-500/40 hover:text-blue-600 dark:hover:text-blue-400 transition cursor-pointer"
                     >
                         {qp.label}
                     </button>
@@ -510,8 +510,8 @@ function AddWidgetModal({ isOpen, onClose, onAddWidget, activeWidgets }) {
                                 <div className="shrink-0">{w.preview}</div>
                                 <div className="flex-1 min-w-0">
                                     <h4 className="text-xs font-bold text-neutral-900 dark:text-white truncate">{w.title}</h4>
-                                    <p className="text-[11px] text-slate-600 dark:text-[#8E95A5] line-clamp-1 mt-0.5">{w.desc}</p>
-                                    <span className="inline-block mt-1 text-[10px] font-semibold text-neutral-400 dark:text-neutral-400 bg-neutral-100 dark:bg-white/[0.04] px-1.5 py-0.5 rounded">
+                                    <p className="text-xs text-slate-600 dark:text-[#8E95A5] line-clamp-1 mt-0.5">{w.desc}</p>
+                                    <span className="inline-block mt-1 text-xs font-semibold text-neutral-400 dark:text-neutral-400 bg-neutral-100 dark:bg-white/[0.04] px-1.5 py-0.5 rounded">
                                         {w.tag}
                                     </span>
                                 </div>
@@ -625,7 +625,7 @@ function OnboardingQuickStartBanner({ onboarding }) {
                             <h3 className="font-hero-sans text-sm font-bold text-neutral-900 dark:text-white">
                                 Guide de démarrage rapide AutoCall
                             </h3>
-                            <span className="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-500/20 px-2 py-0.5 text-[10px] font-semibold text-blue-700 dark:text-blue-300">
+                            <span className="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:text-blue-300">
                                 {completedCount} sur {steps.length} étapes
                             </span>
                         </div>
@@ -637,7 +637,7 @@ function OnboardingQuickStartBanner({ onboarding }) {
 
                 <div className="flex items-center gap-3">
                     <div className="hidden sm:flex flex-col items-end gap-1">
-                        <span className="text-[11px] font-semibold text-neutral-700 dark:text-neutral-300 tabular-nums">
+                        <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 tabular-nums">
                             {progressPct}% complété
                         </span>
                         <div className="h-1.5 w-28 rounded-full bg-neutral-200 dark:bg-white/10 overflow-hidden">
@@ -680,7 +680,7 @@ function OnboardingQuickStartBanner({ onboarding }) {
                                         <StepIcon className="h-3.5 w-3.5" />
                                     </div>
                                     {st.done ? (
-                                        <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                                        <span className="flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                                             <CheckCircle2 className="h-3.5 w-3.5" />
                                             <span>Prêt</span>
                                         </span>
@@ -689,14 +689,14 @@ function OnboardingQuickStartBanner({ onboarding }) {
                                     )}
                                 </div>
                                 <h4 className="text-xs font-bold text-neutral-900 dark:text-white">{st.title}</h4>
-                                <p className="text-[11px] text-slate-600 dark:text-[#8E95A5] mt-0.5 line-clamp-1">{st.desc}</p>
+                                <p className="text-xs text-slate-600 dark:text-[#8E95A5] mt-0.5 line-clamp-1">{st.desc}</p>
                             </div>
 
                             <div className="mt-3 pt-2.5 border-t border-slate-200/70 dark:border-white/[0.05]">
                                 {st.done ? (
                                     <Link
                                         href={st.href}
-                                        className="inline-flex items-center gap-1 text-[11px] font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition"
+                                        className="inline-flex items-center gap-1 text-xs font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition"
                                     >
                                         <span>Gérer</span>
                                         <ArrowRight className="h-3 w-3" />
@@ -704,7 +704,7 @@ function OnboardingQuickStartBanner({ onboarding }) {
                                 ) : (
                                     <Link
                                         href={st.href}
-                                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-500 transition"
+                                        className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-500 transition"
                                     >
                                         <span>{st.btnText}</span>
                                         <ArrowRight className="h-3 w-3" />
@@ -855,7 +855,7 @@ export default function Dashboard({
                 </div>
 
                 {/* 2. RESSOURCES RAPIDES : AGENTS, NUMÉROS, CONTACTS, CAMPAGNES */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-4 gap-3.5">
                     <Link
                         href={route('client.agents.index')}
                         className="group flex items-center justify-between rounded-xl border border-slate-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06)] hover:shadow-[0_8px_24px_rgba(16,24,40,0.1)] hover:border-neutral-300 dark:hover:border-white/15 transition-all"
@@ -866,7 +866,7 @@ export default function Dashboard({
                             </div>
                             <div>
                                 <p className="font-hero-sans text-base font-bold text-neutral-900 dark:text-white tabular-nums">{kpis?.agents ?? 0}</p>
-                                <p className="text-[11px] text-neutral-400">Agents IA</p>
+                                <p className="text-xs text-neutral-400">Agents IA</p>
                             </div>
                         </div>
                         <ArrowUpRight className="h-4 w-4 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors" />
@@ -882,7 +882,7 @@ export default function Dashboard({
                             </div>
                             <div>
                                 <p className="font-hero-sans text-base font-bold text-neutral-900 dark:text-white tabular-nums">{kpis?.numbers ?? 0}</p>
-                                <p className="text-[11px] text-neutral-400">Numéros Lignes</p>
+                                <p className="text-xs text-neutral-400">Numéros Lignes</p>
                             </div>
                         </div>
                         <ArrowUpRight className="h-4 w-4 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors" />
@@ -898,7 +898,7 @@ export default function Dashboard({
                             </div>
                             <div>
                                 <p className="font-hero-sans text-base font-bold text-neutral-900 dark:text-white tabular-nums">{(kpis?.contacts ?? 0).toLocaleString()}</p>
-                                <p className="text-[11px] text-neutral-400"><Trans i18nKey="nav.contacts" /></p>
+                                <p className="text-xs text-neutral-400"><Trans i18nKey="nav.contacts" /></p>
                             </div>
                         </div>
                         <ArrowUpRight className="h-4 w-4 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors" />
@@ -914,7 +914,7 @@ export default function Dashboard({
                             </div>
                             <div>
                                 <p className="font-hero-sans text-base font-bold text-neutral-900 dark:text-white tabular-nums">{kpis?.active_campaigns ?? 0}</p>
-                                <p className="text-[11px] text-neutral-400">Campagnes</p>
+                                <p className="text-xs text-neutral-400">Campagnes</p>
                             </div>
                         </div>
                         <ArrowUpRight className="h-4 w-4 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors" />
@@ -962,7 +962,7 @@ export default function Dashboard({
                                     <p className="font-hero-sans text-xl font-bold text-neutral-900 dark:text-white tabular-nums mt-1">
                                         {hotLeads}
                                     </p>
-                                    <span className="text-[10px] text-neutral-400">Intérêt immédiat confirmé</span>
+                                    <span className="text-xs text-neutral-400">Intérêt immédiat confirmé</span>
                                 </div>
 
                                 {/* Segment 2 : Tièdes */}
@@ -974,7 +974,7 @@ export default function Dashboard({
                                     <p className="font-hero-sans text-xl font-bold text-neutral-900 dark:text-white tabular-nums mt-1">
                                         {warmLeads}
                                     </p>
-                                    <span className="text-[10px] text-neutral-400">À relancer sous 48h</span>
+                                    <span className="text-xs text-neutral-400">À relancer sous 48h</span>
                                 </div>
 
                                 {/* Segment 3 : Froids */}
@@ -986,7 +986,7 @@ export default function Dashboard({
                                     <p className="font-hero-sans text-xl font-bold text-neutral-900 dark:text-white tabular-nums mt-1">
                                         {coldLeads}
                                     </p>
-                                    <span className="text-[10px] text-neutral-400">Archivés ou recyclés</span>
+                                    <span className="text-xs text-neutral-400">Archivés ou recyclés</span>
                                 </div>
                             </div>
                         </div>
@@ -1010,7 +1010,7 @@ export default function Dashboard({
                                 <div className="overflow-x-auto">
                                     <table className="min-w-full divide-y divide-neutral-100 dark:divide-white/[0.05] text-xs">
                                         <thead>
-                                            <tr className="text-left text-[11px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-white/40">
+                                            <tr className="text-left text-xs font-semibold normal-case tracking-wider text-neutral-500 dark:text-white/40">
                                                 <th className="pb-3 pr-3">ID</th>
                                                 <th className="pb-3 px-3">Contact</th>
                                                 <th className="pb-3 px-3">Statut</th>
@@ -1025,19 +1025,19 @@ export default function Dashboard({
 
                                                 return (
                                                     <tr key={c.id} className="transition hover:bg-neutral-50/70 dark:hover:bg-white/[0.02]">
-                                                        <td className="py-3 pr-3 font-mono text-[11px] text-neutral-500 dark:text-neutral-400">
+                                                        <td className="py-3 pr-3 font-mono text-xs text-neutral-500 dark:text-neutral-400">
                                                             #{c.id}
                                                         </td>
                                                         <td className="py-3 px-3">
                                                             <div className="flex items-center gap-2.5">
-                                                                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral-100 dark:bg-white/[0.06] text-[10px] font-bold text-neutral-700 dark:text-neutral-200 border border-neutral-200/60 dark:border-white/[0.08]">
+                                                                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral-100 dark:bg-white/[0.06] text-xs font-bold text-neutral-700 dark:text-neutral-200 border border-neutral-200/60 dark:border-white/[0.08]">
                                                                     {initials(c.contact)}
                                                                 </span>
                                                                 <span className="font-semibold text-neutral-900 dark:text-white">{c.contact}</span>
                                                             </div>
                                                         </td>
                                                         <td className="py-3 px-3">
-                                                            <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-medium ${st.pill}`}>
+                                                            <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium ${st.pill}`}>
                                                                 {st.label}
                                                             </span>
                                                         </td>
@@ -1048,7 +1048,7 @@ export default function Dashboard({
                                                             {fmtDur(c.duration_seconds)}
                                                         </td>
                                                         <td className="py-3 pl-3 text-right">
-                                                            <span className="inline-flex rounded-md border border-neutral-200 px-2 py-0.5 text-[10px] font-medium capitalize text-neutral-600 dark:border-white/10 dark:text-neutral-300">
+                                                            <span className="inline-flex rounded-md border border-neutral-200 px-2 py-0.5 text-xs font-medium capitalize text-neutral-600 dark:border-white/10 dark:text-neutral-300">
                                                                 {c.qualification || 'Non qualifié'}
                                                             </span>
                                                         </td>
@@ -1066,7 +1066,7 @@ export default function Dashboard({
                                     <h4 className="text-xs font-bold text-neutral-900 dark:text-white">
                                         Aucun appel enregistré pour le moment
                                     </h4>
-                                    <p className="mt-1 text-[11px] text-slate-600 dark:text-[#8E95A5] max-w-sm">
+                                    <p className="mt-1 text-xs text-slate-600 dark:text-[#8E95A5] max-w-sm">
                                         Tous les appels entrants et sortants traités par vos agents IA s&apos;afficheront ici en direct avec transcription et analyse du sentiment.
                                     </p>
                                     <Link
@@ -1090,7 +1090,7 @@ export default function Dashboard({
                                 <span className="text-xs font-bold text-neutral-900 dark:text-white font-hero-sans">Pic d&apos;Activité Hebdomadaire</span>
                                 <MoreHorizontal className="h-4 w-4 text-neutral-400" />
                             </div>
-                            <p className="text-[11px] text-slate-600 dark:text-[#8E95A5] mb-4">
+                            <p className="text-xs text-slate-600 dark:text-[#8E95A5] mb-4">
                                 {hasWeeklyActivity && maxDay?.day ? `Pic enregistré sur ${maxDay.day}` : `Aucune activité sur les ${periodDays} derniers jours`}
                             </p>
 
@@ -1105,7 +1105,7 @@ export default function Dashboard({
                                     return (
                                         <div key={d.day} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
                                             {isPeak && (
-                                                <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 tabular-nums -mb-1 animate-bounce">
+                                                <span className="text-xs font-bold text-blue-600 dark:text-blue-400 tabular-nums -mb-1 animate-bounce">
                                                     {d.calls}
                                                 </span>
                                             )}
@@ -1118,7 +1118,7 @@ export default function Dashboard({
                                                 }`}
                                             />
                                             <span
-                                                className={`h-4 whitespace-nowrap text-[10px] font-medium ${isPeak ? 'text-blue-600 font-bold dark:text-blue-400' : 'text-neutral-400'}`}
+                                                className={`h-4 whitespace-nowrap text-xs font-medium ${isPeak ? 'text-blue-600 font-bold dark:text-blue-400' : 'text-neutral-400'}`}
                                                 title={d.day}
                                             >
                                                 {showLabel ? shortLabel : ''}
@@ -1147,7 +1147,7 @@ export default function Dashboard({
                             <div className="flex items-center justify-between gap-3">
                                 <div>
                                     <h3 className="font-hero-sans text-sm font-bold text-neutral-900 dark:text-white">Campagnes actives</h3>
-                                    <p className="mt-0.5 text-[11px] text-slate-600 dark:text-[#8E95A5]">Données synchronisées avec vos campagnes</p>
+                                    <p className="mt-0.5 text-xs text-slate-600 dark:text-[#8E95A5]">Données synchronisées avec vos campagnes</p>
                                 </div>
                                 <Megaphone className="h-4 w-4 text-blue-500" />
                             </div>
@@ -1160,7 +1160,7 @@ export default function Dashboard({
                                             className="flex items-center justify-between gap-3 rounded-xl border border-slate-200/90 px-3 py-2.5 transition hover:bg-neutral-50 dark:border-white/[0.07] dark:hover:bg-white/[0.03]"
                                         >
                                             <span className="min-w-0 truncate text-xs font-semibold text-neutral-800 dark:text-neutral-100">{campaign.name}</span>
-                                            <span className="shrink-0 text-[10px] tabular-nums text-neutral-500 dark:text-neutral-400">{campaign.contacts_count} contacts</span>
+                                            <span className="shrink-0 text-xs tabular-nums text-neutral-500 dark:text-neutral-400">{campaign.contacts_count} contacts</span>
                                         </Link>
                                     ))}
                                 </div>

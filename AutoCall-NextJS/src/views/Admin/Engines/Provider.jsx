@@ -43,7 +43,7 @@ function CredentialForm({ provider }) {
         <form onSubmit={save} className="max-w-xl space-y-4 rounded-soft-lg border border-neutral-200 bg-white p-6 shadow-soft dark:border-ink-800 dark:bg-ink-900">
             {provider.fields.map((f) => (
                 <label key={f.name} className="block">
-                    <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">{FIELD_LABEL[f.name] || f.name}</span>
+                    <span className="mb-1 block text-xs font-medium normal-case tracking-wide text-neutral-500 dark:text-neutral-400">{FIELD_LABEL[f.name] || f.name}</span>
                     <input
                         type={f.secret ? translationI18n.t('hardcoded.views_admin_engines_provider_0289b8f6c360') : 'text'}
                         value={form.data[f.name]}
@@ -73,7 +73,7 @@ function CredentialForm({ provider }) {
 function Stat({ label, value, sub }) {
     return (
         <div className="rounded-soft-lg border border-neutral-200 bg-white p-4 shadow-soft dark:border-ink-800 dark:bg-ink-900">
-            <p className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">{label}</p>
+            <p className="text-xs font-medium normal-case tracking-wide text-neutral-500 dark:text-neutral-400">{label}</p>
             <p className="mt-1 font-display text-2xl font-bold tabular-nums text-neutral-900 dark:text-white">{value}</p>
             {sub && <p className="text-xs text-neutral-500">{sub}</p>}
         </div>
@@ -118,17 +118,17 @@ function ElevenLabsPool({ provider, keys, poolStats }) {
             {adding && (
                 <form onSubmit={submit} className="grid gap-3 rounded-soft-lg border border-neutral-200 bg-white p-4 shadow-soft dark:border-ink-800 dark:bg-ink-900 sm:grid-cols-3">
                     <div>
-                        <label className="mb-1 block text-xs font-medium uppercase text-neutral-500">Label</label>
+                        <label className="mb-1 block text-xs font-medium normal-case text-neutral-500">Label</label>
                         <input className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-950" placeholder="e1" value={form.data.label} onChange={(e) => form.setData('label', e.target.value)} />
                         {form.errors.label && <p className="mt-1 text-xs text-danger">{form.errors.label}</p>}
                     </div>
                     <div>
-                        <label className="mb-1 block text-xs font-medium uppercase text-neutral-500"><Trans i18nKey="client.providers_ui.maya_api_key" /></label>
+                        <label className="mb-1 block text-xs font-medium normal-case text-neutral-500"><Trans i18nKey="client.providers_ui.maya_api_key" /></label>
                         <input className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-950" type="password" placeholder="sk_..." value={form.data.api_key} onChange={(e) => form.setData('api_key', e.target.value)} />
                         {form.errors.api_key && <p className="mt-1 text-xs text-danger">{form.errors.api_key}</p>}
                     </div>
                     <div>
-                        <label className="mb-1 block text-xs font-medium uppercase text-neutral-500"><Trans i18nKey="hardcoded.views_admin_engines_provider_561db09eeb68" /></label>
+                        <label className="mb-1 block text-xs font-medium normal-case text-neutral-500"><Trans i18nKey="hardcoded.views_admin_engines_provider_561db09eeb68" /></label>
                         <div className="flex gap-2">
                             <input className="w-full rounded-soft border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-ink-700 dark:bg-ink-950" type="number" min="1" value={form.data.max_concurrency} onChange={(e) => form.setData('max_concurrency', Number(e.target.value))} />
                             <button type="submit" disabled={form.processing} className="shrink-0 rounded-soft bg-brand-600 px-4 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_admin_engines_provider_1ab2a48176c8" /></button>
@@ -140,7 +140,7 @@ function ElevenLabsPool({ provider, keys, poolStats }) {
             <div className="overflow-hidden rounded-soft-lg border border-neutral-200 bg-white dark:border-ink-800 dark:bg-ink-900">
                 <table className="min-w-full divide-y divide-neutral-100 text-sm dark:divide-ink-800">
                     <thead className="bg-neutral-50 dark:bg-ink-800/50">
-                        <tr>{['Key', 'Status', 'Load', 'Last check', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr>
+                        <tr>{['Key', 'Status', 'Load', 'Last check', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium normal-case text-neutral-500">{h}</th>)}</tr>
                     </thead>
                     <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                         {keys.map((k) => (

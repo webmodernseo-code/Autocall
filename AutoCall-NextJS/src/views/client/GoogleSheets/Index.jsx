@@ -150,7 +150,7 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
                             <GoogleSvg className="h-7 w-7" />
                         </div>
 
-                        <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200/60 dark:border-blue-500/20 px-2.5 py-0.5 text-[11px] font-semibold text-blue-700 dark:text-blue-300 mb-3">
+                        <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200/60 dark:border-blue-500/20 px-2.5 py-0.5 text-xs font-semibold text-blue-700 dark:text-blue-300 mb-3">
                             <span>Connexion 1-clic avec votre compte Google</span>
                         </div>
 
@@ -174,7 +174,7 @@ export default function GoogleSheetsIndex({ config = {}, stats = [] }) {
                                 <span>{isConnecting ? (isFr ? 'Connexion en cours…' : 'Connecting…') : (isFr ? 'Continuer avec Google' : 'Continue with Google')}</span>
                             </button>
 
-                            <p className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-neutral-400 mt-1">
+                            <p className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-neutral-400 mt-1">
                                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
                                 <span>{isFr ? 'Connexion sécurisée certifiée Google Cloud API & SSL 256-bit.' : 'Secure connection via Google Cloud API.'}</span>
                             </p>

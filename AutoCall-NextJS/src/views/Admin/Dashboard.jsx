@@ -25,7 +25,7 @@ function Stat({ icon: Icon, label, value, accent = 'brand' }) {
             <span className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${a.bar}`} />
             <div className={`pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full opacity-0 blur-2xl transition duration-250 group-hover:opacity-100 ${a.glow}`} />
             <div className="relative flex items-center justify-between">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">{label}</p>
+                <p className="text-xs font-semibold normal-case tracking-wider text-neutral-500 dark:text-neutral-400">{label}</p>
                 <span className={`flex h-9 w-9 items-center justify-center rounded-xl ${a.tile}`}><Icon className="h-5 w-5" /></span>
             </div>
             <p className="relative mt-3 font-display text-[26px] font-bold leading-none tabular-nums text-neutral-900 dark:text-white">{value}</p>
@@ -37,7 +37,7 @@ function ChartTip({ active, payload, label, unit = '' }) {
     if (!active || !payload?.length) return null;
     return (
         <div className="rounded-soft border border-neutral-200 dark:border-ink-700 bg-white/95 px-3 py-1.5 shadow-soft-lg backdrop-blur dark:bg-ink-900/95">
-            <p className="text-[11px] font-medium text-neutral-400">{label}</p>
+            <p className="text-xs font-medium text-neutral-400">{label}</p>
             <p className="font-display text-sm font-bold text-neutral-900 dark:text-white">{payload[0].value}{unit}</p>
         </div>
     );
@@ -85,12 +85,12 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                     <div className="pointer-events-none absolute -bottom-24 left-1/4 h-56 w-56 rounded-full bg-signal-500/15 blur-3xl" />
                     <div className="relative flex flex-wrap items-end justify-between gap-4">
                         <div>
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-brand-100 ring-1 ring-inset ring-white/15"><Activity className="h-3 w-3" /> <Trans i18nKey="hardcoded.views_admin_dashboard_7878502c61ba" /></span>
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium text-brand-100 ring-1 ring-inset ring-white/15"><Activity className="h-3 w-3" /> <Trans i18nKey="hardcoded.views_admin_dashboard_7878502c61ba" /></span>
                             <h2 className="mt-3 font-display text-3xl font-bold tracking-tight"><Trans i18nKey="hardcoded.views_admin_dashboard_2ee048e9b65e" /></h2>
                             <p className="mt-1 max-w-md text-sm text-brand-100/80"><Trans i18nKey="hardcoded.views_admin_dashboard_fae3a7f95d3d" /></p>
                         </div>
                         <div className="rounded-soft-lg bg-white/10 px-4 py-3 text-right ring-1 ring-inset ring-white/15 backdrop-blur">
-                            <p className="text-[11px] font-medium uppercase tracking-wide text-brand-100/80">{t('admin.monthly_recurring', 'Revenu récurrent mensuel')}</p>
+                            <p className="text-xs font-medium normal-case tracking-wide text-brand-100/80">{t('admin.monthly_recurring', 'Revenu récurrent mensuel')}</p>
                             <p className="mt-0.5 font-display text-2xl font-bold tabular-nums">{money(kpis.mrr)}</p>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                         </SectionCard>
                         <div className="relative overflow-hidden rounded-soft-lg bg-gradient-to-br from-brand-600 to-brand-800 p-5 text-white shadow-soft-lg">
                             <ListChecks className="pointer-events-none absolute -bottom-3 -right-2 h-24 w-24 text-white/10" />
-                            <div className="relative flex items-center gap-2 text-brand-100"><ListChecks className="h-4 w-4" /><span className="text-xs font-medium uppercase tracking-wide">{t('admin.queue_pending', 'File en attente')}</span></div>
+                            <div className="relative flex items-center gap-2 text-brand-100"><ListChecks className="h-4 w-4" /><span className="text-xs font-medium normal-case tracking-wide">{t('admin.queue_pending', 'File en attente')}</span></div>
                             <p className="relative mt-2 font-display text-3xl font-bold tabular-nums">{kpis.queue_pending ?? 0}</p>
                             <Link href={route('admin.call-queue.index')} className="relative mt-2 inline-flex items-center gap-1 rounded-soft bg-white/20 px-2.5 py-1 text-xs font-medium backdrop-blur transition hover:bg-white/30"><Trans i18nKey="hardcoded.views_admin_dashboard_ad95ddf5f43b" /> <ArrowRight className="h-3 w-3" /></Link>
                         </div>
@@ -149,7 +149,7 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                                                 <span className="font-medium text-neutral-900 dark:text-white">{v.name}</span>
                                             </div>
                                         </td>
-                                        <td className="px-5 py-2.5"><span className={`rounded-full px-2 py-0.5 text-[11px] ${v.status === 'active' ? 'bg-signal-100 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300' : 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{v.status}</span></td>
+                                        <td className="px-5 py-2.5"><span className={`rounded-full px-2 py-0.5 text-xs ${v.status === 'active' ? 'bg-signal-100 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300' : 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{v.status}</span></td>
                                         <td className="px-5 py-2.5 text-right font-mono text-neutral-600 dark:text-neutral-300">{v.credits.toLocaleString()} cr</td>
                                     </tr>
                                 ))}
@@ -164,7 +164,7 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                                     const max = topCustomers[0].calls || 1;
                                     return (
                                         <div key={i}>
-                                            <div className="flex justify-between text-sm"><span className="flex items-center gap-2 text-neutral-700 dark:text-neutral-300"><span className="flex h-5 w-5 items-center justify-center rounded-md bg-neutral-100 text-[10px] font-bold text-neutral-500 dark:bg-ink-800 dark:text-neutral-400">{i + 1}</span>{v.name}</span><span className="font-mono text-neutral-500">{v.calls}</span></div>
+                                            <div className="flex justify-between text-sm"><span className="flex items-center gap-2 text-neutral-700 dark:text-neutral-300"><span className="flex h-5 w-5 items-center justify-center rounded-md bg-neutral-100 text-xs font-bold text-neutral-500 dark:bg-ink-800 dark:text-neutral-400">{i + 1}</span>{v.name}</span><span className="font-mono text-neutral-500">{v.calls}</span></div>
                                             <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-neutral-100 dark:bg-ink-800"><div className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-300 transition-all duration-500" style={{ width: `${(v.calls / max) * 100}%` }} /></div>
                                         </div>
                                     );

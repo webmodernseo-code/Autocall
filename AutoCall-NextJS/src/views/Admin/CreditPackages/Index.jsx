@@ -37,7 +37,7 @@ function PackageModal({ open, initial, onClose }) {
                     <Field label={translationI18n.t('common.name')} error={errors.name}>
                         <input className="input" value={data.name} onChange={(e) => setData('name', e.target.value)} />
                     </Field>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <Field label="Credits" error={errors.credits}>
                             <input type="number" min="1" className="input" value={data.credits} onChange={(e) => setData('credits', Number(e.target.value))} />
                         </Field>
@@ -45,7 +45,7 @@ function PackageModal({ open, initial, onClose }) {
                             <input type="number" min="0" className="input" value={data.price_cents} onChange={(e) => setData('price_cents', Number(e.target.value))} />
                         </Field>
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <Field label={translationI18n.t('topbar.currency')} error={errors.currency_code}>
                             <input className="input" value={data.currency_code} onChange={(e) => setData('currency_code', e.target.value.toUpperCase())} />
                         </Field>
@@ -74,7 +74,7 @@ function PackageModal({ open, initial, onClose }) {
 function Field({ label, error, children }) {
     return (
         <label className="block">
-            <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">{label}</span>
+            <span className="mb-1 block text-xs font-medium normal-case tracking-wide text-neutral-500 dark:text-neutral-400">{label}</span>
             {children}
             {error && <span className="mt-1 block text-xs text-danger">{error}</span>}
         </label>
@@ -118,12 +118,12 @@ export default function CreditPackagesIndex({ packages = [], pendingPurchases = 
                                 <div>
                                     <div className="flex items-center gap-2">
                                         <h3 className="font-display font-semibold text-neutral-900 dark:text-white">{pkg.name}</h3>
-                                        {pkg.is_popular && <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 dark:bg-brand-500/20 px-2 py-0.5 text-[10px] font-medium text-brand-700 dark:text-brand-300"><Star className="h-3 w-3" /> <Trans i18nKey="client.esim_catalog_ui.tbl_col_popular" /></span>}
+                                        {pkg.is_popular && <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 dark:bg-brand-500/20 px-2 py-0.5 text-xs font-medium text-brand-700 dark:text-brand-300"><Star className="h-3 w-3" /> <Trans i18nKey="client.esim_catalog_ui.tbl_col_popular" /></span>}
                                     </div>
                                     <p className="mt-1 font-mono text-2xl font-bold tabular-nums text-neutral-900 dark:text-white">{pkg.credits.toLocaleString()}</p>
                                     <p className="text-xs text-neutral-500">credits · {money(pkg.price_cents, pkg.currency_code)}</p>
                                 </div>
-                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${pkg.is_active ? 'bg-signal-100 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300' : 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{pkg.is_active ? translationI18n.t('hardcoded.views_admin_creditpackages_index_bb178ea66ef2') : translationI18n.t('hardcoded.views_admin_creditpackages_index_217d0fffe74d')}</span>
+                                <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${pkg.is_active ? 'bg-signal-100 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300' : 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{pkg.is_active ? translationI18n.t('hardcoded.views_admin_creditpackages_index_bb178ea66ef2') : translationI18n.t('hardcoded.views_admin_creditpackages_index_217d0fffe74d')}</span>
                             </div>
                             <div className="mt-4 flex gap-2">
                                 <button onClick={() => setModal({ open: true, initial: pkg })} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Pencil className="h-3.5 w-3.5" /> <Trans i18nKey="hardcoded.views_admin_creditpackages_index_1bd35721ecc2" /></button>

@@ -50,7 +50,7 @@ export default function SetupGuide({ guide, defaultOpen = false, className = '' 
                     <ol className="space-y-2.5">
                         {steps.map((s, i) => (
                             <li key={i} className="flex gap-3 text-xs sm:text-sm text-slate-700 dark:text-neutral-200">
-                                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-600 text-[11px] font-bold text-white shadow-2xs">{i + 1}</span>
+                                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-2xs">{i + 1}</span>
                                 <span className="min-w-0">
                                     {s.text}
                                     {s.href && (

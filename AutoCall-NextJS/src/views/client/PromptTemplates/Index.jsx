@@ -63,7 +63,7 @@ function TemplateModal({ template, categories, onClose }) {
                 {vars.length > 0 && (
                     <div className="mt-2 flex flex-wrap items-center gap-1.5">
                         <Braces className="h-3.5 w-3.5 text-neutral-400" />
-                        {vars.map((v) => <span key={v} className="rounded-full bg-brand-50 px-2 py-0.5 font-mono text-[11px] text-brand-700 dark:bg-brand-500/10 dark:text-brand-300">{`{{${v}}}`}</span>)}
+                        {vars.map((v) => <span key={v} className="rounded-full bg-brand-50 px-2 py-0.5 font-mono text-xs text-brand-700 dark:bg-brand-500/10 dark:text-brand-300">{`{{${v}}}`}</span>)}
                     </div>
                 )}
                 <div className="mt-4 flex justify-end gap-2">
@@ -120,16 +120,16 @@ export default function PromptTemplatesIndex({ templates, filters = {}, categori
                                 <div className="flex items-start justify-between gap-2">
                                     <h3 className="font-medium text-neutral-900 dark:text-white">{t.name}</h3>
                                     <div className="flex shrink-0 items-center gap-1">
-                                        {t.is_system && <span className="inline-flex items-center gap-0.5 rounded-full bg-neutral-100 px-1.5 py-0.5 text-[10px] font-medium text-neutral-500 dark:bg-ink-800 dark:text-neutral-400"><ShieldCheck className="h-3 w-3" /> <Trans i18nKey="hardcoded.views_client_prompttemplates_index_514d81b12dee" /></span>}
-                                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${CAT[t.category]?.cls || CAT.general.cls}`}>{catLabel(t.category)}</span>
+                                        {t.is_system && <span className="inline-flex items-center gap-0.5 rounded-full bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-500 dark:bg-ink-800 dark:text-neutral-400"><ShieldCheck className="h-3 w-3" /> <Trans i18nKey="hardcoded.views_client_prompttemplates_index_514d81b12dee" /></span>}
+                                        <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${CAT[t.category]?.cls || CAT.general.cls}`}>{catLabel(t.category)}</span>
                                     </div>
                                 </div>
                                 {t.description && <p className="mt-1 line-clamp-2 text-xs text-neutral-500 dark:text-neutral-400">{t.description}</p>}
-                                <pre className="mt-3 max-h-24 overflow-hidden whitespace-pre-wrap rounded-soft bg-neutral-50 p-2.5 font-mono text-[11px] leading-relaxed text-neutral-600 dark:bg-ink-950 dark:text-neutral-400">{t.content}</pre>
+                                <pre className="mt-3 max-h-24 overflow-hidden whitespace-pre-wrap rounded-soft bg-neutral-50 p-2.5 font-mono text-xs leading-relaxed text-neutral-600 dark:bg-ink-950 dark:text-neutral-400">{t.content}</pre>
                                 {t.variables?.length > 0 && (
                                     <div className="mt-2 flex flex-wrap gap-1">
-                                        {t.variables.slice(0, 4).map((v) => <span key={v} className="rounded bg-brand-50 px-1.5 py-0.5 font-mono text-[10px] text-brand-700 dark:bg-brand-500/10 dark:text-brand-300">{`{{${v}}}`}</span>)}
-                                        {t.variables.length > 4 && <span className="text-[10px] text-neutral-400">+{t.variables.length - 4} more</span>}
+                                        {t.variables.slice(0, 4).map((v) => <span key={v} className="rounded bg-brand-50 px-1.5 py-0.5 font-mono text-xs text-brand-700 dark:bg-brand-500/10 dark:text-brand-300">{`{{${v}}}`}</span>)}
+                                        {t.variables.length > 4 && <span className="text-xs text-neutral-400">+{t.variables.length - 4} more</span>}
                                     </div>
                                 )}
                                 <div className="mt-4 flex items-center gap-1 border-t border-neutral-100 pt-3 dark:border-ink-800">

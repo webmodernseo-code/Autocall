@@ -29,13 +29,13 @@ function DetailModal({ callId, onClose }) {
                 {!data ? <p className="py-8 text-center text-sm text-neutral-400">Loading…</p> : (
                     <div className="space-y-4">
                         {data.recording_url && <AudioPlayer src={data.recording_url} filename={`call-${callId}.mp3`} />}
-                        {data.summary && <div className="rounded-soft border border-neutral-200 dark:border-ink-700 bg-neutral-50 dark:bg-ink-800/50 p-3 text-sm"><p className="mb-1 text-xs font-medium uppercase text-neutral-500">Summary</p>{data.summary}</div>}
+                        {data.summary && <div className="rounded-soft border border-neutral-200 dark:border-ink-700 bg-neutral-50 dark:bg-ink-800/50 p-3 text-sm"><p className="mb-1 text-xs font-medium normal-case text-neutral-500">Summary</p>{data.summary}</div>}
                         <div className="flex gap-4 text-sm">
                             {data.sentiment && <span>Sentiment: <span className={SENTIMENT[data.sentiment]}>{data.sentiment}</span></span>}
                             {data.qualification && <span>Lead: <span className={`rounded-full px-2 py-0.5 text-xs ${QUAL[data.qualification]}`}>{data.qualification}</span></span>}
                             <span className="text-neutral-500">Duration: {fmtDur(data.duration_seconds)}</span>
                         </div>
-                        <div><p className="mb-1 text-xs font-medium uppercase text-neutral-500">Transcript</p><pre className="max-h-72 overflow-auto whitespace-pre-wrap rounded-soft border border-neutral-200 dark:border-ink-700 bg-neutral-50 dark:bg-ink-800/50 p-3 text-sm text-neutral-700 dark:text-neutral-300">{data.transcript || 'No transcript available.'}</pre></div>
+                        <div><p className="mb-1 text-xs font-medium normal-case text-neutral-500">Transcript</p><pre className="max-h-72 overflow-auto whitespace-pre-wrap rounded-soft border border-neutral-200 dark:border-ink-700 bg-neutral-50 dark:bg-ink-800/50 p-3 text-sm text-neutral-700 dark:text-neutral-300">{data.transcript || 'No transcript available.'}</pre></div>
                     </div>
                 )}
             </div>
@@ -78,15 +78,15 @@ export default function CallsIndex({ calls, filters = {}, stats = [] }) {
 
                 <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                     <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">
-                        <thead className="bg-neutral-50 dark:bg-ink-800/50"><tr>{['Contact', 'Campaign', 'Status', 'Sentiment', 'Lead', 'Duration', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr></thead>
+                        <thead className="bg-neutral-50 dark:bg-ink-800/50"><tr>{['Contact', 'Campaign', 'Status', 'Sentiment', 'Lead', 'Duration', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium normal-case text-neutral-500">{h}</th>)}</tr></thead>
                         <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                             {calls.data.map((c) => (
                                 <tr key={c.id} className="hover:bg-neutral-50 dark:hover:bg-ink-800/40">
                                     <td className="px-4 py-3"><p className="font-medium text-neutral-900 dark:text-white">{c.contact || '—'}</p><p className="font-mono text-xs text-neutral-400">{c.phone_masked}</p></td>
                                     <td className="px-4 py-3 text-neutral-500">{c.campaign || '—'}</td>
-                                    <td className="px-4 py-3"><span className={`rounded-full px-2 py-0.5 text-[11px] font-medium capitalize ${STATUS[c.status] || 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{c.status?.replace('_', ' ')}</span></td>
+                                    <td className="px-4 py-3"><span className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${STATUS[c.status] || 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{c.status?.replace('_', ' ')}</span></td>
                                     <td className={`px-4 py-3 capitalize ${SENTIMENT[c.sentiment] || 'text-neutral-400'}`}>{c.sentiment || '—'}</td>
-                                    <td className="px-4 py-3">{c.qualification ? <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium capitalize ${QUAL[c.qualification]}`}>{c.qualification}</span> : '—'}</td>
+                                    <td className="px-4 py-3">{c.qualification ? <span className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${QUAL[c.qualification]}`}>{c.qualification}</span> : '—'}</td>
                                     <td className="px-4 py-3 font-mono text-neutral-500">{fmtDur(c.duration_seconds)}</td>
                                     <td className="px-4 py-3 text-right"><button onClick={() => setDetail(c.id)} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-2.5 py-1 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800">{c.has_transcript ? <FileText className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />} <Trans i18nKey="hardcoded.views_client_calls_index_422f5b1ab15e" /></button></td>
                                 </tr>

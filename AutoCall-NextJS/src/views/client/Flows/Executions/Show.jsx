@@ -37,16 +37,16 @@ export default function ExecutionShow({ execution }) {
                         <div>
                             <div className="flex items-center gap-2">
                                 <h1 className="font-display text-xl font-bold text-neutral-900 dark:text-white">{execution.flow}</h1>
-                                <span className={`rounded-full px-2 py-0.5 text-[11px] capitalize ${EXEC_STATUS[execution.status] || EXEC_STATUS.running}`}>{execution.status}</span>
+                                <span className={`rounded-full px-2 py-0.5 text-xs capitalize ${EXEC_STATUS[execution.status] || EXEC_STATUS.running}`}>{execution.status}</span>
                             </div>
                             <p className="mt-1 text-xs text-neutral-400">Execution #{execution.id} · triggered {execution.trigger_source?.replace('_', ' ')}</p>
                         </div>
                         <Link href={route('client.flows.edit', execution.flow_id)} className="rounded-soft border border-neutral-200 px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_flows_executions_show_6bd491c31fb6" /></Link>
                     </div>
-                    <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                        <div className="rounded-soft border border-neutral-200 px-3 py-2 dark:border-ink-800"><p className="text-[11px] uppercase text-neutral-400">Duration</p><p className="font-display font-semibold text-neutral-900 dark:text-white">{fmtDur(execution.duration_ms)}</p></div>
-                        <div className="rounded-soft border border-neutral-200 px-3 py-2 dark:border-ink-800"><p className="text-[11px] uppercase text-neutral-400">Steps</p><p className="font-display font-semibold text-neutral-900 dark:text-white">{steps.length}</p></div>
-                        <div className="rounded-soft border border-neutral-200 px-3 py-2 dark:border-ink-800"><p className="text-[11px] uppercase text-neutral-400">Started</p><p className="truncate text-sm font-medium text-neutral-700 dark:text-neutral-300">{execution.started_at ? fmtTime(execution.started_at) : '—'}</p></div>
+                    <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:grid-cols-3">
+                        <div className="rounded-soft border border-neutral-200 px-3 py-2 dark:border-ink-800"><p className="text-xs normal-case text-neutral-400">Duration</p><p className="font-display font-semibold text-neutral-900 dark:text-white">{fmtDur(execution.duration_ms)}</p></div>
+                        <div className="rounded-soft border border-neutral-200 px-3 py-2 dark:border-ink-800"><p className="text-xs normal-case text-neutral-400">Steps</p><p className="font-display font-semibold text-neutral-900 dark:text-white">{steps.length}</p></div>
+                        <div className="rounded-soft border border-neutral-200 px-3 py-2 dark:border-ink-800"><p className="text-xs normal-case text-neutral-400">Started</p><p className="truncate text-sm font-medium text-neutral-700 dark:text-neutral-300">{execution.started_at ? fmtTime(execution.started_at) : '—'}</p></div>
                     </div>
                     {execution.error && <div className="mt-3 rounded-soft bg-danger/10 px-3 py-2 text-sm text-danger">{execution.error}</div>}
                 </div>
@@ -68,7 +68,7 @@ export default function ExecutionShow({ execution }) {
                                             <p className="text-sm font-medium text-neutral-900 dark:text-white">{s.label}</p>
                                             {s.message && <p className="text-xs text-neutral-500">{s.message}</p>}
                                         </div>
-                                        <span className="ml-auto text-[11px] capitalize text-neutral-400">{s.status}</span>
+                                        <span className="ml-auto text-xs capitalize text-neutral-400">{s.status}</span>
                                     </div>
                                 </li>
                             );

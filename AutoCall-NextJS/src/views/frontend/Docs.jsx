@@ -141,7 +141,7 @@ export default function DocsView() {
                             <nav className="space-y-6">
                                 {DOCS_NAV.map((group, idx) => (
                                     <div key={idx} className="space-y-2">
-                                        <h3 className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400 font-mono">
+                                        <h3 className="text-xs font-semibold normal-case tracking-wider text-neutral-400 font-mono">
                                             {group.category}
                                         </h3>
                                         <ul className="space-y-1">

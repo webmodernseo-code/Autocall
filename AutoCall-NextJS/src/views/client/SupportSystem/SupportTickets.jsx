@@ -234,7 +234,7 @@ export default function SupportTickets({ tickets = [] }) {
                     <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{ui('subtitle')}</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xl:grid-cols-4">
                     <div className={statCardClass('sky')}>
                         <p className="text-sm font-medium text-sky-800 dark:text-sky-200">{ui('stat_open')}</p>
                         <p className="mt-2 text-3xl font-bold tabular-nums text-sky-900 dark:text-sky-100">{stats.open}</p>
@@ -351,7 +351,7 @@ export default function SupportTickets({ tickets = [] }) {
                                 <div className="relative border-b border-neutral-200/80 bg-gradient-to-br from-emerald-50/90 via-white to-sky-50/50 px-4 py-5 dark:border-neutral-800 dark:from-emerald-950/35 dark:via-neutral-900 dark:to-sky-950/20 sm:px-6">
                                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                                         <div className="min-w-0 space-y-2">
-                                            <p className="text-[11px] font-semibold uppercase tracking-widest text-emerald-700/80 dark:text-emerald-400/90">
+                                            <p className="text-xs font-semibold normal-case tracking-widest text-emerald-700/80 dark:text-emerald-400/90">
                                                 #{selected.id}
                                             </p>
                                             <h2 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-2xl">
@@ -389,7 +389,7 @@ export default function SupportTickets({ tickets = [] }) {
                                                 <User className="h-5 w-5" strokeWidth={2} />
                                             </span>
                                             <div className="min-w-0">
-                                                <p className="text-[10px] font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                                                <p className="text-xs font-semibold normal-case tracking-wide text-neutral-500 dark:text-neutral-400">
                                                     {ui('label_creator')}
                                                 </p>
                                                 <p className="truncate font-semibold text-neutral-900 dark:text-neutral-100">
@@ -402,7 +402,7 @@ export default function SupportTickets({ tickets = [] }) {
                                                 <Clock className="h-5 w-5" strokeWidth={2} />
                                             </span>
                                             <div>
-                                                <p className="text-[10px] font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                                                <p className="text-xs font-semibold normal-case tracking-wide text-neutral-500 dark:text-neutral-400">
                                                     {ui('label_details')}
                                                 </p>
                                                 <p className="font-medium text-neutral-900 dark:text-neutral-100">
@@ -416,13 +416,13 @@ export default function SupportTickets({ tickets = [] }) {
                                 <div className="space-y-5 px-4 py-5 sm:space-y-6 sm:px-6">
                                     {/* Controls */}
                                     <div className="rounded-2xl border border-neutral-200/90 bg-neutral-50/60 p-4 dark:border-neutral-700/80 dark:bg-neutral-950/40">
-                                        <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                                        <div className="mb-3 flex items-center gap-2 text-xs font-semibold normal-case tracking-wide text-neutral-500 dark:text-neutral-400">
                                             <Headphones className="h-3.5 w-3.5" strokeWidth={2} />
                                             <span>{ui('section_triage')}</span>
                                         </div>
                                         <div className="grid gap-3 sm:grid-cols-3">
                                             <div>
-                                                <p className="mb-1.5 text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
+                                                <p className="mb-1.5 text-xs font-medium text-neutral-500 dark:text-neutral-400">
                                                     {ui('label_status')}
                                                 </p>
                                                 <ThemedSelect
@@ -432,7 +432,7 @@ export default function SupportTickets({ tickets = [] }) {
                                                 />
                                             </div>
                                             <div>
-                                                <p className="mb-1.5 text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
+                                                <p className="mb-1.5 text-xs font-medium text-neutral-500 dark:text-neutral-400">
                                                     {ui('label_priority')}
                                                 </p>
                                                 <ThemedSelect
@@ -442,7 +442,7 @@ export default function SupportTickets({ tickets = [] }) {
                                                 />
                                             </div>
                                             <div>
-                                                <p className="mb-1.5 text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
+                                                <p className="mb-1.5 text-xs font-medium text-neutral-500 dark:text-neutral-400">
                                                     {ui('label_assign_to')}
                                                 </p>
                                                 <ThemedSelect
@@ -456,7 +456,7 @@ export default function SupportTickets({ tickets = [] }) {
 
                                     {/* Description */}
                                     <div>
-                                        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                                        <p className="mb-2 text-xs font-semibold normal-case tracking-wide text-neutral-500 dark:text-neutral-400">
                                             {ui('label_description')}
                                         </p>
                                         <div className="rounded-2xl border-l-4 border-l-emerald-500 bg-neutral-50/90 px-4 py-3.5 text-sm leading-relaxed text-neutral-800 shadow-inner dark:border-l-emerald-400 dark:bg-neutral-900/60 dark:text-neutral-200">
@@ -467,10 +467,10 @@ export default function SupportTickets({ tickets = [] }) {
                                     {/* Conversation — chat layout */}
                                     <div>
                                         <div className="mb-3 flex items-center justify-between gap-2">
-                                            <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                                            <p className="text-xs font-semibold normal-case tracking-wide text-neutral-500 dark:text-neutral-400">
                                                 {ui('label_conversation')}
                                             </p>
-                                            <span className="rounded-full bg-neutral-200/80 px-2 py-0.5 text-[11px] font-medium tabular-nums text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">
+                                            <span className="rounded-full bg-neutral-200/80 px-2 py-0.5 text-xs font-medium tabular-nums text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">
                                                 {selected.messages.length}
                                             </span>
                                         </div>
@@ -486,12 +486,12 @@ export default function SupportTickets({ tickets = [] }) {
                                                         return (
                                                             <div key={`${m.at}-${i}`} className="flex justify-center">
                                                                 <div className="max-w-[95%] rounded-xl border border-amber-200/90 bg-amber-50/95 px-3 py-2 text-center text-sm shadow-sm dark:border-amber-800/60 dark:bg-amber-950/40">
-                                                                    <p className="text-[10px] font-semibold uppercase tracking-wide text-amber-800 dark:text-amber-200">
+                                                                    <p className="text-xs font-semibold normal-case tracking-wide text-amber-800 dark:text-amber-200">
                                                                         {ui('role_internal')}
                                                                     </p>
                                                                     <p className="mt-1 text-neutral-800 dark:text-amber-50/95">{m.text}</p>
                                                                     {time ? (
-                                                                        <p className="mt-1 text-[10px] text-amber-700/70 dark:text-amber-300/70">
+                                                                        <p className="mt-1 text-xs text-amber-700/70 dark:text-amber-300/70">
                                                                             {time}
                                                                         </p>
                                                                     ) : null}
@@ -515,7 +515,7 @@ export default function SupportTickets({ tickets = [] }) {
                                                             >
                                                                 <p
                                                                     className={[
-                                                                        'text-[10px] font-semibold uppercase tracking-wide',
+                                                                        'text-xs font-semibold normal-case tracking-wide',
                                                                         isUser
                                                                             ? 'text-neutral-600 dark:text-neutral-400'
                                                                             : 'text-emerald-100/90',
@@ -534,7 +534,7 @@ export default function SupportTickets({ tickets = [] }) {
                                                                 {time ? (
                                                                     <p
                                                                         className={[
-                                                                            'mt-1.5 text-[10px] tabular-nums',
+                                                                            'mt-1.5 text-xs tabular-nums',
                                                                             isUser
                                                                                 ? 'text-neutral-500 dark:text-neutral-500'
                                                                                 : 'text-emerald-100/75',

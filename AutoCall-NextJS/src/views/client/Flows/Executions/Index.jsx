@@ -49,7 +49,7 @@ export default function ExecutionsIndex({ executions, filters = {}, stats = [] }
                     {executions.data.length > 0 ? (
                         <table className="min-w-full divide-y divide-neutral-100 text-sm dark:divide-ink-800">
                             <thead className="bg-neutral-50 dark:bg-ink-800/50">
-                                <tr>{['Flow', 'Status', 'Trigger', 'Duration', 'Started', ''].map((h) => <th key={h} className="px-5 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr>
+                                <tr>{['Flow', 'Status', 'Trigger', 'Duration', 'Started', ''].map((h) => <th key={h} className="px-5 py-3 text-left text-xs font-medium normal-case text-neutral-500">{h}</th>)}</tr>
                             </thead>
                             <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                                 {executions.data.map((e) => {
@@ -58,7 +58,7 @@ export default function ExecutionsIndex({ executions, filters = {}, stats = [] }
                                     return (
                                         <tr key={e.id} className="transition hover:bg-neutral-50/70 dark:hover:bg-ink-800/40">
                                             <td className="px-5 py-3 font-medium text-neutral-900 dark:text-white">{e.flow}</td>
-                                            <td className="px-5 py-3"><span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] capitalize ${s.cls}`}><Icon className="h-3 w-3" /> {e.status}</span></td>
+                                            <td className="px-5 py-3"><span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs capitalize ${s.cls}`}><Icon className="h-3 w-3" /> {e.status}</span></td>
                                             <td className="px-5 py-3 capitalize text-neutral-500">{(e.trigger_source || '').replace('_', ' ')}</td>
                                             <td className="px-5 py-3 font-mono text-neutral-500">{fmtDur(e.duration_ms)}</td>
                                             <td className="px-5 py-3 text-neutral-500">{e.started_at ? fmtTime(e.started_at) : '—'}</td>

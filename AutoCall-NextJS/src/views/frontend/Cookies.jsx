@@ -61,13 +61,13 @@ export default function CookiesDoc() {
                         <tbody className="divide-y divide-neutral-200 dark:divide-white/[0.05] text-neutral-700 dark:text-white/70">
                             <tr>
                                 <td className="p-3">
-                                    <span className="font-mono text-[11px] font-semibold text-[#1B4654] dark:text-[#5EC2D7] bg-[#1B4654]/10 dark:bg-[#1B4654]/30 px-2 py-0.5 rounded-md border border-[#1B4654]/30">
+                                    <span className="font-mono text-xs font-semibold text-[#1B4654] dark:text-[#5EC2D7] bg-[#1B4654]/10 dark:bg-[#1B4654]/30 px-2 py-0.5 rounded-md border border-[#1B4654]/30">
                                         autocall_session
                                     </span>
                                 </td>
                                 <td className="p-3">Maintien sécurisé de la session utilisateur connectée au dashboard</td>
                                 <td className="p-3">
-                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#1B4654]/15 text-[#1B4654] dark:bg-[#1B4654]/30 dark:text-[#5EC2D7]">
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-[#1B4654]/15 text-[#1B4654] dark:bg-[#1B4654]/30 dark:text-[#5EC2D7]">
                                         Essentiel
                                     </span>
                                 </td>
@@ -75,13 +75,13 @@ export default function CookiesDoc() {
                             </tr>
                             <tr>
                                 <td className="p-3">
-                                    <span className="font-mono text-[11px] font-semibold text-[#1B4654] dark:text-[#5EC2D7] bg-[#1B4654]/10 dark:bg-[#1B4654]/30 px-2 py-0.5 rounded-md border border-[#1B4654]/30">
+                                    <span className="font-mono text-xs font-semibold text-[#1B4654] dark:text-[#5EC2D7] bg-[#1B4654]/10 dark:bg-[#1B4654]/30 px-2 py-0.5 rounded-md border border-[#1B4654]/30">
                                         XSRF-TOKEN
                                     </span>
                                 </td>
                                 <td className="p-3">Protection contre les attaques de falsification de requêtes intersites (CSRF)</td>
                                 <td className="p-3">
-                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#1B4654]/15 text-[#1B4654] dark:bg-[#1B4654]/30 dark:text-[#5EC2D7]">
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-[#1B4654]/15 text-[#1B4654] dark:bg-[#1B4654]/30 dark:text-[#5EC2D7]">
                                         Sécurité
                                     </span>
                                 </td>
@@ -89,13 +89,13 @@ export default function CookiesDoc() {
                             </tr>
                             <tr>
                                 <td className="p-3">
-                                    <span className="font-mono text-[11px] font-semibold text-[#1B4654] dark:text-[#5EC2D7] bg-[#1B4654]/10 dark:bg-[#1B4654]/30 px-2 py-0.5 rounded-md border border-[#1B4654]/30">
+                                    <span className="font-mono text-xs font-semibold text-[#1B4654] dark:text-[#5EC2D7] bg-[#1B4654]/10 dark:bg-[#1B4654]/30 px-2 py-0.5 rounded-md border border-[#1B4654]/30">
                                         cf_clearance / __cf_bm
                                     </span>
                                 </td>
                                 <td className="p-3">Sécurité anti-DDoS et protection contre les attaques de robots malveillants</td>
                                 <td className="p-3">
-                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-neutral-100 text-neutral-800 dark:bg-white/10 dark:text-neutral-300">
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-neutral-100 text-neutral-800 dark:bg-white/10 dark:text-neutral-300">
                                         Infrastructure
                                     </span>
                                 </td>

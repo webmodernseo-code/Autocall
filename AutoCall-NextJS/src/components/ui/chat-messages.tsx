@@ -424,7 +424,7 @@ export function ChatMessages({
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-sm font-semibold text-white tracking-tight">{title}</h3>
-              <span className="flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-400 border border-emerald-500/25">
+              <span className="flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-medium text-emerald-400 border border-emerald-500/25">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 En direct
               </span>

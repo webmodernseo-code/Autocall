@@ -15,7 +15,7 @@ const Input = forwardRef(function Input(
             {label && (
                 <label
                     htmlFor={inputId}
-                    className="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+                    className="mb-2 block text-sm font-semibold leading-5 text-slate-700 dark:text-neutral-200"
                 >
                     {label}
                 </label>
@@ -25,7 +25,7 @@ const Input = forwardRef(function Input(
                 id={inputId}
                 type={type}
                 className={[
-                    'w-full rounded-soft border border-soft border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-3 py-2 text-neutral-900 dark:text-neutral-100 shadow-inner transition duration-150 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20',
+                    'h-11 w-full rounded-xl border border-slate-300 bg-white px-3.5 text-base text-neutral-950 shadow-sm transition duration-150 placeholder:text-slate-400 hover:border-slate-400 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-500/10 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100 dark:placeholder:text-neutral-500 sm:text-sm',
                     error && 'border-red-500 focus:border-red-500 focus:ring-red-500/20',
                     className,
                 ].filter(Boolean).join(' ')}

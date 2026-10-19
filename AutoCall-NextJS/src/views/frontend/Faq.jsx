@@ -43,7 +43,7 @@ export default function Faq() {
                 <div className="mx-auto max-w-3xl space-y-12 px-4 sm:px-6 lg:px-8">
                     {FAQ_GROUPS.map((g) => (
                         <div key={g.group}>
-                            <h2 className="font-mono text-[11px] uppercase tracking-widest text-signal-600 dark:text-signal-400">{g.group}</h2>
+                            <h2 className="font-mono text-xs normal-case tracking-widest text-signal-600 dark:text-signal-400">{g.group}</h2>
                             <div className="mt-3 rounded-2xl border border-neutral-200 bg-white px-5 shadow-soft dark:border-white/10 dark:bg-ink-900/50 dark:shadow-none">
                                 {g.items.map((f) => <Item key={f.q} q={f.q} a={f.a} />)}
                             </div>

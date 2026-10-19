@@ -58,7 +58,7 @@ function VoiceCard({ voice }) {
             </div>
             {tags.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-1.5">
-                    {tags.map((tag) => <span key={tag} className="rounded-full bg-neutral-100 dark:bg-ink-800 px-2 py-0.5 text-[11px] capitalize text-neutral-600 dark:text-neutral-300">{String(tag).replace(/_/g, ' ')}</span>)}
+                    {tags.map((tag) => <span key={tag} className="rounded-full bg-neutral-100 dark:bg-ink-800 px-2 py-0.5 text-xs capitalize text-neutral-600 dark:text-neutral-300">{String(tag).replace(/_/g, ' ')}</span>)}
                 </div>
             )}
         </div>

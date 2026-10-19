@@ -81,7 +81,7 @@ export default function CallForwardingGuide({ targetNumber = '', className = '' 
                             <h3 className="font-hero-sans text-sm font-bold text-neutral-900 dark:text-white">
                                 Guide d&apos;activation : Conserver mon numéro existant
                             </h3>
-                            <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 dark:bg-blue-500/20 px-2 py-0.5 text-[10px] font-semibold text-blue-700 dark:text-blue-300">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 dark:bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:text-blue-300">
                                 <ShieldCheck className="h-3 w-3" />
                                 100% Compatible tous opérateurs
                             </span>
@@ -124,7 +124,7 @@ export default function CallForwardingGuide({ targetNumber = '', className = '' 
                                     {item.title}
                                 </span>
                             </div>
-                            <span className="text-[10px] text-slate-500 dark:text-[#8E95A5] line-clamp-1">
+                            <span className="text-xs text-slate-500 dark:text-[#8E95A5] line-clamp-1">
                                 {item.badge}
                             </span>
                         </button>
@@ -140,7 +140,7 @@ export default function CallForwardingGuide({ targetNumber = '', className = '' 
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.06] p-3">
                     <div className="space-y-1">
-                        <span className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 block">
+                        <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 block">
                             {current.isPeriodMode ? 'Code à composer avant de partir en congés / déplacement :' : 'Code à composer sur votre clavier téléphonique :'}
                         </span>
                         <div className="flex items-center gap-2">
@@ -210,7 +210,7 @@ export default function CallForwardingGuide({ targetNumber = '', className = '' 
                     </div>
                 )}
 
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-white/[0.04] text-[11px] text-neutral-500 dark:text-neutral-400">
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-white/[0.04] text-xs text-neutral-500 dark:text-neutral-400">
                     <div className="flex items-center gap-1.5">
                         <Info className="h-3.5 w-3.5 text-neutral-400 shrink-0" />
                         <span>Pour désactiver ce renvoi à tout moment : composez <code className="font-mono font-bold text-neutral-700 dark:text-neutral-300">{current.disableCode}</code> ou <code className="font-mono font-bold text-neutral-700 dark:text-neutral-300">##002#</code> (tout annuler).</span>
@@ -231,25 +231,25 @@ export default function CallForwardingGuide({ targetNumber = '', className = '' 
                     <div className="mt-3.5 pt-3.5 border-t border-slate-200/80 dark:border-white/[0.06] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
                         <div className="rounded-lg bg-neutral-50 dark:bg-white/[0.02] p-2.5 border border-neutral-200/60 dark:border-white/[0.04]">
                             <p className="font-bold text-neutral-900 dark:text-white">Orange / Sosh</p>
-                            <p className="text-[11px] text-neutral-500 mt-1">
+                            <p className="text-xs text-neutral-500 mt-1">
                                 Codes GSM instantanés ou programmation d&apos;un calendrier de renvoi d&apos;appel depuis l&apos;application Orange &amp; Moi.
                             </p>
                         </div>
                         <div className="rounded-lg bg-neutral-50 dark:bg-white/[0.02] p-2.5 border border-neutral-200/60 dark:border-white/[0.04]">
                             <p className="font-bold text-neutral-900 dark:text-white">SFR / RED</p>
-                            <p className="text-[11px] text-neutral-500 mt-1">
+                            <p className="text-xs text-neutral-500 mt-1">
                                 Composez directement le code GSM ou définissez les dates de renvoi depuis votre Espace Client SFR / RED.
                             </p>
                         </div>
                         <div className="rounded-lg bg-neutral-50 dark:bg-white/[0.02] p-2.5 border border-neutral-200/60 dark:border-white/[0.04]">
                             <p className="font-bold text-neutral-900 dark:text-white">Bouygues Télécom</p>
-                            <p className="text-[11px] text-neutral-500 mt-1">
+                            <p className="text-xs text-neutral-500 mt-1">
                                 Compatible codes GSM ou activation programmée dans Paramètres &gt; Renvoi d&apos;appel de l&apos;application B&amp;You.
                             </p>
                         </div>
                         <div className="rounded-lg bg-neutral-50 dark:bg-white/[0.02] p-2.5 border border-neutral-200/60 dark:border-white/[0.04]">
                             <p className="font-bold text-neutral-900 dark:text-white">Free / Lignes Fixes Box</p>
-                            <p className="text-[11px] text-neutral-500 mt-1">
+                            <p className="text-xs text-neutral-500 mt-1">
                                 Activez l&apos;option de renvoi dans l&apos;Espace Abonné Freebox / Free Mobile ou composez le code avant le départ.
                             </p>
                         </div>

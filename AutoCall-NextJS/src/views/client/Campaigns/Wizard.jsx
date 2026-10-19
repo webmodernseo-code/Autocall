@@ -202,7 +202,7 @@ export default function CampaignWizard({
                                                         <p className="text-xs font-bold text-neutral-900 dark:text-white">
                                                             {cfg.label}
                                                         </p>
-                                                        <p className="text-[11px] text-neutral-500 dark:text-[#8E95A5] mt-0.5 line-clamp-1">
+                                                        <p className="text-xs text-neutral-500 dark:text-[#8E95A5] mt-0.5 line-clamp-1">
                                                             {cfg.desc}
                                                         </p>
                                                     </button>
@@ -222,7 +222,7 @@ export default function CampaignWizard({
                                             onChange={(e) => setData('goal', e.target.value)}
                                             placeholder="Ex: Contacter le prospect, valider son intérêt pour notre solution, répondre à ses questions tarifaires et convenir d'un rendez-vous sur le calendrier."
                                         />
-                                        <p className="text-[11px] text-neutral-400 mt-1">
+                                        <p className="text-xs text-neutral-400 mt-1">
                                             Ce prompt orientera le comportement et la politesse de l&apos;IA lors de chaque échange.
                                         </p>
                                     </div>
@@ -240,7 +240,7 @@ export default function CampaignWizard({
                                             <Link
                                                 href={route('client.agents.create')}
                                                 target="_blank"
-                                                className="text-[11px] text-blue-600 hover:text-blue-500 dark:text-blue-400 font-medium"
+                                                className="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 font-medium"
                                             >
                                                 + Créer un agent
                                             </Link>
@@ -272,7 +272,7 @@ export default function CampaignWizard({
                                             <Link
                                                 href={route('client.phone-numbers.index')}
                                                 target="_blank"
-                                                className="text-[11px] text-blue-600 hover:text-blue-500 dark:text-blue-400 font-medium"
+                                                className="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 font-medium"
                                             >
                                                 Gérer les numéros
                                             </Link>
@@ -309,7 +309,7 @@ export default function CampaignWizard({
                                                 value={data.max_retries}
                                                 onChange={(e) => setData('max_retries', Number(e.target.value))}
                                             />
-                                            <p className="text-[10px] text-neutral-400 mt-1">
+                                            <p className="text-xs text-neutral-400 mt-1">
                                                 En cas de non-réponse ou répondeur.
                                             </p>
                                         </div>
@@ -343,7 +343,7 @@ export default function CampaignWizard({
                                                 <p className="text-xs font-bold text-neutral-900 dark:text-white">
                                                     Cibler tous les contacts disponibles ({contactsTotal} contacts)
                                                 </p>
-                                                <p className="text-[11px] text-neutral-500 dark:text-[#8E95A5]">
+                                                <p className="text-xs text-neutral-500 dark:text-[#8E95A5]">
                                                     La campagne appellera automatiquement l&apos;ensemble de votre carnet de contacts.
                                                 </p>
                                             </div>
@@ -359,7 +359,7 @@ export default function CampaignWizard({
                                                 <Link
                                                     href={route('client.contacts.index')}
                                                     target="_blank"
-                                                    className="text-[11px] text-blue-600 hover:text-blue-500 dark:text-blue-400"
+                                                    className="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400"
                                                 >
                                                     + Importer un fichier CSV
                                                 </Link>
@@ -386,7 +386,7 @@ export default function CampaignWizard({
                                                             <span className="text-xs font-medium text-neutral-800 dark:text-neutral-200">
                                                                 {c.name || 'Contact'}
                                                             </span>
-                                                            <span className="ml-auto font-mono text-[11px] text-neutral-400">
+                                                            <span className="ml-auto font-mono text-xs text-neutral-400">
                                                                 {c.phone}
                                                             </span>
                                                         </label>
@@ -444,7 +444,7 @@ export default function CampaignWizard({
                     {/* COLONNE DROITE : RÉCAPITULATIF & BONNES PRATIQUES IA */}
                     <div className="space-y-4">
                         <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_4px_20px_-2px_rgba(16,24,40,0.06)]">
-                            <h3 className="font-hero-sans text-xs font-bold text-neutral-900 dark:text-white uppercase tracking-wider mb-3">
+                            <h3 className="font-hero-sans text-xs font-bold text-neutral-900 dark:text-white normal-case tracking-wider mb-3">
                                 Récapitulatif en direct
                             </h3>
 
@@ -492,10 +492,10 @@ export default function CampaignWizard({
                                 <Sparkles className="h-4 w-4" />
                                 <span className="font-hero-sans text-xs font-bold">Conseil IA de performance</span>
                             </div>
-                            <p className="text-[11px] text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                            <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
                                 Les campagnes appelant entre <strong className="text-neutral-900 dark:text-white">10h-12h</strong> et <strong className="text-neutral-900 dark:text-white">14h-17h</strong> obtiennent en moyenne <strong>+28% de décroché</strong>.
                             </p>
-                            <div className="mt-3 pt-3 border-t border-blue-100 dark:border-white/[0.05] flex items-center gap-2 text-[10px] text-neutral-400">
+                            <div className="mt-3 pt-3 border-t border-blue-100 dark:border-white/[0.05] flex items-center gap-2 text-xs text-neutral-400">
                                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
                                 <span>Protection contre le spam & conformité ARCEP</span>
                             </div>

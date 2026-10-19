@@ -189,7 +189,7 @@ export default function FlowTemplates({ templates = [] }) {
                                         <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl backdrop-blur-md shadow-xs ${ACCENTS[tpl.accent] || ACCENTS.brand}`}>
                                             <Icon className="h-5 w-5" />
                                         </span>
-                                        <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold border border-transparent dark:border-white/5 ${trigger.badge}`}>
+                                        <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold border border-transparent dark:border-white/5 ${trigger.badge}`}>
                                             <Zap className="h-3 w-3" />
                                             <span>{trigger.label}</span>
                                         </span>
@@ -212,7 +212,7 @@ export default function FlowTemplates({ templates = [] }) {
 
                                                 {/* Séquence chronologique des étapes */}
                                                 <div className="mt-5 space-y-2 rounded-xl bg-neutral-50/70 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/[0.04] p-3.5">
-                                                    <p className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 mb-2">
+                                                    <p className="text-xs font-semibold normal-case tracking-wider text-neutral-400 mb-2">
                                                         {isFr ? `Étapes automatiques (${steps.length})` : `Automated steps (${steps.length})`}
                                                     </p>
                                                     {steps.map((n, i) => {
@@ -223,7 +223,7 @@ export default function FlowTemplates({ templates = [] }) {
 
                                                         return (
                                                             <div key={i} className="flex items-center gap-2.5 text-xs text-neutral-700 dark:text-neutral-300">
-                                                                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-500/20 text-[10px] font-bold text-blue-700 dark:text-blue-300">
+                                                                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-500/20 text-xs font-bold text-blue-700 dark:text-blue-300">
                                                                     {i + 1}
                                                                 </span>
                                                                 <span className="truncate font-medium">{stepLabel}</span>

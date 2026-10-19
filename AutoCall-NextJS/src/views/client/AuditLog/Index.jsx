@@ -68,16 +68,16 @@ export default function ClientAuditLogIndex({ logs, stats = [], filters = {} }) 
                             <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
                                 <thead className="bg-neutral-50 dark:bg-neutral-800">
                                     <tr>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 uppercase">
+                                        <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 normal-case">
                                             {t('client.date') || 'Date'}
                                         </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 uppercase">
+                                        <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 normal-case">
                                             {t('client.user') || 'User'}
                                         </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 uppercase">
+                                        <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 normal-case">
                                             {t('client.action') || 'Action'}
                                         </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 uppercase">
+                                        <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 normal-case">
                                             {t('client.details') || 'Details'}
                                         </th>
                                     </tr>

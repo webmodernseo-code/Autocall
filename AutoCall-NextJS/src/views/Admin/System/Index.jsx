@@ -22,7 +22,7 @@ function CopyBox({ label, value, hint }) {
     return (
         <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-                <span className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">{label}</span>
+                <span className="text-xs font-medium normal-case tracking-wide text-neutral-500 dark:text-neutral-400">{label}</span>
                 <button onClick={copy} className="inline-flex items-center gap-1.5 rounded-soft border border-neutral-200 px-2.5 py-1 text-xs font-medium text-neutral-600 hover:bg-neutral-50 dark:border-ink-700 dark:text-neutral-300 dark:hover:bg-ink-800">
                     {copied ? <><Check className="h-3.5 w-3.5 text-signal-600" /> <Trans i18nKey="hardcoded.views_admin_system_index_a9d9af2f3c23" /></> : <><Copy className="h-3.5 w-3.5" /> <Trans i18nKey="hardcoded.views_admin_system_index_6c30b3bf2f5f" /></>}
                 </button>
@@ -55,7 +55,7 @@ function HealthRow({ label, children, desc }) {
 function Kv({ k, v, mono = true, ok = null }) {
     return (
         <div className="flex items-start justify-between gap-3 py-1.5">
-            <span className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">{k}</span>
+            <span className="text-xs font-medium normal-case tracking-wide text-neutral-500 dark:text-neutral-400">{k}</span>
             <span className={`text-right text-sm ${mono ? 'font-mono' : ''} ${ok === false ? 'text-danger' : 'text-neutral-800 dark:text-neutral-200'} break-all`}>{v}</span>
         </div>
     );

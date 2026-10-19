@@ -22,7 +22,7 @@ function Stat({ label, value, live }) {
         <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4 shadow-soft">
             <div className="flex items-center gap-2">
                 {live && value > 0 && <span className="h-2 w-2 rounded-full bg-signal-400 animate-pulse-signal" />}
-                <p className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">{label}</p>
+                <p className="text-xs font-medium normal-case tracking-wide text-neutral-500 dark:text-neutral-400">{label}</p>
             </div>
             <p className="mt-1 font-display text-2xl font-bold tabular-nums text-neutral-900 dark:text-white">{value}</p>
         </div>
@@ -63,7 +63,7 @@ export default function CallQueueIndex({ jobs, filters = {}, stats = {} }) {
                 <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                     <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">
                         <thead className="bg-neutral-50 dark:bg-ink-800/50">
-                            <tr>{['Campaign', 'Customer', 'Contact', 'Status', 'Retries', 'Scheduled', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr>
+                            <tr>{['Campaign', 'Customer', 'Contact', 'Status', 'Retries', 'Scheduled', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium normal-case text-neutral-500">{h}</th>)}</tr>
                         </thead>
                         <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                             {jobs.data.map((j) => (
@@ -71,7 +71,7 @@ export default function CallQueueIndex({ jobs, filters = {}, stats = {} }) {
                                     <td className="px-4 py-3 text-neutral-900 dark:text-white">{j.campaign || '—'}</td>
                                     <td className="px-4 py-3 text-neutral-500">{j.customer || '—'}</td>
                                     <td className="px-4 py-3 font-mono text-neutral-600 dark:text-neutral-300">{j.contact}</td>
-                                    <td className="px-4 py-3"><span className={`rounded-full px-2 py-0.5 text-[11px] font-medium capitalize ${STATUS[j.status] || STATUS.pending}`}>{j.status}</span>{j.last_error && <span className="ml-2 text-xs text-danger" title={j.last_error}>!</span>}</td>
+                                    <td className="px-4 py-3"><span className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${STATUS[j.status] || STATUS.pending}`}>{j.status}</span>{j.last_error && <span className="ml-2 text-xs text-danger" title={j.last_error}>!</span>}</td>
                                     <td className="px-4 py-3 font-mono text-neutral-500">{j.attempts}/{j.max_retries}</td>
                                     <td className="px-4 py-3 text-neutral-500">{j.scheduled_for ? new Date(j.scheduled_for).toLocaleString() : '—'}</td>
                                     <td className="px-4 py-3 text-right">

@@ -104,7 +104,7 @@ export default function AppLayout({ title = 'Dashboard', header, children }) {
                     ]}
                 />
 
-                <main className="p-4 sm:p-6 lg:p-8">
+                <main className="mx-auto w-full max-w-[1600px] p-4 sm:p-6 lg:p-8 xl:p-10">
                     {header && typeof header === 'object' && (
                         <div className="mb-6">
                             {header}
@@ -128,4 +128,3 @@ export default function AppLayout({ title = 'Dashboard', header, children }) {
         </div>
     );
 }
-

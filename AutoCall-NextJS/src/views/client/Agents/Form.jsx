@@ -11,7 +11,7 @@ import { Bot, ArrowLeft, Coins } from 'lucide-react';
 function Field({ label, error, children, hint }) {
     return (
         <label className="block">
-            <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">{label}</span>
+            <span className="mb-1 block text-xs font-medium normal-case tracking-wide text-neutral-500 dark:text-neutral-400">{label}</span>
             {children}
             {hint && <span className="mt-1 block text-xs text-neutral-400">{hint}</span>}
             {error && <span className="mt-1 block text-xs text-danger">{error}</span>}
@@ -112,7 +112,7 @@ export default function AgentForm({ agent, voices = [], llmModels = [], voiceCos
                         <Field label="System prompt" error={errors.system_prompt}>
                             <div className="mb-2 flex flex-wrap gap-1.5">
                                 {promptTemplates.map((tpl) => (
-                                    <button type="button" key={tpl.label} onClick={() => setData('system_prompt', tpl.prompt)} className="rounded-full bg-brand-50 dark:bg-brand-500/10 px-2.5 py-1 text-[11px] font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100">{tpl.label}</button>
+                                    <button type="button" key={tpl.label} onClick={() => setData('system_prompt', tpl.prompt)} className="rounded-full bg-brand-50 dark:bg-brand-500/10 px-2.5 py-1 text-xs font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100">{tpl.label}</button>
                                 ))}
                             </div>
                             <textarea rows="6" className={inputCls} value={data.system_prompt} onChange={(e) => setData('system_prompt', e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_agents_form_8510bb07122c')} />
@@ -127,7 +127,7 @@ export default function AgentForm({ agent, voices = [], llmModels = [], voiceCos
                                 <div className="flex justify-between"><dt>Voice (ElevenLabs)</dt><dd className="font-mono">${(voiceCostCents / 100).toFixed(3)}</dd></div>
                                 <div className="flex justify-between"><dt>LLM ({model?.label})</dt><dd className="font-mono">${(llmCost / 100).toFixed(3)}</dd></div>
                             </dl>
-                            <p className="mt-3 text-[11px] text-neutral-400">≈ 1 credit per minute of talk time.</p>
+                            <p className="mt-3 text-xs text-neutral-400">≈ 1 credit per minute of talk time.</p>
                         </div>
                         <div className="flex gap-2">
                             <button type="submit" disabled={processing} className="flex-1 rounded-soft bg-brand-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">{editing ? translationI18n.t('hardcoded.views_client_agents_form_974acba563bc') : translationI18n.t('hardcoded.views_client_agents_form_077d896e79ef')}</button>

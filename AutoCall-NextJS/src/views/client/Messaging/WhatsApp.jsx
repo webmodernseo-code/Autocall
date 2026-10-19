@@ -204,7 +204,7 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
                             </div>
 
                             <div>
-                                <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-500/20 mb-1.5">
+                                <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-500/20 mb-1.5">
                                     <Sparkles className="h-3 w-3" />
                                     <span>Connexion en 1 clic (Sans configuration technique)</span>
                                 </div>
@@ -242,7 +242,7 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
                             ) : (
                                 <div className="rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200/60 dark:border-amber-500/20 p-3 text-xs text-amber-800 dark:text-amber-300">
                                     <p className="font-semibold">La connexion 1-clic n’est pas encore finalisée par l’administrateur.</p>
-                                    <p className="mt-0.5 text-[11px] opacity-90">
+                                    <p className="mt-0.5 text-xs opacity-90">
                                         Renseignez le <strong>Meta Config ID</strong> dans l’onglet <em>Administration &gt; Messagerie</em> pour l’activer, ou utilisez la configuration manuelle ci-dessous.
                                     </p>
                                 </div>
@@ -264,7 +264,7 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
                     /* MODE 2 : Saisie Manuelle Avancée */
                     <form onSubmit={submitManual} className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                            <span className="text-xs font-bold normal-case tracking-wider text-neutral-400">
                                 Saisie manuelle des identifiants
                             </span>
                             <button
@@ -313,7 +313,7 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
                                         Meta for Developers <ExternalLink className="h-3 w-3" />
                                     </a>
                                 </div>
-                                <p className="mt-1 text-[11px] text-blue-800/80 dark:text-blue-300/80">
+                                <p className="mt-1 text-xs text-blue-800/80 dark:text-blue-300/80">
                                     Dans votre console Meta for Developers ➔ votre app ➔ <strong>WhatsApp ➔ Configuration de l’API</strong>.
                                 </p>
                             </div>
@@ -438,7 +438,7 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
                 )}
 
                 {/* Micro-réassurance discrète */}
-                <div className="flex items-center justify-center gap-2 pt-2 text-[11px] text-neutral-500 dark:text-neutral-400">
+                <div className="flex items-center justify-center gap-2 pt-2 text-xs text-neutral-500 dark:text-neutral-400">
                     <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>Chiffrement SSL 256-bit certifié WhatsApp Cloud API & PCI-DSS.</span>
                 </div>
@@ -504,7 +504,7 @@ function TemplateModal({ accounts = [], onClose }) {
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <div>
                             <label className="mb-1 block text-xs font-medium text-neutral-700 dark:text-neutral-300">
                                 {t('client.whatsapp.language', 'Langue')}
@@ -536,7 +536,7 @@ function TemplateModal({ accounts = [], onClose }) {
                     <div>
                         <label className="mb-1 flex items-center justify-between text-xs font-medium text-neutral-700 dark:text-neutral-300">
                             <span>Corps du message</span>
-                            <span className="text-[10px] text-neutral-400">Paramètres dynamiques : {'{{1}}'}, {'{{2}}'}</span>
+                            <span className="text-xs text-neutral-400">Paramètres dynamiques : {'{{1}}'}, {'{{2}}'}</span>
                         </label>
                         <textarea
                             rows="4"
@@ -639,7 +639,7 @@ export default function WhatsApp({ accounts = [], templates = [], enabledProvide
                 {/* Accounts Section */}
                 <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-xs font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+                        <h2 className="text-xs font-bold normal-case tracking-wider text-neutral-400 dark:text-neutral-500">
                             {t('client.whatsapp.accounts', 'Lignes et comptes connectés')}
                         </h2>
                         <span className="text-xs text-neutral-400">
@@ -669,11 +669,11 @@ export default function WhatsApp({ accounts = [], templates = [], enabledProvide
                                             <span className="capitalize">{a.provider}</span>
                                         </p>
                                         <div className="mt-2 flex items-center gap-2">
-                                            <span className="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-500/20">
+                                            <span className="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-500/20">
                                                 {a.status || 'Actif'}
                                             </span>
                                             {a.quality_rating && (
-                                                <span className="text-[10px] text-neutral-400">
+                                                <span className="text-xs text-neutral-400">
                                                     Qualité : {a.quality_rating}
                                                 </span>
                                             )}
@@ -710,7 +710,7 @@ export default function WhatsApp({ accounts = [], templates = [], enabledProvide
                 {/* Templates Section */}
                 <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-xs font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+                        <h2 className="text-xs font-bold normal-case tracking-wider text-neutral-400 dark:text-neutral-500">
                             {t('client.whatsapp.templates', 'Modèles de messages (Templates)')}
                         </h2>
                         <span className="text-xs text-neutral-400">
@@ -721,7 +721,7 @@ export default function WhatsApp({ accounts = [], templates = [], enabledProvide
                     <div className="overflow-hidden rounded-2xl border border-neutral-200/80 dark:border-white/10 bg-white dark:bg-[#0E1015] shadow-2xs">
                         {templates.length > 0 ? (
                             <table className="min-w-full divide-y divide-neutral-100 dark:divide-white/5 text-xs sm:text-sm">
-                                <thead className="bg-neutral-50/70 dark:bg-white/[0.02] text-[11px] font-bold uppercase text-neutral-400">
+                                <thead className="bg-neutral-50/70 dark:bg-white/[0.02] text-xs font-bold normal-case text-neutral-400">
                                     <tr>
                                         <th className="px-4 py-3 text-left">Nom du modèle</th>
                                         <th className="px-4 py-3 text-left">Langue & Catégorie</th>
@@ -739,7 +739,7 @@ export default function WhatsApp({ accounts = [], templates = [], enabledProvide
                                                 {t.language} · <span className="font-mono text-xs">{t.category}</span>
                                             </td>
                                             <td className="px-4 py-3">
-                                                <span className="inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-500/20">
+                                                <span className="inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-500/20">
                                                     {t.status || 'Approuvé'}
                                                 </span>
                                             </td>

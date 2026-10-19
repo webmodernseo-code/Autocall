@@ -14,7 +14,7 @@ import { MessageSquare, Copy } from 'lucide-react';
 const inputCls = 'w-full rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 px-3 py-2 text-sm';
 
 function Stat({ label, value }) {
-    return <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4 shadow-soft"><p className="text-xs font-medium uppercase text-neutral-500">{label}</p><p className="mt-1 font-display text-2xl font-bold tabular-nums text-neutral-900 dark:text-white">{value}</p></div>;
+    return <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4 shadow-soft"><p className="text-xs font-medium normal-case text-neutral-500">{label}</p><p className="mt-1 font-display text-2xl font-bold tabular-nums text-neutral-900 dark:text-white">{value}</p></div>;
 }
 
 export default function MessagingIndex({ settings = {}, logs = [], stats = {}, filters = {} }) {
@@ -49,16 +49,16 @@ export default function MessagingIndex({ settings = {}, logs = [], stats = {}, f
                 <form onSubmit={save} className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft space-y-4">
                     <h3 className="font-display font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_admin_messaging_index_f28b7003c412" /></h3>
                     <div>
-                        <label className="mb-1 block text-xs font-medium uppercase text-neutral-500"><Trans i18nKey="hardcoded.views_admin_messaging_index_8972d6f5eb14" /></label>
+                        <label className="mb-1 block text-xs font-medium normal-case text-neutral-500"><Trans i18nKey="hardcoded.views_admin_messaging_index_8972d6f5eb14" /></label>
                         <select className={inputCls} value={form.data.provider_mode} onChange={(e) => form.setData('provider_mode', e.target.value)}>
                             <option value="disabled"><Trans i18nKey="hardcoded.views_admin_messaging_index_4ddf2262b43e" /></option><option value="meta">Meta only</option><option value="whatsway">WhatsWay only</option><option value="both"><Trans i18nKey="hardcoded.views_admin_messaging_index_8537227da51d" /></option>
                         </select>
                     </div>
                     <div className="grid gap-3 sm:grid-cols-2">
-                        <div><label className="mb-1 block text-xs font-medium uppercase text-neutral-500">Meta App ID</label><input className={inputCls} value={form.data.meta_app_id} onChange={(e) => form.setData('meta_app_id', e.target.value)} /></div>
-                        <div><label className="mb-1 block text-xs font-medium uppercase text-neutral-500">Meta Config ID</label><input className={inputCls} value={form.data.meta_config_id} onChange={(e) => form.setData('meta_config_id', e.target.value)} /></div>
-                        <div><label className="mb-1 block text-xs font-medium uppercase text-neutral-500">Meta App Secret</label><input type="password" className={inputCls} placeholder={translationI18n.t('hardcoded.views_admin_messaging_index_950617a92e30')} value={form.data.meta_app_secret} onChange={(e) => form.setData('meta_app_secret', e.target.value)} /></div>
-                        <div><label className="mb-1 block text-xs font-medium uppercase text-neutral-500">Verify token</label><input className={inputCls} value={form.data.verify_token} onChange={(e) => form.setData('verify_token', e.target.value)} /></div>
+                        <div><label className="mb-1 block text-xs font-medium normal-case text-neutral-500">Meta App ID</label><input className={inputCls} value={form.data.meta_app_id} onChange={(e) => form.setData('meta_app_id', e.target.value)} /></div>
+                        <div><label className="mb-1 block text-xs font-medium normal-case text-neutral-500">Meta Config ID</label><input className={inputCls} value={form.data.meta_config_id} onChange={(e) => form.setData('meta_config_id', e.target.value)} /></div>
+                        <div><label className="mb-1 block text-xs font-medium normal-case text-neutral-500">Meta App Secret</label><input type="password" className={inputCls} placeholder={translationI18n.t('hardcoded.views_admin_messaging_index_950617a92e30')} value={form.data.meta_app_secret} onChange={(e) => form.setData('meta_app_secret', e.target.value)} /></div>
+                        <div><label className="mb-1 block text-xs font-medium normal-case text-neutral-500">Verify token</label><input className={inputCls} value={form.data.verify_token} onChange={(e) => form.setData('verify_token', e.target.value)} /></div>
                     </div>
                     <div className="flex gap-4">
                         <label className="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300"><input type="checkbox" checked={form.data.embedded_signup_enabled} onChange={(e) => form.setData('embedded_signup_enabled', e.target.checked)} /> <Trans i18nKey="hardcoded.views_admin_messaging_index_2e8cebb0697d" /></label>
@@ -78,7 +78,7 @@ export default function MessagingIndex({ settings = {}, logs = [], stats = {}, f
                     <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                         <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm"><tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                             {logs.map((l) => (
-                                <tr key={l.id}><td className="px-4 py-2.5 text-neutral-900 dark:text-white">{l.customer || '—'}</td><td className="px-4 py-2.5 capitalize text-neutral-500">{l.channel} · {l.direction}</td><td className="px-4 py-2.5"><span className="rounded-full bg-neutral-100 dark:bg-ink-800 px-2 py-0.5 text-[11px] capitalize">{l.status}</span></td><td className="px-4 py-2.5 text-neutral-400">{new Date(l.created_at).toLocaleString()}</td></tr>
+                                <tr key={l.id}><td className="px-4 py-2.5 text-neutral-900 dark:text-white">{l.customer || '—'}</td><td className="px-4 py-2.5 capitalize text-neutral-500">{l.channel} · {l.direction}</td><td className="px-4 py-2.5"><span className="rounded-full bg-neutral-100 dark:bg-ink-800 px-2 py-0.5 text-xs capitalize">{l.status}</span></td><td className="px-4 py-2.5 text-neutral-400">{new Date(l.created_at).toLocaleString()}</td></tr>
                             ))}
                             {logs.length === 0 && <tr><td colSpan="4" className="px-4 py-8 text-center text-neutral-500"><Trans i18nKey="hardcoded.views_admin_messaging_index_43f9db39aca1" /></td></tr>}
                         </tbody></table>

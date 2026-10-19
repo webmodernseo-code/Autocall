@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [{
+    "tool": {"driver": {"name":"AutoCall local security audit","version":"2026-10-19-post-fix","rules":[
+      {"id":"AC-SEC-POST-001","name":"unmetered-public-llm","shortDescription":{"text":"Public LLM endpoint has no rate or spend limit"},"properties":{"security-severity":"8.1","tags":["security","CWE-770","CWE-400"]}},
+      {"id":"AC-SEC-POST-002","name":"plaintext-google-oauth","shortDescription":{"text":"Google Sheets OAuth tokens are stored in plaintext"},"properties":{"security-severity":"8.0","tags":["security","CWE-312"]}},
+      {"id":"AC-SEC-POST-003","name":"unsafe-public-form","shortDescription":{"text":"Public form accepts unbounded fields outside its schema"},"properties":{"security-severity":"6.5","tags":["security","CWE-20","CWE-400","CWE-915"]}},
+      {"id":"AC-SEC-POST-004","name":"widget-html-injection","shortDescription":{"text":"Tenant-controlled widget title is concatenated into innerHTML"},"properties":{"security-severity":"6.1","tags":["security","CWE-79"]}}
+    ]}},
+    "results":[
+      {"ruleId":"AC-SEC-POST-001","level":"error","message":{"text":"A public widget token permits unlimited billable LLM completions without bounded parsing or rate/spend controls."},"locations":[{"physicalLocation":{"artifactLocation":{"uri":"src/app/api/widget/[token]/chat/route.js"},"region":{"startLine":30}}}]},
+      {"ruleId":"AC-SEC-POST-002","level":"error","message":{"text":"Google Sheets access and refresh tokens are not protected with application encryption."},"locations":[{"physicalLocation":{"artifactLocation":{"uri":"src/lib/domain/google-sheets.js"},"region":{"startLine":55}}}]},
+      {"ruleId":"AC-SEC-POST-003","level":"warning","message":{"text":"The public form stores arbitrary unbounded JSON and can mutate matching contacts without rate limiting."},"locations":[{"physicalLocation":{"artifactLocation":{"uri":"src/app/api/f/[token]/submit/route.js"},"region":{"startLine":27}}}]},
+      {"ruleId":"AC-SEC-POST-004","level":"warning","message":{"text":"The persisted widget title is concatenated into host-page innerHTML."},"locations":[{"physicalLocation":{"artifactLocation":{"uri":"src/app/widget/[token]/route.js"},"region":{"startLine":88}}}]}
+    ]
+  }]
+}

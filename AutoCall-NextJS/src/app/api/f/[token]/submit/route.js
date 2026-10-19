@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { toE164 } from '@/lib/domain/contacts';
 import { syncToGoogleSheet } from '@/lib/domain/google-sheets';
+import { readBody } from '@/lib/http';
+import { enforcePublicLimits } from '@/lib/public-abuse-guard';
+import { isValidPublicEmail, sanitizeFormSubmission } from '@/lib/public-input.mjs';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,8 +27,16 @@ export async function POST(request, { params }) {
             return NextResponse.json({ error: 'Ce formulaire n\'est plus actif.' }, { status: 404 });
         }
 
-        const body = await request.json().catch(() => ({}));
+        const limited = await enforcePublicLimits(request, [
+            { scope: `form:${form.id}:minute`, max: 10, seconds: 60 },
+            { scope: `form:${form.id}:hour`, max: 80, seconds: 3600 },
+            { scope: `client:${form.client_id}:forms-day`, max: 1000, seconds: 86400 },
+        ]);
+        if (limited) return limited;
+
+        const rawBody = await readBody(request);
         const fields = Array.isArray(form.fields) ? form.fields : [];
+        const body = sanitizeFormSubmission(fields, rawBody);
 
         // Validate required fields
         const validationErrors = {};
@@ -60,6 +71,10 @@ export async function POST(request, { params }) {
             }
         }
 
+        if (!isValidPublicEmail(emailVal)) {
+            return NextResponse.json({ error: 'Adresse e-mail invalide.' }, { status: 422 });
+        }
+
         let contactId = null;
         const normalizedPhone = phoneVal ? toE164(phoneVal) : null;
 
@@ -73,15 +88,8 @@ export async function POST(request, { params }) {
                 });
 
                 if (contact) {
-                    contact = await prisma.contact.update({
-                        where: { id: contact.id },
-                        data: {
-                            name: nameVal || contact.name,
-                            email: emailVal || contact.email,
-                            company: companyVal || contact.company,
-                            updated_at: new Date(),
-                        },
-                    });
+                    // Public submissions can link to a CRM contact, but cannot
+                    // overwrite its trusted fields without an explicit rule.
                     contactId = contact.id;
                 } else {
                     contact = await prisma.contact.create({
@@ -133,6 +141,7 @@ export async function POST(request, { params }) {
             message: 'Votre message a bien été envoyé.',
         });
     } catch (err) {
+        if (err?.response) return err.response;
         console.error('[PublicForm] Submission error:', err);
         return NextResponse.json(
             { error: 'Une erreur interne est survenue lors de la soumission.' },

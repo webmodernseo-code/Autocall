@@ -216,7 +216,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                             <h3 className="font-hero-sans text-sm font-bold text-neutral-900 dark:text-white">
                                 Gestion des horaires &amp; Périodes d&apos;indisponibilité
                             </h3>
-                            <span className="inline-flex items-center rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:text-emerald-300">
+                            <span className="inline-flex items-center rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
                                 Mode Intelligent
                             </span>
                         </div>
@@ -324,9 +324,9 @@ export default function AvailabilityScheduler({ className = '' }) {
                                 <Sun className="h-4 w-4 text-amber-500" />
                                 <span className="text-xs font-bold text-neutral-900 dark:text-white">Créneau Matinée</span>
                             </div>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                 <div>
-                                    <label className="text-[11px] text-neutral-500 block mb-1">Ouverture matin</label>
+                                    <label className="text-xs text-neutral-500 block mb-1">Ouverture matin</label>
                                     <input
                                         type="time"
                                         value={weekly.morning_start}
@@ -335,7 +335,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-[11px] text-neutral-500 block mb-1">Fin de matinée</label>
+                                    <label className="text-xs text-neutral-500 block mb-1">Fin de matinée</label>
                                     <input
                                         type="time"
                                         value={weekly.morning_end}
@@ -352,9 +352,9 @@ export default function AvailabilityScheduler({ className = '' }) {
                                 <Sun className="h-4 w-4 text-orange-500" />
                                 <span className="text-xs font-bold text-neutral-900 dark:text-white">Créneau Après-midi</span>
                             </div>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                 <div>
-                                    <label className="text-[11px] text-neutral-500 block mb-1">Reprise après-midi</label>
+                                    <label className="text-xs text-neutral-500 block mb-1">Reprise après-midi</label>
                                     <input
                                         type="time"
                                         value={weekly.afternoon_start}
@@ -363,7 +363,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-[11px] text-neutral-500 block mb-1">Fermeture journée</label>
+                                    <label className="text-xs text-neutral-500 block mb-1">Fermeture journée</label>
                                     <input
                                         type="time"
                                         value={weekly.afternoon_end}
@@ -386,7 +386,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                     <span className="text-xs font-bold text-neutral-900 dark:text-white block">
                                         Coupure de mi-journée (Pause déjeuner ou indisponibilité)
                                     </span>
-                                    <span className="text-[11px] text-slate-600 dark:text-[#8E95A5]">
+                                    <span className="text-xs text-slate-600 dark:text-[#8E95A5]">
                                         L&apos;IA prend automatiquement les appels pendant cette coupure et les qualifie.
                                     </span>
                                 </div>
@@ -405,9 +405,9 @@ export default function AvailabilityScheduler({ className = '' }) {
 
                         {weekly.lunch_break_enabled && (
                             <div className="pt-2 border-t border-amber-100 dark:border-white/[0.06] space-y-3">
-                                <div className="grid grid-cols-2 gap-2 max-w-xs">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-xs">
                                     <div>
-                                        <label className="text-[11px] text-neutral-500 block mb-1">Début de coupure</label>
+                                        <label className="text-xs text-neutral-500 block mb-1">Début de coupure</label>
                                         <input
                                             type="time"
                                             value={weekly.lunch_start}
@@ -416,7 +416,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                         />
                                     </div>
                                     <div>
-                                        <label className="text-[11px] text-neutral-500 block mb-1">Heure de reprise</label>
+                                        <label className="text-xs text-neutral-500 block mb-1">Heure de reprise</label>
                                         <input
                                             type="time"
                                             value={weekly.lunch_end}
@@ -429,7 +429,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                 {/* Choix de la formulation de l'IA (Discret vs Explicite) */}
                                 <div className="rounded-lg bg-white/70 dark:bg-white/[0.03] p-3 border border-amber-200/60 dark:border-white/[0.05] space-y-2">
                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-                                        <span className="text-[11px] font-semibold text-neutral-800 dark:text-neutral-200 flex items-center gap-1.5">
+                                        <span className="text-xs font-semibold text-neutral-800 dark:text-neutral-200 flex items-center gap-1.5">
                                             <Volume2 className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
                                             Ce que l&apos;IA doit dire à l&apos;appelant :
                                         </span>
@@ -437,7 +437,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                             <button
                                                 type="button"
                                                 onClick={() => setLunchPreset('discreet')}
-                                                className={`px-2.5 py-1 text-[11px] rounded-lg border font-medium transition cursor-pointer flex items-center gap-1 ${
+                                                className={`px-2.5 py-1 text-xs rounded-lg border font-medium transition cursor-pointer flex items-center gap-1 ${
                                                     isLunchDiscreet
                                                         ? 'bg-blue-50 border-blue-600 text-blue-700 dark:bg-blue-500/20 dark:border-blue-500 dark:text-blue-300 font-semibold'
                                                         : 'border-slate-200 dark:border-white/10 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-white/[0.04]'
@@ -449,7 +449,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                             <button
                                                 type="button"
                                                 onClick={() => setLunchPreset('lunch')}
-                                                className={`px-2.5 py-1 text-[11px] rounded-lg border font-medium transition cursor-pointer flex items-center gap-1 ${
+                                                className={`px-2.5 py-1 text-xs rounded-lg border font-medium transition cursor-pointer flex items-center gap-1 ${
                                                     !isLunchDiscreet
                                                         ? 'bg-amber-50 border-amber-600 text-amber-800 dark:bg-amber-500/20 dark:border-amber-500 dark:text-amber-200 font-semibold'
                                                         : 'border-slate-200 dark:border-white/10 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-white/[0.04]'
@@ -468,7 +468,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                         placeholder="Ex: Bonjour ! Notre équipe est actuellement indisponible jusqu'à 14h00..."
                                         className="w-full rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-[#11141d] p-2 text-xs text-neutral-800 dark:text-neutral-200 leading-relaxed outline-none focus:border-blue-500"
                                     />
-                                    <p className="text-[10px] text-slate-500 dark:text-[#8E95A5]">
+                                    <p className="text-xs text-slate-500 dark:text-[#8E95A5]">
                                         Libre à vous de mentionner la pause déjeuner ou de rester sobre. L&apos;IA prononcera exactement cette phrase d&apos;accueil.
                                     </p>
                                 </div>
@@ -502,7 +502,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                             <span className="text-xs font-bold text-neutral-900 dark:text-white block">
                                 Calendrier des indisponibilités &amp; congés
                             </span>
-                            <span className="text-[11px] text-slate-500 dark:text-[#8E95A5]">
+                            <span className="text-xs text-slate-500 dark:text-[#8E95A5]">
                                 Programmez vos périodes d&apos;absence : choisissez si l&apos;IA mentionne la raison (congés, déplacement) ou reste neutre.
                             </span>
                         </div>
@@ -532,14 +532,14 @@ export default function AvailabilityScheduler({ className = '' }) {
                                 <span className="text-xs font-bold text-blue-700 dark:text-blue-300 block">
                                     Nouvelle période d&apos;indisponibilité
                                 </span>
-                                <span className="text-[10px] text-neutral-500 dark:text-neutral-400">
+                                <span className="text-xs text-neutral-500 dark:text-neutral-400">
                                     Dates obligatoires, motif au choix
                                 </span>
                             </div>
 
                             {/* Choix : Annonce Discrète ou Motif Spécifié */}
                             <div className="space-y-1.5">
-                                <label className="text-[11px] font-semibold text-neutral-700 dark:text-neutral-300 block">
+                                <label className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 block">
                                     Divulgation du motif à l&apos;appelant :
                                 </label>
                                 <div className="flex flex-wrap gap-2">
@@ -572,7 +572,7 @@ export default function AvailabilityScheduler({ className = '' }) {
 
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                                 <div>
-                                    <label className="text-[11px] text-neutral-600 dark:text-neutral-400 block mb-1">
+                                    <label className="text-xs text-neutral-600 dark:text-neutral-400 block mb-1">
                                         {absenceMode === 'explicit' ? 'Motif public (annoncé par l\'IA)' : 'Note interne (optionnelle)'}
                                     </label>
                                     <input
@@ -591,7 +591,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-[11px] text-neutral-600 dark:text-neutral-400 block mb-1">
+                                    <label className="text-xs text-neutral-600 dark:text-neutral-400 block mb-1">
                                         Date de début <span className="text-red-500">*</span>
                                     </label>
                                     <input
@@ -603,7 +603,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-[11px] text-neutral-600 dark:text-neutral-400 block mb-1">
+                                    <label className="text-xs text-neutral-600 dark:text-neutral-400 block mb-1">
                                         Date de fin (inclus) <span className="text-red-500">*</span>
                                     </label>
                                     <input
@@ -626,7 +626,7 @@ export default function AvailabilityScheduler({ className = '' }) {
 
                             {/* Message exact prononcé par l'IA */}
                             <div className="space-y-1">
-                                <label className="text-[11px] font-semibold text-neutral-800 dark:text-neutral-200 block">
+                                <label className="text-xs font-semibold text-neutral-800 dark:text-neutral-200 block">
                                     Message d&apos;accueil prononcé par l&apos;IA :
                                 </label>
                                 <textarea
@@ -636,7 +636,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                     placeholder="Ex: Bonjour ! Notre entreprise est actuellement fermée jusqu'au..."
                                     className="w-full rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-[#11141d] p-2.5 text-xs text-neutral-800 dark:text-neutral-200 leading-relaxed outline-none focus:border-blue-500"
                                 />
-                                <span className="text-[10px] text-slate-500 dark:text-[#8E95A5] block">
+                                <span className="text-xs text-slate-500 dark:text-[#8E95A5] block">
                                     Ce texte sera fidèlement utilisé par l&apos;IA lors de chaque appel pendant cette période.
                                 </span>
                             </div>
@@ -683,23 +683,23 @@ export default function AvailabilityScheduler({ className = '' }) {
 
                                                 {/* Badge Discret ou Motif */}
                                                 {abs.is_discreet ? (
-                                                    <span className="inline-flex items-center gap-1 rounded-md bg-neutral-100 dark:bg-white/[0.06] text-neutral-600 dark:text-neutral-400 px-2 py-0.5 text-[10px] font-medium">
+                                                    <span className="inline-flex items-center gap-1 rounded-md bg-neutral-100 dark:bg-white/[0.06] text-neutral-600 dark:text-neutral-400 px-2 py-0.5 text-xs font-medium">
                                                         <EyeOff className="h-3 w-3" />
                                                         Discret (sans motif)
                                                     </span>
                                                 ) : (
-                                                    <span className="inline-flex items-center gap-1 rounded-md bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 px-2 py-0.5 text-[10px] font-medium">
+                                                    <span className="inline-flex items-center gap-1 rounded-md bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 px-2 py-0.5 text-xs font-medium">
                                                         Motif public
                                                     </span>
                                                 )}
 
                                                 {isCurrent && (
-                                                    <span className="rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 px-2 py-0.5 text-[10px] font-semibold animate-pulse">
+                                                    <span className="rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 px-2 py-0.5 text-xs font-semibold animate-pulse">
                                                         En cours actuellement
                                                     </span>
                                                 )}
                                                 {isFuture && (
-                                                    <span className="rounded-full bg-neutral-100 text-neutral-600 dark:bg-white/[0.06] dark:text-neutral-400 px-2 py-0.5 text-[10px] font-medium">
+                                                    <span className="rounded-full bg-neutral-100 text-neutral-600 dark:bg-white/[0.06] dark:text-neutral-400 px-2 py-0.5 text-xs font-medium">
                                                         À venir
                                                     </span>
                                                 )}
@@ -716,7 +716,7 @@ export default function AvailabilityScheduler({ className = '' }) {
                                         </div>
 
                                         <div className="pt-2 space-y-1">
-                                            <p className="text-[11px] text-slate-500 dark:text-[#8E95A5] font-mono">
+                                            <p className="text-xs text-slate-500 dark:text-[#8E95A5] font-mono">
                                                 Du {new Date(abs.start_date).toLocaleDateString('fr-FR')} au {new Date(abs.end_date).toLocaleDateString('fr-FR')}
                                             </p>
                                             {abs.message && (

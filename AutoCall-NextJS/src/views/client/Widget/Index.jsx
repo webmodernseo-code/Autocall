@@ -267,7 +267,7 @@ export default function WidgetIndex({ config = {}, agents = [], stats = [] }) {
                                 </div>
 
                                 {!form.data.enabled && (
-                                    <div className="absolute right-3 top-12 rounded-soft bg-neutral-900/70 px-2 py-1 text-[10px] font-medium text-white">
+                                    <div className="absolute right-3 top-12 rounded-soft bg-neutral-900/70 px-2 py-1 text-xs font-medium text-white">
                                         <Trans i18nKey="hardcoded.views_client_widget_index_b51eddba4aa7" />
                                     </div>
                                 )}

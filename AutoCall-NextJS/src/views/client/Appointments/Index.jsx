@@ -323,7 +323,7 @@ export default function AppointmentsIndex({ appointments, filters = {}, stats = 
                                 <thead className="bg-neutral-50/70 dark:bg-white/[0.02]">
                                     <tr>
                                         {['Titre', 'Contact', 'Agent IA', 'Date & Heure', 'Durée', 'Statut', ''].map((h) => (
-                                            <th key={h} className="px-5 py-3.5 text-left text-xs font-semibold tracking-wider text-neutral-500 dark:text-neutral-400 uppercase">
+                                            <th key={h} className="px-5 py-3.5 text-left text-xs font-semibold tracking-wider text-neutral-500 dark:text-neutral-400 normal-case">
                                                 {h}
                                             </th>
                                         ))}

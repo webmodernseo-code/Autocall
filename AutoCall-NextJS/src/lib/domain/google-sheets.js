@@ -1,6 +1,7 @@
 import 'server-only';
 
 import prisma from '@/lib/prisma';
+import { maybeDecrypt } from '@/lib/crypt';
 
 /** GoogleSheetConnection::firstOrCreate(['client_id' => …]) */
 export async function firstOrCreateSheetConnection(clientId) {
@@ -62,7 +63,7 @@ export async function syncToGoogleSheet(clientId, type, rowData = {}) {
                 await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${conn.spreadsheet_id}/values/A1:append?valueInputOption=USER_ENTERED`, {
                     method: 'POST',
                     headers: {
-                        Authorization: `Bearer ${conn.access_token}`,
+                        Authorization: `Bearer ${maybeDecrypt(conn.access_token)}`,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ values: [values] }),

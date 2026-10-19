@@ -21,7 +21,7 @@ export default function LegalDoc({ eyebrow, title, updated, intro, sections = []
                 <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                     <Eyebrow>{eyebrow}</Eyebrow>
                     <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-5xl">{title}</h1>
-                    {updated && <p className="mt-3 font-mono text-xs uppercase tracking-widest text-neutral-500">Last updated · {updated}</p>}
+                    {updated && <p className="mt-3 font-mono text-xs normal-case tracking-widest text-neutral-500">Last updated · {updated}</p>}
                     {intro && <p className="mt-5 max-w-2xl text-neutral-600 dark:text-neutral-400">{intro}</p>}
                     <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-warm/30 bg-warm/[0.08] px-4 py-3 text-sm text-amber-800 dark:text-amber-200/90">
                         <Info className="mt-0.5 h-4 w-4 shrink-0 text-warm" />
@@ -34,7 +34,7 @@ export default function LegalDoc({ eyebrow, title, updated, intro, sections = []
                 <div className="mx-auto grid max-w-4xl gap-10 px-4 sm:px-6 lg:grid-cols-[220px_1fr] lg:px-8">
                     <nav aria-label="Contents" className="hidden lg:block">
                         <div className="sticky top-24">
-                            <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-500"><Trans i18nKey="hardcoded.components_marketing_legaldoc_ffa7fe12f627" /></p>
+                            <p className="font-mono text-xs normal-case tracking-widest text-neutral-500"><Trans i18nKey="hardcoded.components_marketing_legaldoc_ffa7fe12f627" /></p>
                             <ul className="mt-4 space-y-2 text-sm">
                                 {sections.map((s) => (
                                     <li key={s.h}><a href={`#${slug(s.h)}`} className="text-neutral-500 transition hover:text-neutral-900 dark:hover:text-white">{s.h}</a></li>

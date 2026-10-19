@@ -11,13 +11,13 @@ const config = {
     theme: {
         extend: {
             fontFamily: {
-                display: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans],
-                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                display: ['"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
+                sans: ['"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
                 mono: ['"JetBrains Mono"', ...defaultTheme.fontFamily.mono],
             },
             // Brand & neutrals — AutoCall: iris (brand) + electric "signal" + ink shell
             colors: {
-                white: '#F7F7FB',
+                white: '#FFFFFF',
                 black: '#0c0c1c',
                 // Iris / violet — primary, AI intelligence
                 brand: {
@@ -127,9 +127,9 @@ const config = {
             },
             // Subtle shadows
             boxShadow: {
-                soft: '0 1px 2px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04)',
-                'soft-md': '0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)',
-                'soft-lg': '0 10px 15px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.06)',
+                soft: '0 1px 2px rgb(15 23 42 / 0.05), 0 4px 12px rgb(15 23 42 / 0.035)',
+                'soft-md': '0 2px 4px rgb(15 23 42 / 0.05), 0 10px 24px rgb(15 23 42 / 0.055)',
+                'soft-lg': '0 4px 8px rgb(15 23 42 / 0.05), 0 16px 36px rgb(15 23 42 / 0.07)',
                 'soft-xl': '0 20px 25px -5px rgb(0 0 0 / 0.06), 0 8px 10px -6px rgb(0 0 0 / 0.06)',
                 inner: 'inset 0 1px 2px 0 rgb(0 0 0 / 0.04)',
             },

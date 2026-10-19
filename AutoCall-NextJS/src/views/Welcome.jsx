@@ -38,11 +38,11 @@ function CallConsole() {
                 <div className="absolute bottom-0 right-1/4 h-56 w-56 rounded-full bg-signal-500/20 blur-[90px]" />
             </div>
             <div className="floaty absolute -left-4 top-6 z-20 hidden rounded-xl border border-white/10 bg-ink-900 px-3 py-2 shadow-2xl backdrop-blur sm:block">
-                <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Sentiment</p>
+                <p className="font-mono text-xs normal-case tracking-widest text-neutral-500">Sentiment</p>
                 <p className="text-sm font-semibold text-signal-400">Positif · 0.86</p>
             </div>
             <div className="floaty d2 absolute -right-4 bottom-16 z-20 hidden rounded-xl border border-white/10 bg-ink-900 px-3 py-2 shadow-2xl backdrop-blur sm:block">
-                <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Résultat</p>
+                <p className="font-mono text-xs normal-case tracking-widest text-neutral-500">Résultat</p>
                 <p className="text-sm font-semibold text-white">+1 lead qualifié</p>
             </div>
             <div className="relative overflow-hidden rounded-[26px] border border-white/10 bg-ink-900 shadow-[0_40px_120px_-30px_rgba(109,63,234,0.5)]">
@@ -53,10 +53,10 @@ function CallConsole() {
                             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-lg shadow-brand-600/40"><Bot className="h-5 w-5" /></span>
                             <div>
                                 <p className="text-sm font-semibold text-white">Ava · Qualification Commerciale</p>
-                                <p className="font-mono text-[11px] text-neutral-500">ElevenLabs + Twilio · FR-FR</p>
+                                <p className="font-mono text-xs text-neutral-500">ElevenLabs + Twilio · FR-FR</p>
                             </div>
                         </div>
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-signal-500/30 bg-signal-500/10 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-signal-300">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-signal-500/30 bg-signal-500/10 px-2.5 py-1 font-mono text-xs font-semibold normal-case tracking-widest text-signal-300">
                             <span className="h-1.5 w-1.5 rounded-full bg-signal-400 animate-pulse-signal" /> En direct · 00:47
                         </span>
                     </div>
@@ -65,7 +65,7 @@ function CallConsole() {
                         {turns.map((t, i) => (
                             <div key={i} className={`flex ${t.who === 'agent' ? '' : 'justify-end'}`}>
                                 <div className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-sm ${t.who === 'agent' ? 'rounded-tl-sm bg-brand-500/12 text-brand-50 ring-1 ring-brand-400/20' : 'rounded-tr-sm bg-white/[0.06] text-neutral-200 ring-1 ring-white/10'}`}>
-                                    <span className="mb-0.5 block font-mono text-[9px] uppercase tracking-widest text-neutral-500">{t.who === 'agent' ? 'Ava' : 'Marcus'}</span>
+                                    <span className="mb-0.5 block font-mono text-xs normal-case tracking-widest text-neutral-500">{t.who === 'agent' ? 'Ava' : 'Marcus'}</span>
                                     {t.text}
                                     {i === turns.length - 1 && <span className="caret ml-0.5 inline-block h-3.5 w-[2px] translate-y-0.5 bg-signal-400" />}
                                 </div>
@@ -74,14 +74,14 @@ function CallConsole() {
                     </div>
                     <div className="mt-5 rounded-2xl border border-white/5 bg-ink-950/60 p-4">
                         <div className="mb-2 flex items-center justify-between">
-                            <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Score du prospect</p>
+                            <p className="font-mono text-xs normal-case tracking-widest text-neutral-500">Score du prospect</p>
                             <p className="font-mono text-xs font-semibold text-warm">TIÈDE · 72</p>
                         </div>
                         <div className="relative h-2 overflow-hidden rounded-full bg-white/5">
                             <div className="sweep h-full rounded-full" style={{ width: '72%', background: 'linear-gradient(90deg,#4fb0ff,#ffb23e 70%,#fb5e5e)' }} />
                             <span className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-ink-950 bg-white shadow" style={{ left: '72%' }} />
                         </div>
-                        <div className="mt-1.5 flex justify-between font-mono text-[9px] uppercase tracking-wider text-neutral-600"><span className="text-cold">Froid</span><span className="text-warm">Tiède</span><span className="text-hot">Chaud</span></div>
+                        <div className="mt-1.5 flex justify-between font-mono text-xs normal-case tracking-wider text-neutral-600"><span className="text-cold">Froid</span><span className="text-warm">Tiède</span><span className="text-hot">Chaud</span></div>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@ const CORE = [
         </div>) },
     { span: '', icon: AudioLines, title: 'Voix ultra-naturelles', text: 'Synthèse vocale ultra-réaliste avec gestion du ton, des émotions et des respirations via ElevenLabs et OpenAI.', viz: <div className="mt-5"><WaveBars count={26} h="h-9" /></div> },
     { span: '', icon: Languages, title: '29 langues supportées', text: 'Détectez, échangez et qualifiez dans la langue maternelle et l\'accent spécifique de votre interlocuteur.', viz: (
-        <div className="mt-5 flex flex-wrap gap-1.5 font-mono text-[11px] text-neutral-500 dark:text-neutral-400">{['FR', 'EN', 'ES', 'DE', 'IT', 'PT', 'AR', 'HI', '+21'].map((x) => <span key={x} className="rounded-md border border-neutral-200 bg-neutral-50 px-2 py-1 dark:border-white/10 dark:bg-white/[0.03]">{x}</span>)}</div>) },
+        <div className="mt-5 flex flex-wrap gap-1.5 font-mono text-xs text-neutral-500 dark:text-neutral-400">{['FR', 'EN', 'ES', 'DE', 'IT', 'PT', 'AR', 'HI', '+21'].map((x) => <span key={x} className="rounded-md border border-neutral-200 bg-neutral-50 px-2 py-1 dark:border-white/10 dark:bg-white/[0.03]">{x}</span>)}</div>) },
     { span: 'lg:col-span-2', icon: FileAudio, title: 'Enregistrements & transcriptions complètes', text: 'Enregistrement audio automatique, transcription textuelle intégrale par IA, synthèses exploitables et historique consultable.', viz: (
         <div className="mt-5 space-y-1.5 rounded-xl border border-neutral-200 bg-neutral-50 p-3 font-mono text-xs dark:border-white/5 dark:bg-ink-950/40">
             <p className="text-brand-600 dark:text-brand-300"><span className="text-neutral-400 dark:text-neutral-600">00:12 </span>Ava: …évaluez-vous la solution pour votre équipe commerciale ?</p>
@@ -114,9 +114,9 @@ const CORE = [
             <p className="text-signal-600 dark:text-signal-300"><span className="text-neutral-400 dark:text-neutral-600">résumé </span>Équipe de 8 personnes · budget validé · démonstration planifiée</p>
         </div>) },
     { span: '', icon: Workflow, title: 'Créateur de flux visuel (Flows)', text: 'Automatisez les suites d\'appels : envoi de SMS/WhatsApp, prise de rendez-vous ou transfert vers un conseiller.', viz: (
-        <div className="mt-5 flex items-center gap-2 font-mono text-[11px]"><span className="rounded-md bg-signal-500/10 px-2 py-1 text-signal-600 dark:text-signal-300">Déclencheur</span><span className="text-neutral-400">→</span><span className="rounded-md bg-warm/10 px-2 py-1 text-amber-600 dark:text-warm">Si Chaud</span><span className="text-neutral-400">→</span><span className="rounded-md bg-brand-500/10 px-2 py-1 text-brand-600 dark:text-brand-300">Rendez-vous</span></div>) },
+        <div className="mt-5 flex items-center gap-2 font-mono text-xs"><span className="rounded-md bg-signal-500/10 px-2 py-1 text-signal-600 dark:text-signal-300">Déclencheur</span><span className="text-neutral-400">→</span><span className="rounded-md bg-warm/10 px-2 py-1 text-amber-600 dark:text-warm">Si Chaud</span><span className="text-neutral-400">→</span><span className="rounded-md bg-brand-500/10 px-2 py-1 text-brand-600 dark:text-brand-300">Rendez-vous</span></div>) },
     { span: '', icon: Cable, title: 'Synchronisation CRM & Webhooks', text: 'Transmettez les prospects qualifiés en temps réel vers tous vos outils métiers.', viz: (
-        <div className="mt-5 flex flex-wrap gap-1.5 font-mono text-[11px] text-neutral-500 dark:text-neutral-400">{['Salesforce', 'HubSpot', 'Pipedrive', 'Webhook'].map((x) => <span key={x} className="rounded-md border border-neutral-200 bg-neutral-50 px-2 py-1 dark:border-white/10 dark:bg-white/[0.03]">{x}</span>)}</div>) },
+        <div className="mt-5 flex flex-wrap gap-1.5 font-mono text-xs text-neutral-500 dark:text-neutral-400">{['Salesforce', 'HubSpot', 'Pipedrive', 'Webhook'].map((x) => <span key={x} className="rounded-md border border-neutral-200 bg-neutral-50 px-2 py-1 dark:border-white/10 dark:bg-white/[0.03]">{x}</span>)}</div>) },
 ];
 
 const MODULES = [
@@ -263,11 +263,11 @@ function UseCaseTabs() {
                 <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900 p-5 shadow-xl">
                     <div className="flex items-center justify-between border-b border-white/10 pb-3">
                         <span className="inline-flex items-center gap-2 text-xs font-semibold text-white"><span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-brand-500 to-brand-700"><Bot className="h-3.5 w-3.5" /></span>Appel en cours</span>
-                        <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-signal-300"><span className="h-1.5 w-1.5 rounded-full bg-signal-400 animate-pulse-signal" /> 00:31</span>
+                        <span className="inline-flex items-center gap-1 font-mono text-xs normal-case tracking-widest text-signal-300"><span className="h-1.5 w-1.5 rounded-full bg-signal-400 animate-pulse-signal" /> 00:31</span>
                     </div>
                     <div className="mt-4"><WaveBars count={30} h="h-8" /></div>
                     <p className="mt-4 rounded-xl bg-white/[0.05] px-3.5 py-2.5 text-sm text-neutral-200 ring-1 ring-white/10">{u.line}</p>
-                    <div className="mt-3 flex items-center gap-2 font-mono text-[11px] text-neutral-500"><span className="rounded bg-signal-500/15 px-1.5 py-0.5 text-signal-300">résultat</span> {u.outcome}</div>
+                    <div className="mt-3 flex items-center gap-2 font-mono text-xs text-neutral-500"><span className="rounded bg-signal-500/15 px-1.5 py-0.5 text-signal-300">résultat</span> {u.outcome}</div>
                 </div>
             </div>
         </div>
@@ -321,7 +321,7 @@ export default function Welcome() {
                 <div className="grid-field hero-grid-mask pointer-events-none absolute inset-0 z-[1]" aria-hidden="true" />
                 <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
                     <div>
-                        <Reveal><span className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-3 py-1.5 backdrop-blur dark:border-white/10 dark:bg-white/[0.04]"><span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal-400 opacity-70" /><span className="relative inline-flex h-2 w-2 rounded-full bg-signal-500" /></span><span className="font-mono text-[11px] uppercase tracking-[0.18em] text-neutral-600 dark:text-neutral-300">Opérateur vocal IA · En direct</span></span></Reveal>
+                        <Reveal><span className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-3 py-1.5 backdrop-blur dark:border-white/10 dark:bg-white/[0.04]"><span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal-400 opacity-70" /><span className="relative inline-flex h-2 w-2 rounded-full bg-signal-500" /></span><span className="font-mono text-xs normal-case tracking-[0.18em] text-neutral-600 dark:text-neutral-300">Opérateur vocal IA · En direct</span></span></Reveal>
                         <Reveal delay={80}><h1 className="mt-6 font-display text-[2.6rem] font-bold leading-[1.03] tracking-tight text-neutral-900 dark:text-white sm:text-6xl lg:text-[4.1rem]">Des agents IA qui <span className="bg-gradient-to-r from-brand-500 via-brand-400 to-signal-500 bg-clip-text text-transparent dark:from-brand-300 dark:via-brand-400 dark:to-signal-400">appellent, échangent</span> et qualifient vos prospects.</h1></Reveal>
                         <Reveal delay={160}><p className="mt-6 max-w-xl text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">Configurez votre agent vocal, lancez une campagne massive et laissez l'IA mener de vraies conversations téléphoniques — enregistrées, transcrites et scorées Chaud / Tiède / Froid en direct, puis synchronisées avec votre CRM. Une plateforme tout-en-un, auto-hébergée et multi-tenant.</p></Reveal>
                         <Reveal delay={240}><div className="mt-9 flex flex-wrap items-center gap-3">
@@ -341,7 +341,7 @@ export default function Welcome() {
             {/* ===== Trust marquee ===== */}
             <section id="integrations" className="scroll-mt-24 border-y border-neutral-200 mk-wash py-8 dark:border-white/5">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <p className="text-center font-mono text-[11px] uppercase tracking-[0.22em] text-neutral-500">Connecté aux outils et plateformes que vous utilisez déjà</p>
+                    <p className="text-center font-mono text-xs normal-case tracking-[0.22em] text-neutral-500">Connecté aux outils et plateformes que vous utilisez déjà</p>
                     <div className="relative mt-6 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
                         <div className="marq flex w-max items-center gap-14 whitespace-nowrap pr-14">{[...PROVIDERS, ...PROVIDERS].map((p, i) => <span key={i} className="font-display text-xl font-semibold text-neutral-400 dark:text-neutral-500/70">{p}</span>)}</div>
                     </div>
@@ -359,7 +359,7 @@ export default function Welcome() {
                     <Reveal delay={120}>
                         <div className="relative mt-12 grid items-stretch gap-4 lg:grid-cols-[1fr_auto_1fr]">
                             <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 dark:border-white/10 dark:bg-ink-900/40">
-                                <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-500">L'ancienne méthode</p>
+                                <p className="font-mono text-xs normal-case tracking-widest text-neutral-500">L'ancienne méthode</p>
                                 <ul className="mt-4 space-y-3 text-sm text-neutral-600 dark:text-neutral-400">
                                     {['Les prospects attendent des heures avant d\'être recontactés', 'Vos commerciaux perdent leur temps sur des prospects non qualifiés', 'Aucune couverture après 18h ni les week-ends', 'Les relances indispensables passent trop souvent à la trappe'].map((x) => <li key={x} className="flex items-start gap-2.5"><Minus className="mt-0.5 h-4 w-4 shrink-0 text-neutral-400 dark:text-neutral-600" />{x}</li>)}
                                 </ul>
@@ -369,7 +369,7 @@ export default function Welcome() {
                             </div>
                             <div className="relative overflow-hidden rounded-2xl border border-brand-500/30 bg-gradient-to-br from-brand-500/[0.08] to-transparent p-6 dark:from-brand-500/10">
                                 <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-brand-500/20 blur-2xl" />
-                                <p className="relative inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-brand-600 dark:text-brand-300"><Sparkles className="h-3.5 w-3.5" /> Avec {brand}</p>
+                                <p className="relative inline-flex items-center gap-1.5 font-mono text-xs normal-case tracking-widest text-brand-600 dark:text-brand-300"><Sparkles className="h-3.5 w-3.5" /> Avec {brand}</p>
                                 <ul className="relative mt-4 space-y-3 text-sm text-neutral-800 dark:text-neutral-200">
                                     {['Chaque prospect est appelé en quelques minutes seulement', 'Seuls les leads chauds et qualifiés sont transmis aux commerciaux', 'Des agents disponibles 24h/24 et 7j/7, dans toutes les langues', 'Des flux de relance et de prise de rendez-vous 100% automatiques'].map((x) => <li key={x} className="flex items-start gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-signal-500 dark:text-signal-400" />{x}</li>)}
                                 </ul>
@@ -394,7 +394,7 @@ export default function Welcome() {
                                             <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/12 text-brand-600 ring-1 ring-brand-500/20 dark:text-brand-300"><s.icon className="h-5 w-5" /></span>
                                             <h3 className="mt-4 font-display text-lg font-semibold text-neutral-900 dark:text-white">{s.title}</h3>
                                             <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">{s.text}</p>
-                                            <div className="mt-4 flex flex-wrap gap-1.5">{s.chips.map((c) => <span key={c} className="rounded-md border border-neutral-200 bg-neutral-50 px-2 py-0.5 font-mono text-[10px] text-neutral-500 dark:border-white/10 dark:bg-white/[0.03] dark:text-neutral-400">{c}</span>)}</div>
+                                            <div className="mt-4 flex flex-wrap gap-1.5">{s.chips.map((c) => <span key={c} className="rounded-md border border-neutral-200 bg-neutral-50 px-2 py-0.5 font-mono text-xs text-neutral-500 dark:border-white/10 dark:bg-white/[0.03] dark:text-neutral-400">{c}</span>)}</div>
                                         </div>
                                     </div>
                                 </Reveal>
@@ -430,19 +430,19 @@ export default function Welcome() {
                         <div className="relative mx-auto mt-12 max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-ink-900/90 shadow-[0_40px_120px_-40px_rgba(109,63,234,0.5)]">
                             <div className="flex items-center gap-2 border-b border-white/10 bg-ink-950/60 px-4 py-3">
                                 <span className="h-3 w-3 rounded-full bg-hot/70" /><span className="h-3 w-3 rounded-full bg-warm/70" /><span className="h-3 w-3 rounded-full bg-signal-500/70" />
-                                <span className="ml-3 font-mono text-[11px] text-neutral-500">app / tableau-de-bord</span>
+                                <span className="ml-3 font-mono text-xs text-neutral-500">app / tableau-de-bord</span>
                             </div>
                             <div className="grid gap-4 p-5 sm:grid-cols-4">
                                 {[['Appels (30j)', '4 182'], ['Taux de succès', '68%'], ['Qualifiés', '1 204'], ['Durée moyenne', '1:12']].map(([l, v]) => (
-                                    <div key={l} className="rounded-xl border border-white/10 bg-white/[0.03] p-4"><p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">{l}</p><p className="mt-1 font-display text-2xl font-bold text-white">{v}</p></div>
+                                    <div key={l} className="rounded-xl border border-white/10 bg-white/[0.03] p-4"><p className="font-mono text-xs normal-case tracking-widest text-neutral-500">{l}</p><p className="mt-1 font-display text-2xl font-bold text-white">{v}</p></div>
                                 ))}
                                 <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 sm:col-span-3">
-                                    <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Appels de la semaine</p>
+                                    <p className="font-mono text-xs normal-case tracking-widest text-neutral-500">Appels de la semaine</p>
                                     <div className="mt-4 flex items-end gap-2">{[40, 62, 48, 80, 68, 92, 74].map((h, i) => <span key={i} className="flex-1 rounded-t bg-gradient-to-t from-brand-600 to-brand-400" style={{ height: `${h}px` }} />)}</div>
                                 </div>
                                 <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                                    <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Répartition des leads</p>
-                                    <div className="mt-4 space-y-2">{[['Chaud', 'bg-hot', '30%'], ['Tiède', 'bg-warm', '45%'], ['Froid', 'bg-cold', '25%']].map(([l, c, w]) => (<div key={l}><div className="flex justify-between text-[11px] text-neutral-400"><span>{l}</span><span className="font-mono">{w}</span></div><div className="mt-1 h-1.5 rounded-full bg-white/5"><div className={`h-full rounded-full ${c}`} style={{ width: w }} /></div></div>))}</div>
+                                    <p className="font-mono text-xs normal-case tracking-widest text-neutral-500">Répartition des leads</p>
+                                    <div className="mt-4 space-y-2">{[['Chaud', 'bg-hot', '30%'], ['Tiède', 'bg-warm', '45%'], ['Froid', 'bg-cold', '25%']].map(([l, c, w]) => (<div key={l}><div className="flex justify-between text-xs text-neutral-400"><span>{l}</span><span className="font-mono">{w}</span></div><div className="mt-1 h-1.5 rounded-full bg-white/5"><div className={`h-full rounded-full ${c}`} style={{ width: w }} /></div></div>))}</div>
                                 </div>
                             </div>
                         </div>
@@ -475,7 +475,7 @@ export default function Welcome() {
                             <table className="w-full text-sm">
                                 <thead>
                                     <tr className="border-b border-neutral-200 dark:border-white/10">
-                                        <th className="px-4 py-4 text-left font-mono text-[11px] uppercase tracking-widest text-neutral-500 sm:px-6"> </th>
+                                        <th className="px-4 py-4 text-left font-mono text-xs normal-case tracking-widest text-neutral-500 sm:px-6"> </th>
                                         <th className="px-4 py-4 text-center font-semibold text-neutral-500 sm:px-6">Développer soi-même</th>
                                         <th className="px-4 py-4 text-center font-semibold text-neutral-500 sm:px-6">Composeur classique</th>
                                         <th className="px-4 py-4 text-center sm:px-6"><span className="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-3 py-1.5 font-semibold text-white shadow-lg shadow-brand-600/30">{brand}</span></th>
@@ -514,10 +514,10 @@ export default function Welcome() {
                     </Reveal>
                     <Reveal delay={120}>
                         <div className="rounded-2xl border border-white/10 bg-ink-900 p-5 shadow-xl">
-                            <div className="flex items-center justify-between border-b border-white/10 pb-3"><p className="font-mono text-[11px] uppercase tracking-widest text-neutral-500">Super-Admin · Surveillance des appels</p><span className="inline-flex items-center gap-1 font-mono text-[10px] text-signal-300"><span className="h-1.5 w-1.5 rounded-full bg-signal-400 animate-pulse-signal" /> en direct</span></div>
+                            <div className="flex items-center justify-between border-b border-white/10 pb-3"><p className="font-mono text-xs normal-case tracking-widest text-neutral-500">Super-Admin · Surveillance des appels</p><span className="inline-flex items-center gap-1 font-mono text-xs text-signal-300"><span className="h-1.5 w-1.5 rounded-full bg-signal-400 animate-pulse-signal" /> en direct</span></div>
                             <div className="mt-4 space-y-2">
                                 {[['Northwind SaaS', 'Ava', 'en cours', 'text-signal-400'], ['Kestrel', 'Léo', 'sonnerie', 'text-warm'], ['Dialworks', 'Mia', 'terminé', 'text-neutral-400'], ['Peak Immobilier', 'Sol', 'terminé', 'text-neutral-400']].map(([v, ag, s, c], i) => (
-                                    <div key={i} className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] px-3 py-2 text-sm"><span className="text-neutral-200">{v}</span><span className="font-mono text-xs text-neutral-500">{ag}</span><span className={`font-mono text-[11px] ${c}`}>{s}</span></div>
+                                    <div key={i} className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] px-3 py-2 text-sm"><span className="text-neutral-200">{v}</span><span className="font-mono text-xs text-neutral-500">{ag}</span><span className={`font-mono text-xs ${c}`}>{s}</span></div>
                                 ))}
                             </div>
                         </div>
@@ -532,7 +532,7 @@ export default function Welcome() {
                     <div className="mt-14 grid gap-4 lg:grid-cols-[1.1fr_1.4fr]">
                         <Reveal>
                             <div className={`relative h-full overflow-hidden ${CARD} p-6`}>
-                                <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-500">Stack technique</p>
+                                <p className="font-mono text-xs normal-case tracking-widest text-neutral-500">Stack technique</p>
                                 <div className="mt-4 space-y-2.5">
                                     {STACK.map((s, i) => {
                                         const a = ACC[s.a];
@@ -573,7 +573,7 @@ export default function Welcome() {
                         <div className="pointer-events-none absolute -left-20 top-0 h-64 w-64 rounded-full bg-brand-600/25 blur-[90px]" aria-hidden="true" />
                         <div className="pointer-events-none absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-signal-500/20 blur-[90px]" aria-hidden="true" />
                         <div className="relative grid gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4">
-                            {METRICS.map((m) => (<div key={m.l} className="text-center lg:text-left"><Counter value={m.v} className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl" /><p className="mt-2 font-mono text-xs uppercase tracking-widest text-signal-400">{m.l}</p><p className="mt-1 text-sm text-neutral-400">{m.s}</p></div>))}
+                            {METRICS.map((m) => (<div key={m.l} className="text-center lg:text-left"><Counter value={m.v} className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl" /><p className="mt-2 font-mono text-xs normal-case tracking-widest text-signal-400">{m.l}</p><p className="mt-1 text-sm text-neutral-400">{m.s}</p></div>))}
                         </div>
                     </div>
                 </Reveal>
@@ -587,7 +587,7 @@ export default function Welcome() {
                         <Reveal>
                             <div className="relative h-full overflow-hidden rounded-2xl border border-white/10 bg-ink-900 p-6 shadow-xl">
                                 <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand-600/20 blur-3xl" />
-                                <div className="relative flex items-center gap-2.5"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white"><Code2 className="h-5 w-5" /></span><div><p className="font-semibold text-white">Code source complet</p><p className="font-mono text-[11px] text-neutral-500">auto-hébergez · personnalisez · maîtrisez</p></div></div>
+                                <div className="relative flex items-center gap-2.5"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white"><Code2 className="h-5 w-5" /></span><div><p className="font-semibold text-white">Code source complet</p><p className="font-mono text-xs text-neutral-500">auto-hébergez · personnalisez · maîtrisez</p></div></div>
                                 <div className="relative mt-5 space-y-1 rounded-xl border border-white/10 bg-ink-950/60 p-4 font-mono text-xs text-neutral-400">
                                     {['src/app/', '  api/admin/', '  api/app/', '  app/', 'src/views/client/', 'src/views/Admin/', 'prisma/schema.prisma'].map((f, i) => <p key={i} className={i % 3 === 0 ? 'text-brand-300' : ''}>{f}</p>)}
                                 </div>
@@ -617,7 +617,7 @@ export default function Welcome() {
                                 <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand-500/15 blur-3xl" />
                                 <div className="relative"><div className="flex gap-1 text-warm" aria-hidden="true">{Array.from({ length: 5 }).map((_, j) => <Star key={j} className="h-5 w-5 fill-current" />)}</div>
                                     <blockquote className="mt-5 font-display text-2xl font-medium leading-snug text-neutral-900 dark:text-white">« {TESTIMONIALS[0].q} »</blockquote></div>
-                                <figcaption className="relative mt-8 flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-signal-500 font-display font-bold text-white">{TESTIMONIALS[0].i}</span><div><p className="font-semibold text-neutral-900 dark:text-white">{TESTIMONIALS[0].n}</p><p className="font-mono text-[11px] text-neutral-500">{TESTIMONIALS[0].r}</p></div></figcaption>
+                                <figcaption className="relative mt-8 flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-signal-500 font-display font-bold text-white">{TESTIMONIALS[0].i}</span><div><p className="font-semibold text-neutral-900 dark:text-white">{TESTIMONIALS[0].n}</p><p className="font-mono text-xs text-neutral-500">{TESTIMONIALS[0].r}</p></div></figcaption>
                             </figure>
                         </Reveal>
                         <div className="grid gap-4">
@@ -626,7 +626,7 @@ export default function Welcome() {
                                     <figure className={`flex h-full flex-col justify-between ${CARD} p-6`}>
                                         <div><div className="flex gap-1 text-warm" aria-hidden="true">{Array.from({ length: 5 }).map((_, j) => <Star key={j} className="h-4 w-4 fill-current" />)}</div>
                                             <blockquote className="mt-3 text-[15px] leading-relaxed text-neutral-700 dark:text-neutral-200">« {t.q} »</blockquote></div>
-                                        <figcaption className="mt-5 flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-signal-500 text-sm font-bold text-white">{t.i}</span><div><p className="text-sm font-semibold text-neutral-900 dark:text-white">{t.n}</p><p className="font-mono text-[11px] text-neutral-500">{t.r}</p></div></figcaption>
+                                        <figcaption className="mt-5 flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-signal-500 text-sm font-bold text-white">{t.i}</span><div><p className="text-sm font-semibold text-neutral-900 dark:text-white">{t.n}</p><p className="font-mono text-xs text-neutral-500">{t.r}</p></div></figcaption>
                                     </figure>
                                 </Reveal>
                             ))}
@@ -645,18 +645,18 @@ export default function Welcome() {
                             <button onClick={() => setAnnual((v) => !v)} role="switch" aria-checked={annual} className={`relative h-6 w-11 rounded-full transition ${annual ? 'bg-brand-600' : 'bg-neutral-300 dark:bg-white/15'}`}>
                                 <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${annual ? 'left-[22px]' : 'left-0.5'}`} />
                             </button>
-                            <span className={`text-sm ${annual ? 'font-semibold text-neutral-900 dark:text-white' : 'text-neutral-500'}`}>Annuel <span className="ml-1 rounded-full bg-signal-500/15 px-2 py-0.5 font-mono text-[10px] font-semibold text-signal-600 dark:text-signal-300">2 mois offerts</span></span>
+                            <span className={`text-sm ${annual ? 'font-semibold text-neutral-900 dark:text-white' : 'text-neutral-500'}`}>Annuel <span className="ml-1 rounded-full bg-signal-500/15 px-2 py-0.5 font-mono text-xs font-semibold text-signal-600 dark:text-signal-300">2 mois offerts</span></span>
                         </div>
                     </Reveal>
                     <div className="mx-auto mt-12 grid max-w-5xl items-start gap-6 grid-cols-1 md:grid-cols-3">
                         {PLANS.map((p, i) => (
                             <Reveal key={p.name} delay={i * 100}>
                                 <div className={`relative flex h-full flex-col rounded-3xl border p-7 ${p.highlight ? 'border-brand-500/50 bg-gradient-to-b from-brand-500/[0.06] to-white shadow-[0_30px_80px_-30px_rgba(109,63,234,0.35)] dark:from-brand-500/10 dark:to-ink-900/60 dark:shadow-[0_30px_80px_-30px_rgba(109,63,234,0.6)]' : `${CARD}`}`}>
-                                    {p.highlight && <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-500 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-white">Le plus populaire</span>}
+                                    {p.highlight && <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-500 px-3 py-1 font-mono text-xs font-semibold normal-case tracking-widest text-white">Le plus populaire</span>}
                                     <p className="font-display text-lg font-semibold text-neutral-900 dark:text-white">{p.name}</p>
                                     <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{p.blurb}</p>
                                     <p className="mt-5 flex items-baseline gap-1"><span className="font-display text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">{annual ? p.a : p.m}€</span><span className="font-mono text-sm text-neutral-500">/mois</span></p>
-                                    {annual && <p className="mt-1 font-mono text-[11px] text-signal-600 dark:text-signal-300">facturé annuellement</p>}
+                                    {annual && <p className="mt-1 font-mono text-xs text-signal-600 dark:text-signal-300">facturé annuellement</p>}
                                     <ul className="mt-6 space-y-2.5 text-sm">{p.features.map((f) => <li key={f} className="flex items-start gap-2 text-neutral-700 dark:text-neutral-300"><Check className="mt-0.5 h-4 w-4 shrink-0 text-signal-500 dark:text-signal-400" />{f}</li>)}</ul>
                                     <Link href={user ? route('client.dashboard') : route('register')} className={`mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition ${p.highlight ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/40 hover:bg-brand-500' : 'border border-neutral-200 bg-white text-neutral-900 hover:bg-neutral-50 dark:border-white/15 dark:bg-white/[0.04] dark:text-white dark:hover:bg-white/[0.08]'}`}>{p.cta}</Link>
                                 </div>

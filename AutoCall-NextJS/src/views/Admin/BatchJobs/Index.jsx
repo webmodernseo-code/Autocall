@@ -58,7 +58,7 @@ export default function BatchJobsIndex({ batches, filters = {}, clients = [], st
                     {batches.data.length > 0 ? (
                         <table className="min-w-full divide-y divide-neutral-100 text-sm dark:divide-ink-800">
                             <thead className="bg-neutral-50 dark:bg-ink-800/50">
-                                <tr>{['Batch', 'Customer', 'Status', 'Progress', 'Calls', 'Success', ''].map((h) => <th key={h} className="px-5 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr>
+                                <tr>{['Batch', 'Customer', 'Status', 'Progress', 'Calls', 'Success', ''].map((h) => <th key={h} className="px-5 py-3 text-left text-xs font-medium normal-case text-neutral-500">{h}</th>)}</tr>
                             </thead>
                             <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                                 {batches.data.map((b) => (
@@ -70,13 +70,13 @@ export default function BatchJobsIndex({ batches, filters = {}, clients = [], st
                                             </div>
                                         </td>
                                         <td className="px-5 py-3 text-neutral-600 dark:text-neutral-300">{b.client}</td>
-                                        <td className="px-5 py-3"><span className={`rounded-full px-2 py-0.5 text-[11px] capitalize ${STATUS[b.status] || STATUS.draft}`}>{b.status}</span></td>
+                                        <td className="px-5 py-3"><span className={`rounded-full px-2 py-0.5 text-xs capitalize ${STATUS[b.status] || STATUS.draft}`}>{b.status}</span></td>
                                         <td className="px-5 py-3">
                                             <div className="flex items-center gap-2">
                                                 <div className="h-1.5 w-24 overflow-hidden rounded-full bg-neutral-100 dark:bg-ink-800"><div className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-300" style={{ width: `${b.progress}%` }} /></div>
                                                 <span className="font-mono text-xs text-neutral-500">{b.progress}%</span>
                                             </div>
-                                            <span className="text-[11px] text-neutral-400">{b.completed} done · {b.failed} <Trans i18nKey="hardcoded.views_admin_batchjobs_index_b5623bcd762c" /> {b.contacts} contacts</span>
+                                            <span className="text-xs text-neutral-400">{b.completed} done · {b.failed} <Trans i18nKey="hardcoded.views_admin_batchjobs_index_b5623bcd762c" /> {b.contacts} contacts</span>
                                         </td>
                                         <td className="px-5 py-3 font-mono text-neutral-500">{b.calls}</td>
                                         <td className="px-5 py-3"><span className={b.success_rate >= 50 ? 'text-signal-600 dark:text-signal-400' : 'text-neutral-500'}>{b.success_rate}%</span></td>

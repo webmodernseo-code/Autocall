@@ -70,7 +70,7 @@ export default function CapabilitiesSection() {
                             <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
                             <span className="text-xs font-bold text-white font-hero-sans">Campagne : Relance Devis B2B</span>
                         </div>
-                        <span className="rounded-md bg-blue-500/15 border border-blue-500/30 px-2 py-0.5 text-[11px] font-semibold text-blue-400">
+                        <span className="rounded-md bg-blue-500/15 border border-blue-500/30 px-2 py-0.5 text-xs font-semibold text-blue-400">
                             En cours d&apos;exécution
                         </span>
                     </div>
@@ -90,39 +90,39 @@ export default function CapabilitiesSection() {
                     <div className="space-y-2 pt-1">
                         <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05] text-xs">
                             <div className="flex items-center gap-2.5">
-                                <span className="h-7 w-7 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center font-bold text-[10px]">ML</span>
+                                <span className="h-7 w-7 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center font-bold text-xs">ML</span>
                                 <div>
                                     <p className="font-semibold text-white">Marc Lefebvre — Directeur Technique</p>
-                                    <p className="text-[11px] text-neutral-400">Devis #4092 · 14 500 €</p>
+                                    <p className="text-xs text-neutral-400">Devis #4092 · 14 500 €</p>
                                 </div>
                             </div>
-                            <span className="rounded-md bg-emerald-500/15 text-emerald-400 px-2 py-0.5 text-[10px] font-bold">
+                            <span className="rounded-md bg-emerald-500/15 text-emerald-400 px-2 py-0.5 text-xs font-bold">
                                 RDV validé
                             </span>
                         </div>
 
                         <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05] text-xs">
                             <div className="flex items-center gap-2.5">
-                                <span className="h-7 w-7 rounded-lg bg-amber-500/15 text-amber-400 flex items-center justify-center font-bold text-[10px]">SD</span>
+                                <span className="h-7 w-7 rounded-lg bg-amber-500/15 text-amber-400 flex items-center justify-center font-bold text-xs">SD</span>
                                 <div>
                                     <p className="font-semibold text-white">Sophie Dubreuil — Resp. Achats</p>
-                                    <p className="text-[11px] text-neutral-400">Devis #4095 · 8 200 €</p>
+                                    <p className="text-xs text-neutral-400">Devis #4095 · 8 200 €</p>
                                 </div>
                             </div>
-                            <span className="rounded-md bg-amber-500/15 text-amber-400 px-2 py-0.5 text-[10px] font-bold">
+                            <span className="rounded-md bg-amber-500/15 text-amber-400 px-2 py-0.5 text-xs font-bold">
                                 Rappel vendredi
                             </span>
                         </div>
 
                         <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05] text-xs">
                             <div className="flex items-center gap-2.5">
-                                <span className="h-7 w-7 rounded-lg bg-neutral-500/15 text-neutral-400 flex items-center justify-center font-bold text-[10px]">AN</span>
+                                <span className="h-7 w-7 rounded-lg bg-neutral-500/15 text-neutral-400 flex items-center justify-center font-bold text-xs">AN</span>
                                 <div>
                                     <p className="font-semibold text-neutral-300">Alexandre Niel — Gérant</p>
-                                    <p className="text-[11px] text-neutral-500">Répondeur détecté (0s perdue)</p>
+                                    <p className="text-xs text-neutral-500">Répondeur détecté (0s perdue)</p>
                                 </div>
                             </div>
-                            <span className="rounded-md bg-white/[0.05] text-neutral-400 px-2 py-0.5 text-[10px]">
+                            <span className="rounded-md bg-white/[0.05] text-neutral-400 px-2 py-0.5 text-xs">
                                 Message déposé
                             </span>
                         </div>
@@ -158,7 +158,7 @@ export default function CapabilitiesSection() {
                             <Flame className="h-4 w-4 text-emerald-400" />
                             <span className="text-xs font-bold text-white font-hero-sans">Lead Chaud Détecté</span>
                         </div>
-                        <span className="rounded-md bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 text-[11px] font-semibold text-emerald-400">
+                        <span className="rounded-md bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 text-xs font-semibold text-emerald-400">
                             Score 96/100
                         </span>
                     </div>
@@ -184,10 +184,10 @@ export default function CapabilitiesSection() {
                             <PhoneForwarded className="h-4 w-4 text-blue-400 animate-pulse" />
                             <span>Transfert en direct vers votre commercial</span>
                         </div>
-                        <p className="text-[11px] text-neutral-300">
+                        <p className="text-xs text-neutral-300">
                             « Antoine, j&apos;ai David Martin en ligne, prêt à signer pour l&apos;offre Enterprise. Je vous passe l&apos;appel immédiatement. »
                         </p>
-                        <div className="flex items-center justify-between pt-1 text-[11px]">
+                        <div className="flex items-center justify-between pt-1 text-xs">
                             <span className="text-neutral-400">Ligne commerciale : Antoine Roux</span>
                             <span className="text-emerald-400 font-semibold flex items-center gap-1">
                                 <CheckCircle2 className="h-3 w-3" /> Connecté
@@ -230,8 +230,8 @@ export default function CapabilitiesSection() {
 
                     <div className="space-y-2 text-xs">
                         <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
-                            <span className="text-[11px] font-semibold text-blue-400 uppercase tracking-wider">Résumé exécutif en 3 points</span>
-                            <ul className="mt-2 space-y-1.5 text-neutral-300 text-[11px]">
+                            <span className="text-xs font-semibold text-blue-400 normal-case tracking-wider">Résumé exécutif en 3 points</span>
+                            <ul className="mt-2 space-y-1.5 text-neutral-300 text-xs">
                                 <li className="flex items-start gap-1.5">
                                     <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0 mt-0.5" />
                                     <span><strong>Besoin :</strong> Souhaite automatiser le standard de 3 cliniques dentaires.</span>
@@ -248,8 +248,8 @@ export default function CapabilitiesSection() {
                         </div>
 
                         <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                            <span className="text-neutral-400 text-[11px]">Score de Sentiment :</span>
-                            <span className="rounded-md bg-emerald-500/15 text-emerald-400 px-2 py-0.5 text-[10px] font-bold">
+                            <span className="text-neutral-400 text-xs">Score de Sentiment :</span>
+                            <span className="rounded-md bg-emerald-500/15 text-emerald-400 px-2 py-0.5 text-xs font-bold">
                                 92% Très Favorable
                             </span>
                         </div>
@@ -291,9 +291,9 @@ export default function CapabilitiesSection() {
                             </span>
                             <div className="flex-1">
                                 <p className="font-semibold text-white">Appel terminé (durée 3m 12s)</p>
-                                <p className="text-[10px] text-neutral-400">Rendez-vous convenu avec succès</p>
+                                <p className="text-xs text-neutral-400">Rendez-vous convenu avec succès</p>
                             </div>
-                            <span className="text-[10px] font-mono text-neutral-400">T+0s</span>
+                            <span className="text-xs font-mono text-neutral-400">T+0s</span>
                         </div>
 
                         <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05]">
@@ -302,9 +302,9 @@ export default function CapabilitiesSection() {
                             </span>
                             <div className="flex-1">
                                 <p className="font-semibold text-white">SMS de confirmation expédié</p>
-                                <p className="text-[10px] text-neutral-400">« Bonjour Marc, votre RDV est confirmé pour jeudi 14h »</p>
+                                <p className="text-xs text-neutral-400">« Bonjour Marc, votre RDV est confirmé pour jeudi 14h »</p>
                             </div>
-                            <span className="text-[10px] font-mono text-neutral-400">T+0.8s</span>
+                            <span className="text-xs font-mono text-neutral-400">T+0.8s</span>
                         </div>
 
                         <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05]">
@@ -313,9 +313,9 @@ export default function CapabilitiesSection() {
                             </span>
                             <div className="flex-1">
                                 <p className="font-semibold text-white">Mise à jour HubSpot & Salesforce</p>
-                                <p className="text-[10px] text-neutral-400">Statut du deal passé à « Démo programmée »</p>
+                                <p className="text-xs text-neutral-400">Statut du deal passé à « Démo programmée »</p>
                             </div>
-                            <span className="text-[10px] font-mono text-neutral-400">T+1.2s</span>
+                            <span className="text-xs font-mono text-neutral-400">T+1.2s</span>
                         </div>
 
                         <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05]">
@@ -324,9 +324,9 @@ export default function CapabilitiesSection() {
                             </span>
                             <div className="flex-1">
                                 <p className="font-semibold text-white">Notification Slack commerciale</p>
-                                <p className="text-[10px] text-neutral-400">Alerte envoyée sur le canal #leads-chauds</p>
+                                <p className="text-xs text-neutral-400">Alerte envoyée sur le canal #leads-chauds</p>
                             </div>
-                            <span className="text-[10px] font-mono text-neutral-400">T+1.5s</span>
+                            <span className="text-xs font-mono text-neutral-400">T+1.5s</span>
                         </div>
                     </div>
                 </div>
@@ -357,7 +357,7 @@ export default function CapabilitiesSection() {
                 <div className="rounded-2xl border border-white/10 bg-[#10131C] p-5 shadow-2xl space-y-4">
                     <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
                         <span className="text-xs font-bold text-white font-hero-sans">Vos Lignes Téléphoniques Actives</span>
-                        <span className="rounded-md bg-emerald-500/15 text-emerald-400 px-2 py-0.5 text-[10px] font-bold">
+                        <span className="rounded-md bg-emerald-500/15 text-emerald-400 px-2 py-0.5 text-xs font-bold">
                             Opérationnel 24/7
                         </span>
                     </div>
@@ -368,10 +368,10 @@ export default function CapabilitiesSection() {
                                 <span className="text-base font-semibold text-neutral-300">FR</span>
                                 <div>
                                     <p className="font-mono text-white font-bold">+33 1 89 71 20 44</p>
-                                    <p className="text-[10px] text-neutral-400">Ligne Standard & Entrants (Paris)</p>
+                                    <p className="text-xs text-neutral-400">Ligne Standard & Entrants (Paris)</p>
                                 </div>
                             </div>
-                            <span className="text-emerald-400 font-semibold text-[11px]">Prêt</span>
+                            <span className="text-emerald-400 font-semibold text-xs">Prêt</span>
                         </div>
 
                         <div className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
@@ -379,10 +379,10 @@ export default function CapabilitiesSection() {
                                 <span className="text-base font-semibold text-neutral-300">FR</span>
                                 <div>
                                     <p className="font-mono text-white font-bold">+33 4 92 10 33 18</p>
-                                    <p className="text-[10px] text-neutral-400">Ligne Campagnes Sortantes (Lyon)</p>
+                                    <p className="text-xs text-neutral-400">Ligne Campagnes Sortantes (Lyon)</p>
                                 </div>
                             </div>
-                            <span className="text-emerald-400 font-semibold text-[11px]">En cours</span>
+                            <span className="text-emerald-400 font-semibold text-xs">En cours</span>
                         </div>
 
                         <div className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
@@ -390,10 +390,10 @@ export default function CapabilitiesSection() {
                                 <span className="text-base font-semibold text-neutral-300">UK</span>
                                 <div>
                                     <p className="font-mono text-white font-bold">+44 20 7946 0912</p>
-                                    <p className="text-[10px] text-neutral-400">Support International (Londres)</p>
+                                    <p className="text-xs text-neutral-400">Support International (Londres)</p>
                                 </div>
                             </div>
-                            <span className="text-emerald-400 font-semibold text-[11px]">Prêt</span>
+                            <span className="text-emerald-400 font-semibold text-xs">Prêt</span>
                         </div>
                     </div>
                 </div>
@@ -470,11 +470,11 @@ export default function CapabilitiesSection() {
                             </p>
 
                             {/* 3 Métriques clés */}
-                            <div className="grid grid-cols-3 gap-3 pt-2">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
                                 {currentCap.stats.map((st, i) => (
                                     <div key={i} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
                                         <p className="font-hero-sans text-xl sm:text-2xl font-bold text-white tabular-nums">{st.value}</p>
-                                        <p className="text-[11px] text-neutral-400 mt-0.5 line-clamp-2">{st.label}</p>
+                                        <p className="text-xs text-neutral-400 mt-0.5 line-clamp-2">{st.label}</p>
                                     </div>
                                 ))}
                             </div>
@@ -539,12 +539,12 @@ export default function CapabilitiesSection() {
                                             <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
                                             <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
                                             <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                                            <span className="ml-2 text-[11px] font-mono text-neutral-400 truncate max-w-[200px] sm:max-w-none">
+                                            <span className="ml-2 text-xs font-mono text-neutral-400 truncate max-w-[200px] sm:max-w-none">
                                                 AutoCall · {currentCap.imageTitle}
                                             </span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
+                                            <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-xs font-semibold text-emerald-400">
                                                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                                                 Direct
                                             </span>
@@ -609,7 +609,7 @@ export default function CapabilitiesSection() {
                             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
                                 <PhoneOutgoing className="h-5 w-5" />
                             </div>
-                            <span className="text-[11px] font-mono text-neutral-500 group-hover:text-blue-400 transition-colors flex items-center gap-1">
+                            <span className="text-xs font-mono text-neutral-500 group-hover:text-blue-400 transition-colors flex items-center gap-1">
                                 <span>Voir écran</span>
                                 <ArrowRight className="h-3 w-3" />
                             </span>
@@ -639,7 +639,7 @@ export default function CapabilitiesSection() {
                             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
                                 <PhoneForwarded className="h-5 w-5" />
                             </div>
-                            <span className="text-[11px] font-mono text-neutral-500 group-hover:text-emerald-400 transition-colors flex items-center gap-1">
+                            <span className="text-xs font-mono text-neutral-500 group-hover:text-emerald-400 transition-colors flex items-center gap-1">
                                 <span>Voir écran</span>
                                 <ArrowRight className="h-3 w-3" />
                             </span>
@@ -669,7 +669,7 @@ export default function CapabilitiesSection() {
                             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
                                 <Zap className="h-5 w-5" />
                             </div>
-                            <span className="text-[11px] font-mono text-neutral-500 group-hover:text-blue-400 transition-colors flex items-center gap-1">
+                            <span className="text-xs font-mono text-neutral-500 group-hover:text-blue-400 transition-colors flex items-center gap-1">
                                 <span>Voir écran</span>
                                 <ArrowRight className="h-3 w-3" />
                             </span>

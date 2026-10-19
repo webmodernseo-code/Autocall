@@ -73,13 +73,13 @@ export default function BillingIndex({ transactions, stats = [], creditBalance =
                 {/* Balance + plan usage */}
                 <div className="grid gap-4 lg:grid-cols-3">
                     <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white shadow-soft">
-                        <div className="flex items-center gap-2 text-brand-100"><PhoneCall className="h-4 w-4" /><span className="text-xs font-medium uppercase tracking-wide">Calling credits</span></div>
+                        <div className="flex items-center gap-2 text-brand-100"><PhoneCall className="h-4 w-4" /><span className="text-xs font-medium normal-case tracking-wide">Calling credits</span></div>
                         <p className="mt-2 font-mono text-4xl font-bold tabular-nums">{Number(creditBalance).toLocaleString()}</p>
                         <p className="mt-1 text-xs text-brand-100">≈ {Number(creditBalance).toLocaleString()} <Trans i18nKey="hardcoded.views_client_billing_index_485e96f55562" /></p>
                     </div>
                     {planUsage && (
                         <div className="lg:col-span-2 rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft">
-                            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-300">Plan usage</h2>
+                            <h2 className="mb-3 text-sm font-semibold normal-case tracking-wide text-neutral-600 dark:text-neutral-300">Plan usage</h2>
                             <div className="grid gap-3 sm:grid-cols-2">
                                 {Object.entries(planUsage).map(([key, u]) => (
                                     <UsageBar key={key} label={USAGE_LABELS[key] || key} usage={u.usage} limit={u.limit} />
@@ -91,11 +91,11 @@ export default function BillingIndex({ transactions, stats = [], creditBalance =
 
                 {/* Credit packages */}
                 <div>
-                    <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-300">Buy credits</h2>
+                    <h2 className="mb-3 text-sm font-semibold normal-case tracking-wide text-neutral-600 dark:text-neutral-300">Buy credits</h2>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {creditPackages.map((pkg) => (
                             <div key={pkg.id} className={`relative rounded-soft-lg border bg-white dark:bg-ink-900 p-5 shadow-soft ${pkg.is_popular ? 'border-brand-400 dark:border-brand-500' : 'border-neutral-200 dark:border-ink-800'}`}>
-                                {pkg.is_popular && <span className="absolute -top-2 right-4 inline-flex items-center gap-1 rounded-full bg-brand-600 px-2 py-0.5 text-[10px] font-medium text-white"><Star className="h-3 w-3" /> <Trans i18nKey="client.esim_catalog_ui.tbl_col_popular" /></span>}
+                                {pkg.is_popular && <span className="absolute -top-2 right-4 inline-flex items-center gap-1 rounded-full bg-brand-600 px-2 py-0.5 text-xs font-medium text-white"><Star className="h-3 w-3" /> <Trans i18nKey="client.esim_catalog_ui.tbl_col_popular" /></span>}
                                 <h3 className="font-display font-semibold text-neutral-900 dark:text-white">{pkg.name}</h3>
                                 <p className="mt-1 font-mono text-3xl font-bold tabular-nums text-neutral-900 dark:text-white">{pkg.credits.toLocaleString()}</p>
                                 <p className="text-xs text-neutral-500">credits</p>
@@ -112,7 +112,7 @@ export default function BillingIndex({ transactions, stats = [], creditBalance =
                 {/* Credit history */}
                 {creditHistory.length > 0 && (
                     <div>
-                        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-300"><Trans i18nKey="hardcoded.views_client_billing_index_6590e33b6693" /></h2>
+                        <h2 className="mb-3 text-sm font-semibold normal-case tracking-wide text-neutral-600 dark:text-neutral-300"><Trans i18nKey="hardcoded.views_client_billing_index_6590e33b6693" /></h2>
                         <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                             <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">
                                 <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
@@ -132,14 +132,14 @@ export default function BillingIndex({ transactions, stats = [], creditBalance =
 
                 {/* Payment transactions */}
                 <div>
-                    <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-300"><Trans i18nKey="hardcoded.views_client_billing_index_da1b49b216ec" /></h2>
+                    <h2 className="mb-3 text-sm font-semibold normal-case tracking-wide text-neutral-600 dark:text-neutral-300"><Trans i18nKey="hardcoded.views_client_billing_index_da1b49b216ec" /></h2>
                     <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                         {transactions.data?.length > 0 ? (
                             <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">
                                 <thead className="bg-neutral-50 dark:bg-ink-800/50">
                                     <tr>
                                         {['Date', 'Amount', 'Plan', 'Status'].map((h) => (
-                                            <th key={h} className="px-4 py-3 text-left text-xs font-medium uppercase text-neutral-500 dark:text-neutral-400">{h}</th>
+                                            <th key={h} className="px-4 py-3 text-left text-xs font-medium normal-case text-neutral-500 dark:text-neutral-400">{h}</th>
                                         ))}
                                     </tr>
                                 </thead>

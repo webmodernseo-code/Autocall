@@ -448,7 +448,7 @@ export default function Referral({
                             ) : (
                                 <div className="overflow-x-auto">
                                     <table className="min-w-full text-left text-sm">
-                                        <thead className="border-b border-neutral-200 bg-neutral-50/80 text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900/50 dark:text-neutral-400">
+                                        <thead className="border-b border-neutral-200 bg-neutral-50/80 text-xs font-semibold normal-case tracking-wide text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900/50 dark:text-neutral-400">
                                             <tr>
                                                 <th className="px-4 py-3 sm:px-6">{ui('col_code')}</th>
                                                 <th className="px-4 py-3 sm:px-6">{ui('col_referrer')}</th>

@@ -51,7 +51,7 @@ export default function TablePagePagination({ currentPage, lastPage, onPageChang
 
     return (
         <div
-            className={['flex flex-wrap items-center justify-end gap-1', className].filter(Boolean).join(' ')}
+            className={['flex w-full flex-wrap items-center justify-center gap-1.5 sm:justify-end', className].filter(Boolean).join(' ')}
             role="navigation"
             aria-label={translationI18n.t('pagination.label')}
         >

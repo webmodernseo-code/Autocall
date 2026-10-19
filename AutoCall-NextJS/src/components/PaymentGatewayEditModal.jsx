@@ -165,7 +165,7 @@ export default function PaymentGatewayEditModal({
 
                             {['test', 'live'].map((mode) => (
                                 <div key={mode}>
-                                    <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wide">
+                                    <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 normal-case tracking-wide">
                                         {mode} credentials
                                     </h4>
                                     <div className="mt-3 space-y-3">

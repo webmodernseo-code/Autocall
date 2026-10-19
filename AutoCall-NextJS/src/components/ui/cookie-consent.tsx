@@ -222,7 +222,7 @@ function CookieBanner({
               </div>
               <div>
                 <h2 className="text-base font-bold text-white tracking-tight">Gestion des cookies & vie privée</h2>
-                <span className="text-[11px] text-white/50">Conformité RGPD & CNIL</span>
+                <span className="text-xs text-white/50">Conformité RGPD & CNIL</span>
               </div>
             </div>
             <div className="px-6 pb-4">
@@ -320,7 +320,7 @@ function CookieCustomizeDialog({
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/10 text-white/90 border border-white/10">
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-white/10 text-white/90 border border-white/10">
                               Obligatoire
                             </span>
                           </TooltipTrigger>

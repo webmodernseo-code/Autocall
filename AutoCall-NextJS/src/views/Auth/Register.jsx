@@ -123,7 +123,7 @@ export default function Register({ plans = [], selectedPlan = 'pro', billingCycl
                 <div className="mb-6 space-y-3.5">
                     {/* Header du sélecteur avec toggle cycle */}
                     <div className="flex items-center justify-between gap-3">
-                        <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
+                        <label className="text-xs font-bold normal-case tracking-wider text-neutral-700 dark:text-neutral-300">
                             1. Choisissez votre formule
                         </label>
                         <div className="flex items-center rounded-xl border border-neutral-200/90 dark:border-white/10 bg-neutral-100/80 dark:bg-white/[0.04] p-0.5 text-xs">
@@ -148,7 +148,7 @@ export default function Register({ plans = [], selectedPlan = 'pro', billingCycl
                                 }`}
                             >
                                 <span>Annuel</span>
-                                <span className="rounded bg-emerald-100 px-1 py-0.2 text-[10px] font-bold text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300">
+                                <span className="rounded bg-emerald-100 px-1 py-0.2 text-xs font-bold text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300">
                                     -17%
                                 </span>
                             </button>
@@ -156,7 +156,7 @@ export default function Register({ plans = [], selectedPlan = 'pro', billingCycl
                     </div>
 
                     {/* Sélecteur compact en 3 onglets horizontaux */}
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         {plans.map((plan) => {
                             const isSelected = data.plan_slug === plan.slug;
                             const meta = PLAN_META[plan.slug] ?? { name: plan.name };
@@ -174,7 +174,7 @@ export default function Register({ plans = [], selectedPlan = 'pro', billingCycl
                                     }`}
                                 >
                                     {meta.badge && (
-                                        <span className={`absolute -top-2 rounded-full px-1.5 py-0.2 text-[9px] font-bold uppercase tracking-wider ${
+                                        <span className={`absolute -top-2 rounded-full px-1.5 py-0.2 text-xs font-bold normal-case tracking-wider ${
                                             isSelected
                                                 ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900'
                                                 : 'bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300'
@@ -191,7 +191,7 @@ export default function Register({ plans = [], selectedPlan = 'pro', billingCycl
                                         {meta.name}
                                     </span>
 
-                                    <span className={`mt-0.5 text-[11px] font-semibold tabular-nums ${
+                                    <span className={`mt-0.5 text-xs font-semibold tabular-nums ${
                                         isSelected
                                             ? 'text-neutral-900 dark:text-neutral-200'
                                             : 'text-neutral-500 dark:text-neutral-400'
@@ -216,11 +216,11 @@ export default function Register({ plans = [], selectedPlan = 'pro', billingCycl
                                 <span className="font-semibold text-neutral-900 dark:text-white">
                                     {activeMeta.credits}
                                 </span>
-                                <span className="text-[11px] text-neutral-500 dark:text-neutral-400">
+                                <span className="text-xs text-neutral-500 dark:text-neutral-400">
                                     {activeMeta.description}
                                 </span>
                             </div>
-                            <ul className="grid grid-cols-1 gap-1 text-[11px] text-neutral-700 dark:text-neutral-300 pt-0.5">
+                            <ul className="grid grid-cols-1 gap-1 text-xs text-neutral-700 dark:text-neutral-300 pt-0.5">
                                 {activeMeta.perks?.map((perk, i) => (
                                     <li key={i} className="flex items-center gap-1.5">
                                         <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400 shrink-0" strokeWidth={2.5} />
@@ -237,7 +237,7 @@ export default function Register({ plans = [], selectedPlan = 'pro', billingCycl
 
             {/* Étape 2 : Inscription */}
             <div className="mb-4 space-y-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
+                <label className="text-xs font-bold normal-case tracking-wider text-neutral-700 dark:text-neutral-300">
                     2. Créez votre compte
                 </label>
                 <div>
@@ -307,7 +307,7 @@ export default function Register({ plans = [], selectedPlan = 'pro', billingCycl
                     error={errors.password_confirmation}
                 />
 
-                <p className="text-[11px] text-neutral-600 dark:text-neutral-400 leading-relaxed pt-1">
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed pt-1">
                     En créant un compte, vous acceptez nos{' '}
                     <Link href="/terms" className="text-neutral-900 dark:text-white font-semibold underline underline-offset-2">
                         Conditions Générales

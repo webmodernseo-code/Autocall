@@ -182,7 +182,7 @@ export function DateTimePicker({ value, onChange, placeholder = 'Sélectionner d
                                 </div>
 
                                 {/* Grille de créneaux rapides */}
-                                <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2">
+                                <p className="text-xs font-semibold normal-case tracking-wider text-neutral-400 dark:text-neutral-500 mb-2">
                                     Créneaux recommandés
                                 </p>
                                 <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto pr-1">

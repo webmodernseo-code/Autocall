@@ -20,7 +20,7 @@ function Kpi({ title, value, icon: Icon, tone = 'blue' }) {
     return (
         <Card className="flex items-center justify-between gap-3 p-4 sm:p-5 shadow-soft">
             <div className="min-w-0">
-                <p className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">{title}</p>
+                <p className="text-xs font-medium normal-case tracking-wide text-neutral-500 dark:text-neutral-400">{title}</p>
                 <p className="mt-1 text-2xl font-bold tabular-nums text-neutral-900 dark:text-white">{value}</p>
             </div>
             <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${tint}`}><Icon className="h-5 w-5" /></span>
@@ -66,7 +66,7 @@ export default function Analytics({ analytics = {}, advancedAnalytics = {} }) {
                 </div>
 
                 {/* KPIs — basic + advanced merged */}
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
                     <Kpi title={t('client.team_members') || 'Team members'} value={Number(kpis.teamMembers ?? 0).toLocaleString()} icon={Users} />
                     <Kpi title={t('client.active_users_30d') || 'Active users (30d)'} value={Number(kpis.activeUsers30d ?? 0).toLocaleString()} icon={UserCheck} tone="cyan" />
                     <Kpi title={t('client.total_tickets') || 'Total tickets'} value={Number(kpis.totalTickets ?? 0).toLocaleString()} icon={Inbox} />

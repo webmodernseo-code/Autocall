@@ -88,7 +88,7 @@ export default function ContactsIndex({ contacts, filters = {}, stats = {} }) {
                     {contacts.data.length > 0 ? (
                         <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">
                             <thead className="bg-neutral-50 dark:bg-ink-800/50">
-                                <tr>{['Name', 'Phone', 'Email', 'Company', 'Campaigns', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr>
+                                <tr>{['Name', 'Phone', 'Email', 'Company', 'Campaigns', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium normal-case text-neutral-500">{h}</th>)}</tr>
                             </thead>
                             <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                                 {contacts.data.map((c) => (

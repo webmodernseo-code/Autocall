@@ -114,12 +114,12 @@ export default function CampaignsIndex({ campaigns, filters = {}, stats = [] }) 
                                             <p className="truncate font-hero-sans font-bold text-sm text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                                 {c.name}
                                             </p>
-                                            <p className="text-[11px] text-neutral-400 mt-0.5">
+                                            <p className="text-xs text-neutral-400 mt-0.5">
                                                 {TYPE_LABEL[c.type] || c.type}
                                             </p>
                                         </div>
                                     </div>
-                                    <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-medium shrink-0 ${STATUS[c.status] || STATUS.draft}`}>
+                                    <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium shrink-0 ${STATUS[c.status] || STATUS.draft}`}>
                                         {STATUS_LABELS[c.status] || c.status}
                                     </span>
                                 </div>
@@ -160,7 +160,7 @@ export default function CampaignsIndex({ campaigns, filters = {}, stats = [] }) 
                         </div>
 
                         {/* Micro-réassurance */}
-                        <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-white/[0.06] flex flex-wrap items-center justify-center gap-6 text-[11px] text-neutral-400">
+                        <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-white/[0.06] flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-400">
                             <span className="flex items-center gap-1.5">
                                 <Sparkles className="h-3.5 w-3.5 text-blue-500" />
                                 <span>Numérotation & réessais automatiques</span>

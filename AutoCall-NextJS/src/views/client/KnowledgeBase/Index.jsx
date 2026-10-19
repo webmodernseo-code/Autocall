@@ -59,7 +59,7 @@ export default function KnowledgeBaseIndex({ items, storage = {}, stats = [] }) 
                                         return (
                                             <tr key={i.id}>
                                                 <td className="px-4 py-3"><div className="flex items-center gap-2"><Icon className="h-4 w-4 text-neutral-400" /><span className="font-medium text-neutral-900 dark:text-white">{i.title}</span></div>{i.source_url && <p className="ml-6 truncate text-xs text-neutral-400">{i.source_url}</p>}</td>
-                                                <td className="px-4 py-3"><span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${STATUS[i.status] || STATUS.pending}`}>{i.status}</span></td>
+                                                <td className="px-4 py-3"><span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS[i.status] || STATUS.pending}`}>{i.status}</span></td>
                                                 <td className="px-4 py-3 text-right font-mono text-xs text-neutral-500">{i.size_kb} KB</td>
                                                 <td className="px-4 py-3 text-right"><button onClick={() => remove(i)} className="text-danger hover:bg-danger/10 rounded-soft p-1.5"><Trash2 className="h-4 w-4" /></button></td>
                                             </tr>
@@ -73,7 +73,7 @@ export default function KnowledgeBaseIndex({ items, storage = {}, stats = [] }) 
 
                 <div className="space-y-4">
                     <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4 shadow-soft">
-                        <p className="text-xs font-medium uppercase text-neutral-500">Storage</p>
+                        <p className="text-xs font-medium normal-case text-neutral-500">Storage</p>
                         <p className="mt-1 font-mono text-sm text-neutral-700 dark:text-neutral-300">{storage.used_mb ?? 0} / {storage.limit_mb ?? 0} MB</p>
                         <div className="mt-2 h-1.5 w-full rounded-full bg-neutral-100 dark:bg-ink-800"><div className={`h-1.5 rounded-full ${pct >= 100 ? 'bg-danger' : 'bg-brand-500'}`} style={{ width: `${pct}%` }} /></div>
                     </div>

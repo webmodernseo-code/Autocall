@@ -158,14 +158,14 @@ export default function CtaSection() {
                         </p>
 
                         {/* SaaS Live Status Badge */}
-                        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[11px] text-white/70 backdrop-blur-sm w-fit">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-white/70 backdrop-blur-sm w-fit">
                             <span className="relative flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                             <span className="font-medium text-white/80">Systèmes opérationnels</span>
                             <span className="text-white/30">•</span>
-                            <span className="text-emerald-400 font-mono text-[10px]">99.98%</span>
+                            <span className="text-emerald-400 font-mono text-xs">99.98%</span>
                         </div>
 
                         {/* Coordonnées directes */}
@@ -225,7 +225,7 @@ export default function CtaSection() {
 
                     {/* Colonne Produit (2-3 cols) */}
                     <div className="lg:col-span-3">
-                        <h4 className="text-[11px] font-semibold uppercase tracking-wider text-white/80 mb-3 font-mono">
+                        <h4 className="text-xs font-semibold normal-case tracking-wider text-white/80 mb-3 font-mono">
                             Solution SaaS
                         </h4>
                         <ul className="space-y-2 text-xs text-white/60">
@@ -267,7 +267,7 @@ export default function CtaSection() {
 
                     {/* Colonne Espaces & Authentification (3 cols) */}
                     <div className="lg:col-span-3">
-                        <h4 className="text-[11px] font-semibold uppercase tracking-wider text-white/80 mb-3 font-mono">
+                        <h4 className="text-xs font-semibold normal-case tracking-wider text-white/80 mb-3 font-mono">
                             Espace Client
                         </h4>
                         <ul className="space-y-2 text-xs text-white/60">
@@ -285,7 +285,7 @@ export default function CtaSection() {
                                         <UserPlus className="h-2.5 w-2.5 text-emerald-400" />
                                     </div>
                                     <span>Créer un compte</span>
-                                    <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.2 text-[9px] text-emerald-400 font-medium ml-auto">
+                                    <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.2 text-xs text-emerald-400 font-medium ml-auto">
                                         14j gratuits
                                     </span>
                                 </Link>
@@ -311,7 +311,7 @@ export default function CtaSection() {
 
                     {/* Colonne Légal & Sécurité (2 cols) */}
                     <div className="lg:col-span-2">
-                        <h4 className="text-[11px] font-semibold uppercase tracking-wider text-white/80 mb-3 font-mono">
+                        <h4 className="text-xs font-semibold normal-case tracking-wider text-white/80 mb-3 font-mono">
                             Conformité
                         </h4>
                         <ul className="space-y-2 text-xs text-white/60">
@@ -336,7 +336,7 @@ export default function CtaSection() {
                                 </Link>
                             </li>
                             <li>
-                                <span className="inline-flex items-center gap-1.5 text-[11px] text-white/60 font-medium pt-1">
+                                <span className="inline-flex items-center gap-1.5 text-xs text-white/60 font-medium pt-1">
                                     <ShieldCheck className="h-3.5 w-3.5 text-white/70 shrink-0" />
                                     <span>Hébergement UE (France)</span>
                                 </span>
@@ -346,7 +346,7 @@ export default function CtaSection() {
                 </div>
 
                 {/* Ligne de réassurance sobre PCI-DSS & RGPD */}
-                <div className="my-6 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-[11px] text-white/45">
+                <div className="my-6 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs text-white/45">
                     <div className="flex items-center gap-2">
                         <Lock className="h-3 w-3 text-white/60 shrink-0" />
                         <span>Transaction chiffrée SSL 256-bit certifiée PCI-DSS</span>
@@ -358,7 +358,7 @@ export default function CtaSection() {
                 </div>
 
                 {/* Barre de copyright et liens discrets */}
-                <div className="pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/40">
+                <div className="pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
                     <p>© {new Date().getFullYear()} AutoCall. Tous droits réservés.</p>
                     <div className="flex items-center gap-4">
                         <Link href="/login" className="hover:text-white transition-colors">Connexion</Link>

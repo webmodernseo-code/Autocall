@@ -64,7 +64,7 @@ export function Reveal({ children, delay = 0, as: Tag = 'div', className = '' })
 
 export function Eyebrow({ children, className = '' }) {
     return (
-        <span className={`inline-flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-signal-600 dark:text-signal-400 ${className}`}>
+        <span className={`inline-flex items-center gap-2 font-mono text-xs font-medium normal-case tracking-[0.22em] text-signal-600 dark:text-signal-400 ${className}`}>
             <span className="h-1.5 w-1.5 rounded-[2px] bg-signal-500 dark:bg-signal-400" aria-hidden="true" />{children}
         </span>
     );

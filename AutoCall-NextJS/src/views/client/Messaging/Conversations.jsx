@@ -27,7 +27,7 @@ export default function Conversations({ conversations = [], thread = null }) {
                     ) : conversations.map((c) => (
                         <button key={c.id} onClick={() => open(c.id)} className={`flex w-full items-center justify-between border-b border-neutral-100 dark:border-ink-800 px-4 py-3 text-left hover:bg-neutral-50 dark:hover:bg-ink-800/50 ${thread?.id === c.id ? 'bg-brand-50 dark:bg-brand-500/10' : ''}`}>
                             <div className="min-w-0"><p className="truncate font-medium text-neutral-900 dark:text-white">{c.name}</p><p className="truncate font-mono text-xs text-neutral-400">{c.wa_phone}</p></div>
-                            {c.unread_count > 0 && <span className="ml-2 rounded-full bg-brand-600 px-1.5 text-[10px] font-medium text-white">{c.unread_count}</span>}
+                            {c.unread_count > 0 && <span className="ml-2 rounded-full bg-brand-600 px-1.5 text-xs font-medium text-white">{c.unread_count}</span>}
                         </button>
                     ))}
                 </div>
@@ -40,14 +40,14 @@ export default function Conversations({ conversations = [], thread = null }) {
                         <>
                             <div className="flex items-center justify-between border-b border-neutral-100 dark:border-ink-800 px-4 py-3">
                                 <div><p className="font-display font-semibold text-neutral-900 dark:text-white">{thread.name}</p><p className="font-mono text-xs text-neutral-400">{thread.wa_phone}</p></div>
-                                {!thread.window_open && <span className="inline-flex items-center gap-1 rounded-full bg-warm/20 px-2 py-0.5 text-[11px] text-amber-700 dark:text-amber-300"><Clock className="h-3 w-3" /> 24h window closed</span>}
+                                {!thread.window_open && <span className="inline-flex items-center gap-1 rounded-full bg-warm/20 px-2 py-0.5 text-xs text-amber-700 dark:text-amber-300"><Clock className="h-3 w-3" /> 24h window closed</span>}
                             </div>
                             <div className="flex-1 space-y-2 overflow-auto p-4">
                                 {thread.messages.map((m) => (
                                     <div key={m.id} className={`flex ${m.direction === 'out' ? 'justify-end' : 'justify-start'}`}>
                                         <div className={`max-w-[75%] rounded-soft-lg px-3 py-2 text-sm ${m.direction === 'out' ? 'bg-brand-600 text-white' : 'bg-neutral-100 dark:bg-ink-800 text-neutral-800 dark:text-neutral-200'}`}>
                                             {m.body}
-                                            <span className={`mt-0.5 block text-[10px] ${m.direction === 'out' ? 'text-brand-100' : 'text-neutral-400'}`}>{new Date(m.created_at).toLocaleTimeString()} {m.direction === 'out' ? `· ${m.status}` : ''}</span>
+                                            <span className={`mt-0.5 block text-xs ${m.direction === 'out' ? 'text-brand-100' : 'text-neutral-400'}`}>{new Date(m.created_at).toLocaleTimeString()} {m.direction === 'out' ? `· ${m.status}` : ''}</span>
                                         </div>
                                     </div>
                                 ))}

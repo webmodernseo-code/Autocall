@@ -310,7 +310,7 @@ export default function VoiceDemoSection() {
                                         <PhoneCall className="h-3.5 w-3.5 text-emerald-600" />
                                         Appel entrant à {activeScenario.time}
                                     </span>
-                                    <span className="rounded-md border border-neutral-300 bg-white px-2 py-0.5 text-[11px] font-mono text-neutral-800 font-semibold shadow-2xs">
+                                    <span className="rounded-md border border-neutral-300 bg-white px-2 py-0.5 text-xs font-mono text-neutral-800 font-semibold shadow-2xs">
                                         Latence ~410ms
                                     </span>
                                 </div>
@@ -388,7 +388,7 @@ export default function VoiceDemoSection() {
                                     </button>
                                 </div>
 
-                                <div className="mt-3 text-[11px] text-neutral-600 font-medium">
+                                <div className="mt-3 text-xs text-neutral-600 font-medium">
                                     {isPlaying ? "Lecture de la conversation en cours..." : "Cliquez sur Play pour écouter l'échange"}
                                 </div>
                             </div>
@@ -428,7 +428,7 @@ export default function VoiceDemoSection() {
                             />
 
                             {/* Garanties en bas de la boîte */}
-                            <div className="pt-2 px-1 flex flex-wrap items-center justify-between gap-3 text-[11px] text-neutral-700">
+                            <div className="pt-2 px-1 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-700">
                                 <span className="inline-flex items-center gap-1.5 font-semibold text-neutral-800">
                                     <Clock className="h-3.5 w-3.5 text-neutral-800" />
                                     Prise en charge en 1 sonnerie

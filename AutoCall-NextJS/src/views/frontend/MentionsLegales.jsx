@@ -139,7 +139,7 @@ export default function MentionsLegales() {
                     <p className="text-white/80">
                         Adresse e-mail prioritaire : <a href="mailto:abuse@autocall.co" className="text-white font-mono underline font-medium">abuse@autocall.co</a>
                     </p>
-                    <p className="text-white/60 text-[11px]">
+                    <p className="text-white/60 text-xs">
                         Merci de préciser dans votre notification : la date et l’heure de l’appel, le numéro appelant et le numéro appelé, ainsi qu’une brève description des faits constatés. Les comptes faisant l’objet d’abus avérés sont suspendus sous 2 heures ouvrées.
                     </p>
                 </div>

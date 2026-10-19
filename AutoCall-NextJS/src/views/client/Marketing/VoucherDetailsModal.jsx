@@ -116,7 +116,7 @@ export default function VoucherDetailsModal({ show, onClose, voucher }) {
                         <Modal.Body className="pt-5">
                             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-5">
                                 <DetailItem label={ui('detail_label_code')}>
-                                    <span className="font-mono uppercase tracking-wide">{voucher.code}</span>
+                                    <span className="font-mono normal-case tracking-wide">{voucher.code}</span>
                                 </DetailItem>
                                 <div>
                                     <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">

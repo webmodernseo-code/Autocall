@@ -1,0 +1,18 @@
+{
+  "audit": {
+    "project": "AutoCall-NextJS",
+    "date": "2026-10-19",
+    "branch": "main",
+    "commit": "baa39ec",
+    "fail_on_severity": "high",
+    "gate": "passed-after-remediation"
+  },
+  "summary": { "critical": 0, "high": 2, "medium": 2, "low": 1 },
+  "findings": [
+    {"id":"AC-SEC-POST-001","severity":"high","cwe":["CWE-770","CWE-400"],"status":"fixed","title":"Unmetered public LLM endpoint","locations":["src/app/api/widget/[token]/chat/route.js"],"recommendation":"Remediated with bounded parsing and strict widget/IP/client quotas."},
+    {"id":"AC-SEC-POST-002","severity":"high","cwe":["CWE-312"],"status":"fixed","title":"Google Sheets OAuth tokens stored in plaintext","locations":["src/lib/domain/google-sheets.js","scripts/encrypt-legacy-secrets.mjs"],"recommendation":"Remediated with APP_KEY decryption and legacy token migration."},
+    {"id":"AC-SEC-POST-003","severity":"medium","cwe":["CWE-20","CWE-400","CWE-915"],"status":"fixed","title":"Unbounded and schema-bypassing public form submission","locations":["src/app/api/f/[token]/submit/route.js"],"recommendation":"Remediated with bounded parsing, an allowlist and strict quotas."},
+    {"id":"AC-SEC-POST-004","severity":"medium","cwe":["CWE-79"],"status":"fixed","title":"Persistent HTML injection in embedded widget","locations":["src/app/widget/[token]/route.js"],"recommendation":"Remediated by assigning tenant-controlled text through textContent."},
+    {"id":"AC-SEC-POST-005","severity":"low","scanner_severity":"high/moderate","cwe":["CWE-674","CWE-400"],"status":"accepted-temporarily","title":"Known vulnerabilities limited to development dependencies","locations":["package-lock.json"],"recommendation":"Migrate the Tailwind/ESLint toolchain and exclude dev dependencies from runtime."}
+  ]
+}

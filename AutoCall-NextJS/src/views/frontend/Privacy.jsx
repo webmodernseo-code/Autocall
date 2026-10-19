@@ -106,22 +106,22 @@ export default function Privacy() {
                         <tbody className="divide-y divide-neutral-200 dark:divide-white/[0.05] text-neutral-700 dark:text-white/70">
                             <tr>
                                 <td className="p-3 font-medium text-neutral-900 dark:text-white">Prise d&apos;appel, qualification et réservation</td>
-                                <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300">Exécution du contrat (Art. 6-1-b)</span></td>
+                                <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300">Exécution du contrat (Art. 6-1-b)</span></td>
                                 <td className="p-3">Espace sécurisé du Client</td>
                             </tr>
                             <tr>
                                 <td className="p-3 font-medium text-neutral-900 dark:text-white">Enregistrement et transcription des échanges</td>
-                                <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300">Consentement / Intérêt légitime (Art. 6-1-a/f)</span></td>
+                                <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300">Consentement / Intérêt légitime (Art. 6-1-a/f)</span></td>
                                 <td className="p-3">Administrateurs habilités du Client</td>
                             </tr>
                             <tr>
                                 <td className="p-3 font-medium text-neutral-900 dark:text-white">Facturation des minutes et sécurisation paiement</td>
-                                <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-neutral-100 text-neutral-800 dark:bg-white/10 dark:text-neutral-300">Obligation légale &amp; contractuelle (Art. 6-1-c)</span></td>
+                                <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 dark:bg-white/10 dark:text-neutral-300">Obligation légale &amp; contractuelle (Art. 6-1-c)</span></td>
                                 <td className="p-3">Passerelle bancaire Stripe</td>
                             </tr>
                             <tr>
                                 <td className="p-3 font-medium text-neutral-900 dark:text-white">Conservation des logs d&apos;acheminement télécoms</td>
-                                <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-neutral-100 text-neutral-800 dark:bg-white/10 dark:text-neutral-300">Obligation légale française (CPCE Art. L. 34-1)</span></td>
+                                <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 dark:bg-white/10 dark:text-neutral-300">Obligation légale française (CPCE Art. L. 34-1)</span></td>
                                 <td className="p-3">Autorités judiciaires sur réquisition</td>
                             </tr>
                         </tbody>

@@ -44,6 +44,27 @@ export async function hit(key, decaySeconds = 60) {
     return hits;
 }
 
+/** Fail-closed limiter for anonymous endpoints that create data or spend money. */
+export async function consumeStrict(key, maxAttempts, decaySeconds = 60) {
+    const now = Math.floor(Date.now() / 1000);
+    const cacheKey = PREFIX + key;
+    return prisma.$transaction(async (tx) => {
+        const row = await tx.cache.findUnique({ where: { key: cacheKey } });
+        const active = row && Number(row.expiration) >= now;
+        const hits = active ? (parseInt(row.value, 10) || 0) : 0;
+        const expiration = active ? Number(row.expiration) : now + decaySeconds;
+        if (hits >= maxAttempts) {
+            return { allowed: false, retryAfter: Math.max(1, expiration - now) };
+        }
+        await tx.cache.upsert({
+            where: { key: cacheKey },
+            create: { key: cacheKey, value: '1', expiration },
+            update: { value: String(hits + 1), expiration },
+        });
+        return { allowed: true, remaining: maxAttempts - hits - 1 };
+    });
+}
+
 export async function clear(key) {
     // deleteMany, not delete — a successful login with no prior failures has no
     // row, and delete() would throw (and log) on every clean sign-in.

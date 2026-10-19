@@ -117,7 +117,7 @@ export default function PublicFormClient({ form, clientName }) {
                 {/* Header */}
                 <div className="p-6 sm:p-8 border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900">
                     {clientName && (
-                        <p className="text-xs font-semibold tracking-wider uppercase text-neutral-400 dark:text-neutral-500 mb-1">
+                        <p className="text-xs font-semibold tracking-wider normal-case text-neutral-400 dark:text-neutral-500 mb-1">
                             {clientName}
                         </p>
                     )}

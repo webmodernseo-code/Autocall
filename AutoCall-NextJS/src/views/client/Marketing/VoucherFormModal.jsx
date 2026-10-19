@@ -170,7 +170,7 @@ export default function VoucherFormModal({ show, onClose, mode = 'create', vouch
                                     value={form.data.code}
                                     onChange={(e) => setField('code', e.target.value.toUpperCase())}
                                     className={[
-                                        'min-w-0 font-mono text-sm uppercase',
+                                        'min-w-0 font-mono text-sm normal-case',
                                         !isEdit ? 'flex-1' : '',
                                     ].join(' ')}
                                     autoComplete="off"

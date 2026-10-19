@@ -73,7 +73,7 @@ export default function FlowsIndex({ flows, filters = {}, stats = [] }) {
                                             <p className="truncate text-xs text-neutral-400">{TRIGGER_LABEL[f.trigger_type] || 'Manual'}</p>
                                         </div>
                                     </div>
-                                    <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] capitalize ${STATUS[f.status] || STATUS.draft}`}>{f.status}</span>
+                                    <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs capitalize ${STATUS[f.status] || STATUS.draft}`}>{f.status}</span>
                                 </div>
                                 {f.description && <p className="mt-2 line-clamp-2 text-sm text-neutral-500 dark:text-neutral-400">{f.description}</p>}
                                 <div className="mt-3 flex items-center gap-4 text-xs text-neutral-500">

@@ -504,7 +504,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>((props, 
                 {weekdayLabels.map((label, i) => (
                   <div
                     key={`${label}-${i}`}
-                    className="flex h-8 items-center justify-center text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500"
+                    className="flex h-8 items-center justify-center text-xs font-semibold normal-case tracking-wider text-neutral-400 dark:text-neutral-500"
                   >
                     {label}
                   </div>
@@ -667,7 +667,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>((props, 
                 >
                   <IconChevronLeft className="size-4" stroke={1.9} />
                 </button>
-                <span className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400">
+                <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">
                   {yearAnchor - 5} - {yearAnchor + 6}
                 </span>
                 <button

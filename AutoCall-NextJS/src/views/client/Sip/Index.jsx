@@ -25,16 +25,16 @@ function TrunkModal({ templates, engines, onClose }) {
             <form onSubmit={submit} className="max-h-[88vh] w-full max-w-lg space-y-3 overflow-auto rounded-soft-lg bg-white dark:bg-ink-900 p-5 shadow-soft-xl" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_sip_index_801d29e2fd14" /></h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
                 <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_sip_index_9148ffa30c0d')} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <select className={inputCls} value={form.data.provider} onChange={(e) => pickProvider(e.target.value)}>{Object.entries(templates).map(([k, t]) => <option key={k} value={k}>{t.name}</option>)}</select>
                     <select className={inputCls} value={form.data.engine} onChange={(e) => form.setData('engine', e.target.value)}>{engines.map((x) => <option key={x.key} value={x.key}>{x.name}</option>)}</select>
                 </div>
                 {engine && !engine.outbound && <p className="text-xs text-warm">{engine.name} supports inbound numbers only.</p>}
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     <input className={`${inputCls} col-span-2`} placeholder="SIP host" value={form.data.sip_host} onChange={(e) => form.setData('sip_host', e.target.value)} />
                     <input className={inputCls} type="number" placeholder="Port" value={form.data.sip_port} onChange={(e) => form.setData('sip_port', Number(e.target.value))} />
                 </div>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     <select className={inputCls} value={form.data.transport} onChange={(e) => form.setData('transport', e.target.value)}><option value="udp">UDP</option><option value="tcp">TCP</option><option value="tls">TLS</option></select>
                     <input className={`${inputCls} col-span-2`} type="number" placeholder="Concurrency" value={form.data.concurrency_limit} onChange={(e) => form.setData('concurrency_limit', Number(e.target.value))} />
                 </div>
@@ -59,7 +59,7 @@ function NumberModal({ trunks, agents, onClose }) {
                 <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white"><Trans i18nKey="hardcoded.views_client_sip_index_28e949239ecd" /></h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
                 <select className={inputCls} value={form.data.sip_trunk_id} onChange={(e) => form.setData('sip_trunk_id', e.target.value)}>{trunks.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}</select>
                 <input className={inputCls} placeholder="Phone (+14155550100)" value={form.data.phone} onChange={(e) => form.setData('phone', e.target.value)} />
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <select className={inputCls} value={form.data.direction} onChange={(e) => form.setData('direction', e.target.value)}><option value="inbound"><Trans i18nKey="hardcoded.views_client_sip_index_58b24a3244ae" /></option><option value="outbound"><Trans i18nKey="hardcoded.views_client_sip_index_bb73c7682025" /></option><option value="both"><Trans i18nKey="hardcoded.views_client_sip_index_e3495a5641a8" /></option></select>
                     <select className={inputCls} value={form.data.agent_id} onChange={(e) => form.setData('agent_id', e.target.value)}><option value=""><Trans i18nKey="hardcoded.views_client_sip_index_42e8966d83ee" /></option>{agents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}</select>
                 </div>
@@ -93,7 +93,7 @@ export default function SipIndex({ trunks = [], numbers = [], stats = [], provid
                 <StatCards items={stats} />
 
                 <div>
-                    <h2 className="mb-2 text-sm font-semibold uppercase text-neutral-500">Trunks ({limits.trunks_used ?? 0}/{limits.trunks ?? 0})</h2>
+                    <h2 className="mb-2 text-sm font-semibold normal-case text-neutral-500">Trunks ({limits.trunks_used ?? 0}/{limits.trunks ?? 0})</h2>
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                         {trunks.map((t) => (
                             <div key={t.id} className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4 shadow-soft">
@@ -102,7 +102,7 @@ export default function SipIndex({ trunks = [], numbers = [], stats = [], provid
                                     <button onClick={() => removeTrunk(t)} className="rounded-soft p-1.5 text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button>
                                 </div>
                                 <p className="mt-2 font-mono text-xs text-neutral-400">{t.sip_host}:{t.sip_port}</p>
-                                <div className="mt-2 flex gap-2 text-[11px] text-neutral-500">{t.inbound_enabled && <span className="rounded-full bg-signal-100 px-2 py-0.5 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300">inbound</span>}{t.outbound_enabled && <span className="rounded-full bg-brand-100 px-2 py-0.5 text-brand-700 dark:bg-brand-500/20 dark:text-brand-300">outbound</span>}<span className="ml-auto">{t.numbers_count} numbers</span></div>
+                                <div className="mt-2 flex gap-2 text-xs text-neutral-500">{t.inbound_enabled && <span className="rounded-full bg-signal-100 px-2 py-0.5 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300">inbound</span>}{t.outbound_enabled && <span className="rounded-full bg-brand-100 px-2 py-0.5 text-brand-700 dark:bg-brand-500/20 dark:text-brand-300">outbound</span>}<span className="ml-auto">{t.numbers_count} numbers</span></div>
                             </div>
                         ))}
                         {trunks.length === 0 && <div className="col-span-full rounded-soft-lg border border-dashed border-neutral-300 dark:border-ink-700 px-6 py-12 text-center"><Network className="mx-auto mb-2 h-10 w-10 text-neutral-300" /><p className="text-sm text-neutral-500"><Trans i18nKey="hardcoded.views_client_sip_index_cec9fb56ca85" /></p></div>}
@@ -110,7 +110,7 @@ export default function SipIndex({ trunks = [], numbers = [], stats = [], provid
                 </div>
 
                 <div>
-                    <h2 className="mb-2 text-sm font-semibold uppercase text-neutral-500">Numbers</h2>
+                    <h2 className="mb-2 text-sm font-semibold normal-case text-neutral-500">Numbers</h2>
                     <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                         {numbers.length > 0 ? (
                             <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm"><tbody className="divide-y divide-neutral-100 dark:divide-ink-800">

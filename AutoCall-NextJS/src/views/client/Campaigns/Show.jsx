@@ -51,7 +51,7 @@ function MetricCard({ icon: Icon, label, value, sub }) {
             <p className="mt-2 font-hero-sans text-2xl font-bold tracking-tight tabular-nums text-neutral-900 dark:text-white">
                 {value}
             </p>
-            {sub && <p className="mt-1 text-[11px] text-neutral-400">{sub}</p>}
+            {sub && <p className="mt-1 text-xs text-neutral-400">{sub}</p>}
         </div>
     );
 }
@@ -84,7 +84,7 @@ export default function CampaignShow({ campaign }) {
                                 <h1 className="font-hero-sans text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">
                                     {campaign.name}
                                 </h1>
-                                <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-medium ${STATUS[campaign.status]}`}>
+                                <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium ${STATUS[campaign.status]}`}>
                                     {STATUS_LABELS[campaign.status] || campaign.status}
                                 </span>
                             </div>
@@ -141,7 +141,7 @@ export default function CampaignShow({ campaign }) {
                 {['draft', 'paused'].includes(campaign.status) && <KycGate action="lancer cette campagne" />}
 
                 {/* 4 Métriques clés de la campagne */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-4 gap-3.5">
                     <MetricCard
                         icon={Users}
                         label="Contacts ciblés"
@@ -173,7 +173,7 @@ export default function CampaignShow({ campaign }) {
                     <div className="rounded-[20px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-5 shadow-[0_2px_10px_rgba(16,24,40,0.06)]">
                         <div className="flex items-center gap-2 text-neutral-500 dark:text-[#8E95A5] mb-2">
                             <Target className="h-4 w-4 text-blue-500" />
-                            <h3 className="font-hero-sans text-xs font-bold text-neutral-900 dark:text-white uppercase tracking-wider">
+                            <h3 className="font-hero-sans text-xs font-bold text-neutral-900 dark:text-white normal-case tracking-wider">
                                 Directive & Objectif d&apos;appel
                             </h3>
                         </div>

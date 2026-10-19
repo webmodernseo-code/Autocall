@@ -76,8 +76,8 @@ export async function GET(request, { params }) {
         '#ac-w-input:focus { border-color: #9ca3af; }',
         '#ac-w-send { width: 38px; height: 38px; border-radius: 10px; background: ' + CFG.primaryColor + '; color: #fff; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }',
         '#ac-w-send:disabled { opacity: 0.4; cursor: not-allowed; }',
-        '#ac-w-brand { text-align: center; font-size: 10px; color: #9ca3af; letter-spacing: 0.2px; }',
-        '.ac-w-typing { font-size: 11px; color: #6b7280; font-style: italic; padding: 4px 6px; }'
+        '#ac-w-brand { text-align: center; font-size: 12px; color: #6b7280; letter-spacing: 0.1px; }',
+        '.ac-w-typing { font-size: 12px; color: #6b7280; font-style: italic; padding: 4px 6px; }'
     ].join('\\n');
     document.head.appendChild(style);
 
@@ -91,7 +91,7 @@ export async function GET(request, { params }) {
     box.id = 'ac-w-box';
     box.innerHTML = [
         '<div id="ac-w-hdr">',
-        '  <div id="ac-w-hdr-title"><span id="ac-w-hdr-dot"></span><span>' + CFG.title + '</span></div>',
+        '  <div id="ac-w-hdr-title"><span id="ac-w-hdr-dot"></span><span id="ac-w-title"></span></div>',
         '  <button id="ac-w-close" aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>',
         '</div>',
         '<div id="ac-w-body"></div>',
@@ -104,6 +104,7 @@ export async function GET(request, { params }) {
         '</div>'
     ].join('');
     document.body.appendChild(box);
+    document.getElementById('ac-w-title').textContent = CFG.title;
 
     var bodyEl = document.getElementById('ac-w-body');
     var inputEl = document.getElementById('ac-w-input');

@@ -48,7 +48,7 @@ function BuyModal({ twilioConfigured, cost, onClose }) {
 
                 {tab === 'search' ? (
                     <div className="space-y-3">
-                        <div className="grid grid-cols-3 gap-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                             <input className={inputCls} placeholder="Pays (FR)" maxLength={2} value={q.country} onChange={(e) => setQ({ ...q, country: e.target.value.toUpperCase() })} />
                             <input className={inputCls} placeholder="Indicatif" value={q.area_code} onChange={(e) => setQ({ ...q, area_code: e.target.value })} />
                             <select className={inputCls} value={q.type} onChange={(e) => setQ({ ...q, type: e.target.value })}><option value="local">Local</option><option value="toll_free">Numéro vert</option><option value="mobile">Mobile</option></select>
@@ -71,7 +71,7 @@ function BuyModal({ twilioConfigured, cost, onClose }) {
                         </p>
                         <input className={inputCls} placeholder="Numéro (+33189000000)" value={manual.phone} onChange={(e) => setManual({ ...manual, phone: e.target.value })} />
                         <input className={inputCls} placeholder="Nom du numéro (ex: Standard Paris)" value={manual.friendly_name} onChange={(e) => setManual({ ...manual, friendly_name: e.target.value })} />
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             <select className={inputCls} value={manual.type} onChange={(e) => setManual({ ...manual, type: e.target.value })}><option value="local">Local</option><option value="toll_free">Numéro vert</option><option value="mobile">Mobile</option></select>
                             <input className={inputCls} placeholder="Pays (FR)" maxLength={2} value={manual.country} onChange={(e) => setManual({ ...manual, country: e.target.value.toUpperCase() })} />
                         </div>

@@ -61,7 +61,7 @@ export default function FormsIndex({ forms, filters = {}, stats = [] }) {
                                         <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-100 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400"><FileText className="h-4 w-4" /></span>
                                         <div className="min-w-0"><p className="truncate font-display font-semibold text-neutral-900 dark:text-white">{f.name}</p><p className="text-xs text-neutral-500">{f.fields_count} fields</p></div>
                                     </div>
-                                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium capitalize ${STATUS[f.status] || STATUS.inactive}`}>{f.status}</span>
+                                    <span className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${STATUS[f.status] || STATUS.inactive}`}>{f.status}</span>
                                 </div>
                                 <div className="mt-3 flex items-center gap-4 text-xs text-neutral-500">
                                     <span className="inline-flex items-center gap-1"><List className="h-3.5 w-3.5" /> {f.submissions_count} submissions</span>

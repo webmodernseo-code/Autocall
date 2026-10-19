@@ -91,7 +91,7 @@ export function OrDivider({ label = "ou avec votre adresse e-mail" }) {
     return (
         <div className="my-5 flex items-center gap-3 text-xs font-medium text-neutral-500 dark:text-neutral-400">
             <div className="h-px flex-1 bg-neutral-200 dark:bg-white/10" />
-            <span className="text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-medium">{label}</span>
+            <span className="text-xs normal-case tracking-wider text-neutral-500 dark:text-neutral-400 font-medium">{label}</span>
             <div className="h-px flex-1 bg-neutral-200 dark:bg-white/10" />
         </div>
     );
@@ -120,7 +120,7 @@ export function AuthField({
                     {label}
                 </label>
                 {helperText && (
-                    <span className="text-[10px] text-neutral-500 dark:text-neutral-400">{helperText}</span>
+                    <span className="text-xs text-neutral-500 dark:text-neutral-400">{helperText}</span>
                 )}
             </div>
             <div
@@ -156,7 +156,7 @@ export function AuthField({
                     </button>
                 )}
             </div>
-            {error && <p className="text-[11px] text-red-500 dark:text-red-400 mt-1">{error}</p>}
+            {error && <p className="text-xs text-red-500 dark:text-red-400 mt-1">{error}</p>}
         </div>
     );
 }
@@ -206,7 +206,7 @@ export function DemoLoginCard({ cred, onOneClick, loading, hint = "Comptes de d�
         <div className="mb-5 rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50/90 dark:bg-white/[0.03] p-4 text-xs">
             <div className="mb-2 flex items-center justify-between">
                 <span className="font-semibold text-neutral-800 dark:text-neutral-200">{hint}</span>
-                <span className="rounded-full border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.05] px-2 py-0.5 text-[10px] font-medium text-neutral-600 dark:text-neutral-400 shadow-2xs">
+                <span className="rounded-full border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.05] px-2 py-0.5 text-xs font-medium text-neutral-600 dark:text-neutral-400 shadow-2xs">
                     Mode Démo
                 </span>
             </div>
@@ -243,7 +243,7 @@ export function PasswordStrengthMeter({ password = '' }) {
 
     return (
         <div className="space-y-1.5 pt-1">
-            <div className="flex items-center justify-between text-[11px]">
+            <div className="flex items-center justify-between text-xs">
                 <span className="text-neutral-500 dark:text-neutral-400">Force du mot de passe :</span>
                 <span className="font-semibold text-neutral-800 dark:text-neutral-200">{labels[score]}</span>
             </div>
@@ -257,7 +257,7 @@ export function PasswordStrengthMeter({ password = '' }) {
                     />
                 ))}
             </div>
-            <div className="flex flex-wrap gap-x-3 gap-y-0.5 pt-0.5 text-[10px] text-neutral-500 dark:text-neutral-400">
+            <div className="flex flex-wrap gap-x-3 gap-y-0.5 pt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
                 <span className={`inline-flex items-center gap-1 ${hasLength ? 'text-neutral-800 dark:text-neutral-200 font-medium' : ''}`}>
                     <Check className="h-3 w-3" /> 8+ caractères
                 </span>
@@ -337,7 +337,7 @@ export default function AuthShell({
                             </div>
                         )}
 
-                        <div className="flex items-center justify-center gap-1.5 text-[11px] text-neutral-500 dark:text-neutral-400">
+                        <div className="flex items-center justify-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
                             <Lock className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                             <span>Transaction chiffrée SSL 256-bit certifiée PCI-DSS</span>
                         </div>
@@ -346,7 +346,7 @@ export default function AuthShell({
             </main>
 
             {/* Micro-footer légal discret */}
-            <footer className="relative z-20 w-full max-w-lg pt-6 text-center text-[11px] text-neutral-500 dark:text-neutral-400 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <footer className="relative z-20 w-full max-w-lg pt-6 text-center text-xs text-neutral-500 dark:text-neutral-400 flex flex-col sm:flex-row items-center justify-between gap-2">
                 <p>© {new Date().getFullYear()} AutoCall. Tous droits réservés.</p>
                 <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 font-medium">
                     <Link href="/terms" className="hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors">CGVU</Link>

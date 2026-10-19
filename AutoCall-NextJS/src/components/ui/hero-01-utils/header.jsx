@@ -77,7 +77,7 @@ export default function Header({ navigationData = [], isDark = true, onToggleThe
                         className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-black transition-all hover:bg-neutral-200 hover:scale-[1.02] active:scale-[0.98] shadow-md shadow-white/5 cursor-pointer"
                     >
                         <span>Essai gratuit</span>
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-[11px]">
+                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-xs">
                             <ArrowUpRight className="h-3 w-3" />
                         </div>
                     </Link>
@@ -129,7 +129,7 @@ export default function Header({ navigationData = [], isDark = true, onToggleThe
                             <Link
                                 href="/forgot-password"
                                 onClick={() => setMobileOpen(false)}
-                                className="text-center text-[11px] text-white/50 hover:text-white/80 py-1"
+                                className="text-center text-xs text-white/50 hover:text-white/80 py-1"
                             >
                                 Mot de passe oublié ?
                             </Link>

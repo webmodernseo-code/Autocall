@@ -167,7 +167,7 @@ export default function Onboarding({ step = 1, totalSteps = 4, client, agent, sa
                                         </span>
                                         <span>
                                             <span className={`block text-sm font-semibold ${active ? 'text-neutral-950 dark:text-white' : 'text-neutral-600 dark:text-neutral-400'}`}>{item.title}</span>
-                                            <span className="block text-[11px] text-neutral-400">{item.subtitle}</span>
+                                            <span className="block text-xs text-neutral-400">{item.subtitle}</span>
                                         </span>
                                     </div>
                                 );

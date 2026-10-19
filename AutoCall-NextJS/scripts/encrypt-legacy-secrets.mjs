@@ -87,6 +87,11 @@ try {
         (id, data) => prisma.messagingSetting.update({ where: { id }, data }),
         ['meta_app_secret'],
     );
+    await migrateRows(
+        await prisma.googleSheetConnection.findMany({ select: { id: true, access_token: true, refresh_token: true } }),
+        (id, data) => prisma.googleSheetConnection.update({ where: { id }, data }),
+        ['access_token', 'refresh_token'],
+    );
     console.info(`Encrypted ${updated} legacy credential row(s).`);
 } finally {
     await prisma.$disconnect();

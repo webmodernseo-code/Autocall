@@ -59,16 +59,16 @@ export default function FormsBuilder({ form, isNew = true, fieldTypes = [] }) {
                 <form onSubmit={submit} className="space-y-5">
                     <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft space-y-4">
                         <div>
-                            <label className="block text-xs font-medium uppercase text-neutral-500 mb-1"><Trans i18nKey="hardcoded.views_client_forms_builder_b77d7a068209" /></label>
+                            <label className="block text-xs font-medium normal-case text-neutral-500 mb-1"><Trans i18nKey="hardcoded.views_client_forms_builder_b77d7a068209" /></label>
                             <input className={inputCls} value={data.name} onChange={(e) => setData('name', e.target.value)} placeholder="Contact form" />
                             {errors.name && <p className="mt-1 text-xs text-danger">{errors.name}</p>}
                         </div>
                         <div>
-                            <label className="block text-xs font-medium uppercase text-neutral-500 mb-1"><Trans i18nKey="hardcoded.views_client_forms_builder_7564f0b41c31" /></label>
+                            <label className="block text-xs font-medium normal-case text-neutral-500 mb-1"><Trans i18nKey="hardcoded.views_client_forms_builder_7564f0b41c31" /></label>
                             <textarea className={inputCls} rows={2} value={data.description} onChange={(e) => setData('description', e.target.value)} placeholder={translationI18n.t('hardcoded.views_client_forms_builder_e9dfe155963a')} />
                         </div>
                         <div>
-                            <label className="block text-xs font-medium uppercase text-neutral-500 mb-1"><Trans i18nKey="hardcoded.views_client_forms_builder_1f72fa264231" /></label>
+                            <label className="block text-xs font-medium normal-case text-neutral-500 mb-1"><Trans i18nKey="hardcoded.views_client_forms_builder_1f72fa264231" /></label>
                             <select className={inputCls} value={data.status} onChange={(e) => setData('status', e.target.value)}>
                                 <option value="active"><Trans i18nKey="hardcoded.views_client_forms_builder_37c696f1ed14" /></option>
                                 <option value="inactive"><Trans i18nKey="hardcoded.views_client_forms_builder_213fb2e95469" /></option>

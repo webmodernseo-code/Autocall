@@ -103,7 +103,7 @@ export function PricingFrequencyToggle({
                             {label}
                             {freq === 'yearly' && (
                                 <span className={cn(
-                                    "text-[10px] px-1.5 py-0.5 rounded-full font-bold",
+                                    "text-xs px-1.5 py-0.5 rounded-full font-bold",
                                     isSelected
                                         ? isLight ? 'bg-neutral-900 text-white' : 'bg-black text-white'
                                         : 'bg-emerald-500/20 text-emerald-700'
@@ -173,7 +173,7 @@ export function PricingCard({
                     <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
                         {plan.highlighted && (
                             <p className={cn(
-                                "flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold shadow-xs",
+                                "flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold shadow-xs",
                                 isLight ? "bg-blue-600 text-white" : "bg-white text-black"
                             )}>
                                 <StarIcon className="h-3 w-3 fill-current" />
@@ -181,7 +181,7 @@ export function PricingCard({
                             </p>
                         )}
                         {frequency === 'yearly' && discountPercent > 0 && (
-                            <p className="bg-emerald-500/15 text-emerald-700 border border-emerald-500/25 flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold">
+                            <p className="bg-emerald-500/15 text-emerald-700 border border-emerald-500/25 flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold">
                                 -{discountPercent}%
                             </p>
                         )}
@@ -212,7 +212,7 @@ export function PricingCard({
                     isFourColumns ? "px-5 py-5 text-xs" : "px-6 py-6 text-xs sm:text-sm"
                 )}>
                     <div className={cn(
-                        "text-[11px] font-bold uppercase tracking-wider mb-2",
+                        "text-xs font-bold normal-case tracking-wider mb-2",
                         isLight ? "text-neutral-700" : "text-white/70"
                     )}>
                         Inclus dans l&apos;offre :

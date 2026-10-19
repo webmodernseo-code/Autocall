@@ -36,11 +36,11 @@ export default function NotificationsIndex({ notifications = [], stats = [] }) {
                 </form>
 
                 <div className="lg:col-span-2">
-                    <h3 className="mb-2 text-sm font-semibold uppercase text-neutral-500">Sent</h3>
+                    <h3 className="mb-2 text-sm font-semibold normal-case text-neutral-500">Sent</h3>
                     <div className="space-y-2">
                         {notifications.map((n) => (
                             <div key={n.id} className="flex items-start justify-between gap-3 rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4 shadow-soft">
-                                <div className="min-w-0"><div className="flex items-center gap-2"><span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${LEVEL[n.level]}`}>{n.level}</span><p className="font-display font-semibold text-neutral-900 dark:text-white">{n.title}</p></div><p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{n.message}</p><p className="mt-1 text-xs text-neutral-400">{n.audience} · {new Date(n.created_at).toLocaleString()}</p></div>
+                                <div className="min-w-0"><div className="flex items-center gap-2"><span className={`rounded-full px-2 py-0.5 text-xs font-medium ${LEVEL[n.level]}`}>{n.level}</span><p className="font-display font-semibold text-neutral-900 dark:text-white">{n.title}</p></div><p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{n.message}</p><p className="mt-1 text-xs text-neutral-400">{n.audience} · {new Date(n.created_at).toLocaleString()}</p></div>
                                 <button onClick={() => remove(n)} className="shrink-0 rounded-soft p-1.5 text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button>
                             </div>
                         ))}

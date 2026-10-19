@@ -29,13 +29,13 @@ function Editor({ initial, onClose }) {
                     <div className="flex items-center justify-between"><h3 className="font-display text-lg font-semibold text-neutral-900 dark:text-white">{editing ? translationI18n.t('hardcoded.views_client_messaging_emailtemplates_08138163c9b7') : translationI18n.t('hardcoded.views_client_messaging_emailtemplates_be2fb172a929')}</h3><button type="button" onClick={onClose}><X className="h-4 w-4 text-neutral-400" /></button></div>
                     <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_messaging_emailtemplates_c8b97f511b9e')} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
                     <input className={inputCls} placeholder="Subject" value={form.data.subject} onChange={(e) => form.setData('subject', e.target.value)} />
-                    <div className="flex flex-wrap gap-1">{VARS.map((v) => <button type="button" key={v} onClick={() => insertVar(v)} className="rounded-full bg-brand-50 dark:bg-brand-500/10 px-2 py-0.5 text-[11px] text-brand-700 dark:text-brand-300">{`{{${v}}}`}</button>)}</div>
+                    <div className="flex flex-wrap gap-1">{VARS.map((v) => <button type="button" key={v} onClick={() => insertVar(v)} className="rounded-full bg-brand-50 dark:bg-brand-500/10 px-2 py-0.5 text-xs text-brand-700 dark:text-brand-300">{`{{${v}}}`}</button>)}</div>
                     <textarea rows="12" className={`${inputCls} font-mono text-xs`} placeholder={translationI18n.t('hardcoded.views_client_messaging_emailtemplates_8ebae3203d5e')} value={form.data.html} onChange={(e) => form.setData('html', e.target.value)} />
                     <label className="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300"><input type="checkbox" checked={form.data.is_active} onChange={(e) => form.setData('is_active', e.target.checked)} /> <Trans i18nKey="hardcoded.views_client_messaging_emailtemplates_e8a94ba20915" /></label>
                     <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_messaging_emailtemplates_e83f7140a457" /></button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50">{editing ? translationI18n.t('hardcoded.views_client_messaging_emailtemplates_27e68f59b5e3') : translationI18n.t('hardcoded.views_client_messaging_emailtemplates_b99493473fa3')}</button></div>
                 </form>
                 <div className="rounded-soft border border-neutral-200 dark:border-ink-700 bg-white p-2">
-                    <p className="mb-1 px-1 text-xs font-medium uppercase text-neutral-400"><Trans i18nKey="hardcoded.views_client_messaging_emailtemplates_a38ea8b4c39f" /></p>
+                    <p className="mb-1 px-1 text-xs font-medium normal-case text-neutral-400"><Trans i18nKey="hardcoded.views_client_messaging_emailtemplates_a38ea8b4c39f" /></p>
                     <iframe title={translationI18n.t('hardcoded.views_client_messaging_emailtemplates_06a6ee0c344d')} className="h-[420px] w-full rounded bg-white" srcDoc={form.data.html} />
                 </div>
             </div>
@@ -63,7 +63,7 @@ export default function EmailTemplates({ templates = [] }) {
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                         {templates.map((t) => (
                             <div key={t.id} className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4 shadow-soft">
-                                <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-brand-600 dark:text-brand-400" /><p className="font-display font-semibold text-neutral-900 dark:text-white">{t.name}</p>{!t.is_active && <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] text-neutral-500 dark:bg-ink-800">Off</span>}</div>
+                                <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-brand-600 dark:text-brand-400" /><p className="font-display font-semibold text-neutral-900 dark:text-white">{t.name}</p>{!t.is_active && <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500 dark:bg-ink-800">Off</span>}</div>
                                 <p className="mt-1 truncate text-xs text-neutral-500">{t.subject || '—'}</p>
                                 <div className="mt-3 flex gap-1 border-t border-neutral-100 dark:border-ink-800 pt-3">
                                     <button onClick={() => setModal(t)} className="rounded-soft p-1.5 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-ink-800"><Pencil className="h-4 w-4" /></button>

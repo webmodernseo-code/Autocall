@@ -27,11 +27,11 @@ const ACCENTS = {
 };
 
 const GRID = {
-    2: 'grid-cols-2',
-    3: 'grid-cols-2 sm:grid-cols-3',
-    4: 'grid-cols-2 sm:grid-cols-4',
-    5: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5',
-    6: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6',
+    2: 'grid-cols-1 sm:grid-cols-2',
+    3: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+    4: 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-4',
+    5: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5',
+    6: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6',
 };
 
 import { useTranslation } from 'react-i18next';
@@ -82,16 +82,16 @@ function Card({ label, value, icon, accent = 'brand', hint }) {
     const a = ACCENTS[accent] || ACCENTS.brand;
     const Icon = icon && ICONS[icon];
     return (
-        <div className="group relative overflow-hidden rounded-soft-lg border border-neutral-200 bg-white p-4 shadow-soft transition duration-250 hover:shadow-soft-lg dark:border-ink-800 dark:bg-ink-900">
+        <article className="group relative min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition duration-250 hover:-translate-y-px hover:border-slate-300 hover:shadow-soft-md dark:border-ink-800 dark:bg-ink-900 dark:shadow-none">
             <span className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${a.bar}`} />
             <div className={`pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full opacity-0 blur-2xl transition duration-250 group-hover:opacity-100 ${a.glow}`} />
             <div className="relative flex items-center justify-between">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">{displayLabel}</p>
+                <p className="min-w-0 text-sm font-semibold leading-5 text-slate-600 dark:text-neutral-300">{displayLabel}</p>
                 {Icon && <span className={`flex h-8 w-8 items-center justify-center rounded-xl ${a.tile}`}><Icon className="h-4 w-4" /></span>}
             </div>
-            <p className="relative mt-3 font-display text-[26px] font-bold leading-none tabular-nums text-neutral-900 dark:text-white">{displayValue}</p>
-            {hint && <p className="relative mt-1.5 text-xs text-neutral-500">{hint}</p>}
-        </div>
+            <p className="relative mt-4 break-words font-display text-3xl font-bold leading-none tracking-tight tabular-nums text-neutral-950 dark:text-white">{displayValue}</p>
+            {hint && <p className="relative mt-2 text-sm leading-5 text-slate-500 dark:text-slate-400">{hint}</p>}
+        </article>
     );
 }
 

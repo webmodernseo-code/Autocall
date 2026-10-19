@@ -26,7 +26,7 @@ function MemberModal({ roles, member, onClose }) {
                 <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_team_index_cb4e2db71169')} value={form.data.email} onChange={(e) => form.setData('email', e.target.value)} />
                 {form.errors.email && <p className="text-xs text-danger">{form.errors.email}</p>}
                 <input type="password" className={inputCls} placeholder={editing ? translationI18n.t('hardcoded.views_client_team_index_2140333793dc') : translationI18n.t('hardcoded.views_client_team_index_e4720859c830')} value={form.data.password} onChange={(e) => form.setData('password', e.target.value)} />
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <select className={inputCls} value={form.data.role_id} onChange={(e) => form.setData('role_id', e.target.value)}>{roles.map((r) => <option key={r.id} value={r.id}>{r.name}</option>)}</select>
                     <select className={inputCls} value={form.data.status} onChange={(e) => form.setData('status', e.target.value)}><option value="active"><Trans i18nKey="hardcoded.views_client_team_index_1ff12c489492" /></option><option value="inactive"><Trans i18nKey="hardcoded.views_client_team_index_12d1e1fd14a4" /></option></select>
                 </div>
@@ -49,7 +49,7 @@ function RoleModal({ role, catalog, onClose }) {
                 <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_team_index_a3e25049d37c')} disabled={role?.is_system} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
                 <div className="space-y-3">
                     {Object.entries(modules).map(([mod, perms]) => (
-                        <div key={mod}><p className="mb-1 text-xs font-medium uppercase text-neutral-500">{mod}</p><div className="flex flex-wrap gap-2">{perms.map((p) => <label key={p.key} className="flex items-center gap-1 text-xs text-neutral-700 dark:text-neutral-300"><input type="checkbox" checked={form.data.permissions.includes(p.key)} onChange={() => toggle(p.key)} /> {p.action}</label>)}</div></div>
+                        <div key={mod}><p className="mb-1 text-xs font-medium normal-case text-neutral-500">{mod}</p><div className="flex flex-wrap gap-2">{perms.map((p) => <label key={p.key} className="flex items-center gap-1 text-xs text-neutral-700 dark:text-neutral-300"><input type="checkbox" checked={form.data.permissions.includes(p.key)} onChange={() => toggle(p.key)} /> {p.action}</label>)}</div></div>
                     ))}
                 </div>
                 <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_team_index_dcd52077c891" /></button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_client_team_index_b06959689646" /></button></div>
@@ -80,13 +80,13 @@ export default function TeamIndex({ users = [], roles = [], stats = [], permissi
 
                 <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                     <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">
-                        <thead className="bg-neutral-50 dark:bg-ink-800/50"><tr>{['Member', 'Role', 'Status', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr></thead>
+                        <thead className="bg-neutral-50 dark:bg-ink-800/50"><tr>{['Member', 'Role', 'Status', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium normal-case text-neutral-500">{h}</th>)}</tr></thead>
                         <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                             {users.map((u) => (
                                 <tr key={u.id}>
                                     <td className="px-4 py-3"><p className="font-medium text-neutral-900 dark:text-white">{u.name}</p><p className="text-xs text-neutral-400">{u.email}</p></td>
                                     <td className="px-4 py-3">{u.role?.id ? <select value={u.role.id} onChange={(e) => assignRole(u, e.target.value)} className="rounded-soft border border-neutral-200 dark:border-ink-700 bg-white dark:bg-ink-900 px-2 py-1 text-xs">{roles.map((r) => <option key={r.id} value={r.id}>{r.name}</option>)}</select> : <span className="text-xs text-neutral-400">{u.role?.name || '—'}</span>}</td>
-                                    <td className="px-4 py-3"><span className={`rounded-full px-2 py-0.5 text-[11px] ${u.status === 'active' ? 'bg-signal-100 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300' : 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{u.status}</span></td>
+                                    <td className="px-4 py-3"><span className={`rounded-full px-2 py-0.5 text-xs ${u.status === 'active' ? 'bg-signal-100 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300' : 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{u.status}</span></td>
                                     <td className="px-4 py-3 text-right"><div className="inline-flex gap-1"><button onClick={() => setMemberModal(u)} className="rounded-soft p-1.5 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-ink-800"><Pencil className="h-4 w-4" /></button><button onClick={() => removeMember(u)} className="rounded-soft p-1.5 text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button></div></td>
                                 </tr>
                             ))}
@@ -96,13 +96,13 @@ export default function TeamIndex({ users = [], roles = [], stats = [], permissi
 
                 <div>
                     <div className="mb-2 flex items-center justify-between">
-                        <h2 className="flex items-center gap-2 text-sm font-semibold uppercase text-neutral-500"><Shield className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_team_index_18d70e7746ef" /></h2>
+                        <h2 className="flex items-center gap-2 text-sm font-semibold normal-case text-neutral-500"><Shield className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_team_index_18d70e7746ef" /></h2>
                         {customRolesEnabled && <button onClick={() => setRoleModal({})} className="inline-flex items-center gap-1 rounded-soft border border-neutral-200 dark:border-ink-700 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-ink-800"><Plus className="h-3.5 w-3.5" /> <Trans i18nKey="hardcoded.views_client_team_index_a40512fdfa57" /></button>}
                     </div>
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                         {roles.map((r) => (
                             <div key={r.id} className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4 shadow-soft">
-                                <div className="flex items-center justify-between"><p className="font-display font-semibold text-neutral-900 dark:text-white">{r.name}</p>{r.is_system && <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] text-neutral-500 dark:bg-ink-800"><Trans i18nKey="hardcoded.views_client_team_index_dc791b3db3fd" /></span>}</div>
+                                <div className="flex items-center justify-between"><p className="font-display font-semibold text-neutral-900 dark:text-white">{r.name}</p>{r.is_system && <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500 dark:bg-ink-800"><Trans i18nKey="hardcoded.views_client_team_index_dc791b3db3fd" /></span>}</div>
                                 <p className="mt-1 text-xs text-neutral-500">{r.permissions.length} permissions</p>
                                 <div className="mt-3 flex gap-1"><button onClick={() => setRoleModal(r)} className="rounded-soft p-1.5 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-ink-800"><Pencil className="h-4 w-4" /></button>{!r.is_system && <button onClick={() => removeRole(r)} className="rounded-soft p-1.5 text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button>}</div>
                             </div>

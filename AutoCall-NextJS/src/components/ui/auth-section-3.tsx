@@ -201,7 +201,7 @@ export default function AuthSectionThree() {
                   <div className="size-2 rounded-full bg-white/35" />
                   <div className="size-2 rounded-full bg-white/25" />
                   <div className="size-2 rounded-full bg-white/15" />
-                  <span className="ml-4 text-[9px] font-mono tracking-wider text-white/40">
+                  <span className="ml-4 text-xs font-mono tracking-wider text-white/40">
                     solaceui.com/dashboard
                   </span>
                 </div>

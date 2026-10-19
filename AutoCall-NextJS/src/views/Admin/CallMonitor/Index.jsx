@@ -68,7 +68,7 @@ export default function CallMonitorIndex({ calls, filters = {}, clients = [], st
                     {calls.data.length > 0 ? (
                         <table className="min-w-full divide-y divide-neutral-100 text-sm dark:divide-ink-800">
                             <thead className="bg-neutral-50 dark:bg-ink-800/50">
-                                <tr>{['Customer', 'Agent', 'Contact', 'Status', 'Sentiment', 'Engine', 'Duration', 'Started'].map((h) => <th key={h} className="px-5 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr>
+                                <tr>{['Customer', 'Agent', 'Contact', 'Status', 'Sentiment', 'Engine', 'Duration', 'Started'].map((h) => <th key={h} className="px-5 py-3 text-left text-xs font-medium normal-case text-neutral-500">{h}</th>)}</tr>
                             </thead>
                             <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                                 {calls.data.map((c) => (
@@ -77,7 +77,7 @@ export default function CallMonitorIndex({ calls, filters = {}, clients = [], st
                                         <td className="px-5 py-2.5 text-neutral-600 dark:text-neutral-300">{c.agent}</td>
                                         <td className="px-5 py-2.5 font-mono text-neutral-500">{c.phone}</td>
                                         <td className="px-5 py-2.5">
-                                            <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] capitalize ${STATUS[c.status] || STATUS.queued}`}>
+                                            <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs capitalize ${STATUS[c.status] || STATUS.queued}`}>
                                                 {c.live && <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />}{(c.status || '').replace('_', ' ')}
                                             </span>
                                         </td>

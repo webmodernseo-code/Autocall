@@ -27,7 +27,7 @@ export default function Notifications({ notifications = [] }) {
                             <div key={n.id} className="flex gap-3 rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-4 shadow-soft">
                                 <span className={`mt-0.5 shrink-0 ${L.cls}`}><Icon className="h-5 w-5" /></span>
                                 <div className="min-w-0 flex-1">
-                                    <div className="flex items-center gap-2"><p className="font-display font-semibold text-neutral-900 dark:text-white">{n.title}</p>{n.broadcast && <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 dark:bg-brand-500/10 px-2 py-0.5 text-[10px] text-brand-700 dark:text-brand-300"><Megaphone className="h-3 w-3" /> Announcement</span>}</div>
+                                    <div className="flex items-center gap-2"><p className="font-display font-semibold text-neutral-900 dark:text-white">{n.title}</p>{n.broadcast && <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 dark:bg-brand-500/10 px-2 py-0.5 text-xs text-brand-700 dark:text-brand-300"><Megaphone className="h-3 w-3" /> Announcement</span>}</div>
                                     <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{n.message}</p>
                                     <p className="mt-1 text-xs text-neutral-400">{new Date(n.created_at).toLocaleString()}</p>
                                 </div>

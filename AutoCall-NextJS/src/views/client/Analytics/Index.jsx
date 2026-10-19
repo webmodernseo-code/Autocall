@@ -33,7 +33,7 @@ function Kpi({ icon: Icon, label, value, trend }) {
 function Card({ title, children }) {
     return (
         <div className="rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900 p-5 shadow-soft">
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-300">{title}</h3>
+            <h3 className="mb-4 text-sm font-semibold normal-case tracking-wide text-neutral-600 dark:text-neutral-300">{title}</h3>
             {children}
         </div>
     );

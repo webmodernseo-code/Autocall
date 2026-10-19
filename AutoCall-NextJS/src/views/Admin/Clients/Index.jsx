@@ -294,11 +294,11 @@ export default function AdminClientsIndex({ clients, plans = [], stats = [], fil
                         <table className="min-w-full text-sm">
                             <thead>
                                 <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
-                                    <th className="pb-2 pr-4 font-medium uppercase">{t('admin.col_name')}</th>
-                                    <th className="pb-2 pr-4 font-medium uppercase">{t('admin.col_email')}</th>
-                                    <th className="pb-2 pr-4 font-medium uppercase">{t('admin.col_status')}</th>
-                                    <th className="pb-2 pr-4 font-medium uppercase">{t('admin.col_subscription')}</th>
-                                    <th className="pb-2 pr-4 font-medium text-right uppercase">{t('admin.col_actions')}</th>
+                                    <th className="pb-2 pr-4 font-medium normal-case">{t('admin.col_name')}</th>
+                                    <th className="pb-2 pr-4 font-medium normal-case">{t('admin.col_email')}</th>
+                                    <th className="pb-2 pr-4 font-medium normal-case">{t('admin.col_status')}</th>
+                                    <th className="pb-2 pr-4 font-medium normal-case">{t('admin.col_subscription')}</th>
+                                    <th className="pb-2 pr-4 font-medium text-right normal-case">{t('admin.col_actions')}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -551,10 +551,10 @@ export default function AdminClientsIndex({ clients, plans = [], stats = [], fil
                                     <table className="min-w-full text-sm">
                                         <thead>
                                             <tr className="border-b border-neutral-200 dark:border-neutral-700 text-left text-neutral-500 dark:text-neutral-400">
-                                                <th className="pb-2 pr-4 font-medium uppercase">{t('admin.col_user')}</th>
-                                                <th className="pb-2 pr-4 font-medium uppercase">{t('admin.col_roles')}</th>
-                                                <th className="pb-2 pr-4 font-medium uppercase">{t('admin.col_status')}</th>
-                                                <th className="pb-2 pr-4 font-medium text-right uppercase">{t('admin.col_actions')}</th>
+                                                <th className="pb-2 pr-4 font-medium normal-case">{t('admin.col_user')}</th>
+                                                <th className="pb-2 pr-4 font-medium normal-case">{t('admin.col_roles')}</th>
+                                                <th className="pb-2 pr-4 font-medium normal-case">{t('admin.col_status')}</th>
+                                                <th className="pb-2 pr-4 font-medium text-right normal-case">{t('admin.col_actions')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

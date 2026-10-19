@@ -77,7 +77,7 @@ export default function Pricing({ plans = [], gateways = [], flash = {}, isRequi
                             onClick={() => setBillingCycle('year')}
                             className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition ${billingCycle === 'year' ? 'bg-white text-neutral-900 shadow-xs dark:bg-neutral-800 dark:text-white' : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white'}`}
                         >
-                            Facturation annuelle <span className="ml-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">(-17%)</span>
+                            Facturation annuelle <span className="ml-1 text-xs font-bold text-emerald-600 dark:text-emerald-400">(-17%)</span>
                         </button>
                     </div>
                 </div>
@@ -106,7 +106,7 @@ export default function Pricing({ plans = [], gateways = [], flash = {}, isRequi
                                             {plan.name}
                                         </h3>
                                         {(isSelected || plan.slug === 'pro') && (
-                                            <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-[11px] font-semibold text-brand-600 dark:bg-brand-950/50 dark:text-brand-300 border border-brand-200/60 dark:border-brand-800/40">
+                                            <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-semibold text-brand-600 dark:bg-brand-950/50 dark:text-brand-300 border border-brand-200/60 dark:border-brand-800/40">
                                                 {isSelected ? 'Votre choix' : 'Populaire'}
                                             </span>
                                         )}
@@ -121,7 +121,7 @@ export default function Pricing({ plans = [], gateways = [], flash = {}, isRequi
                                     </div>
 
                                     <div className="mt-6 border-t border-neutral-100 pt-5 dark:border-neutral-800">
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-3">
+                                        <p className="text-xs font-semibold normal-case tracking-wider text-neutral-500 dark:text-neutral-400 mb-3">
                                             Inclus dans ce forfait
                                         </p>
                                         <ul className="space-y-2.5 text-xs text-neutral-700 dark:text-neutral-300">

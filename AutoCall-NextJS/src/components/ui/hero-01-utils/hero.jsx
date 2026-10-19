@@ -65,7 +65,7 @@ export default function HeroSection({ avatarList = [] }) {
                         className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-white px-6 text-sm font-semibold text-black transition-all hover:bg-neutral-200 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-white/5 cursor-pointer"
                     >
                         <span>Commencer maintenant</span>
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-[11px]">
+                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-black text-white text-xs">
                             <ArrowUpRight className="h-3 w-3" />
                         </div>
                     </Link>

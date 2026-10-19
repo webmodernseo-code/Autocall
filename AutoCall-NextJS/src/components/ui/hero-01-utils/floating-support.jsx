@@ -68,7 +68,7 @@ export default function FloatingSupportButton() {
                                 </div>
                                 <div>
                                     <h4 className="text-sm font-bold text-white">Support AutoCall</h4>
-                                    <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
+                                    <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
                                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                                         <span>En ligne · Réponse &lt; 5 min</span>
                                     </div>
@@ -112,7 +112,7 @@ export default function FloatingSupportButton() {
                                         </div>
                                         <div>
                                             <div className="text-xs font-semibold text-white">Tester un appel IA sur mon mobile</div>
-                                            <div className="text-[11px] text-white/50">Recevez un appel test gratuit en 30s</div>
+                                            <div className="text-xs text-white/50">Recevez un appel test gratuit en 30s</div>
                                         </div>
                                     </div>
                                     <ArrowRight className="h-4 w-4 text-white/40" />
@@ -128,7 +128,7 @@ export default function FloatingSupportButton() {
                                         </div>
                                         <div>
                                             <div className="text-xs font-semibold text-white">Envoyer un message à l&apos;équipe</div>
-                                            <div className="text-[11px] text-white/50">Réponse directe par e-mail ou SMS</div>
+                                            <div className="text-xs text-white/50">Réponse directe par e-mail ou SMS</div>
                                         </div>
                                     </div>
                                     <ArrowRight className="h-4 w-4 text-white/40" />
@@ -145,7 +145,7 @@ export default function FloatingSupportButton() {
                                         </div>
                                         <div>
                                             <div className="text-xs font-semibold text-white">Consulter la Foire Aux Questions</div>
-                                            <div className="text-[11px] text-white/50">Réponses aux 8 questions clés</div>
+                                            <div className="text-xs text-white/50">Réponses aux 8 questions clés</div>
                                         </div>
                                     </div>
                                     <ArrowRight className="h-4 w-4 text-white/40" />
@@ -159,18 +159,18 @@ export default function FloatingSupportButton() {
                                     <button
                                         type="button"
                                         onClick={() => setMode('menu')}
-                                        className="text-white/50 hover:text-white text-[11px] cursor-pointer"
+                                        className="text-white/50 hover:text-white text-xs cursor-pointer"
                                     >
                                         ← Retour
                                     </button>
                                 </div>
 
-                                <p className="text-[11px] text-white/60 leading-relaxed">
+                                <p className="text-xs text-white/60 leading-relaxed">
                                     Saisissez votre numéro de portable. Notre agent IA vous appelle dans la minute pour vous faire écouter son naturel vocal.
                                 </p>
 
                                 <div>
-                                    <label className="block text-[11px] text-white/70 mb-1">Votre numéro de mobile</label>
+                                    <label className="block text-xs text-white/70 mb-1">Votre numéro de mobile</label>
                                     <input
                                         type="tel"
                                         required
@@ -197,14 +197,14 @@ export default function FloatingSupportButton() {
                                     <button
                                         type="button"
                                         onClick={() => setMode('menu')}
-                                        className="text-white/50 hover:text-white text-[11px] cursor-pointer"
+                                        className="text-white/50 hover:text-white text-xs cursor-pointer"
                                     >
                                         ← Retour
                                     </button>
                                 </div>
 
                                 <div>
-                                    <label className="block text-[11px] text-white/70 mb-1">Votre adresse e-mail</label>
+                                    <label className="block text-xs text-white/70 mb-1">Votre adresse e-mail</label>
                                     <input
                                         type="email"
                                         required
@@ -216,7 +216,7 @@ export default function FloatingSupportButton() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-[11px] text-white/70 mb-1">Votre question</label>
+                                    <label className="block text-xs text-white/70 mb-1">Votre question</label>
                                     <textarea
                                         rows={3}
                                         required
@@ -260,7 +260,7 @@ export default function FloatingSupportButton() {
                     <div className="text-xs font-semibold text-white leading-tight">
                         Support en direct
                     </div>
-                    <div className="text-[10px] text-white/50 leading-tight">
+                    <div className="text-xs text-white/50 leading-tight">
                         Une question ?
                     </div>
                 </div>

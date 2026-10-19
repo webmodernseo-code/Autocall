@@ -120,7 +120,7 @@ function NavGroup({ label, items, onClose, icon, variant = 'default', alwaysActi
         );
     }
 
-    const headerClassName = 'flex w-full items-center justify-between gap-2 px-3.5 py-2 text-[11px] font-bold uppercase tracking-wider transition-colors duration-150 select-none text-neutral-400 hover:text-neutral-700 dark:text-white/40 dark:hover:text-white/70';
+    const headerClassName = 'flex w-full items-center justify-between gap-2 px-3.5 py-2 text-xs font-bold normal-case tracking-wider transition-colors duration-150 select-none text-neutral-400 hover:text-neutral-700 dark:text-white/40 dark:hover:text-white/70';
 
     const headerInner = (
         <>
@@ -372,7 +372,7 @@ export default function Sidebar({
                                     </div>
                                 ) : (
                                     <div className="space-y-1" aria-label={t('sidebar.sections', 'Rubriques')}>
-                                        <p className="px-3.5 pb-1 text-[11px] font-semibold tracking-wide text-neutral-400 dark:text-white/40">
+                                        <p className="px-3.5 pb-1 text-xs font-semibold tracking-wide text-neutral-400 dark:text-white/40">
                                             {t('sidebar.sections', 'Rubriques')}
                                         </p>
                                         {drilldownGroups.map((group, index) => {

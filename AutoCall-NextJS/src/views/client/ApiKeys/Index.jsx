@@ -26,8 +26,8 @@ function CreateModal({ scopes, onClose }) {
                 <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_apikeys_index_401faaa4ec83')} value={form.data.name} onChange={(e) => form.setData('name', e.target.value)} />
                 {form.errors.name && <p className="text-xs text-danger">{form.errors.name}</p>}
                 <div>
-                    <p className="mb-1 text-xs font-medium uppercase text-neutral-500">Scopes</p>
-                    <div className="grid max-h-44 grid-cols-2 gap-1 overflow-auto">{scopes.map((s) => <label key={s} className="flex items-center gap-1.5 text-xs text-neutral-700 dark:text-neutral-300"><input type="checkbox" checked={form.data.scopes.includes(s)} onChange={() => toggle(s)} /> <code className="font-mono">{s}</code></label>)}</div>
+                    <p className="mb-1 text-xs font-medium normal-case text-neutral-500">Scopes</p>
+                    <div className="grid max-h-44 grid-cols-1 sm:grid-cols-2 gap-1 overflow-auto">{scopes.map((s) => <label key={s} className="flex items-center gap-1.5 text-xs text-neutral-700 dark:text-neutral-300"><input type="checkbox" checked={form.data.scopes.includes(s)} onChange={() => toggle(s)} /> <code className="font-mono">{s}</code></label>)}</div>
                 </div>
                 <input className={inputCls} placeholder={translationI18n.t('hardcoded.views_client_apikeys_index_3e4659dbdbf3')} value={form.data.ip_whitelist} onChange={(e) => form.setData('ip_whitelist', e.target.value)} />
                 <div className="flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-soft px-4 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-ink-800"><Trans i18nKey="hardcoded.views_client_apikeys_index_bdac66830af3" /></button><button type="submit" disabled={form.processing} className="rounded-soft bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-500 disabled:opacity-50"><Trans i18nKey="hardcoded.views_client_apikeys_index_ef86b0e8d1aa" /></button></div>
@@ -68,13 +68,13 @@ export default function ApiKeysIndex({ keys = [], availableScopes = [], limit = 
 
                 <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                     <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm">
-                        <thead className="bg-neutral-50 dark:bg-ink-800/50"><tr>{['Name', 'Prefix', 'Scopes', 'Last used', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium uppercase text-neutral-500">{h}</th>)}</tr></thead>
+                        <thead className="bg-neutral-50 dark:bg-ink-800/50"><tr>{['Name', 'Prefix', 'Scopes', 'Last used', ''].map((h) => <th key={h} className="px-4 py-3 text-left text-xs font-medium normal-case text-neutral-500">{h}</th>)}</tr></thead>
                         <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                             {keys.map((k) => (
                                 <tr key={k.id} className={k.revoked ? 'opacity-50' : ''}>
                                     <td className="px-4 py-3 font-medium text-neutral-900 dark:text-white">{k.name}{k.revoked && <span className="ml-2 text-xs text-danger">revoked</span>}</td>
                                     <td className="px-4 py-3 font-mono text-xs text-neutral-500">{k.prefix}…</td>
-                                    <td className="px-4 py-3"><div className="flex flex-wrap gap-1">{(k.scopes || []).slice(0, 3).map((s) => <span key={s} className="rounded-full bg-brand-50 dark:bg-brand-500/10 px-1.5 py-0.5 text-[10px] text-brand-700 dark:text-brand-300">{s}</span>)}{(k.scopes || []).length > 3 && <span className="text-[10px] text-neutral-400">+{k.scopes.length - 3}</span>}</div></td>
+                                    <td className="px-4 py-3"><div className="flex flex-wrap gap-1">{(k.scopes || []).slice(0, 3).map((s) => <span key={s} className="rounded-full bg-brand-50 dark:bg-brand-500/10 px-1.5 py-0.5 text-xs text-brand-700 dark:text-brand-300">{s}</span>)}{(k.scopes || []).length > 3 && <span className="text-xs text-neutral-400">+{k.scopes.length - 3}</span>}</div></td>
                                     <td className="px-4 py-3 text-neutral-500">{k.last_used_at ? new Date(k.last_used_at).toLocaleDateString() : 'never'}</td>
                                     <td className="px-4 py-3 text-right"><div className="inline-flex gap-1">{!k.revoked && <button onClick={() => revoke(k)} title="Revoke" className="rounded-soft p-1.5 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-ink-800"><Ban className="h-4 w-4" /></button>}<button onClick={() => remove(k)} className="rounded-soft p-1.5 text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /></button></div></td>
                                 </tr>
@@ -86,7 +86,7 @@ export default function ApiKeysIndex({ keys = [], availableScopes = [], limit = 
 
                 {auditLog.length > 0 && (
                     <div>
-                        <h2 className="mb-2 text-sm font-semibold uppercase text-neutral-500"><Trans i18nKey="hardcoded.views_client_apikeys_index_bdb64622d988" /></h2>
+                        <h2 className="mb-2 text-sm font-semibold normal-case text-neutral-500"><Trans i18nKey="hardcoded.views_client_apikeys_index_bdb64622d988" /></h2>
                         <div className="overflow-hidden rounded-soft-lg border border-neutral-200 dark:border-ink-800 bg-white dark:bg-ink-900">
                             <table className="min-w-full divide-y divide-neutral-100 dark:divide-ink-800 text-sm"><tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                                 {auditLog.map((l, i) => <tr key={i}><td className="px-4 py-2 font-mono text-xs">{l.method}</td><td className="px-4 py-2 font-mono text-xs text-neutral-500">/{l.path}</td><td className="px-4 py-2"><span className={`font-mono text-xs ${l.status_code < 300 ? 'text-signal-600' : 'text-danger'}`}>{l.status_code}</span></td><td className="px-4 py-2 text-xs text-neutral-400">{l.duration_ms}ms · {new Date(l.created_at).toLocaleTimeString()}</td></tr>)}

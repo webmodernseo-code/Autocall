@@ -287,13 +287,13 @@ export default function SectorsSection() {
                             </div>
 
                             {/* 3 Métriques percutantes en bas de colonne */}
-                            <div className="mt-8 pt-6 border-t border-neutral-200 grid grid-cols-3 gap-4">
+                            <div className="mt-8 pt-6 border-t border-neutral-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {activeSector.metrics.map((metric, idx) => (
                                     <div key={idx} className="space-y-1">
                                         <div className="text-xl sm:text-2xl font-extrabold tabular-nums text-neutral-900 tracking-tight">
                                             {metric.value}
                                         </div>
-                                        <div className="text-[11px] sm:text-xs text-neutral-600 font-medium leading-tight">
+                                        <div className="text-xs sm:text-xs text-neutral-600 font-medium leading-tight">
                                             {metric.label}
                                         </div>
                                     </div>
@@ -307,11 +307,11 @@ export default function SectorsSection() {
                                 <div className="flex items-center justify-between pb-4 border-b border-neutral-200 mb-5">
                                     <div className="flex items-center gap-2">
                                         <Bot className="h-4 w-4 text-neutral-700" />
-                                        <span className="text-xs font-bold uppercase tracking-wider text-neutral-800">
+                                        <span className="text-xs font-bold normal-case tracking-wider text-neutral-800">
                                             Exemple d&apos;appel traité
                                         </span>
                                     </div>
-                                    <span className="inline-flex items-center gap-1 text-[11px] text-emerald-800 font-mono font-bold bg-emerald-100/80 px-2 py-0.5 rounded-full border border-emerald-300">
+                                    <span className="inline-flex items-center gap-1 text-xs text-emerald-800 font-mono font-bold bg-emerald-100/80 px-2 py-0.5 rounded-full border border-emerald-300">
                                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
                                         En direct
                                     </span>
@@ -332,7 +332,7 @@ export default function SectorsSection() {
                                                 <ActiveIcon className="h-3.5 w-3.5 text-blue-400" />
                                                 <span>{activeSector.name} · Environnement Pro</span>
                                             </span>
-                                            <span className="text-[10px] text-white/90 font-mono bg-black/60 px-2 py-0.5 rounded-md backdrop-blur-xs">
+                                            <span className="text-xs text-white/90 font-mono bg-black/60 px-2 py-0.5 rounded-md backdrop-blur-xs">
                                                 Standard actif
                                             </span>
                                         </div>
@@ -346,7 +346,7 @@ export default function SectorsSection() {
                                             <AnimatedUserAvatar size="sm" src="/images/avatar-client.jpg" />
                                             <span>{activeSector.callSimulation.caller}</span>
                                         </div>
-                                        <span className="text-[11px] font-mono text-neutral-500 font-medium">
+                                        <span className="text-xs font-mono text-neutral-500 font-medium">
                                             Aujourd&apos;hui
                                         </span>
                                     </div>

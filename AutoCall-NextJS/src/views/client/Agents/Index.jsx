@@ -72,11 +72,11 @@ export default function AgentsIndex({ agents, stats = [], filters = {}, engines 
                                             <p className="text-xs text-neutral-500">{a.llm_model} · {a.language}</p>
                                         </div>
                                     </div>
-                                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium capitalize ${STATUS[a.status] || STATUS.draft}`}>{a.status}</span>
+                                    <span className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${STATUS[a.status] || STATUS.draft}`}>{a.status}</span>
                                 </div>
                                 {a.engine_label && (
                                     <div className="mt-2">
-                                        <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-[11px] font-medium text-neutral-600 dark:border-ink-700 dark:bg-ink-800 dark:text-neutral-300">
+                                        <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-xs font-medium text-neutral-600 dark:border-ink-700 dark:bg-ink-800 dark:text-neutral-300">
                                             <span className="h-2 w-2 rounded-full" style={{ background: a.engine_dot }} />{a.engine_label}
                                         </span>
                                     </div>

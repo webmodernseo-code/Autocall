@@ -55,7 +55,7 @@ function FlowNode({ data, selected }) {
             <div className="flex items-center gap-2">
                 <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${c.tile}`}><Icon className="h-4 w-4" /></span>
                 <div className="min-w-0">
-                    <p className="text-[9px] font-semibold uppercase tracking-wider text-neutral-400">{c.label}</p>
+                    <p className="text-xs font-semibold normal-case tracking-wider text-neutral-400">{c.label}</p>
                     <p className="truncate text-sm font-medium text-neutral-900 dark:text-white">{data.label}</p>
                 </div>
             </div>
@@ -137,7 +137,7 @@ function Canvas({ flow, isNew, triggers, statuses }) {
                 <div className="hidden w-48 shrink-0 space-y-3 sm:block">
                     {['trigger', 'condition', 'action'].map((cat) => (
                         <div key={cat} className="rounded-soft-lg border border-neutral-200 bg-white p-2.5 shadow-soft dark:border-ink-800 dark:bg-ink-900">
-                            <p className="mb-1.5 px-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{CAT[cat].label}s</p>
+                            <p className="mb-1.5 px-1 text-xs font-semibold normal-case tracking-wider text-neutral-400">{CAT[cat].label}s</p>
                             <div className="space-y-1">
                                 {PALETTE.filter((p) => p.category === cat).map((p) => {
                                     const Icon = p.icon;
@@ -183,14 +183,14 @@ function Canvas({ flow, isNew, triggers, statuses }) {
                 {selected && (
                     <div className="hidden w-64 shrink-0 rounded-soft-lg border border-neutral-200 bg-white p-4 shadow-soft dark:border-ink-800 dark:bg-ink-900 lg:block">
                         <div className="flex items-center justify-between">
-                            <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{CAT[selected.data.category]?.label} <Trans i18nKey="hardcoded.views_client_flows_builder_068a3e3cb121" /></p>
+                            <p className="text-xs font-semibold normal-case tracking-wider text-neutral-400">{CAT[selected.data.category]?.label} <Trans i18nKey="hardcoded.views_client_flows_builder_068a3e3cb121" /></p>
                             <button onClick={() => setSelectedId(null)} className="rounded-soft p-1 text-neutral-400 hover:bg-neutral-100 dark:hover:bg-ink-800"><X className="h-4 w-4" /></button>
                         </div>
                         <label className="mt-3 block text-xs font-medium text-neutral-500">Label</label>
                         <input value={selected.data.label} onChange={(e) => patchSelected({ label: e.target.value })} className="mt-1 w-full rounded-soft border border-neutral-200 bg-white px-2.5 py-1.5 text-sm dark:border-ink-700 dark:bg-ink-950" />
                         <label className="mt-3 block text-xs font-medium text-neutral-500">Notes / parameters</label>
                         <textarea rows="4" value={selected.data.config?.note || ''} onChange={(e) => patchSelected({ config: { ...selected.data.config, note: e.target.value } })} placeholder={translationI18n.t('hardcoded.views_client_flows_builder_3578f2ec0977')} className="mt-1 w-full rounded-soft border border-neutral-200 bg-white px-2.5 py-1.5 text-sm dark:border-ink-700 dark:bg-ink-950" />
-                        <p className="mt-3 text-[11px] text-neutral-400">Type: <span className="font-mono">{selected.data.kind}</span></p>
+                        <p className="mt-3 text-xs text-neutral-400">Type: <span className="font-mono">{selected.data.kind}</span></p>
                         <button onClick={deleteSelected} className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-soft border border-danger/30 px-3 py-1.5 text-sm font-medium text-danger hover:bg-danger/10"><Trash2 className="h-4 w-4" /> <Trans i18nKey="hardcoded.views_client_flows_builder_3e9e64aa2fb1" /></button>
                     </div>
                 )}
