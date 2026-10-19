@@ -154,14 +154,7 @@ function useClientNav() {
                 { label: tr('nav.subscription', 'Abonnement'), href: route('client.subscription.show'), icon: <CreditCard className={iconClass} />, route: 'client.subscription.show' },
             ],
         },
-        {
-            label: tr('nav.marketing', 'Marketing'), variant: 'accent', icon: <Megaphone className={gi} />, adminOnly: true,
-            items: [
-                { label: tr('nav.vouchers', 'Bons de réduction'), href: route('client.marketing.vouchers'), icon: <Ticket className={iconClass} />, route: 'client.marketing.vouchers' },
-                { label: tr('nav.gift_cards', 'Cartes cadeaux'), href: route('client.marketing.gift-cards'), icon: <Gift className={iconClass} />, route: 'client.marketing.gift-cards' },
-                { label: tr('nav.referral_program', 'Parrainage'), href: route('client.marketing.referral'), icon: <UserPlus className={iconClass} />, route: 'client.marketing.referral' },
-            ],
-        },
+        
         {
             label: tr('nav.reporting', 'Rapports'), variant: 'accent', icon: <BarChart3 className={gi} />,
             items: [
