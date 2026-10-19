@@ -207,8 +207,14 @@ export const effectiveSubscription = cache(async function effectiveSubscription(
         ) {
             return { ...clientSubscription, __kind: 'client' };
         }
-        if (subscription) return { ...subscription, __kind: 'user' };
-        if (clientSubscription && subscriptionIsActive(clientSubscription)) {
+        if (subscription && Number(subscription.plans?.monthly_price_cents ?? subscription.plans?.price_cents ?? 0) > 0) {
+            return { ...subscription, __kind: 'user' };
+        }
+        if (
+            clientSubscription
+            && subscriptionIsActive(clientSubscription)
+            && Number(clientSubscription.plans?.monthly_price_cents ?? clientSubscription.plans?.price_cents ?? 0) > 0
+        ) {
             return { ...clientSubscription, __kind: 'client' };
         }
     } catch (e) {

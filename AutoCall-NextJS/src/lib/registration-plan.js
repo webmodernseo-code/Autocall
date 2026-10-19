@@ -49,29 +49,6 @@ export async function resolveRegistrationPlan(value) {
     return prisma.plan.findFirst({ where: { slug, enabled: true } });
 }
 
-export async function activateFreePlan(userId, clientId, plan) {
-    if (!userId || !clientId || !plan) return false;
-    const isFree = Number(plan.monthly_price_cents ?? plan.price_cents ?? 0) === 0
-        && Number(plan.yearly_price_cents ?? 0) === 0;
-    if (!isFree) return false;
-
-    const existing = await prisma.clientSubscription.findFirst({
-        where: { client_id: BigInt(clientId), status: 'active' },
-        orderBy: { id: 'desc' },
-    });
-    if (existing) return true;
-
-    const now = new Date();
-    await prisma.clientSubscription.create({
-        data: {
-            client_id: BigInt(clientId),
-            plan_id: plan.id,
-            billing_cycle: 'month',
-            status: 'active',
-            starts_at: now,
-            created_at: now,
-            updated_at: now,
-        },
-    });
-    return true;
+export async function activateFreePlan() {
+    return false;
 }

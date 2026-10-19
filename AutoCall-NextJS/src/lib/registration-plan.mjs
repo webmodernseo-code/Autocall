@@ -1,7 +1,7 @@
-export const REGISTRATION_PLAN_SLUGS = ['free', 'starter', 'pro', 'agency'];
+export const REGISTRATION_PLAN_SLUGS = ['starter', 'pro', 'agency'];
 export const REGISTRATION_BILLING_CYCLES = ['month', 'year'];
 
-export function normalizeRegistrationPlan(value, fallback = 'free') {
+export function normalizeRegistrationPlan(value, fallback = 'pro') {
     const slug = String(value ?? '').trim().toLowerCase();
     return REGISTRATION_PLAN_SLUGS.includes(slug) ? slug : fallback;
 }
@@ -13,8 +13,6 @@ export function normalizeBillingCycle(value, fallback = 'month') {
 
 export function postRegistrationTarget(planSlug, billingCycle = 'month') {
     const slug = normalizeRegistrationPlan(planSlug);
-    if (slug === 'free') return '/app/onboarding';
-
     const params = new URLSearchParams({
         plan: slug,
         billing: normalizeBillingCycle(billingCycle),

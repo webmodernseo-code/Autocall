@@ -6,7 +6,7 @@ import { createRemoteJWKSet, jwtVerify } from 'jose';
 import prisma from '@/lib/prisma';
 import { handler } from '@/lib/guards';
 import { readBody, validate, validationError } from '@/lib/http';
-import { hashPassword } from '@/lib/auth';
+import { hashPassword, effectiveSubscription, subscriptionIsActive } from '@/lib/auth';
 import { writeSession } from '@/lib/auth/session';
 import { socialLoginPayload } from '@/lib/settings';
 import {
@@ -61,7 +61,7 @@ export const POST = handler(async (request) => {
     const body = await readBody(request);
     await validate(body, {
         id_token: ['required', 'string'],
-        plan_slug: ['nullable', 'string', 'in:free,starter,pro,agency'],
+        plan_slug: ['nullable', 'string', 'in:starter,pro,agency'],
         billing_cycle: ['nullable', 'string', 'in:month,year'],
     });
 
@@ -92,7 +92,7 @@ export const POST = handler(async (request) => {
     if (body.plan_slug && !requestedPlan) {
         return rejected('Le forfait choisi n’est plus disponible. Sélectionnez une autre offre.');
     }
-    const freePlan = body.plan_slug ? null : await resolveRegistrationPlan('free');
+    const defaultPaidPlan = body.plan_slug ? null : await resolveRegistrationPlan('pro');
 
     let user = await prisma.user.findUnique({ where: { email } });
     let created = false;
@@ -139,9 +139,8 @@ export const POST = handler(async (request) => {
         effectiveClientId = await ensureClientWorkspace(user);
     }
 
-    const selectedPlan = requestedPlan ?? (created ? freePlan : null);
+    const selectedPlan = requestedPlan ?? (created ? defaultPaidPlan : null);
     const billingCycle = normalizeBillingCycle(body.billing_cycle);
-    if (selectedPlan) await activateFreePlan(user.id, effectiveClientId, selectedPlan);
 
     await writeSession({
         uid: Number(user.id),
@@ -155,22 +154,26 @@ export const POST = handler(async (request) => {
         } : {}),
     });
 
-    const url = new URL(request.url);
-    const intended = url.searchParams.get('redirect');
-    const firstAgent = effectiveClientId
-        ? await prisma.agent.findFirst({
-            where: { client_id: BigInt(effectiveClientId) },
-            orderBy: { id: 'asc' },
-            select: { meta: true },
-        })
-        : null;
-    const defaultTarget = selectedPlan
-        ? postRegistrationTarget(selectedPlan.slug, billingCycle)
-        : !firstAgent || (firstAgent.meta?.onboarding && !firstAgent.meta.onboarding.completed_at)
-        ? '/app/onboarding'
-        : '/app/dashboard';
+    const activeSub = await effectiveSubscription(user);
+    const hasActiveSub = Boolean(activeSub && subscriptionIsActive(activeSub));
+
+    let defaultTarget;
+    if (!hasActiveSub) {
+        const targetPlanSlug = selectedPlan?.slug || 'pro';
+        defaultTarget = `/app/pricing?required=1&plan=${targetPlanSlug}&billing=${billingCycle}&onboarding=1`;
+    } else if (selectedPlan && created) {
+        defaultTarget = postRegistrationTarget(selectedPlan.slug, billingCycle);
+    } else {
+        defaultTarget = !firstAgent || (firstAgent.meta?.onboarding && !firstAgent.meta.onboarding.completed_at)
+            ? '/app/onboarding'
+            : '/app/dashboard';
+    }
+
+    const redirectUrl = !hasActiveSub
+        ? defaultTarget
+        : safeRedirectPath(intended, defaultTarget);
 
     return NextResponse.json({
-        redirect: safeRedirectPath(intended, defaultTarget),
+        redirect: redirectUrl,
     });
 });

@@ -41,7 +41,7 @@ export const POST = handler(async (request) => {
             name: ['required', 'string', 'max:255'],
             email: ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             password: ['required', 'string', 'min:8', 'confirmed'],
-            plan_slug: ['required', 'string', 'in:free,starter,pro,agency'],
+            plan_slug: ['required', 'string', 'in:starter,pro,agency'],
             billing_cycle: ['required', 'string', 'in:month,year'],
         },
         {
@@ -82,9 +82,8 @@ export const POST = handler(async (request) => {
         },
     });
 
-    // Provision default workspace and initial credits for the client
+    // Provision default workspace for the client
     const clientId = await ensureClientWorkspace(user);
-    await activateFreePlan(user.id, clientId, selectedPlan);
 
     // event(new Registered($user)) -> SendEmailVerificationNotification
     let emailSent = false;

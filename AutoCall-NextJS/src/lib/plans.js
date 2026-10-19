@@ -29,9 +29,9 @@ export function planHasFeature(plan, feature) {
     return !!plan[column];
 }
 
-/** — client subscription, else a member's own, else the free plan. */
+/** — client subscription, else a member's own, else null (unsubscribed). */
 export async function planFor(clientId) {
-    if (!clientId) return prisma.plan.findFirst({ where: { slug: 'free' } });
+    if (!clientId) return null;
 
     const cs = await prisma.clientSubscription.findFirst({
         where: { client_id: BigInt(clientId), status: 'active' },
@@ -50,10 +50,11 @@ export async function planFor(clientId) {
         orderBy: { id: 'desc' },
         include: { plans: true },
     });
-    if (userSub?.plans) return userSub.plans;
-    if (cs && subscriptionIsActive(cs) && cs.plans) return cs.plans;
+    if (userSub?.plans && Number(userSub.plans.monthly_price_cents ?? userSub.plans.price_cents ?? 0) > 0) {
+        return userSub.plans;
+    }
 
-    return prisma.plan.findFirst({ where: { slug: 'free' } });
+    return null;
 }
 
 export async function limitFor(clientId, key) {

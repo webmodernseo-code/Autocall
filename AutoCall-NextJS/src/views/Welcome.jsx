@@ -188,10 +188,9 @@ const TESTIMONIALS = [
 ];
 
 const PLANS = [
-    { name: 'Découverte', m: 0, a: 0, blurb: "Testez la voix IA en direct sans carte bancaire.", features: ["10 min d'appels offertes", "1 agent IA personnalisable", "Simulateur web micro direct", "Appel test sur votre mobile", "Transcriptions & audio", "Sans engagement ni CB"], cta: "Tester gratuitement", highlight: false },
     { name: 'Starter', m: 39, a: 32, blurb: "Idéal pour indépendants, artisans & praticiens solos.", features: ["1 agent IA dédié 24h/24", "80 min d'appels / mois", "1 numéro français 09 dédié", "Renvoi d'appel mobile vers l'IA", "Alertes par Email & SMS", "Filtrage 100% des spams"], cta: "Choisir Starter", highlight: false },
     { name: 'Pro', m: 89, a: 74, blurb: "Pour cabinets, PME, commerces & agences.", features: ["3 agents IA configurables", "250 min d'appels / mois", "2 numéros français 09 dédiés", "Agent autonome WhatsApp", "Prise de RDV synchronisée", "Campagnes d'appels sortants", "Scénarios & Flows avancés", "Support prioritaire 7j/7"], cta: "Choisir Pro", highlight: true },
-    { name: 'Scale', m: 199, a: 166, blurb: "Pour agences, réseaux d'entreprises & centres d'appels.", features: ["Agents IA illimités", "750 min d'appels / mois", "5 numéros français 09 dédiés", "Multi-comptes WhatsApp & API", "Marque blanche complète", "Gestion multi-entreprises", "Trunk SIP & VoIP personnalisé", "Account Manager dédié"], cta: "Choisir l'Agence", highlight: false },
+    { name: 'Scale', m: 199, a: 166, blurb: "Pour agences, réseaux d'entreprises & centres d'appels.", features: ["Agents IA illimités", "750 min d'appels / mois", "5 numéros français 09 dédiés", "Multi-comptes WhatsApp & API", "Marque blanche complète", "Gestion multi-entreprises", "Trunk SIP & VoIP personnalisé", "Account Manager dédié"], cta: "Choisir Scale", highlight: false },
 ];
 
 /* ---------- interactive: module explorer ---------- */
@@ -639,7 +638,7 @@ export default function Welcome() {
             {/* ===== Pricing ===== */}
             <section id="pricing" className="scroll-mt-24 py-24">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <Reveal><SectionHead center eyebrow="Tarification" title="Démarrez gratuitement. Évoluez selon vos besoins." sub="Facturation à l'usage par crédits — vous ne payez que pour les appels réellement décrochés." /></Reveal>
+                    <Reveal><SectionHead center eyebrow="Tarification" title="Des forfaits transparents taillés pour votre entreprise." sub="Choisissez la formule adaptée à votre activité. Sans engagement, annulation à tout moment." /></Reveal>
                     <Reveal delay={80}>
                         <div className="mt-8 flex items-center justify-center gap-3">
                             <span className={`text-sm ${!annual ? 'font-semibold text-neutral-900 dark:text-white' : 'text-neutral-500'}`}>Mensuel</span>
@@ -649,7 +648,7 @@ export default function Welcome() {
                             <span className={`text-sm ${annual ? 'font-semibold text-neutral-900 dark:text-white' : 'text-neutral-500'}`}>Annuel <span className="ml-1 rounded-full bg-signal-500/15 px-2 py-0.5 font-mono text-[10px] font-semibold text-signal-600 dark:text-signal-300">2 mois offerts</span></span>
                         </div>
                     </Reveal>
-                    <div className="mx-auto mt-12 grid max-w-7xl items-start gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="mx-auto mt-12 grid max-w-5xl items-start gap-6 grid-cols-1 md:grid-cols-3">
                         {PLANS.map((p, i) => (
                             <Reveal key={p.name} delay={i * 100}>
                                 <div className={`relative flex h-full flex-col rounded-3xl border p-7 ${p.highlight ? 'border-brand-500/50 bg-gradient-to-b from-brand-500/[0.06] to-white shadow-[0_30px_80px_-30px_rgba(109,63,234,0.35)] dark:from-brand-500/10 dark:to-ink-900/60 dark:shadow-[0_30px_80px_-30px_rgba(109,63,234,0.6)]' : `${CARD}`}`}>
