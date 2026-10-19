@@ -36,6 +36,41 @@ const ACCENTS = {
     cold: 'bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/25',
 };
 
+const FLOW_TEMPLATES_FR = {
+    lead_followup: {
+        name: 'Suivi & Qualification de Leads',
+        description: 'Après un appel, envoi d\'un SMS automatique aux leads chauds et planification d\'un rappel prioritaire.',
+    },
+    missed_call_textback: {
+        name: 'Rappel automatique après appel manqué',
+        description: 'Envoie immédiatement un SMS bienveillant à tout appelant dont l\'appel entrant est resté sans réponse.',
+    },
+    post_call_survey: {
+        name: 'Enquête de satisfaction post-appel',
+        description: 'Envoie automatiquement un questionnaire de satisfaction après chaque appel complété par l\'IA.',
+    },
+    reengage_cold: {
+        name: 'Réactivation de prospects froids',
+        description: 'Déclenche des appels automatiques programmés vers vos anciens prospects pour relancer l\'intérêt.',
+    },
+};
+
+const STEP_LABELS_FR = {
+    'call completed': 'Appel terminé',
+    'is hot lead?': 'Lead qualifié chaud ?',
+    'send follow-up sms': 'Envoyer un SMS de suivi',
+    'schedule callback': 'Planifier un rappel',
+    'missed inbound call': 'Appel entrant manqué',
+    'text back "sorry we missed you"': 'SMS « Navré d\'avoir manqué votre appel »',
+    'tag: missed-call': 'Tag : appel-manqué',
+    'send survey link': 'Envoyer le lien d\'enquête',
+    'responded?': 'Réponse reçue ?',
+    'tag: surveyed': 'Tag : sondé',
+    'weekly schedule': 'Planification récurrente',
+    'is cold lead?': 'Prospect inactif / froid ?',
+    'place ai re-engagement call': 'Lancer l\'appel IA de relance',
+};
+
 const TRIGGER_META = {
     manual: { label: 'Manuel', badge: 'bg-neutral-100 text-neutral-600 dark:bg-white/[0.06] dark:text-neutral-400' },
     call_completed: { label: 'Appel terminé', badge: 'bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400' },
@@ -47,12 +82,15 @@ const TRIGGER_META = {
 export default function FlowTemplates({ templates = [] }) {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
+    const { i18n } = useTranslation();
+    const isFr = (i18n?.language || 'fr').startsWith('fr');
 
     const use = (key) => router.post(route('client.flows.templates.use', key));
 
     const filteredTemplates = templates.filter((tpl) => {
-        const matchesSearch = tpl.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            tpl.description.toLowerCase().includes(searchQuery.toLowerCase());
+        const frData = FLOW_TEMPLATES_FR[tpl.key];
+        const searchPool = `${tpl.name} ${tpl.description} ${frData?.name || ''} ${frData?.description || ''}`.toLowerCase();
+        const matchesSearch = searchPool.includes(searchQuery.toLowerCase());
         if (!matchesSearch) return false;
         if (selectedCategory === 'all') return true;
         if (selectedCategory === 'outbound') return tpl.trigger_type === 'call_completed' || tpl.trigger_type === 'schedule';
@@ -157,28 +195,45 @@ export default function FlowTemplates({ templates = [] }) {
                                         </span>
                                     </div>
 
-                                    <h3 className="font-hero-sans text-base sm:text-lg font-bold text-neutral-900 dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                        {tpl.name}
-                                    </h3>
+                                    {(() => {
+                                        const localized = isFr && FLOW_TEMPLATES_FR[tpl.key] ? FLOW_TEMPLATES_FR[tpl.key] : null;
+                                        const tplName = localized?.name || tpl.name;
+                                        const tplDesc = localized?.description || tpl.description;
 
-                                    <p className="mt-2 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed font-normal">
-                                        {tpl.description}
-                                    </p>
+                                        return (
+                                            <>
+                                                <h3 className="font-hero-sans text-base sm:text-lg font-bold text-neutral-900 dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                                    {tplName}
+                                                </h3>
 
-                                    {/* Séquence chronologique des étapes */}
-                                    <div className="mt-5 space-y-2 rounded-xl bg-neutral-50/70 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/[0.04] p-3.5">
-                                        <p className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 mb-2">
-                                            Étapes automatiques ({steps.length})
-                                        </p>
-                                        {steps.map((n, i) => (
-                                            <div key={i} className="flex items-center gap-2.5 text-xs text-neutral-700 dark:text-neutral-300">
-                                                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-500/20 text-[10px] font-bold text-blue-700 dark:text-blue-300">
-                                                    {i + 1}
-                                                </span>
-                                                <span className="truncate font-medium">{n.data?.label || `Action ${i + 1}`}</span>
-                                            </div>
-                                        ))}
-                                    </div>
+                                                <p className="mt-2 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed font-normal">
+                                                    {tplDesc}
+                                                </p>
+
+                                                {/* Séquence chronologique des étapes */}
+                                                <div className="mt-5 space-y-2 rounded-xl bg-neutral-50/70 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/[0.04] p-3.5">
+                                                    <p className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 mb-2">
+                                                        {isFr ? `Étapes automatiques (${steps.length})` : `Automated steps (${steps.length})`}
+                                                    </p>
+                                                    {steps.map((n, i) => {
+                                                        const rawLabel = n.data?.label || `Action ${i + 1}`;
+                                                        const stepLabel = isFr && STEP_LABELS_FR[rawLabel.toLowerCase().trim()]
+                                                            ? STEP_LABELS_FR[rawLabel.toLowerCase().trim()]
+                                                            : rawLabel;
+
+                                                        return (
+                                                            <div key={i} className="flex items-center gap-2.5 text-xs text-neutral-700 dark:text-neutral-300">
+                                                                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-500/20 text-[10px] font-bold text-blue-700 dark:text-blue-300">
+                                                                    {i + 1}
+                                                                </span>
+                                                                <span className="truncate font-medium">{stepLabel}</span>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </>
+                                        );
+                                    })()}
                                 </div>
 
                                 {/* Footer de carte avec bouton d'activation */}

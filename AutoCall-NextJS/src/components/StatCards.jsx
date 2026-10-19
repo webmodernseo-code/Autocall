@@ -34,7 +34,51 @@ const GRID = {
     6: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6',
 };
 
+import { useTranslation } from 'react-i18next';
+
+const TRANSLATIONS_FR = {
+    // Labels
+    'status': 'Statut',
+    'rows synced': 'Lignes synchronisées',
+    'last sync': 'Dernière synchronisation',
+    'total calls': 'Total des appels',
+    'active agents': 'Agents actifs',
+    'minutes used': 'Minutes utilisées',
+    'credits remaining': 'Crédits restants',
+    'contacts': 'Contacts',
+    'campaigns': 'Campagnes',
+    'conversion rate': 'Taux de conversion',
+    'avg duration': 'Durée moyenne',
+    'success rate': 'Taux de succès',
+    'total contacts': 'Total contacts',
+    'total forms': 'Total formulaires',
+    'total appointments': 'Total rendez-vous',
+
+    // Values
+    'not connected': 'Non connecté',
+    'connected': 'Connecté',
+    'never': 'Jamais',
+    'active': 'Actif',
+    'inactive': 'Inactif',
+    'draft': 'Brouillon',
+    'running': 'En cours',
+    'paused': 'En pause',
+    'completed': 'Terminé',
+    'failed': 'Échoué',
+};
+
 function Card({ label, value, icon, accent = 'brand', hint }) {
+    const { i18n } = useTranslation();
+    const isFr = (i18n?.language || 'fr').startsWith('fr');
+
+    const displayLabel = isFr && typeof label === 'string'
+        ? (TRANSLATIONS_FR[label.toLowerCase().trim()] || label)
+        : label;
+
+    const displayValue = isFr && typeof value === 'string'
+        ? (TRANSLATIONS_FR[value.toLowerCase().trim()] || value)
+        : value;
+
     const a = ACCENTS[accent] || ACCENTS.brand;
     const Icon = icon && ICONS[icon];
     return (
@@ -42,10 +86,10 @@ function Card({ label, value, icon, accent = 'brand', hint }) {
             <span className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${a.bar}`} />
             <div className={`pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full opacity-0 blur-2xl transition duration-250 group-hover:opacity-100 ${a.glow}`} />
             <div className="relative flex items-center justify-between">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">{label}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">{displayLabel}</p>
                 {Icon && <span className={`flex h-8 w-8 items-center justify-center rounded-xl ${a.tile}`}><Icon className="h-4 w-4" /></span>}
             </div>
-            <p className="relative mt-3 font-display text-[26px] font-bold leading-none tabular-nums text-neutral-900 dark:text-white">{value}</p>
+            <p className="relative mt-3 font-display text-[26px] font-bold leading-none tabular-nums text-neutral-900 dark:text-white">{displayValue}</p>
             {hint && <p className="relative mt-1.5 text-xs text-neutral-500">{hint}</p>}
         </div>
     );

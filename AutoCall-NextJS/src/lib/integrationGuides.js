@@ -271,11 +271,18 @@ export const INTEGRATION_GUIDES = {
     },
     'google-sheets': {
         title: 'Google Sheets',
+        title_fr: 'Google Sheets (Synchronisation Tableur)',
         intro: 'Push form and appointment data into a Google Sheet.',
+        intro_fr: 'Synchronisez automatiquement vos formulaires et rendez-vous vers votre tableur Google Sheets en temps réel.',
         steps: [
             { text: 'Connect your Google account and grant Sheets access.' },
             { text: 'Choose which data to sync (forms, appointments).' },
             { text: 'Pick or create the destination spreadsheet.' },
+        ],
+        steps_fr: [
+            { text: 'Connectez votre compte Google ou renseignez l\'URL de votre feuille Google Sheets.' },
+            { text: 'Sélectionnez les flux à synchroniser (formulaires, rendez-vous pris par l\'IA).' },
+            { text: 'Les nouvelles lignes s\'injectent automatiquement dans votre tableur en temps réel.' },
         ],
     },
 };
