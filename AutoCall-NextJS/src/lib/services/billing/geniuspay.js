@@ -152,7 +152,7 @@ export function createGeniusPayGateway(creds, testMode, successUrl, cancelUrl, w
 
             const data = payload.data || payload;
             const event = String(payload.event || data.status || '');
-            const isCompleted = ['payment.completed', 'completed', 'successful', 'paid'].includes(event.toLowerCase());
+            const isCompleted = ['payment.completed', 'payment.success', 'completed', 'successful', 'paid'].includes(event.toLowerCase());
 
             try {
                 if (isCompleted) {
@@ -173,7 +173,7 @@ export function createGeniusPayGateway(creds, testMode, successUrl, cancelUrl, w
                         status: 'paid',
                         payload: data,
                     });
-                } else if (['cancelled', 'failed'].includes(event.toLowerCase())) {
+                } else if (['cancelled', 'failed', 'payment.cancelled', 'payment.failed', 'payment.expired'].includes(event.toLowerCase())) {
                     await markCanceled(key, String(data.reference || data.id || ''));
                 }
             } catch (err) {
