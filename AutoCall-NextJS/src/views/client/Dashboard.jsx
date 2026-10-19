@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import ClientLayout from '@/layouts/ClientLayout';
@@ -545,73 +545,54 @@ function AddWidgetModal({ isOpen, onClose, onAddWidget, activeWidgets }) {
     );
 }
 
-/** 6. BANDEAU ONBOARDING / GUIDE DE DÉMARRAGE RAPIDE (Style Linear / Stripe) */
-function OnboardingQuickStartBanner({ onboarding }) {
-    const [dismissed, setDismissed] = useState(true);
+const ONBOARDING_STEP_NAMES = [
+    'Objectif et cas d\'usage',
+    'Voix et tonalité',
+    'Instructions et scénario',
+    'Numéro et ligne d\'appel',
+    'Appel de test en direct'
+];
+
+/** 6. CARTE DE REPRISE ONBOARDING & GUIDE DE DÉMARRAGE RAPIDE (Style Linear / Stripe) */
+function OnboardingQuickStartBanner({ onboarding, onboardingState }) {
+    const isServerDismissed = onboardingState?.status === 'dismissed' || onboardingState?.status === 'completed';
+    const [dismissed, setDismissed] = useState(isServerDismissed);
+    const [dismissing, setDismissing] = useState(false);
 
     useEffect(() => {
+        if (isServerDismissed) {
+            setDismissed(true);
+            return;
+        }
         try {
             const stored = localStorage.getItem('autocall_dashboard_guide_dismissed');
-            if (stored !== 'true') {
-                setDismissed(false);
+            if (stored === 'true') {
+                setDismissed(true);
             }
-        } catch {
-            setDismissed(false);
-        }
-    }, []);
+        } catch {}
+    }, [isServerDismissed]);
 
-    const handleDismiss = () => {
+    const handleDismiss = async () => {
         setDismissed(true);
         try {
             localStorage.setItem('autocall_dashboard_guide_dismissed', 'true');
-        } catch {}
+            setDismissing(true);
+            await fetch('/api/app/onboarding/dismiss', { credentials: 'same-origin', method: 'POST' });
+        } catch {
+            // tolérance erreur réseau
+        } finally {
+            setDismissing(false);
+        }
     };
 
-    if (!onboarding || dismissed) return null;
+    if (dismissed || isServerDismissed) return null;
 
-    const steps = [
-        {
-            id: 'agent',
-            title: '1. Créer un agent IA',
-            desc: 'Définir la voix et le scénario',
-            done: Boolean(onboarding.has_agent),
-            href: route('client.agents.index'),
-            btnText: 'Créer un agent',
-            icon: Bot,
-        },
-        {
-            id: 'number',
-            title: '2. Lier une ligne',
-            desc: 'Numéro entrant ou sortant',
-            done: Boolean(onboarding.has_number),
-            href: route('client.phone-numbers.index'),
-            btnText: 'Gérer les numéros',
-            icon: Phone,
-        },
-        {
-            id: 'contacts',
-            title: '3. Importer des contacts',
-            desc: 'Prospects à qualifier en masse',
-            done: Boolean(onboarding.has_contacts),
-            href: route('client.contacts.index'),
-            btnText: 'Ajouter contacts',
-            icon: Users,
-        },
-        {
-            id: 'campaign',
-            title: '4. Lancer une campagne',
-            desc: 'Déclencher vos premiers appels',
-            done: Boolean(onboarding.has_campaign),
-            href: route('client.campaigns.index'),
-            btnText: 'Démarrer',
-            icon: Megaphone,
-        },
-    ];
-
-    const completedCount = steps.filter((s) => s.done).length;
-    if (completedCount === steps.length) return null;
-
-    const progressPct = Math.round((completedCount / steps.length) * 100);
+    const completedStepIndices = onboardingState?.completedSteps || [];
+    const totalStepsCount = 5;
+    const completedCount = completedStepIndices.length;
+    const progressPct = Math.round((completedCount / totalStepsCount) * 100);
+    const nextStepIdx = onboardingState?.currentStep || 0;
+    const nextStepName = ONBOARDING_STEP_NAMES[nextStepIdx] || ONBOARDING_STEP_NAMES[0];
 
     return (
         <div className="relative overflow-hidden rounded-[20px] border border-blue-200/90 dark:border-white/[0.08] bg-gradient-to-r from-blue-50/60 via-white to-sky-50/30 dark:from-blue-950/20 dark:via-[#131622] dark:to-[#131622] p-5 shadow-[0_2px_12px_rgba(16,24,40,0.04)] transition-all">
@@ -623,14 +604,14 @@ function OnboardingQuickStartBanner({ onboarding }) {
                     <div>
                         <div className="flex items-center gap-2">
                             <h3 className="font-hero-sans text-sm font-bold text-neutral-900 dark:text-white">
-                                Guide de démarrage rapide AutoCall
+                                Votre configuration est presque prête
                             </h3>
                             <span className="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:text-blue-300">
-                                {completedCount} sur {steps.length} étapes
+                                {completedCount} sur {totalStepsCount} étapes · Prochaine : {nextStepName}
                             </span>
                         </div>
                         <p className="text-xs text-slate-600 dark:text-[#8E95A5] mt-0.5">
-                            Complétez ces étapes pour lancer votre premier agent vocal en production.
+                            Complétez votre premier agent vocal pour lancer vos appels de test dans des conditions réelles.
                         </p>
                     </div>
                 </div>
@@ -647,11 +628,19 @@ function OnboardingQuickStartBanner({ onboarding }) {
                             />
                         </div>
                     </div>
+                    <Link
+                        href="/app/onboarding"
+                        className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-1.5 text-xs font-semibold shadow-xs transition"
+                    >
+                        <span>Continuer la configuration</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                     <button
                         type="button"
                         onClick={handleDismiss}
-                        className="rounded-lg p-1 text-neutral-400 hover:text-neutral-700 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-white/[0.06] transition cursor-pointer"
-                        title="Masquer définitivement le guide"
+                        disabled={dismissing}
+                        className="rounded-lg p-1.5 text-neutral-400 hover:text-neutral-700 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-white/[0.06] transition cursor-pointer"
+                        title="Masquer définitivement"
                     >
                         <X className="h-4 w-4" />
                     </button>
@@ -726,6 +715,7 @@ export default function Dashboard({
     recentCalls = [],
     activeCampaigns = [],
     onboarding,
+    onboardingState,
     selectedPeriod = '30d',
     periodStart,
     periodEnd,
@@ -810,8 +800,8 @@ export default function Dashboard({
                     </div>
                 </div>
 
-                {/* GUIDE DE DÉMARRAGE RAPIDE (Affiché uniquement à la première connexion) */}
-                <OnboardingQuickStartBanner onboarding={onboarding} />
+                {/* GUIDE DE DÉMARRAGE RAPIDE / REPRISE ONBOARDING */}
+                <OnboardingQuickStartBanner onboarding={onboarding} onboardingState={onboardingState} />
 
                 
                 {/* 1. TOP ROW : LES 4 KPIS EN TÊTE (Design Shopeers) */}

@@ -133,9 +133,16 @@
         "google_sheets": "Google Sheets",
         "billing_section": "Billing Section",
         "account": "Account",
+        "settings_section": "Settings",
+        "advanced": "Advanced",
+        "prompt_templates": "Prompt Templates",
         "verification": "Verification",
         "crm": "CRM",
-        "incoming-connections": "Incoming Connections"
+        "incoming-connections": "Incoming Connections",
+        "agents_section": "AI Agents",
+        "contacts_section": "Contacts",
+        "analytics_section": "Analytics",
+        "tenants": "Workspaces"
     },
     "rtl": {
         "title": "RTL Preview",

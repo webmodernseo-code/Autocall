@@ -475,6 +475,7 @@ model Client {
   website_widgets             WebsiteWidget?
   whatsapp_accounts           WhatsAppAccount[]
   whatsapp_templates          WhatsAppTemplate[]
+  client_onboardings          ClientOnboarding?
 
   @@index([email], map: "clients_email_index")
   @@map("clients")
@@ -1724,4 +1725,22 @@ model WhatsAppTemplate {
 enum users_theme {
   dark
   light
+}
+
+model ClientOnboarding {
+  id               BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  client_id        BigInt    @unique(map: "client_onboardings_client_id_unique") @db.UnsignedBigInt
+  status           String    @default("not_started") @db.VarChar(32)
+  current_step     Int       @default(1) @db.UnsignedSmallInt
+  max_step_reached Int       @default(1) @db.UnsignedSmallInt
+  version          String    @default("v1") @db.VarChar(16)
+  data             Json?
+  started_at       DateTime? @db.Timestamp(0)
+  completed_at     DateTime? @db.Timestamp(0)
+  dismissed_at     DateTime? @db.Timestamp(0)
+  created_at       DateTime? @default(now()) @db.Timestamp(0)
+  updated_at       DateTime? @updatedAt @db.Timestamp(0)
+  clients          Client    @relation(fields: [client_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "client_onboardings_client_id_foreign")
+
+  @@map("client_onboardings")
 }

@@ -7,6 +7,7 @@ import PageOverview from '@/components/PageOverview';
 import StatCards from '@/components/StatCards';
 import KycGate from '@/components/KycGate';
 import { useTranslation } from 'react-i18next';
+import { PageHeader, EmptyState } from '@/components/ui';
 import { Megaphone, Plus, Users, PhoneCall, Sparkles, CheckCircle2, ShieldCheck, ArrowRight } from 'lucide-react';
 
 const STATUS = {
@@ -48,24 +49,16 @@ export default function CampaignsIndex({ campaigns, filters = {}, stats = [] }) 
             <Head title="Campagnes d'appels · AutoCall" />
             <div className="space-y-6">
 
-                {/* En-tête de section */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                        <h1 className="font-hero-sans text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                            Campagnes d&apos;appels
-                        </h1>
-                        <p className="mt-1 text-xs text-neutral-500 dark:text-[#8E95A5]">
-                            Automatisez vos appels sortants à grande échelle avec vos agents IA vocaux.
-                        </p>
-                    </div>
-                    <Link
-                        href={route('client.campaigns.create')}
-                        className="inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 text-xs font-semibold shadow-[0_2px_8px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_14px_rgba(37,99,235,0.35)] transition-all cursor-pointer self-start sm:self-auto"
-                    >
-                        <Plus className="h-4 w-4" />
-                        <span>Nouvelle campagne</span>
-                    </Link>
-                </div>
+                {/* En-tête de section standardisé */}
+                <PageHeader
+                    title="Campagnes d'appels"
+                    description="Automatisez vos appels sortants à grande échelle avec vos agents IA vocaux."
+                    primaryAction={{
+                        label: 'Nouvelle campagne',
+                        href: route('client.campaigns.create'),
+                        icon: Plus,
+                    }}
+                />
 
                 {/* Bannière de présentation fonctionnelle */}
                 <PageOverview feature="campaigns" />
@@ -138,43 +131,33 @@ export default function CampaignsIndex({ campaigns, filters = {}, stats = [] }) 
                         ))}
                     </div>
                 ) : (
-                    <div className="rounded-[22px] border border-neutral-200/90 dark:border-white/[0.07] bg-white dark:bg-[#131622] p-10 sm:p-14 text-center shadow-[0_4px_24px_-2px_rgba(16,24,40,0.06)]">
-                        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 mb-4 border border-blue-100 dark:border-blue-500/20">
-                            <Megaphone className="h-6 w-6" />
-                        </div>
-                        <h3 className="font-hero-sans text-base font-bold text-neutral-900 dark:text-white">
-                            Aucune campagne pour le moment
-                        </h3>
-                        <p className="mt-1.5 text-xs text-neutral-500 dark:text-[#8E95A5] max-w-md mx-auto">
-                            Créez votre première campagne d&apos;appels sortants pour engager automatiquement vos contacts avec un agent IA vocal sur-mesure.
-                        </p>
-
-                        <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-                            <Link
-                                href={route('client.campaigns.create')}
-                                className="inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 text-xs font-semibold shadow-[0_2px_8px_rgba(37,99,235,0.25)] transition-all cursor-pointer"
-                            >
-                                <Plus className="h-4 w-4" />
-                                <span>Créer ma première campagne</span>
-                            </Link>
-                        </div>
-
-                        {/* Micro-réassurance */}
-                        <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-white/[0.06] flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-400">
-                            <span className="flex items-center gap-1.5">
-                                <Sparkles className="h-3.5 w-3.5 text-blue-500" />
-                                <span>Numérotation & réessais automatiques</span>
-                            </span>
-                            <span className="flex items-center gap-1.5">
-                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                                <span>Détection des répondeurs</span>
-                            </span>
-                            <span className="flex items-center gap-1.5">
-                                <ShieldCheck className="h-3.5 w-3.5 text-indigo-500" />
-                                <span>Conforme aux règles de télé-prospection</span>
-                            </span>
-                        </div>
-                    </div>
+                    <EmptyState
+                        variant={filters.status ? 'filter' : 'default'}
+                        icon={Megaphone}
+                        title={filters.status ? 'Aucune campagne pour ce statut' : 'Aucune campagne pour le moment'}
+                        description={
+                            filters.status
+                                ? `Aucune campagne ne correspond au statut sélectionné (${STATUS_LABELS[filters.status] || filters.status}).`
+                                : 'Créez votre première campagne d\'appels sortants pour engager automatiquement vos contacts avec un agent IA vocal sur-mesure.'
+                        }
+                        primaryAction={
+                            filters.status
+                                ? {
+                                      label: 'Afficher toutes les campagnes',
+                                      onClick: () => filter(''),
+                                  }
+                                : {
+                                      label: 'Créer ma première campagne',
+                                      href: route('client.campaigns.create'),
+                                      icon: Plus,
+                                  }
+                        }
+                        tips={[
+                            'Numérotation intelligente et réessais automatiques en cas d\'échec',
+                            'Détection instantanée des répondeurs et messageries',
+                            'Rapports d\'appels et transcriptions détaillées en temps réel'
+                        ]}
+                    />
                 )}
             </div>
         </ClientLayout>

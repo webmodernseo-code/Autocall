@@ -1,4 +1,22 @@
-export const ONBOARDING_STEPS = 4;
+import prisma from '../prisma.js';
+
+export const ONBOARDING_STEPS = 5;
+export const ONBOARDING_VERSION = 'v1';
+
+export const ONBOARDING_STATUS = {
+    NOT_STARTED: 'not_started',
+    IN_PROGRESS: 'in_progress',
+    COMPLETED: 'completed',
+    DISMISSED: 'dismissed',
+};
+
+export const ONBOARDING_STEP_DEFINITIONS = [
+    { n: 1, key: 'business', title: 'Votre entreprise', subtitle: 'Informations clés et secteur' },
+    { n: 2, key: 'mission', title: 'Mission & Objectifs', subtitle: 'Ce que l’agent doit accomplir' },
+    { n: 3, key: 'identity', title: 'Identité & Voix', subtitle: 'Personnalité, langue et message d’accueil' },
+    { n: 4, key: 'rules', title: 'Horaires & Transfert', subtitle: 'Disponibilité et règles d’orientation' },
+    { n: 5, key: 'test', title: 'Premier test', subtitle: 'Vérification et mise en service' },
+];
 
 export function onboardingPrompt(input) {
     const mission = {
@@ -15,7 +33,7 @@ export function onboardingPrompt(input) {
             : 'Ne promets jamais un transfert. Prends un message clair lorsqu’une intervention humaine est nécessaire.';
 
     return [
-        `Tu es ${input.agent_name || 'l’assistant AutoCall'}, l’assistant vocal de ${input.business_name}.`,
+        `Tu es ${input.agent_name || 'l’assistant AutoCall'}, l’assistant vocal de ${input.business_name || 'notre entreprise'}.`,
         `Ta mission principale est de ${mission}.`,
         input.business_summary ? `Contexte de l’entreprise : ${input.business_summary}` : null,
         input.opening_start && input.opening_end
@@ -42,4 +60,157 @@ export function onboardingMeta(existing, input, completed = false) {
             completed_at: completed ? new Date().toISOString() : (base.onboarding?.completed_at || null),
         },
     };
+}
+
+/**
+ * Récupère ou initialise l'état persistant d'onboarding pour un client donné.
+ * Auto-détecte les comptes déjà configurés pour ne jamais forcer un utilisateur existant.
+ */
+export async function getOrCreateOnboardingState(clientId) {
+    if (!clientId) return null;
+    const cid = BigInt(clientId);
+
+    let state = await prisma.clientOnboarding.findUnique({
+        where: { client_id: cid },
+    });
+
+    if (state) {
+        return state;
+    }
+
+    // Auto-détection intelligente pour comptes préexistants
+    const [existingCall, existingAgent, existingNumbers] = await Promise.all([
+        prisma.call.findFirst({ where: { client_id: cid }, select: { id: true } }),
+        prisma.agent.findFirst({ where: { client_id: cid }, select: { id: true, meta: true } }),
+        prisma.phoneNumber.findFirst({ where: { client_id: cid }, select: { id: true } }),
+    ]);
+
+    const isAlreadyActive = Boolean(
+        existingCall ||
+        (existingAgent && existingAgent.meta?.onboarding?.completed_at) ||
+        (existingAgent && existingNumbers)
+    );
+
+    const initialStatus = isAlreadyActive ? ONBOARDING_STATUS.COMPLETED : ONBOARDING_STATUS.NOT_STARTED;
+    const now = new Date();
+
+    try {
+        state = await prisma.clientOnboarding.create({
+            data: {
+                client_id: cid,
+                status: initialStatus,
+                current_step: isAlreadyActive ? ONBOARDING_STEPS : 1,
+                max_step_reached: isAlreadyActive ? ONBOARDING_STEPS : 1,
+                version: ONBOARDING_VERSION,
+                started_at: isAlreadyActive ? now : null,
+                completed_at: isAlreadyActive ? now : null,
+                created_at: now,
+                updated_at: now,
+            },
+        });
+    } catch {
+        // En cas de course critique concurrente
+        state = await prisma.clientOnboarding.findUnique({ where: { client_id: cid } });
+    }
+
+    return state;
+}
+
+/**
+ * Enregistre la progression d'une étape d'onboarding
+ */
+export async function saveOnboardingProgress(clientId, { step, data = {}, completed = false }) {
+    const cid = BigInt(clientId);
+    const existing = await getOrCreateOnboardingState(cid);
+    const now = new Date();
+
+    const nextStep = Math.min(ONBOARDING_STEPS, Math.max(1, Number(step)));
+    const maxStep = Math.max(existing?.max_step_reached || 1, nextStep);
+    const mergedData = { ...(existing?.data || {}), ...data };
+
+    const status = completed
+        ? ONBOARDING_STATUS.COMPLETED
+        : ONBOARDING_STATUS.IN_PROGRESS;
+
+    return await prisma.clientOnboarding.upsert({
+        where: { client_id: cid },
+        update: {
+            status,
+            current_step: completed ? ONBOARDING_STEPS : nextStep,
+            max_step_reached: maxStep,
+            data: mergedData,
+            started_at: existing?.started_at || now,
+            completed_at: completed ? now : existing?.completed_at,
+            updated_at: now,
+        },
+        create: {
+            client_id: cid,
+            status,
+            current_step: nextStep,
+            max_step_reached: maxStep,
+            version: ONBOARDING_VERSION,
+            data: mergedData,
+            started_at: now,
+            completed_at: completed ? now : null,
+            created_at: now,
+            updated_at: now,
+        },
+    });
+}
+
+/**
+ * Marque l'onboarding comme ignoré (dismissed) côté serveur
+ */
+export async function dismissOnboarding(clientId) {
+    const cid = BigInt(clientId);
+    const now = new Date();
+
+    return await prisma.clientOnboarding.upsert({
+        where: { client_id: cid },
+        update: {
+            status: ONBOARDING_STATUS.DISMISSED,
+            dismissed_at: now,
+            updated_at: now,
+        },
+        create: {
+            client_id: cid,
+            status: ONBOARDING_STATUS.DISMISSED,
+            current_step: 1,
+            max_step_reached: 1,
+            version: ONBOARDING_VERSION,
+            dismissed_at: now,
+            created_at: now,
+            updated_at: now,
+        },
+    });
+}
+
+/**
+ * Relance manuellement l'onboarding
+ */
+export async function restartOnboarding(clientId) {
+    const cid = BigInt(clientId);
+    const now = new Date();
+
+    return await prisma.clientOnboarding.upsert({
+        where: { client_id: cid },
+        update: {
+            status: ONBOARDING_STATUS.IN_PROGRESS,
+            current_step: 1,
+            started_at: now,
+            completed_at: null,
+            dismissed_at: null,
+            updated_at: now,
+        },
+        create: {
+            client_id: cid,
+            status: ONBOARDING_STATUS.IN_PROGRESS,
+            current_step: 1,
+            max_step_reached: 1,
+            version: ONBOARDING_VERSION,
+            started_at: now,
+            created_at: now,
+            updated_at: now,
+        },
+    });
 }

@@ -7,6 +7,7 @@ import { writeSession } from '@/lib/auth/session';
 import { availableIn, clear, hit, throttleKey, tooManyAttempts } from '@/lib/rate-limit';
 import { detectRegionalPreferences } from '@/lib/regional-preferences.mjs';
 import { safeRedirectPath } from '@/lib/safe-redirect.mjs';
+import { getOrCreateOnboardingState, ONBOARDING_STATUS } from '@/lib/domain/onboarding';
 
 /**
  * POST /login via LoginRequest.
@@ -87,12 +88,12 @@ export const POST = handler(async (request) => {
         const url = new URL(request.url);
         const intended = url.searchParams.get('redirect');
 
-        const firstAgent = await prisma.agent.findFirst({
-            where: { client_id: BigInt(effectiveClientId) },
-            orderBy: { id: 'asc' },
-            select: { meta: true },
-        });
-        if (!intended && (!firstAgent || (firstAgent.meta?.onboarding && !firstAgent.meta.onboarding.completed_at))) {
+        const onboardingState = await getOrCreateOnboardingState(effectiveClientId);
+        const shouldShowOnboarding = !intended && onboardingState &&
+            onboardingState.status !== ONBOARDING_STATUS.COMPLETED &&
+            onboardingState.status !== ONBOARDING_STATUS.DISMISSED;
+
+        if (shouldShowOnboarding) {
             await writeSession({
                 uid: Number(user.id),
                 client_id: Number(effectiveClientId),
@@ -101,7 +102,8 @@ export const POST = handler(async (request) => {
                 display_currency: user.display_currency ?? detected.currency,
                 theme: user.theme ?? 'light',
             });
-            return NextResponse.json({ redirect: '/app/onboarding' });
+            const resumeStep = onboardingState.current_step || 1;
+            return NextResponse.json({ redirect: `/app/onboarding?step=${resumeStep}` });
         }
     }
 

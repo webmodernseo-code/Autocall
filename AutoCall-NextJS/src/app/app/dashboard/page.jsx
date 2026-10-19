@@ -8,6 +8,7 @@ import {
     DASHBOARD_PERIOD_DAYS,
     dashboardPeriod,
 } from '@/lib/dashboard-metrics.mjs';
+import { getOrCreateOnboardingState } from '@/lib/domain/onboarding';
 
 export const dynamic = 'force-dynamic';
 
@@ -39,9 +40,11 @@ async function buildProps(clientId, selectedPeriod) {
             periodEnd: iso(periodEnd),
             kpis: null,
             onboarding: null,
+            onboardingState: null,
         };
     }
 
+    const onboardingState = await getOrCreateOnboardingState(clientId);
     const client_id = BigInt(clientId);
     const calls = await prisma.call.findMany({
         where: { client_id, created_at: { gte: periodStart, lte: periodEnd } },
@@ -124,5 +127,6 @@ async function buildProps(clientId, selectedPeriod) {
             has_contacts: contactsCount > 0,
             has_campaign: anyCampaign > 0,
         },
+        onboardingState,
     };
 }

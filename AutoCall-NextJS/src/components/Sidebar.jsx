@@ -66,42 +66,67 @@ function NavItemLink({ item, onClose, onNavigate, optimisticHref, className, col
     };
 
     return (
-        <Link
-            href={href}
-            prefetch={true}
-            title={item.label}
-            onMouseEnter={() => router.prefetch(href)}
-            onFocus={() => router.prefetch(href)}
-            onPointerDown={triggerOptimistic}
-            onMouseDown={triggerOptimistic}
-            onTouchStart={triggerOptimistic}
-            onClick={(event) => {
-                triggerOptimistic();
-                onClose?.(event);
-            }}
-            aria-current={isActive ? 'page' : undefined}
-            className={cn(
-                'group relative flex items-center overflow-hidden rounded-2xl transition-all duration-75',
-                collapsed ? 'h-10 w-10 mx-auto justify-center p-0' : 'gap-3 px-3.5 py-2.5 text-xs sm:text-sm',
-                isActive ? ACTIVE : INACTIVE,
-                className,
+        <div className="relative group/tooltip flex w-full justify-center">
+            <Link
+                href={href}
+                prefetch={true}
+                title={!collapsed ? item.label : undefined}
+                onMouseEnter={() => router.prefetch(href)}
+                onFocus={() => router.prefetch(href)}
+                onPointerDown={triggerOptimistic}
+                onMouseDown={triggerOptimistic}
+                onTouchStart={triggerOptimistic}
+                onClick={(event) => {
+                    triggerOptimistic();
+                    onClose?.(event);
+                }}
+                aria-current={isActive ? 'page' : undefined}
+                className={cn(
+                    'group relative flex items-center overflow-hidden rounded-xl transition-all duration-150',
+                    collapsed ? 'h-10 w-10 mx-auto justify-center p-0' : 'w-full gap-3 px-3 py-2 text-xs sm:text-sm',
+                    isActive ? ACTIVE : INACTIVE,
+                    className,
+                )}
+            >
+                {isActive && (
+                    <span className={cn(
+                        'absolute bg-blue-600 dark:bg-blue-400',
+                        collapsed ? 'inset-x-2 bottom-0 h-[2.5px] rounded-full' : 'inset-y-0 left-0 w-[3px] rounded-l-xl'
+                    )} />
+                )}
+                <NavIcon icon={item.icon} isActive={isActive} />
+                {!collapsed && <span className="truncate">{item.label}</span>}
+            </Link>
+
+            {collapsed && (
+                <div
+                    role="tooltip"
+                    className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 z-50 hidden group-hover/tooltip:flex group-focus-within/tooltip:flex whitespace-nowrap rounded-lg bg-neutral-900 px-2.5 py-1 text-xs font-medium text-white shadow-md dark:bg-neutral-800 border border-neutral-700/50"
+                >
+                    {item.label}
+                </div>
             )}
-        >
-            {isActive && (
-                <span className={cn(
-                    'absolute bg-blue-600 dark:bg-blue-400',
-                    collapsed ? 'inset-x-2 bottom-0 h-[2.5px] rounded-full' : 'inset-y-0 left-0 w-[3.5px] rounded-l-2xl'
-                )} />
-            )}
-            <NavIcon icon={item.icon} isActive={isActive} />
-            {!collapsed && <span className="truncate">{item.label}</span>}
-        </Link>
+        </div>
     );
 }
 
-function NavGroup({ label, items, onClose, icon, variant = 'default', alwaysActive = false, suppressHeader = false, groupKey, manualOpenKey, setManualOpenKey, onNavigate, optimisticHref, collapsed = false, onExpand = null }) {
+function NavGroup({
+    label,
+    items,
+    onClose,
+    icon,
+    variant = 'default',
+    alwaysActive = false,
+    suppressHeader = false,
+    groupKey,
+    isOpen,
+    onToggle,
+    onNavigate,
+    optimisticHref,
+    collapsed = false
+}) {
     const hasActiveChild = items.some((item) => checkItemActive(item, optimisticHref));
-    const open = alwaysActive || hasActiveChild || manualOpenKey === groupKey;
+    const open = alwaysActive || (isOpen !== undefined ? isOpen : hasActiveChild);
 
     if (collapsed) {
         return (
@@ -120,16 +145,16 @@ function NavGroup({ label, items, onClose, icon, variant = 'default', alwaysActi
         );
     }
 
-    const headerClassName = 'flex w-full items-center justify-between gap-2 px-3.5 py-2 text-xs font-bold normal-case tracking-wider transition-colors duration-150 select-none text-neutral-400 hover:text-neutral-700 dark:text-white/40 dark:hover:text-white/70';
+    const headerClassName = 'flex w-full items-center justify-between gap-2 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-colors duration-150 select-none text-neutral-400 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200';
 
     const headerInner = (
         <>
             <span className="flex min-w-0 flex-1 items-center gap-2">
-                {icon && <span className="shrink-0 text-neutral-400 dark:text-white/40">{icon}</span>}
+                {icon && <span className="shrink-0 text-neutral-400 dark:text-neutral-400">{icon}</span>}
                 <span className="truncate">{label}</span>
             </span>
             {!alwaysActive && (
-                <ChevronDown className={['h-3.5 w-3.5 shrink-0 transition-transform duration-200 text-neutral-400 dark:text-white/40', open ? 'rotate-0' : '-rotate-90'].join(' ')} />
+                <ChevronDown className={cn('h-3.5 w-3.5 shrink-0 transition-transform duration-200 text-neutral-400 dark:text-neutral-400', open ? 'rotate-0' : '-rotate-90')} />
             )}
         </>
     );
@@ -141,11 +166,8 @@ function NavGroup({ label, items, onClose, icon, variant = 'default', alwaysActi
             ) : (
                 <button
                     type="button"
-                    onClick={() => {
-                        const next = open ? null : groupKey;
-                        setManualOpenKey(next);
-                    }}
-                    className={cn(headerClassName, 'cursor-pointer rounded-xl hover:bg-neutral-100/50 dark:hover:bg-white/[0.02]')}
+                    onClick={onToggle}
+                    className={cn(headerClassName, 'cursor-pointer rounded-xl hover:bg-neutral-100/60 dark:hover:bg-white/[0.04]')}
                     aria-expanded={open}
                 >
                     {headerInner}
@@ -153,7 +175,7 @@ function NavGroup({ label, items, onClose, icon, variant = 'default', alwaysActi
             ))}
 
             {open && (
-                <div className="mt-1 space-y-1 pl-1">
+                <div className="mt-1 space-y-0.5 pl-1.5">
                     {items.map((item, index) => (
                         <NavItemLink
                             key={item.key ?? item.route ?? item.href ?? index}
@@ -186,7 +208,7 @@ export default function Sidebar({
 }) {
     const { t } = useTranslation();
     const { url } = usePage();
-    const [manualOpenKey, setManualOpenKey] = useState(null);
+    const [openGroups, setOpenGroups] = useState({});
     const [selectedGroupKey, setSelectedGroupKey] = useState(rememberedDrilldownGroupKey);
     const [optimisticHref, setOptimisticHref] = useState(rememberedOptimisticHref);
 
@@ -194,6 +216,13 @@ export default function Sidebar({
         rememberedOptimisticHref = null;
         setOptimisticHref(null);
     }, [url]);
+
+    const toggleGroup = (key) => {
+        setOpenGroups((prev) => ({
+            ...prev,
+            [key]: prev[key] === undefined ? false : !prev[key],
+        }));
+    };
 
     const isDrilldown = navigationMode === 'drilldown' && navGroups.length > 0;
     const pinnedGroup = isDrilldown ? navGroups[0] : null;
@@ -283,46 +312,66 @@ export default function Sidebar({
                 {/* 1. Mode Replié Compact : Affiche les icônes centrées avec infobulles */}
                 {collapsed ? (
                     <div className="space-y-3">
-                        {/* Pinned (Tableau de bord) */}
-                        <div className="space-y-1">
-                            {(pinnedGroup?.items ?? []).map((item, index) => (
-                                <NavItemLink
-                                    key={item.key ?? item.route ?? item.href ?? index}
-                                    item={item}
-                                    onClose={onClose}
-                                    onNavigate={markNavigationActive}
-                                    optimisticHref={optimisticHref}
-                                    collapsed={true}
-                                />
-                            ))}
-                        </div>
+                        {isDrilldown ? (
+                            <>
+                                <div className="space-y-1">
+                                    {(pinnedGroup?.items ?? []).map((item, index) => (
+                                        <NavItemLink
+                                            key={item.key ?? item.route ?? item.href ?? index}
+                                            item={item}
+                                            onClose={onClose}
+                                            onNavigate={markNavigationActive}
+                                            optimisticHref={optimisticHref}
+                                            collapsed={true}
+                                        />
+                                    ))}
+                                </div>
 
-                        <div className="border-t border-slate-200/80 pt-2 dark:border-white/[0.07] space-y-1.5">
-                            {drilldownGroups.map((group, index) => {
-                                const groupKey = `drilldown-g-${index}`;
-                                const isGroupActive = group.items?.some((i) => checkItemActive(i, optimisticHref));
-                                return (
-                                    <button
-                                        key={groupKey}
-                                        type="button"
-                                        title={group.label}
-                                        aria-label={group.label}
-                                        onClick={() => {
-                                            if (onToggleCollapse) onToggleCollapse();
-                                            setSelectedGroupKey(groupKey);
-                                        }}
-                                        className={cn(
-                                            'flex h-10 w-10 mx-auto items-center justify-center rounded-2xl transition cursor-pointer',
-                                            isGroupActive
-                                                ? 'bg-blue-600 text-white shadow-xs'
-                                                : 'text-neutral-500 hover:bg-white hover:text-blue-600 dark:text-[#A4AABA] dark:hover:bg-white/[0.05] dark:hover:text-white'
-                                        )}
-                                    >
-                                        {group.icon}
-                                    </button>
-                                );
-                            })}
-                        </div>
+                                <div className="border-t border-slate-200/80 pt-2 dark:border-white/[0.07] space-y-1.5">
+                                    {drilldownGroups.map((group, index) => {
+                                        const groupKey = `drilldown-g-${index}`;
+                                        const isGroupActive = group.items?.some((i) => checkItemActive(i, optimisticHref));
+                                        return (
+                                            <button
+                                                key={groupKey}
+                                                type="button"
+                                                title={group.label}
+                                                aria-label={group.label}
+                                                onClick={() => {
+                                                    if (onToggleCollapse) onToggleCollapse();
+                                                    setSelectedGroupKey(groupKey);
+                                                }}
+                                                className={cn(
+                                                    'flex h-10 w-10 mx-auto items-center justify-center rounded-xl transition cursor-pointer',
+                                                    isGroupActive
+                                                        ? 'bg-blue-600 text-white shadow-xs'
+                                                        : 'text-neutral-500 hover:bg-white hover:text-blue-600 dark:text-[#A4AABA] dark:hover:bg-white/[0.05] dark:hover:text-white'
+                                                )}
+                                            >
+                                                {group.icon}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </>
+                        ) : (
+                            <div className="space-y-2">
+                                {navGroups.map((group, gi) => (
+                                    <div key={group.key ?? `collapsed-g-${gi}`} className="space-y-1 py-1 border-b border-slate-200/60 dark:border-white/[0.05] last:border-0" title={group.label}>
+                                        {(group.items ?? []).map((item, index) => (
+                                            <NavItemLink
+                                                key={item.key ?? item.route ?? item.href ?? index}
+                                                item={item}
+                                                onClose={onClose}
+                                                onNavigate={markNavigationActive}
+                                                optimisticHref={optimisticHref}
+                                                collapsed={true}
+                                            />
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 ) : (
                     /* 2. Mode Déplié Standard (Largeur 256px) */
@@ -406,12 +455,14 @@ export default function Sidebar({
                     ) : (
                         navGroups.length > 0 && navGroups.map((group, gi) => {
                             const groupKey = `nav-g-${gi}`;
+                            const hasActiveChild = (group.items ?? []).some((i) => checkItemActive(i, optimisticHref));
+                            const isOpen = group.alwaysActive ? true : (openGroups[groupKey] !== undefined ? openGroups[groupKey] : hasActiveChild);
                             return (
                                 <NavGroup
                                     key={groupKey}
                                     groupKey={groupKey}
-                                    manualOpenKey={manualOpenKey}
-                                    setManualOpenKey={setManualOpenKey}
+                                    isOpen={isOpen}
+                                    onToggle={() => toggleGroup(groupKey)}
                                     label={group.label}
                                     items={group.items ?? []}
                                     onClose={onClose}

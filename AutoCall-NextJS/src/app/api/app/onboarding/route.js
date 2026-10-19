@@ -2,13 +2,27 @@ import prisma from '@/lib/prisma';
 import { gateClient, handler } from '@/lib/guards';
 import { readBody, redirectTo, validate, ValidationFailed } from '@/lib/http';
 import { defaultEngine } from '@/lib/services/integrations';
-import { ONBOARDING_STEPS, onboardingMeta, onboardingPrompt } from '@/lib/domain/onboarding';
+import {
+    ONBOARDING_STEPS,
+    onboardingMeta,
+    onboardingPrompt,
+    saveOnboardingProgress,
+    dismissOnboarding
+} from '@/lib/domain/onboarding';
 
 export const POST = handler(async (request) => {
     const gate = await gateClient({ routeName: 'client.onboarding.store' });
     if (gate.response) return gate.response;
 
+    const clientId = BigInt(gate.clientId);
     const body = await readBody(request);
+
+    // Support dismissal via action
+    if (body?.action === 'dismiss') {
+        await dismissOnboarding(clientId);
+        return redirectTo('/app/dashboard', { success: 'Configuration guidée masquée.' });
+    }
+
     const data = await validate(body, {
         step: ['required', 'integer', `between:1,${ONBOARDING_STEPS}`],
         business_name: ['required', 'string', 'max:255'],
@@ -27,6 +41,7 @@ export const POST = handler(async (request) => {
         opening_end: ['nullable', 'string', 'max:8'],
         transfer_phone: ['nullable', 'string', 'max:64'],
         transfer_rule: ['nullable', 'string', 'in:requested,always,message'],
+        test_contact_phone: ['nullable', 'string', 'max:64'],
     }, {
         prisma,
         messages: {
@@ -43,9 +58,8 @@ export const POST = handler(async (request) => {
     if (step >= 3 && !data.greeting) errors.greeting = ['Rédigez un message d’accueil.'];
     if (Object.keys(errors).length) throw new ValidationFailed(errors);
 
-    const clientId = BigInt(gate.clientId);
     const existing = await prisma.agent.findFirst({ where: { client_id: clientId }, orderBy: { id: 'asc' } });
-    const completed = step === ONBOARDING_STEPS;
+    const completed = step >= ONBOARDING_STEPS;
     const meta = onboardingMeta(existing?.meta, data, completed);
 
     await prisma.$transaction(async (tx) => {
@@ -88,13 +102,39 @@ export const POST = handler(async (request) => {
                 },
             });
         }
+
+        // Si un numéro de contact de test a été fourni à l'étape 5, l'ajouter aux contacts du client
+        if (data.test_contact_phone) {
+            const existingContact = await tx.contact.findFirst({
+                where: { client_id: clientId, phone: data.test_contact_phone },
+            });
+            if (!existingContact) {
+                await tx.contact.create({
+                    data: {
+                        client_id: clientId,
+                        phone: data.test_contact_phone,
+                        name: 'Contact de test',
+                        source: 'onboarding',
+                        created_at: new Date(),
+                        updated_at: new Date(),
+                    },
+                });
+            }
+        }
+    });
+
+    // Enregistrer la progression dans la table dédiée client_onboardings
+    await saveOnboardingProgress(clientId, {
+        step: completed ? ONBOARDING_STEPS : step + 1,
+        data,
+        completed,
     });
 
     if (completed) {
         return redirectTo('/app/dashboard?onboarding=complete', {
-            success: 'Votre premier agent est configuré. Il reste en brouillon jusqu’à votre premier test.',
+            success: 'Félicitations ! Votre premier agent est configuré et prêt pour vos premiers appels.',
         });
     }
 
-    return redirectTo(`/app/onboarding?step=${step + 1}`, { success: 'Étape enregistrée.' });
+    return redirectTo(`/app/onboarding?step=${step + 1}`, { success: 'Étape enregistrée avec succès.' });
 });

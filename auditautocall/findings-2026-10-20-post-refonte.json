@@ -1,0 +1,45 @@
+{
+  "audit": {
+    "project": "AutoCall-NextJS",
+    "date": "2026-10-20",
+    "branch": "main",
+    "base_commit": "0d908f0",
+    "fail_on_severity": "high",
+    "gate": "failed"
+  },
+  "summary": { "critical": 0, "high": 1, "medium": 1, "low": 1 },
+  "findings": [
+    {
+      "id": "AC-SEC-UX-001",
+      "severity": "high",
+      "cwe": ["CWE-862", "CWE-863"],
+      "status": "open",
+      "title": "Onboarding mutations bypass tenant RBAC",
+      "locations": [
+        "AutoCall-NextJS/src/app/api/app/onboarding/route.js:14",
+        "AutoCall-NextJS/src/app/api/app/onboarding/route.js:66",
+        "AutoCall-NextJS/src/lib/auth/route-permissions.js:14"
+      ],
+      "recommendation": "Restrict onboarding mutations to client administrators or enforce explicit settings, agents and contacts permissions."
+    },
+    {
+      "id": "AC-SEC-UX-002",
+      "severity": "medium",
+      "cwe": ["CWE-352", "CWE-749"],
+      "status": "open",
+      "title": "GET request mutates onboarding state",
+      "locations": ["AutoCall-NextJS/src/app/app/onboarding/page.jsx:22"],
+      "recommendation": "Move restart to an authenticated, CSRF-protected POST endpoint and require administrator authorization."
+    },
+    {
+      "id": "AC-SEC-UX-003",
+      "severity": "low",
+      "scanner_severity": "high/moderate",
+      "cwe": ["CWE-674", "CWE-400"],
+      "status": "accepted-temporarily",
+      "title": "Known vulnerabilities limited to development dependencies",
+      "locations": ["AutoCall-NextJS/package-lock.json"],
+      "recommendation": "Migrate the Tailwind/ESLint toolchain and omit dev dependencies from runtime images."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [{
+    "tool": {
+      "driver": {
+        "name": "AutoCall local security audit",
+        "version": "2026-10-20",
+        "rules": [
+          {"id":"AC-SEC-UX-001","shortDescription":{"text":"Onboarding mutations bypass tenant RBAC"},"properties":{"security-severity":"8.1"}},
+          {"id":"AC-SEC-UX-002","shortDescription":{"text":"GET request mutates onboarding state"},"properties":{"security-severity":"6.5"}},
+          {"id":"AC-SEC-UX-003","shortDescription":{"text":"Development dependency advisories"},"properties":{"security-severity":"3.1"}}
+        ]
+      }
+    },
+    "results": [
+      {"ruleId":"AC-SEC-UX-001","level":"error","message":{"text":"The onboarding write route has no mapped RBAC permission but updates the tenant, shared agent and contacts."},"locations":[{"physicalLocation":{"artifactLocation":{"uri":"AutoCall-NextJS/src/app/api/app/onboarding/route.js"},"region":{"startLine":14}}}]},
+      {"ruleId":"AC-SEC-UX-002","level":"warning","message":{"text":"A GET query parameter triggers persistent onboarding state mutation outside the CSRF-protected write handler."},"locations":[{"physicalLocation":{"artifactLocation":{"uri":"AutoCall-NextJS/src/app/app/onboarding/page.jsx"},"region":{"startLine":22}}}]},
+      {"ruleId":"AC-SEC-UX-003","level":"note","message":{"text":"Nine npm advisories are limited to development-only Tailwind and ESLint dependencies."},"locations":[{"physicalLocation":{"artifactLocation":{"uri":"AutoCall-NextJS/package-lock.json"},"region":{"startLine":1}}}]}
+    ]
+  }]
+}

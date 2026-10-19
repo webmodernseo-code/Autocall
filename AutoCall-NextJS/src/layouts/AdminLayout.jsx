@@ -240,7 +240,7 @@ export default function AdminLayout({ title = 'Admin', header, children }) {
                 showCreateButton={false}
                 collapsed={sidebarCollapsed}
                 onToggleCollapse={toggleSidebarCollapse}
-                navigationMode="drilldown"
+                navigationMode="default"
                 navGroups={adminNav}
                 footer={<AdminLayoutFooter />}
             />

@@ -164,8 +164,13 @@ export const POST = handler(async (request) => {
     } else if (selectedPlan && created) {
         defaultTarget = postRegistrationTarget(selectedPlan.slug, billingCycle);
     } else {
-        defaultTarget = !firstAgent || (firstAgent.meta?.onboarding && !firstAgent.meta.onboarding.completed_at)
-            ? '/app/onboarding'
+        const { getOrCreateOnboardingState, ONBOARDING_STATUS } = await import('@/lib/domain/onboarding');
+        const onboardingState = await getOrCreateOnboardingState(effectiveClientId);
+        const shouldShowOnboarding = onboardingState &&
+            onboardingState.status !== ONBOARDING_STATUS.COMPLETED &&
+            onboardingState.status !== ONBOARDING_STATUS.DISMISSED;
+        defaultTarget = shouldShowOnboarding
+            ? `/app/onboarding?step=${onboardingState.current_step || 1}`
             : '/app/dashboard';
     }
 

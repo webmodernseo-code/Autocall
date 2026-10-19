@@ -77,6 +77,8 @@ import {
     KanbanSquare,
     PhoneIncoming,
     Table as TableIcon,
+    Layers,
+    Building2,
 } from 'lucide-react';
 
 const iconClass = 'h-4 w-4';
@@ -93,84 +95,108 @@ function useClientNav() {
 
     const groups = [
         {
-            label: tr('nav.overview', 'Vue d\'ensemble'), alwaysActive: true,
+            key: 'overview',
+            label: tr('nav.overview', 'Accueil'),
+            alwaysActive: true,
+            icon: <LayoutDashboard className={gi} />,
             items: [
                 { label: tr('nav.dashboard', 'Tableau de bord'), href: route('client.dashboard'), icon: <LayoutDashboard className={iconClass} />, route: 'client.dashboard' },
             ],
         },
         {
-            label: tr('nav.calling', 'Téléphonie & Appels'), alwaysActive: true, icon: <PhoneCall className={gi} />,
+            key: 'calling',
+            label: tr('nav.calling', 'Appels'),
+            icon: <PhoneCall className={gi} />,
             items: [
                 { label: tr('nav.campaigns', 'Campagnes'), href: route('client.campaigns.index'), icon: <Megaphone className={iconClass} />, route: 'client.campaigns.*' },
-                { label: tr('nav.agents', 'Agents IA'), href: route('client.agents.index'), icon: <Bot className={iconClass} />, route: 'client.agents.*' },
-                { label: tr('nav.voices', 'Voix'), href: route('client.voices.index'), icon: <AudioLines className={iconClass} />, route: 'client.voices.*' },
-                { label: tr('nav.contacts', 'Contacts'), href: route('client.contacts.index'), icon: <Contact className={iconClass} />, route: 'client.contacts.*' },
-                { label: tr('nav.phone_numbers', 'Numéros de téléphone'), href: route('client.phone-numbers.index'), icon: <Phone className={iconClass} />, route: 'client.phone-numbers.*' },
                 { label: tr('nav.calls', 'Historique des appels'), href: route('client.calls.index'), icon: <PhoneCall className={iconClass} />, route: 'client.calls.*' },
-                { label: tr('nav.analytics', 'Analytique & Stats'), href: route('client.analytics.index'), icon: <BarChart3 className={iconClass} />, route: 'client.analytics.*' },
-                { label: tr('nav.knowledge_base', 'Connaissances'), href: route('client.knowledge-base.index'), icon: <BookOpen className={iconClass} />, route: 'client.knowledge-base.*' },
-            ],
-        },
-        {
-            label: tr('nav.automation', 'Automatisation'), alwaysActive: true, icon: <Workflow className={gi} />,
-            items: [
-                { label: tr('nav.flows', 'Scénarios (Flows)'), href: route('client.flows.index'), icon: <Workflow className={iconClass} />, route: 'client.flows.index' },
-                { label: tr('nav.flow_templates', 'Modèles de flux'), href: route('client.flows.templates'), icon: <LayoutTemplate className={iconClass} />, route: 'client.flows.templates' },
-                { label: tr('nav.flow_executions', 'Journaux d\'exécution'), href: route('client.flows.executions.index'), icon: <ListChecks className={iconClass} />, route: 'client.flows.executions.*' },
-            ],
-        },
-        {
-            label: tr('nav.messaging', 'Messagerie'), alwaysActive: true, icon: <MessageCircle className={gi} />,
-            items: [
-                { label: tr('nav.email_templates', 'Modèles d\'e-mails'), href: route('client.messaging.email-templates.index'), icon: <Mail className={iconClass} />, route: 'client.messaging.email-templates.*' },
-                { label: 'WhatsApp', href: route('client.messaging.whatsapp.index'), icon: <MessageCircle className={iconClass} />, route: 'client.messaging.whatsapp.*' },
-                { label: tr('nav.conversations', 'Conversations'), href: route('client.conversations.index'), icon: <Inbox className={iconClass} />, route: 'client.conversations.*' },
-            ],
-        },
-        
-        {
-            label: tr('nav.tools', 'Outils'), alwaysActive: true, icon: <Wrench className={gi} />,
-            items: [
-                { label: tr('nav.forms', 'Formulaires'), href: route('client.forms.index'), icon: <ClipboardListIcon className={iconClass} />, route: 'client.forms.*' },
                 { label: tr('nav.appointments', 'Rendez-vous'), href: route('client.appointments.index'), icon: <CalendarClock className={iconClass} />, route: 'client.appointments.*' },
-                { label: tr('nav.website_widget', 'Widget Web'), href: route('client.website-widget.index'), icon: <GlobeIcon className={iconClass} />, route: 'client.website-widget.*' },
-                { label: tr('nav.quick_crm', 'CRM Rapide'), href: route('client.crm.board'), icon: <KanbanSquare className={iconClass} />, route: 'client.crm.*' },
-                { label: tr('nav.incoming_connections', 'Connexions entrantes'), href: route('client.incoming-connections.index'), icon: <PhoneIncoming className={iconClass} />, route: 'client.incoming-connections.*' },
-                { label: tr('nav.google_sheets', 'Google Sheets'), href: route('client.google-sheets.index'), icon: <TableIcon className={iconClass} />, route: 'client.google-sheets.*' },
+                { label: tr('nav.phone_numbers', 'Numéros de téléphone'), href: route('client.phone-numbers.index'), icon: <Phone className={iconClass} />, route: 'client.phone-numbers.*' },
             ],
         },
         {
-            label: tr('nav.billing_section', 'Facturation'), variant: 'accent', icon: <CreditCard className={gi} />,
+            key: 'agents',
+            label: tr('nav.agents_section', 'Agents IA'),
+            icon: <Bot className={gi} />,
             items: [
+                { label: tr('nav.agents', 'Agents'), href: route('client.agents.index'), icon: <Bot className={iconClass} />, route: 'client.agents.*' },
+                { label: tr('nav.voices', 'Voix'), href: route('client.voices.index'), icon: <AudioLines className={iconClass} />, route: 'client.voices.*' },
+                { label: tr('nav.prompt_templates', 'Modèles d’instructions'), href: route('client.prompt-templates.index'), icon: <BookOpen className={iconClass} />, route: 'client.prompt-templates.*' },
+            ],
+        },
+        {
+            key: 'contacts',
+            label: tr('nav.contacts_section', 'Contacts'),
+            icon: <Contact className={gi} />,
+            items: [
+                { label: tr('nav.contacts', 'Contacts'), href: route('client.contacts.index'), icon: <Contact className={iconClass} />, route: 'client.contacts.*' },
+                { label: tr('nav.quick_crm', 'Pipeline commercial'), href: route('client.crm.board'), icon: <KanbanSquare className={iconClass} />, route: 'client.crm.*' },
+                { label: tr('nav.forms', 'Formulaires'), href: route('client.forms.index'), icon: <ClipboardListIcon className={iconClass} />, route: 'client.forms.*' },
+            ],
+        },
+        {
+            key: 'messaging',
+            label: tr('nav.messaging', 'Messages'),
+            icon: <MessageCircle className={gi} />,
+            items: [
+                { label: tr('nav.conversations', 'Conversations'), href: route('client.conversations.index'), icon: <Inbox className={iconClass} />, route: 'client.conversations.*' },
+                { label: 'WhatsApp', href: route('client.messaging.whatsapp.index'), icon: <MessageCircle className={iconClass} />, route: 'client.messaging.whatsapp.*' },
+                { label: tr('nav.email_templates', 'Modèles d\'e-mails'), href: route('client.messaging.email-templates.index'), icon: <Mail className={iconClass} />, route: 'client.messaging.email-templates.*' },
+            ],
+        },
+        {
+            key: 'automation',
+            label: tr('nav.automation', 'Automatisation'),
+            icon: <Workflow className={gi} />,
+            items: [
+                { label: tr('nav.flows', 'Automatisations'), href: route('client.flows.index'), icon: <Workflow className={iconClass} />, route: 'client.flows.index' },
+                { label: tr('nav.flow_templates', 'Modèles de flux'), href: route('client.flows.templates'), icon: <LayoutTemplate className={iconClass} />, route: 'client.flows.templates' },
+                { label: tr('nav.flow_executions', 'Historique des automatisations'), href: route('client.flows.executions.index'), icon: <ListChecks className={iconClass} />, route: 'client.flows.executions.*' },
+                { label: tr('nav.integrations', 'Intégrations'), href: route('client.integrations.index'), icon: <Zap className={iconClass} />, route: 'client.integrations.*' },
+            ],
+        },
+        {
+            key: 'analytics',
+            label: tr('nav.analytics_section', 'Analyses'),
+            icon: <BarChart3 className={gi} />,
+            items: [
+                { label: tr('nav.analytics', 'Vue d’ensemble'), href: route('client.analytics.index'), icon: <BarChart3 className={iconClass} />, route: 'client.analytics.*' },
+                { label: tr('nav.analytics_reports', 'Rapports détaillés'), href: route('client.reporting.analytics'), icon: <TrendingUp className={iconClass} />, route: 'client.reporting.analytics' },
+            ],
+        },
+        {
+            key: 'settings',
+            label: tr('nav.settings_section', 'Paramètres'),
+            icon: <Settings className={gi} />,
+            items: [
+                { label: tr('nav.profile', 'Profil & Organisation'), href: route('client.profile.edit'), icon: <User className={iconClass} />, route: 'client.profile.edit' },
+                ...(isClientAdmin ? [
+                    { label: tr('nav.team', 'Équipe'), href: route('client.team.index'), icon: <Users className={iconClass} />, route: 'client.team.*' },
+                ] : []),
                 { label: tr('nav.billing', 'Facturation & Crédits'), href: route('client.billing.index'), icon: <Wallet className={iconClass} />, route: 'client.billing.index', permission: 'billing.read' },
                 { label: tr('nav.plans', 'Forfaits'), href: route('client.pricing'), icon: <Package className={iconClass} />, route: 'client.pricing' },
                 { label: tr('nav.subscription', 'Abonnement'), href: route('client.subscription.show'), icon: <CreditCard className={iconClass} />, route: 'client.subscription.show' },
-            ],
-        },
-        
-        {
-            label: tr('nav.reporting', 'Rapports'), variant: 'accent', icon: <BarChart3 className={gi} />,
-            items: [
-                { label: tr('nav.analytics_reports', 'Rapports d\'analyse'), href: route('client.reporting.analytics'), icon: <BarChart3 className={iconClass} />, route: 'client.reporting.analytics' },
+                { label: tr('nav.notifications', 'Notifications'), href: route('client.alerts.notifications'), icon: <Bell className={iconClass} />, route: 'client.alerts.notifications' },
+                { label: tr('nav.settings', 'Préférences'), href: route('client.settings.index'), icon: <Settings className={iconClass} />, route: 'client.settings.index' },
+                { label: tr('nav.verification', 'Vérification (KYC)'), href: route('client.kyc.index'), icon: <FileCheck className={iconClass} />, route: 'client.kyc.*' },
+                { label: tr('nav.support', 'Assistance & Support'), href: route('client.support-system.support'), icon: <LifeBuoy className={iconClass} />, route: 'client.support-system.support' },
             ],
         },
         {
-            label: tr('nav.support_system', 'Support'), variant: 'accent', icon: <Headphones className={gi} />,
+            key: 'advanced',
+            label: tr('nav.advanced', 'Avancé'),
+            icon: <Code2 className={gi} />,
             items: [
-                { label: tr('nav.support', 'Assistance & Tickets'), href: route('client.support-system.support'), icon: <LifeBuoy className={iconClass} />, route: 'client.support-system.support' },
-            ],
-        },
-        {
-            label: tr('nav.account', 'Mon Compte'), variant: 'accent', icon: <Settings className={gi} />,
-            items: [
+                { label: tr('nav.api_keys', 'Clés API'), href: route('client.api-keys.index'), icon: <Code2 className={iconClass} />, route: 'client.api-keys.*' },
+                { label: tr('nav.sip', 'Connexion SIP'), href: route('client.sip.index'), icon: <Cable className={iconClass} />, route: 'client.sip.*' },
+                { label: tr('nav.incoming_connections', 'Appels entrants'), href: route('client.incoming-connections.index'), icon: <PhoneIncoming className={iconClass} />, route: 'client.incoming-connections.*' },
+                { label: tr('nav.google_sheets', 'Google Sheets'), href: route('client.google-sheets.index'), icon: <TableIcon className={iconClass} />, route: 'client.google-sheets.*' },
+                { label: tr('nav.knowledge_base', 'Base de connaissances'), href: route('client.knowledge-base.index'), icon: <BookOpen className={iconClass} />, route: 'client.knowledge-base.*' },
                 ...(isClientAdmin ? [
-                    { label: tr('nav.team', 'Équipe'), href: route('client.team.index'), icon: <Users className={iconClass} />, route: 'client.team.*' },
                     { label: tr('nav.audit_log', 'Journal d\'audit'), href: route('client.audit-log.index'), icon: <FileText className={iconClass} />, route: 'client.audit-log.index' },
                 ] : []),
-                { label: tr('nav.verification', 'Vérification (KYC)'), href: route('client.kyc.index'), icon: <FileCheck className={iconClass} />, route: 'client.kyc.*' },
-                { label: tr('nav.notifications', 'Notifications'), href: route('client.alerts.notifications'), icon: <Bell className={iconClass} />, route: 'client.alerts.notifications' },
-                { label: tr('nav.settings', 'Paramètres'), href: route('client.settings.index'), icon: <Settings className={iconClass} />, route: 'client.settings.index' },
-                { label: tr('nav.profile', 'Mon Profil'), href: route('client.profile.edit'), icon: <User className={iconClass} />, route: 'client.profile.edit' },
+                { label: tr('nav.website_widget', 'Widget Web'), href: route('client.website-widget.index'), icon: <GlobeIcon className={iconClass} />, route: 'client.website-widget.*' },
+                { label: tr('nav.tenants', 'Multi-espaces'), href: route('client.tenants.index'), icon: <Layers className={iconClass} />, route: 'client.tenants.*' },
             ],
         },
     ];
@@ -232,7 +258,7 @@ export default function ClientLayout({ title = 'Dashboard', header, children }) 
                 showCreateButton={false}
                 collapsed={sidebarCollapsed}
                 onToggleCollapse={toggleSidebarCollapse}
-                navigationMode="drilldown"
+                navigationMode="default"
                 navGroups={clientNavGroups.map(group => ({
                     ...group,
                     items: group.items.map(item => ({
