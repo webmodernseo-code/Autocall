@@ -25,7 +25,7 @@ export const POST = handler(async (request) => {
     const registry = await billingRegistry();
     const gateway = registry.get(data.gateway);
     if (!gateway || !gateway.isConfigured()) {
-        return back({ error: 'La passerelle de paiement (Stripe) n\'est pas configurée.' });
+        return back({ error: `La passerelle de paiement (${data.gateway}) n'est pas configurée.` });
     }
 
     const result = await gateway.createCheckout(gate.user, plan, data.billing_cycle);
