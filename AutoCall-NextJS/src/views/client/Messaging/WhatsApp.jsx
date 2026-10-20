@@ -34,13 +34,13 @@ function FacebookSvg({ className = 'h-5 w-5' }) {
 
 function AccountModal({ providers = [], metaSettings = {}, onClose }) {
     const { t } = useTranslation();
-    const [mode, setMode] = useState('one_click'); // 'one_click' | 'manual'
+    const canUseEmbedded = Boolean(metaSettings?.embeddedSignupEnabled && metaSettings?.appId && metaSettings?.configId);
+    const [mode, setMode] = useState(canUseEmbedded ? 'one_click' : 'manual'); // 'one_click' | 'manual'
     const [selectedProvider, setSelectedProvider] = useState(providers[0]?.key || 'meta');
     const [isConnectingFb, setIsConnectingFb] = useState(false);
     const [fbError, setFbError] = useState(null);
 
     const isMeta = selectedProvider === 'meta';
-    const canUseEmbedded = Boolean(metaSettings?.embeddedSignupEnabled && metaSettings?.appId && metaSettings?.configId);
 
     const form = useForm({
         provider: selectedProvider,
@@ -56,7 +56,7 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
 
     // Load Meta Facebook JavaScript SDK if embedded signup is active
     useEffect(() => {
-        if (!metaSettings?.appId) return;
+        if (!metaSettings?.appId || !canUseEmbedded) return;
 
         window.fbAsyncInit = function () {
             window.FB?.init({
@@ -75,7 +75,7 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
             js.defer = true;
             document.body.appendChild(js);
         }
-    }, [metaSettings?.appId]);
+    }, [metaSettings?.appId, canUseEmbedded]);
 
     // Handle Meta Embedded Signup popup
     const launchFacebookSignup = () => {
@@ -111,7 +111,6 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
                 setIsConnectingFb(false);
 
                 if (response.authResponse?.code) {
-                    // Send auth code to server to exchange and store account
                     form.post(
                         route('client.messaging.whatsapp.accounts.store'),
                         {
@@ -189,14 +188,45 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
                         type="button"
                         onClick={onClose}
                         aria-label={t('client.whatsapp.close', 'Fermer')}
-                        className="rounded-xl p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-white/5 dark:hover:text-white transition"
+                        className="rounded-xl p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-white/5 dark:hover:text-white transition cursor-pointer"
                     >
                         <X className="h-4 w-4" />
                     </button>
                 </div>
 
-                {/* MODE 1 : Connexion 1-Clic Recommandée (Embedded Signup) */}
-                {mode === 'one_click' ? (
+                {/* Sélecteur de méthode (si la connexion 1-clic Meta est configurée) */}
+                {canUseEmbedded && (
+                    <div className="flex rounded-xl bg-neutral-100 dark:bg-white/[0.05] p-1 text-xs font-semibold">
+                        <button
+                            type="button"
+                            onClick={() => setMode('one_click')}
+                            className={cn(
+                                'flex-1 py-2 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5',
+                                mode === 'one_click'
+                                    ? 'bg-white dark:bg-white/10 text-neutral-900 dark:text-white font-bold shadow-2xs'
+                                    : 'text-neutral-500 hover:text-neutral-800 dark:text-neutral-400'
+                            )}
+                        >
+                            <FacebookSvg className="h-3.5 w-3.5 text-[#1877F2]" />
+                            <span>Connexion 1-clic (Facebook)</span>
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setMode('manual')}
+                            className={cn(
+                                'flex-1 py-2 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5',
+                                mode === 'manual'
+                                    ? 'bg-white dark:bg-white/10 text-neutral-900 dark:text-white font-bold shadow-2xs'
+                                    : 'text-neutral-500 hover:text-neutral-800 dark:text-neutral-400'
+                            )}
+                        >
+                            <span>Clés API manuelles</span>
+                        </button>
+                    </div>
+                )}
+
+                {/* MODE 1 : Connexion 1-Clic Active (Embedded Signup) */}
+                {canUseEmbedded && mode === 'one_click' ? (
                     <div className="space-y-4">
                         <div className="rounded-2xl border border-blue-200/80 bg-blue-50/50 dark:border-blue-500/20 dark:bg-blue-500/10 p-5 text-center space-y-3">
                             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-xs">
@@ -206,13 +236,13 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
                             <div>
                                 <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-500/20 mb-1.5">
                                     <Sparkles className="h-3 w-3" />
-                                    <span>Connexion en 1 clic (Sans configuration technique)</span>
+                                    <span>Connexion officielle Meta</span>
                                 </div>
                                 <h4 className="font-bold text-neutral-900 dark:text-white text-base">
                                     Continuer avec Facebook pour WhatsApp
                                 </h4>
                                 <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300 max-w-sm mx-auto leading-relaxed">
-                                    Connectez-vous avec votre compte Facebook pour choisir directement votre numéro WhatsApp dans la fenêtre officielle de Meta. Aucun identifiant technique à copier.
+                                    Connectez-vous avec votre compte Facebook pour choisir directement votre numéro WhatsApp Business dans la fenêtre officielle de Meta.
                                 </p>
                             </div>
 
@@ -220,60 +250,33 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
                                 <p className="text-xs text-rose-600 dark:text-rose-400 font-medium">{fbError}</p>
                             )}
 
-                            {canUseEmbedded ? (
-                                <button
-                                    type="button"
-                                    onClick={launchFacebookSignup}
-                                    disabled={isConnectingFb}
-                                    className="w-full flex items-center justify-center gap-2.5 rounded-xl bg-[#1877F2] hover:bg-[#166FE5] px-4 py-3 text-sm font-bold text-white shadow-xs transition cursor-pointer disabled:opacity-50"
-                                >
-                                    {isConnectingFb ? (
-                                        <>
-                                            <Loader2 className="h-4 w-4 animate-spin" />
-                                            <span>Connexion à Meta en cours…</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <FacebookSvg className="h-4.5 w-4.5" />
-                                            <span>Se connecter avec Facebook</span>
-                                        </>
-                                    )}
-                                </button>
-                            ) : (
-                                <div className="rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200/60 dark:border-amber-500/20 p-3 text-xs text-amber-800 dark:text-amber-300">
-                                    <p className="font-semibold">La connexion 1-clic n’est pas encore finalisée par l’administrateur.</p>
-                                    <p className="mt-0.5 text-xs opacity-90">
-                                        Renseignez le <strong>Meta Config ID</strong> dans l’onglet <em>Administration &gt; Messagerie</em> pour l’activer, ou utilisez la configuration manuelle ci-dessous.
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Switch to manual */}
-                        <div className="pt-2 text-center">
                             <button
                                 type="button"
-                                onClick={() => setMode('manual')}
-                                className="text-xs font-semibold text-neutral-500 hover:text-blue-600 dark:text-neutral-400 dark:hover:text-blue-400 underline decoration-neutral-300 dark:decoration-neutral-600 transition cursor-pointer"
+                                onClick={launchFacebookSignup}
+                                disabled={isConnectingFb}
+                                className="w-full flex items-center justify-center gap-2.5 rounded-xl bg-[#1877F2] hover:bg-[#166FE5] px-4 py-3 text-sm font-bold text-white shadow-xs transition cursor-pointer disabled:opacity-50"
                             >
-                                Vous préférez renseigner vos clés API manuellement ? (Mode Développeur)
+                                {isConnectingFb ? (
+                                    <>
+                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                        <span>Connexion à Meta en cours…</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <FacebookSvg className="h-4.5 w-4.5" />
+                                        <span>Se connecter avec Facebook</span>
+                                    </>
+                                )}
                             </button>
                         </div>
                     </div>
                 ) : (
-                    /* MODE 2 : Saisie Manuelle Avancée */
+                    /* MODE 2 : Saisie Manuelle Directe */
                     <form onSubmit={submitManual} className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <span className="text-xs font-bold normal-case tracking-wider text-neutral-400">
-                                Saisie manuelle des identifiants
+                            <span className="text-xs font-bold normal-case tracking-wider text-neutral-500 dark:text-neutral-400">
+                                Saisie des identifiants WhatsApp Cloud API
                             </span>
-                            <button
-                                type="button"
-                                onClick={() => setMode('one_click')}
-                                className="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
-                            >
-                                ← Revenir à la connexion 1-clic
-                            </button>
                         </div>
 
                         {/* Switcher Provider si plusieurs */}
@@ -420,21 +423,31 @@ function AccountModal({ providers = [], metaSettings = {}, onClose }) {
                         <div className="flex justify-end gap-2 pt-2 border-t border-neutral-100 dark:border-white/5">
                             <button
                                 type="button"
-                                onClick={() => setMode('one_click')}
-                                className="rounded-xl px-4 py-2.5 text-xs font-semibold text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-white/5 transition"
+                                onClick={onClose}
+                                className="rounded-xl px-4 py-2.5 text-xs font-semibold text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-white/5 transition cursor-pointer"
                             >
-                                Annuler
+                                {t('client.whatsapp.cancel', 'Annuler')}
                             </button>
                             <button
                                 type="submit"
                                 disabled={form.processing}
-                                className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-2xs hover:bg-blue-500 disabled:opacity-50 transition"
+                                className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-2xs hover:bg-blue-500 disabled:opacity-50 transition cursor-pointer"
                             >
                                 <CheckCircle2 className="h-4 w-4" />
-                                <span>Connecter manuellement</span>
+                                <span>{form.processing ? 'Connexion en cours…' : 'Connecter la ligne WhatsApp'}</span>
                             </button>
                         </div>
                     </form>
+                )}
+
+                {/* Indication discrète pour l'administrateur si la connexion 1-clic n'est pas encore activée */}
+                {!canUseEmbedded && (
+                    <div className="rounded-xl border border-neutral-200/70 dark:border-white/10 bg-neutral-50/70 dark:bg-white/5 p-3 text-xs text-neutral-600 dark:text-neutral-400">
+                        <p className="font-semibold text-neutral-800 dark:text-neutral-200">💡 Conseil d’administration :</p>
+                        <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+                            Pour proposer la connexion automatique en 1 clic Facebook, renseignez simplement votre <strong>Meta Config ID</strong> dans l’onglet <em>Administration &gt; Messagerie</em> ou dans votre fichier <code>.env</code> (<code>META_CONFIG_ID</code>).
+                        </p>
+                    </div>
                 )}
 
                 {/* Micro-réassurance discrète */}

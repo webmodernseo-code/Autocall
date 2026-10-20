@@ -37,6 +37,7 @@ import {
     Contact,
     Server,
     LogOut,
+    LogIn,
     ArrowLeft,
 } from 'lucide-react';
 

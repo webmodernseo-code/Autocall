@@ -1,8 +1,12 @@
 'use client';
 
+import { useEffect } from 'react';
 import { RefreshCw, ArrowLeft, AlertCircle } from 'lucide-react';
 
 export default function GlobalError({ error, reset }) {
+    useEffect(() => {
+        if (error) console.error('[GlobalError caught]', error);
+    }, [error]);
     return (
         <html lang="fr" className="h-full">
             <body className="h-full bg-[#F8F9FC] dark:bg-[#08090C] text-slate-900 dark:text-neutral-100 flex items-center justify-center p-4">

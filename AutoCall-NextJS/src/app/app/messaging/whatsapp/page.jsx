@@ -5,6 +5,8 @@ import prisma from '@/lib/prisma';
 import { plain } from '@/lib/serialize';
 import { enabledWhatsAppProviders, messagingSettings } from '@/lib/services/messaging';
 
+import config from '@/lib/config';
+
 export const dynamic = 'force-dynamic';
 
 /** GET /app/messaging/whatsapp */
@@ -36,9 +38,12 @@ export default async function Page() {
     ]);
 
     const metaSettings = {
-        appId: settings?.meta_app_id || null,
-        configId: settings?.meta_config_id || null,
-        embeddedSignupEnabled: Boolean(settings?.embedded_signup_enabled),
+        appId: settings?.meta_app_id || config.messaging?.meta?.app_id || null,
+        configId: settings?.meta_config_id || config.messaging?.meta?.config_id || null,
+        embeddedSignupEnabled: Boolean(
+            settings?.embedded_signup_enabled || 
+            (config.messaging?.meta?.app_id && config.messaging?.meta?.config_id)
+        ),
     };
 
     return renderPage(

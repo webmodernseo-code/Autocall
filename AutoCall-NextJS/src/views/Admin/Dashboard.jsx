@@ -1,6 +1,6 @@
 'use client';
 
-
+import React, { useState, useEffect } from 'react';
 import translationI18n from '@/i18n';
 import { route } from '@/lib/route';
 import { Link } from '@/lib/page-router';
@@ -71,6 +71,11 @@ function Health({ ok, label }) {
 
 export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHealth = {}, recentCustomers = [], topCustomers = [] }) {
     const { t } = useTranslation();
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const fmtMoney = useMoney();
     // KPI money values arrive as major USD units; convert to cents for the shared formatter.
     const money = (dollars) => fmtMoney(Math.round(Number(dollars || 0) * 100), 'USD');
@@ -106,19 +111,23 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                 </div>
 
                 <div className="grid gap-4 lg:grid-cols-3">
-                    <SectionCard title={translationI18n.t('hardcoded.views_admin_dashboard_58294010fabc')} className="lg:col-span-2">
-                        <ResponsiveContainer width="100%" height={230}>
-                            <BarChart data={callsByDay} barCategoryGap="28%">
-                                <defs>
-                                    <linearGradient id="adm-bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#8a67f2" /><stop offset="100%" stopColor="#5a28d6" /></linearGradient>
-                                </defs>
-                                <CartesianGrid strokeDasharray="2 6" stroke="#e4e4e7" strokeOpacity={0.5} vertical={false} />
-                                <XAxis dataKey="day" interval="preserveStartEnd" minTickGap={24} tick={{ fontSize: 11, fill: '#a1a1aa' }} axisLine={false} tickLine={false} />
-                                <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#a1a1aa' }} axisLine={false} tickLine={false} width={28} />
-                                <Tooltip cursor={{ fill: 'rgba(109,63,234,0.06)' }} content={<ChartTip />} />
-                                <Bar dataKey="calls" fill="url(#adm-bar)" radius={[6, 6, 0, 0]} maxBarSize={46} />
-                            </BarChart>
-                        </ResponsiveContainer>
+                    <SectionCard title={t('admin.calls_by_day', 'Volume des appels (7 jours)')} className="lg:col-span-2">
+                        {mounted ? (
+                            <ResponsiveContainer width="100%" height={230}>
+                                <BarChart data={callsByDay} barCategoryGap="28%">
+                                    <defs>
+                                        <linearGradient id="adm-bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#8a67f2" /><stop offset="100%" stopColor="#5a28d6" /></linearGradient>
+                                    </defs>
+                                    <CartesianGrid strokeDasharray="2 6" stroke="#e4e4e7" strokeOpacity={0.5} vertical={false} />
+                                    <XAxis dataKey="day" interval="preserveStartEnd" minTickGap={24} tick={{ fontSize: 11, fill: '#a1a1aa' }} axisLine={false} tickLine={false} />
+                                    <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#a1a1aa' }} axisLine={false} tickLine={false} width={28} />
+                                    <Tooltip cursor={{ fill: 'rgba(109,63,234,0.06)' }} content={<ChartTip />} />
+                                    <Bar dataKey="calls" fill="url(#adm-bar)" radius={[6, 6, 0, 0]} maxBarSize={46} />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        ) : (
+                            <div className="h-[230px] w-full animate-pulse rounded-xl bg-neutral-100 dark:bg-ink-800/50" />
+                        )}
                     </SectionCard>
                     <div className="space-y-4">
                         <SectionCard title={t('admin.service_health', 'Santé des services')}>
@@ -138,7 +147,7 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                 </div>
 
                 <div className="grid gap-4 lg:grid-cols-2">
-                    <SectionCard title={translationI18n.t('hardcoded.views_admin_dashboard_0658c3120add')} pad={false} action={<Link href={route('admin.clients.index')} className="inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400"><Trans i18nKey="hardcoded.views_admin_dashboard_1b2222a82319" /> <ArrowRight className="h-3 w-3" /></Link>}>
+                    <SectionCard title={t('admin.latest_customers', 'Derniers clients inscrits')} pad={false} action={<Link href={route('admin.clients.index')} className="inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400"><Trans i18nKey="hardcoded.views_admin_dashboard_1b2222a82319" /> <ArrowRight className="h-3 w-3" /></Link>}>
                         <table className="min-w-full divide-y divide-neutral-100 text-sm dark:divide-ink-800">
                             <tbody className="divide-y divide-neutral-100 dark:divide-ink-800">
                                 {recentCustomers.map((v) => (
@@ -150,7 +159,7 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                                             </div>
                                         </td>
                                         <td className="px-5 py-2.5"><span className={`rounded-full px-2 py-0.5 text-xs ${v.status === 'active' ? 'bg-signal-100 text-signal-700 dark:bg-signal-500/20 dark:text-signal-300' : 'bg-neutral-100 text-neutral-500 dark:bg-ink-800'}`}>{v.status}</span></td>
-                                        <td className="px-5 py-2.5 text-right font-mono text-neutral-600 dark:text-neutral-300">{v.credits.toLocaleString()} cr</td>
+                                        <td className="px-5 py-2.5 text-right font-mono text-neutral-600 dark:text-neutral-300">{(v.credits ?? 0).toLocaleString()} cr</td>
                                     </tr>
                                 ))}
                                 {recentCustomers.length === 0 && <tr><td className="px-5 py-10 text-center text-neutral-500"><Trans i18nKey="client.latest_customers_empty" /></td></tr>}
@@ -161,11 +170,11 @@ export default function AdminDashboard({ kpis = {}, callsByDay = [], serviceHeal
                         {topCustomers.length > 0 ? (
                             <div className="space-y-3">
                                 {topCustomers.map((v, i) => {
-                                    const max = topCustomers[0].calls || 1;
+                                    const max = topCustomers[0]?.calls || 1;
                                     return (
                                         <div key={i}>
-                                            <div className="flex justify-between text-sm"><span className="flex items-center gap-2 text-neutral-700 dark:text-neutral-300"><span className="flex h-5 w-5 items-center justify-center rounded-md bg-neutral-100 text-xs font-bold text-neutral-500 dark:bg-ink-800 dark:text-neutral-400">{i + 1}</span>{v.name}</span><span className="font-mono text-neutral-500">{v.calls}</span></div>
-                                            <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-neutral-100 dark:bg-ink-800"><div className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-300 transition-all duration-500" style={{ width: `${(v.calls / max) * 100}%` }} /></div>
+                                            <div className="flex justify-between text-sm"><span className="flex items-center gap-2 text-neutral-700 dark:text-neutral-300"><span className="flex h-5 w-5 items-center justify-center rounded-md bg-neutral-100 text-xs font-bold text-neutral-500 dark:bg-ink-800 dark:text-neutral-400">{i + 1}</span>{v.name}</span><span className="font-mono text-neutral-500">{v.calls ?? 0}</span></div>
+                                            <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-neutral-100 dark:bg-ink-800"><div className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-300 transition-all duration-500" style={{ width: `${((v.calls || 0) / max) * 100}%` }} /></div>
                                         </div>
                                     );
                                 })}
