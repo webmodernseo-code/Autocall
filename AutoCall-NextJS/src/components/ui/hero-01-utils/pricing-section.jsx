@@ -186,16 +186,7 @@ export default function PricingWrapperSection() {
     ];
 
     return (
-        <section id="tarifs" className="relative px-4 sm:px-6 py-20 sm:py-28 bg-[#F8F9FA] text-neutral-900 border-y border-neutral-200/90 scroll-mt-20">
-            {/* Halo lumineux d'arrière-plan subtil */}
-            <div
-                className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[650px] w-[1100px] rounded-full blur-[170px] opacity-15"
-                style={{
-                    background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(59, 130, 246, 0.15) 50%, transparent 70%)',
-                }}
-                aria-hidden="true"
-            />
-
+        <section id="tarifs" className="relative px-4 sm:px-6 lg:px-8 py-20 sm:py-24 bg-white text-neutral-900 border-b border-neutral-100 scroll-mt-20">
             <div className="relative mx-auto max-w-7xl">
                 <PricingSection
                     plans={plans}

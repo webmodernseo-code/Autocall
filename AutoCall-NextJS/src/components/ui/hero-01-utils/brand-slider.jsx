@@ -33,7 +33,7 @@ export function StripeLogo({ className = "h-5 sm:h-6 w-auto" }) {
     );
 }
 
-// 3. ZAPIER (Orange officiel #FF4F00 + texte blanc)
+// 3. ZAPIER (Orange officiel #FF4F00 + texte adaptatif)
 export function ZapierLogo({ className = "h-5 sm:h-6 w-auto" }) {
     return (
         <svg
@@ -43,20 +43,20 @@ export function ZapierLogo({ className = "h-5 sm:h-6 w-auto" }) {
         >
             <path
                 d="M60.654 47.966l-.037-.115 22.968-21.027V16.693H46.737v10.131h22.01l.036.097-22.744 21.045v10.131h37.916v-10.13H60.654zm45.923-32.237c-4.25 0-7.714.64-10.391 1.923a13.637 13.637 0 0 0-6.03 5.284 19.238 19.238 0 0 0-2.53 7.643l11.18 1.572c.405-2.383 1.214-4.071 2.427-5.066a7.408 7.408 0 0 1 4.805-1.486c2.269 0 3.915.606 4.938 1.82 1.014 1.213 1.529 2.893 1.529 5.108v1.104h-10.75c-5.472 0-9.403 1.213-11.794 3.64-2.39 2.426-3.583 5.63-3.579 9.61 0 4.076 1.193 7.11 3.58 9.1 2.386 1.989 5.387 2.978 9.002 2.966 4.485 0 7.936-1.543 10.35-4.63a17.21 17.21 0 0 0 2.991-6.375h.406l1.541 10.131h10.131V32.417c0-5.302-1.397-9.409-4.192-12.32-2.794-2.913-7.333-4.369-13.614-4.369zm3.544 31.624c-1.608 1.341-3.713 2.008-6.334 2.008-2.16 0-3.66-.378-4.501-1.134a3.706 3.706 0 0 1-1.268-2.881 3.786 3.786 0 0 1 1.05-2.797 3.899 3.899 0 0 1 2.881-1.05h10.574v.698a6.439 6.439 0 0 1-2.402 5.157zm75.522-30.66h-11.969v41.41h11.969zm70.669 0c-3.381 0-6.046 1.193-7.995 3.58-1.399 1.714-2.463 4.248-3.191 7.6h-.352l-1.565-11.18h-10.222v41.404h11.97V36.864c0-2.677.626-4.73 1.88-6.157 1.254-1.428 3.567-2.142 6.94-2.142h4.543V16.693zm-35.204 1.353c-2.794-1.662-6.319-2.491-10.573-2.487-6.698 0-11.94 1.906-15.725 5.72-3.786 3.814-5.678 9.072-5.678 15.774a25.134 25.134 0 0 0 2.578 11.702 18.584 18.584 0 0 0 7.34 7.735c3.171 1.832 6.942 2.75 11.315 2.754 3.781 0 6.94-.582 9.475-1.747a15.234 15.234 0 0 0 6.031-4.763 20.766 20.766 0 0 0 3.275-6.77l-10.312-2.887a9.562 9.562 0 0 1-2.427 4.198c-1.165 1.164-3.117 1.747-5.854 1.747-3.256 0-5.683-.932-7.28-2.797-1.16-1.347-1.887-3.27-2.208-5.763h28.239c.116-1.165.176-2.142.176-2.93v-2.579a23 23 0 0 0-2.092-10.046 15.73 15.73 0 0 0-6.28-6.861zm-10.919 7.383c4.853 0 7.604 2.388 8.256 7.165h-17.168a9.85 9.85 0 0 1 1.923-4.375c1.573-1.864 3.903-2.794 6.989-2.79zM179.789.004a6.72 6.72 0 0 0-4.896 1.88 6.502 6.502 0 0 0-1.923 4.854 6.576 6.576 0 0 0 1.926 4.891 6.576 6.576 0 0 0 4.893 1.921 6.475 6.475 0 0 0 4.853-1.923 6.665 6.665 0 0 0 1.875-4.89 6.428 6.428 0 0 0-1.876-4.846A6.437 6.437 0 0 0 179.795.01zm-24.727 15.555c-4.077 0-7.353 1.28-9.828 3.84-1.833 1.896-3.177 4.728-4.034 8.493h-.382l-1.566-11.18H129.03V70h11.969V48.051h.437a22.323 22.323 0 0 0 1.529 4.247 12.047 12.047 0 0 0 4.763 5.326 13.984 13.984 0 0 0 7.073 1.705c5.011 0 8.826-1.952 11.447-5.854 2.621-3.903 3.932-9.349 3.932-16.338 0-6.75-1.269-12.034-3.804-15.852-2.536-3.817-6.307-5.726-11.314-5.726zm1.213 30.005c-1.396 2.022-3.579 3.033-6.552 3.033a7.723 7.723 0 0 1-6.418-2.93c-1.55-1.945-2.322-4.609-2.317-7.99v-.788c0-3.434.772-6.063 2.317-7.887 1.544-1.824 3.685-2.726 6.418-2.706 3.026 0 5.223.96 6.595 2.882 1.371 1.921 2.056 4.6 2.056 8.038.009 3.555-.687 6.338-2.087 8.348z"
-                fill="#FFFFFF"
+                fill="currentColor"
             />
             <path d="M41.41 47.966H0V58.11h41.41z" fill="#FF4F00" />
         </svg>
     );
 }
 
-// 4. HUBSPOT (Orange officiel #FF7A59 + texte blanc)
+// 4. HUBSPOT (Orange officiel #FF7A59 + texte adaptatif)
 export function HubSpotLogo({ className = "h-5 sm:h-6 w-auto" }) {
     return (
         <svg viewBox="0 0 512 149" className={className} fill="none">
             <path
                 d="M.06 27.679h17.852v39.662h37.651V27.679h17.875v97.358H55.563V84.542H17.912v40.495H.06V27.679zM129.993 93.326c0 8.15-6.64 14.782-14.788 14.782-8.151 0-14.787-6.632-14.787-14.782V51.41h-16.93v41.916c0 17.487 14.229 31.711 31.717 31.711 17.484 0 31.712-14.224 31.712-31.711V51.41h-16.924v41.916M194.179 51.901c-8.398 0-14.26 2.437-19.921 7.994V27.679h-16.985v59.705c0 22.348 16.158 37.653 34.311 37.653 20.181 0 37.863-15.578 37.863-36.567 0-20.723-16.305-36.569-35.268-36.569zm.422 57.423c-11.509 0-20.31-9.612-20.31-20.854 0-11.244 8.801-20.859 20.31-20.859 9.752 0 18.558 9.615 18.558 20.859 0 11.242-8.806 20.854-18.558 20.854zM257.974 56.18c0-8.538 5.689-11.245 11.917-11.245 5.014 0 11.649 3.792 15.979 8.398l11.103-13.001c-5.549-7.448-16.788-12.596-25.998-12.596-18.421 0-31.694 10.7-31.694 28.444 0 32.91 40.497 22.478 40.497 40.902 0 5.682-5.551 10.698-11.913 10.698-10.026 0-13.278-4.876-17.881-10.024l-12.327 12.729c7.86 9.617 17.608 14.495 29.257 14.495 17.47 0 31.556-10.835 31.556-27.767 0-36.566-40.496-25.188-40.496-41.033M343.184 50.947c-18.151 0-34.311 15.296-34.311 37.649v59.859h16.984v-32.369c5.662 5.553 11.521 7.994 19.922 7.994 18.962 0 35.269-15.844 35.269-36.567 0-20.992-17.687-36.566-37.864-36.566zm3.018 57.425c-11.508 0-20.31-9.625-20.31-20.859 0-11.244 8.802-20.859 20.31-20.859 9.75 0 18.557 9.615 18.557 20.859 0 11.234-8.807 20.859-18.557 20.859zM506.069 109.324c-10.018 0-12.862-4.332-12.862-10.971V68.965h15.572V54.069h-15.572v-19.64l-17.195 7.718v59.863c0 15.306 10.56 23.027 25.045 23.027 2.167 0 5.15-.14 6.777-.541l4.199-15.438c-1.896.131-4.062.266-5.964.266"
-                fill="#FFFFFF"
+                fill="currentColor"
             />
             <path
                 d="M461.278 69.831c-3.256-5.602-7.836-10.093-13.562-13.474-4.279-2.491-8.716-4.072-13.716-4.751v-17.8c5-2.123 8.103-6.822 8.103-12.304 0-7.472-5.992-13.527-13.458-13.527-7.472 0-13.569 6.055-13.569 13.527 0 5.482 2.924 10.181 7.924 12.304v17.808c-4 .578-8.148 1.825-11.936 3.741-7.737-5.876-33.107-25.153-47.948-36.412.352-1.269.623-2.577.623-3.957 0-8.276-6.702-14.984-14.981-14.984S333.78 6.71 333.78 14.986c0 8.275 6.706 14.985 14.985 14.985 2.824 0 5.436-.826 7.69-2.184l3.132 2.376 43.036 31.008c-2.275 2.089-4.394 4.465-6.089 7.131C393.099 73.737 391 79.717 391 86.24v1.361c0 4.579.87 8.902 2.352 12.963 1.305 3.546 3.213 6.77 5.576 9.685l-14.283 14.318a11.501 11.501 0 0 0-12.166 2.668 11.499 11.499 0 0 0-3.388 8.19c.001 3.093 1.206 6 3.394 8.187a11.5 11.5 0 0 0 8.188 3.394 11.51 11.51 0 0 0 8.191-3.394 11.514 11.514 0 0 0 3.39-8.187c0-1.197-.185-2.365-.533-3.475l14.763-14.765c2.024 1.398 4.21 2.575 6.56 3.59 4.635 2.004 9.751 3.225 15.35 3.225h1.026c6.19 0 12.029-1.454 17.518-4.428 5.784-3.143 10.311-7.441 13.731-12.928 3.438-5.502 5.331-11.581 5.331-18.269v-.334c0-6.579-1.523-12.649-4.722-18.21zm-18.038 30.973c-4.007 4.453-8.613 7.196-13.82 7.196h-.858c-2.974 0-5.883-.822-8.731-2.317-3.21-1.646-5.65-3.994-7.647-6.967-2.064-2.918-3.184-6.104-3.184-9.482v-1.026c0-3.321.637-6.47 2.243-9.444 1.717-3.251 4.036-5.779 7.12-7.789 3.028-1.996 6.262-2.975 9.864-2.975h.335c3.266 0 6.358.644 9.276 2.137 2.973 1.592 5.402 3.767 7.285 6.628 1.829 2.862 2.917 5.949 3.267 9.312.055.699.083 1.415.083 2.099 0 4.564-1.744 8.791-5.233 12.628z"
@@ -66,7 +66,7 @@ export function HubSpotLogo({ className = "h-5 sm:h-6 w-auto" }) {
     );
 }
 
-// 5. GOOGLE CALENDAR (Couleurs officielles Google)
+// 5. GOOGLE CALENDAR (Couleurs officielles Google + texte adaptatif)
 export function GoogleCalendarLogo() {
     return (
         <div className="flex items-center gap-2">
@@ -80,12 +80,12 @@ export function GoogleCalendarLogo() {
                 <path d="M152.632 47.368v105.263H200V47.368l-23.684-10.526z" fill="#fbbc04" />
                 <path d="M200 47.368V15.789C200 7.065 192.934 0 184.211 0h-31.579v47.368z" fill="#1967d2" />
             </svg>
-            <span className="text-sm font-semibold tracking-tight text-white whitespace-nowrap">Calendar</span>
+            <span className="text-sm font-semibold tracking-tight whitespace-nowrap text-inherit">Calendar</span>
         </div>
     );
 }
 
-// 6. ELEVENLABS (SVG officiel avec fond blanc et doubles barres noires)
+// 6. ELEVENLABS (SVG officiel avec doubles barres noires + texte adaptatif)
 export function ElevenLabsLogo() {
     return (
         <div className="flex items-center gap-2">
@@ -96,84 +96,68 @@ export function ElevenLabsLogo() {
                 viewBox="0 0 32 32"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 rounded-md overflow-hidden flex-shrink-0 shadow-xs"
+                className="h-6 w-6 rounded-md overflow-hidden flex-shrink-0 shadow-xs border border-slate-200/50"
             >
-                <rect width="32" height="32" rx="6" fill="white" />
-                <path d="M12 10V22H14.667V10H12ZM17.333 10V22H20V10H17.333Z" fill="black" />
+                <rect width="32" height="32" rx="6" fill="#ffffff" />
+                <path d="M12 10V22H14.667V10H12ZM17.333 10V22H20V10H17.333Z" fill="#000000" />
             </svg>
-            <span className="text-sm font-bold tracking-tight text-white whitespace-nowrap">ElevenLabs</span>
+            <span className="text-sm font-bold tracking-tight whitespace-nowrap text-inherit">ElevenLabs</span>
         </div>
     );
 }
 
-// 7. OPENAI (Vert officiel #10A37F + texte blanc)
+// 7. OPENAI (Vert officiel #10A37F + texte adaptatif)
 export function OpenAILogo() {
     return (
         <div className="flex items-center gap-2">
             <svg viewBox="0 0 24 24" className="h-6 w-6 text-[#10A37F] flex-shrink-0" fill="currentColor">
                 <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.02 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.6669zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3655l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" />
             </svg>
-            <span className="text-sm font-bold tracking-tight text-white whitespace-nowrap">OpenAI</span>
+            <span className="text-sm font-bold tracking-tight whitespace-nowrap text-inherit">OpenAI</span>
         </div>
     );
 }
 
-export default function BrandSlider() {
+export default function BrandSlider({ theme = 'light', className = '' }) {
     const logos = [
         { id: 'elevenlabs', component: <ElevenLabsLogo /> },
         { id: 'openai', component: <OpenAILogo /> },
-        { id: 'twilio', component: <TwilioLogo className="h-5 sm:h-6 w-auto" /> },
-        { id: 'stripe', component: <StripeLogo className="h-5 sm:h-6 w-auto" /> },
-        { id: 'hubspot', component: <HubSpotLogo className="h-5 sm:h-6 w-auto" /> },
-        { id: 'zapier', component: <ZapierLogo className="h-5 sm:h-6 w-auto" /> },
+        { id: 'twilio', component: <TwilioLogo className="h-5 w-auto" /> },
+        { id: 'stripe', component: <StripeLogo className="h-5 w-auto" /> },
+        { id: 'hubspot', component: <HubSpotLogo className="h-5 w-auto" /> },
+        { id: 'zapier', component: <ZapierLogo className="h-5 w-auto" /> },
         { id: 'google-calendar', component: <GoogleCalendarLogo /> },
+        {
+            id: 'sip-voip',
+            component: (
+                <div className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-md bg-neutral-900 text-[10px] font-bold text-white font-mono">
+                        SIP
+                    </span>
+                    <span className="text-sm font-bold tracking-tight text-neutral-800">VoIP HD</span>
+                </div>
+            ),
+        },
     ];
 
-    const marqueeList = [...logos, ...logos, ...logos, ...logos];
-
     return (
-        <section className="relative w-full pt-0 pb-16 overflow-hidden">
-            {/* Ligne séparatrice avec texte centré */}
-            <div className="relative mx-auto max-w-5xl px-6 mb-8">
-                <div className="relative flex items-center justify-center">
-                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                        <div className="w-full border-t border-white/[0.08]" />
-                    </div>
-                    <div className="relative bg-[#08090C] px-6">
-                        <span className="text-xs font-semibold tracking-wide text-white/80">
-                            Connecté à vos outils favoris & approuvé par +1 000 professionnels
-                        </span>
-                    </div>
-                </div>
-            </div>
+        <section data-theme={theme} className={`bg-white py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-neutral-100 ${className}`}>
+            <div className="mx-auto max-w-5xl">
+                <p className="text-center text-xs sm:text-sm font-medium text-neutral-500 mb-6">
+                    Approuvé par +1 000 professionnels et propulsé par les meilleurs standards du marché
+                </p>
 
-            {/* Marquee slider avec fondu transparent sur les côtés */}
-            <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-                <div className="flex w-max animate-infinite-marquee items-center gap-14 sm:gap-20">
-                    {marqueeList.map((item, idx) => (
+                <div className="grid grid-cols-2 sm:grid-cols-4 overflow-hidden rounded-2xl border border-neutral-200/90 bg-white">
+                    {logos.map((item) => (
                         <div
-                            key={idx}
-                            className="flex h-8 items-center justify-center opacity-85 hover:opacity-100 hover:scale-105 transition-all duration-200"
+                            key={item.id}
+                            className="flex h-20 items-center justify-center border-b border-r border-neutral-100 px-6 text-neutral-700 transition-colors hover:bg-neutral-50/70"
                         >
                             {item.component}
                         </div>
                     ))}
                 </div>
             </div>
-
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                @keyframes infiniteMarquee {
-                    0% { transform: translateX(0%); }
-                    100% { transform: translateX(-50%); }
-                }
-                .animate-infinite-marquee {
-                    animation: infiniteMarquee 38s linear infinite;
-                }
-                .animate-infinite-marquee:hover {
-                    animation-play-state: paused;
-                }
-            `}} />
         </section>
     );
 }
