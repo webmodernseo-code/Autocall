@@ -1,0 +1,16 @@
+{
+  "name": "autocall",
+  "private": true,
+  "packageManager": "pnpm@11.28.11",
+  "engines": {
+    "node": "26.x"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @autocall/dashboard dev",
+    "lint": "pnpm --filter @autocall/dashboard lint",
+    "typecheck": "pnpm --filter @autocall/dashboard typecheck",
+    "build": "pnpm --filter @autocall/dashboard build",
+    "storybook": "pnpm --filter @autocall/dashboard storybook",
+    "build-storybook": "pnpm --filter @autocall/dashboard build-storybook"
+  }
+}

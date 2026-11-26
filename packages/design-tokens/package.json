@@ -1,0 +1,5 @@
+{
+  "name": "@autocall/design-tokens",
+  "private": true,
+  "exports": "./tokens.css"
+}

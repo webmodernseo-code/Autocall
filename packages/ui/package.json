@@ -1,0 +1,19 @@
+{
+  "name": "@autocall/ui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "radix-ui": "1.8.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0"
+  }
+}

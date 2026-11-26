@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@import "@autocall/design-tokens";
+@import "@autocall/ui/styles.css";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* Dark theme variables – true black background */
+[data-dashboard-theme="dark"] {
+  color-scheme: dark;
+  --background: #000000;
+  --sidebar: #0a0a0a;
+  --topbar: #0a0a0a;
+  --surface: #111111;
+  --surface-inset: #1a1a1a;
+  --surface-hover: #222222;
+  --surface-selected: #2a2a2a;
+  --foreground: #f5f5f5;
+  --text-secondary: #d0d0d0;
+  --text-muted: #b0b0b0;
+  --border: #333333;
+  --border-subtle: #2c2c2c;
+  --border-control: #4b4b4b;
+  --primary: #157359;
+  --primary-hover: #0c644c;
+  --brand-soft: #213e33;
+  --brand-text: #91e3c0;
+  --focus-ring: #83d7b1;
+  --success: #88dfa7;
+  --success-bg: #223b2c;
+  --success-border: #41654d;
+  --danger: #ffacac;
+  --danger-bg: #412c2c;
+  --danger-border: #744848;
+  --warning: #ffd299;
+  --warning-bg: #423722;
+  --warning-border: #715933;
+  --info: #a9c9ff;
+  --info-bg: #26384c;
+  --info-border: #405778;
+}
+
+/* Light theme defaults (fallback) */
+:root {
+  --foreground: #171717;
+  --text-secondary: #535353;
+  --text-muted: #8c8c8c;
+  --border: #e5e5e5;
+  --border-subtle: #f3f4f6;
+  --border-control: #d1d5db;
+  --primary: #157359;
+  --primary-hover: #0c644c;
+  --brand-soft: #213e33;
+  --brand-text: #91e3c0;
+  --focus-ring: #83d7b1;
+  --success: #88dfa7;
+  --success-bg: #e6f4ea;
+  --success-border: #a6d9b9;
+  --danger: #ffacac;
+  --danger-bg: #ffe5e5;
+  --danger-border: #ffb3b3;
+  --warning: #ffd299;
+  --warning-bg: #fff4e5;
+  --warning-border: #ffe0b3;
+  --info: #a9c9ff;
+  --info-bg: #e5f0ff;
+  --info-border: #b3d1ff;
+}
+
+/* Align older dashboard utilities with the appearance tokens. */
+[data-dashboard-theme="dark"] :is(
+  .bg-white,
+  [class~="bg-[#FFFFFF]"],
+  [class~="bg-[#FCFCFC]"],
+  .bg-gray-50,
+  [class~="bg-gray-50/50"],
+  [class~="bg-[#FAFAFA]"],
+  [class~="bg-[#F5F5F5]"],
+  [class~="bg-[#F4F4F5]"],
+  [class~="bg-[#F1F2F2]"],
+  [class~="bg-[#F3F4F6]"],
+  [class~="bg-[#EFEFEF]"],
+  [class~="bg-[#E5E5E5]"],
+  [class~="bg-[#D4D4D4]"]
+) {
+  background-color: var(--background);
+}
+
+[data-dashboard-theme="dark"] :is(
+  .border-gray-100,
+  .border-gray-200,
+  [class~="border-[#E5E5E5]"],
+  [class~="border-[#EFEFEF]"],
+  [class~="border-[#F0F0F0]"],
+  [class~="border-[#D4D4D4]"],
+  [class~="border-[#C4C4C4]"]
+) {
+  border-color: var(--border);
+}
+
+[data-dashboard-theme="dark"] :is(.bg-gray-50, [class~="bg-gray-50/50"], [class~="bg-[#FAFAFA]"], [class~="bg-[#F5F5F5]"], [class~="bg-[#F4F4F5]"], [class~="bg-[#F1F2F2]"], [class~="bg-[#F3F4F6]"], [class~="bg-[#EFEFEF]"]){
+  background-color: var(--surface-inset);
+}
+
+[data-dashboard-theme="dark"] :is([class~="hover:bg-white"], [class~="hover:bg-[#F7F7F8]"], [class~="hover:bg-[#F8F8F8]"], [class~="hover:bg-[#FAFAFA]"]):hover {
+  background-color: var(--surface-hover);
+}
+
+[data-dashboard-theme="dark"] :is(.text-gray-900, [class~="text-[#171717]"], [class~="text-[#262626]"]) {
+  color: var(--foreground);
+}
+
+[data-dashboard-theme="dark"] :is(.text-gray-500, .text-gray-600, .text-gray-700, [class~="text-[#404040]"], [class~="text-[#525252]"], [class~="text-[#737373]"], [class~="text-[#8C8C8C]"]){
+  color: var(--text-secondary);
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-geist-sans, system-ui), system-ui, sans-serif;
+  font-size: var(--app-body-size);
+  line-height: var(--app-body-lh);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}

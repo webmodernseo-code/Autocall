@@ -1,0 +1,32 @@
+export const sectors = [
+  ["A", "Agriculture, sylviculture et pêche"],
+  ["B", "Industries extractives"],
+  ["C", "Industrie manufacturière"],
+  ["D", "Énergie"],
+  ["E", "Eau, assainissement et déchets"],
+  ["F", "Construction"],
+  ["G", "Commerce"],
+  ["H", "Transport et entreposage"],
+  ["I", "Hébergement et restauration"],
+  ["J", "Information et communication"],
+  ["K", "Finance et assurance"],
+  ["L", "Immobilier"],
+  ["M", "Activités spécialisées et techniques"],
+  ["N", "Services administratifs et de soutien"],
+  ["O", "Administration publique"],
+  ["P", "Enseignement"],
+  ["Q", "Santé et action sociale"],
+  ["R", "Arts, spectacles et loisirs"],
+  ["S", "Autres services"],
+  ["T", "Activités des ménages"],
+  ["U", "Activités extraterritoriales"],
+].map(([value, label]) => ({ value, label }));
+
+export const employeeBands = ([
+  ["0", "0 salarié", ["00"]],
+  ["1-9", "1 à 9 salariés", ["01", "02", "03"]],
+  ["10-49", "10 à 49 salariés", ["11", "12"]],
+  ["50-199", "50 à 199 salariés", ["21", "22"]],
+  ["200-499", "200 à 499 salariés", ["31", "32"]],
+  ["500+", "500 salariés et plus", ["41", "42", "51", "52", "53"]],
+] as const).map(([value, label, codes]) => ({ value, label, codes }));
